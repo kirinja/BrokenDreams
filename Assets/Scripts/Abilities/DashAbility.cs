@@ -12,6 +12,6 @@ class DashAbility : Ability
     {
         Debug.Log("Using Dash");
         timeLeft = Cooldown;
-        return new CharacterStateSwitch3D();
+        return new CharacterStateSwitch3D(new DashState3D(controller));
     }
 }
