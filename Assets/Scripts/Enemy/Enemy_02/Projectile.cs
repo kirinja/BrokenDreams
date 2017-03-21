@@ -10,15 +10,14 @@ public class Projectile : MonoBehaviour {
     public Rigidbody rb;
 	// Use this for initialization
 	void Start () {
+
         rb = GetComponent<Rigidbody>();
-        
-        
         
 	}
 
     public void Fire()
     {
-        Vector3 shooterPos = new Vector3(shooter.transform.position.x, shooter.transform.position.y, shooter.transform.position.z);
+        Vector3 shooterPos = shooter.transform.position;
         this.transform.position = shooterPos;
         rb.velocity = calculateVelocity(target.transform, 45f);
         Debug.Log("Åker nu");
@@ -59,6 +58,7 @@ public class Projectile : MonoBehaviour {
 
     public void setTarget(Controller3D target)
     {
+        rb = GetComponent<Rigidbody>();
         this.target = target;
     }
 

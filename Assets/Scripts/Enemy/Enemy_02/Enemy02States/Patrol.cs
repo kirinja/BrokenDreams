@@ -8,13 +8,11 @@ public class Patrol : EnemyState {
 
     private Enemy02behaviour3D enemy;
     private NavMeshAgent agent;
-    private bool canShoot;
 
     public Patrol(Enemy02behaviour3D enemy)
     {
         this.enemy = enemy;
         agent = enemy.GetComponent<NavMeshAgent>();
-        canShoot = true;
     }
 
     private void calculateRetreatPoint() //Enemy02behaviour3D contains an array for retreat points
@@ -44,7 +42,7 @@ public class Patrol : EnemyState {
 
     public bool getCanShoot()
     {
-        return canShoot;
+        return true;
     }
     
 }
