@@ -3,12 +3,12 @@
 [RequireComponent(typeof(Controller3D))]
 public class Input2D : MonoBehaviour
 {
-    private Controller3D player;
+    private Controller3D controller;
     private bool useAbility;
 
     private void Start()
     {
-        player = GetComponent<Controller3D>();
+        controller = GetComponent<Controller3D>();
     }
 
     private void Update()
@@ -19,20 +19,18 @@ public class Input2D : MonoBehaviour
         }
         if (Input.GetButtonDown("Next Ability"))
         {
-            player.NextAbility();
+            controller.NextAbility();
         }
         if (Input.GetButtonDown("Previous Ability"))
         {
-            player.PreviousAbility();
+            controller.PreviousAbility();
         }
     }
 
     private void FixedUpdate()
     {
-        var h = Input.GetAxisRaw("Horizontal");
-        var v = Input.GetAxisRaw("Vertical");
-
-        player.HandleMovement(useAbility, h, 0f);
+        var input = new Vector2(Input.GetAxisRaw("Horizontal"), 0f);
+        controller.HandleMovement(useAbility, input);
         useAbility = false;
     }
 }

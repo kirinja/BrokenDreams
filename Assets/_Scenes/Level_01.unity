@@ -12841,7 +12841,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1003303398
+  randomSeed: -414561628
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -17006,12 +17006,12 @@ Prefab:
     - target: {fileID: 224108630139774980, guid: 403946d394364944e8f517ea508880b7,
         type: 2}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224108630139774980, guid: 403946d394364944e8f517ea508880b7,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 403946d394364944e8f517ea508880b7, type: 2}
@@ -18705,7 +18705,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a115265077a114c4f8827884da12a518, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxSpeed: 5
+  MaxSpeed: 8
   GroundAccelerationTime: 0.2
   AirAccelerationTime: 1
   MaxJumpLength: 12
