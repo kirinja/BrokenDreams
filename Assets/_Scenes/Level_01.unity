@@ -12841,7 +12841,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1003303398
+  randomSeed: -1112949723
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -17006,12 +17006,12 @@ Prefab:
     - target: {fileID: 224108630139774980, guid: 403946d394364944e8f517ea508880b7,
         type: 2}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224108630139774980, guid: 403946d394364944e8f517ea508880b7,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 403946d394364944e8f517ea508880b7, type: 2}
@@ -18672,7 +18672,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1937127299}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.2, y: 0.98, z: 0}
+  m_LocalPosition: {x: 0.2, y: 3.199, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -18689,11 +18689,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d12760bdc8d465d418e0b664605cf7bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RotationSpeed: 120
-  SlideJumpSpeed: 10
-  TerminalVelocity: 18
-  GroundDeaccelerationScale: 0.8
-  AirDeaccelerationScale: 0.2
+  CameraTransform: {fileID: 610559894}
 --- !u!114 &1937127305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18705,7 +18701,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a115265077a114c4f8827884da12a518, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxSpeed: 5
+  MaxSpeed: 8
   GroundAccelerationTime: 0.2
   AirAccelerationTime: 1
   MaxJumpLength: 12
@@ -18714,7 +18710,6 @@ MonoBehaviour:
   GroundDeaccelerationTime: 0.05
   MaxRotationTime: 0.2
   MaxHP: 5
-  MinHP: 0
   Abilities:
   - {fileID: 11400000, guid: bc3e782ac3259c04b8e3c31cf1206b7c, type: 2}
   - {fileID: 11400000, guid: 5faafb6b41012314d965b51bd49994a4, type: 2}
@@ -18747,7 +18742,7 @@ CharacterController:
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
-  m_SkinWidth: 0.08
+  m_SkinWidth: 0.01
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1937127308

@@ -6,7 +6,9 @@ using UnityEngine;
 public class Patrol01 : Enemy01State {
 
     private Enemy01Behaviour enemy;
-    private Vector3 vec;
+    private float switchTimer;
+    private float timetoSwitch;
+    
 
     public void Enter()
     {}
@@ -17,29 +19,38 @@ public class Patrol01 : Enemy01State {
 
     public void Update()
     {
-        enemy.transform.Translate(vec);
-        //int i = UnityEngine.Random.Range(1, 100) < 50 ? 1 : 0;
-        //changeState(i);
+
+        
+        enemy.transform.localPosition = enemy.getVec() + enemy.transform.localPosition;
+        switchTimer += Time.deltaTime;
+        if(switchTimer > enemy.patrolTime)
+        {
+            changeState();
+        }
+    
+            
+       
     }
 
     public void Collision()
     {
-        vec *= -1;
+        enemy.invertVec();
+          
     }
 
     public Patrol01(Enemy01Behaviour enemy, Vector3 vec){
 
         this.enemy = enemy;
-        this.vec = vec;
+        switchTimer = 0f;
+        
         
 
-
     }
-    public void changeState(int i)
+    public void changeState()
     {
-        if (i == 1)
         {
             enemy.changeState(new Idle01(enemy));
+            Debug.Log("Switching to Idle");
         }
     }
 

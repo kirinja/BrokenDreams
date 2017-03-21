@@ -13,6 +13,6 @@ public class JumpAbility : Ability
     {
         Debug.Log("Using Jump");
         timeLeft = Cooldown;
-        return new CharacterStateSwitch3D(new AirState3D(controller, controller.Velocity, true));
+        return new CharacterStateSwitch3D(new AirState3D(controller, true));
     }
 }

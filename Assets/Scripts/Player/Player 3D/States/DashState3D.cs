@@ -3,14 +3,6 @@ using UnityEngine;
 
 class DashState3D : ICharacterState3D
 {
-    public Velocity3D Velocity
-    {
-        get
-        {
-            throw new NotImplementedException();
-        }
-    }
-
     public void AttemptStateSwitch(CharacterStateSwitch3D state)
     {
         throw new NotImplementedException();
@@ -29,7 +21,7 @@ class DashState3D : ICharacterState3D
         throw new NotImplementedException();
     }
 
-    public void Update(float horizontalInput, float verticalInput, float deltaTime)
+    public void Update(Vector2 input)
     {
         throw new NotImplementedException();
     }

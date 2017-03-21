@@ -1,52 +1,28 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(PlayerAttributes))]
 public class Controller3D : MonoBehaviour
 {
-    [Tooltip("Degrees per second")]
-    public float RotationSpeed = 120.0f;
-    [Tooltip("Units per second when jumping while sliding down a slipe")]
-    public float SlideJumpSpeed = 10.0f;
-    [Tooltip("Maximum downwards velocity (entered as a positive value)")]
-    public float TerminalVelocity = 18.0f;
-
-    // TODO: Byt ut deaccelerationscale mot deaccelerationtime
-    public float GroundDeaccelerationScale = 0.8f;public float AirDeaccelerationScale = 0.2f;
+    public Transform CameraTransform;
 
     private CharacterController characterController;
-    private Velocity3D velocity;
     private ICharacterState3D characterState;
     private int selectedAbility;
 
     public PlayerAttributes Attributes { get; private set; }
-    public float MaxJumpVelocity { get; private set; }
-    public float MinJumpVelocity { get; private set; }
-    public float Gravity { get; private set; }
-    public Velocity3D Velocity { get { return characterState.Velocity; } }
-
-    public float MaxTraversableSlopeAngle
-    {
-        get { return characterController.slopeLimit; }  
-    }
-
-    public float ColliderHeight
-    {
-        get { return characterController.height; }
-    }
+    public Vector3 Velocity { get; set; }
+    public float MaxTraversableSlopeAngle { get { return characterController.slopeLimit; } }
+    public float ColliderHeight { get { return characterController.height; } }
 
     private void Awake()
     {
-        Attributes = GetComponent<PlayerAttributes>();
         selectedAbility = 0;
-        CreateVelocity();
         CacheComponents();
-        CalculateGravity();
-        CalculateJumpVelocities();
         SetInitialCharacterState();
     }
 
-    public void HandleMovement(bool useAbility, float h, float v)
+    public void HandleMovement(bool useAbility, Vector2 input)
     {
         foreach (var ability in Attributes.Abilities)
         {
@@ -60,9 +36,10 @@ public class Controller3D : MonoBehaviour
                 characterState.AttemptStateSwitch(state);
             }
         }
-        
+
+        Debug.Log(input);
         var deltaTime = Time.deltaTime;
-        characterState.Update(h, v, deltaTime);
+        characterState.Update(input);
         HandleCollisions(Move());
         DrawAxes();
     }
@@ -102,10 +79,6 @@ public class Controller3D : MonoBehaviour
         characterState.Exit();
         characterState = stateSwitch.NewState;
         characterState.Enter();
-        if (stateSwitch.RunImmediately)
-        {
-            characterState.Update(stateSwitch.MovementInput.x, stateSwitch.MovementInput.z, stateSwitch.DeltaTime);
-        }
     }
 
     public bool IsTraversableSlope(float maxDistance)
@@ -123,24 +96,7 @@ public class Controller3D : MonoBehaviour
     private void CacheComponents()
     {
         characterController = GetComponent<CharacterController>();
-    }
-
-    private void CalculateGravity()
-    {
-        Gravity = (-2 * Attributes.MaxJumpHeight * Mathf.Pow(Attributes.MaxSpeed, 2)) /
-                  (Mathf.Pow(Attributes.MaxJumpLength / 2, 2));
-    }
-
-    private void CalculateJumpVelocities()
-    {
-        var positiveGravity = Mathf.Abs(Gravity);
-        MaxJumpVelocity = ((2 * Attributes.MaxJumpHeight * Attributes.MaxSpeed) / (Attributes.MaxJumpLength / 2));
-        MinJumpVelocity = Mathf.Sqrt(2 * positiveGravity * Attributes.MinJumpHeight);
-    }
-
-    private void CreateVelocity()
-    {
-        velocity = new Velocity3D(-TerminalVelocity);
+        Attributes = GetComponent<PlayerAttributes>();
     }
 
     private void SetInitialCharacterState()
@@ -149,25 +105,22 @@ public class Controller3D : MonoBehaviour
         {
             if (IsTraversableSlope(ColliderHeight * 10.0f))
             {
-                characterState = new AirState3D(this, velocity);
+                characterState = new AirState3D(this);
             }
             else
             {
-                characterState = new GroundState3D(this, velocity);
+                characterState = new GroundState3D(this);
             }
         }
         else
         {
-            characterState = new AirState3D(this, velocity);
+            characterState = new AirState3D(this);
         }
     }
 
     private CollisionFlags Move()
     {
-        var moveDirection = transform.TransformDirection(velocity.Current).normalized;
-        var moveLength = velocity.Current.magnitude;
-        var motion = moveDirection * moveLength;
-        return characterController.Move(motion);
+        return characterController.Move(Velocity * Time.deltaTime);
     }
 
     private void HandleCollisions(CollisionFlags collisionFlags)
