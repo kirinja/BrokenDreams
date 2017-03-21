@@ -5,7 +5,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour {
 
 
-    public PlayerController3D target;
+    public Controller3D target;
     public Enemy02behaviour3D shooter;
     public Rigidbody rb;
 	// Use this for initialization
@@ -57,7 +57,7 @@ public class Projectile : MonoBehaviour {
         shooter.Fired = false;
     }
 
-    public void setTarget(PlayerController3D target)
+    public void setTarget(Controller3D target)
     {
         this.target = target;
     }

@@ -18,9 +18,9 @@ public class Inventory : MonoBehaviour {
 	}
 
 	void Start () {
-		
-	}
-
+		slots[0].Selected();
+        GameObject.Find("Player").GetComponent<Controller3D>().SetAbility(0);
+    }
 
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.Alpha1)) {
@@ -29,8 +29,7 @@ public class Inventory : MonoBehaviour {
 			slots [2].Unselected ();
 			slots [3].Unselected ();
 
-			var material = GameObject.Find("Player").GetComponent<Renderer>().sharedMaterial;
-			material.color =  GameObject.Find("Player").GetComponent<PlayerAttributes>().Abilities[0].Color;
+		    GameObject.Find("Player").GetComponent<Controller3D>().SetAbility(0);
 
 		} else if (Input.GetKeyDown (KeyCode.Alpha2)) {
 			slots[0].Unselected ();
@@ -38,27 +37,24 @@ public class Inventory : MonoBehaviour {
 			slots [2].Unselected ();
 			slots [3].Unselected ();
 
-			var material = GameObject.Find("Player").GetComponent<Renderer>().sharedMaterial;
-			material.color =  GameObject.Find("Player").GetComponent<PlayerAttributes>().Abilities[1].Color;
-		}
+            GameObject.Find("Player").GetComponent<Controller3D>().SetAbility(1);
+        }
 		else if (Input.GetKeyDown (KeyCode.Alpha3)) {
 			slots[0].Unselected ();
 			slots [1].Unselected ();
 			slots [2].Selected ();
 			slots [3].Unselected ();
 
-			var material = GameObject.Find("Player").GetComponent<Renderer>().sharedMaterial;
-			material.color =  GameObject.Find("Player").GetComponent<PlayerAttributes>().Abilities[2].Color;
-		}
+            GameObject.Find("Player").GetComponent<Controller3D>().SetAbility(2);
+        }
 		else if (Input.GetKeyDown (KeyCode.Alpha4)) {
 			slots[0].Unselected ();
 			slots [1].Unselected ();
 			slots [2].Unselected ();
 			slots [3].Selected ();
 
-			var material = GameObject.Find("Player").GetComponent<Renderer>().sharedMaterial;
-			material.color =  GameObject.Find("Player").GetComponent<PlayerAttributes>().Abilities[3].Color;
-		}
+            GameObject.Find("Player").GetComponent<Controller3D>().SetAbility(3);
+        }
 	}
 
 //	public InventorySlot GetSlot (int slotIndex) {

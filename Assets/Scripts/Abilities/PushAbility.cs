@@ -8,10 +8,10 @@ class PushAbility : Ability
         Color = (Resources.Load("AbilityColors", typeof(AbilityColors)) as AbilityColors).PushColor;
     }
 
-    public override IPlayerState Use(bool is3D)
+    public override CharacterStateSwitch3D Use(Controller3D controller)
     {
         Debug.Log("Using Push");
         timeLeft = Cooldown;
-        return null;
+        return new CharacterStateSwitch3D();
     }
 }

@@ -33,7 +33,7 @@ public class Persister : MonoBehaviour
 
     //private Inventory Inventory;
     // the two values we're interested in are current HP and which abilities the player have
-    private PlayerAttributes _playerAttributes;
+    public PlayerAttributes _playerAttributes;
 
     // the game manager keeps track of which levels the player have beaten, and save them to file/memory
     private static SortedDictionary<int, bool> _completedLevels = new SortedDictionary<int, bool>();
@@ -79,26 +79,71 @@ public class Persister : MonoBehaviour
         }
         _inMemory.Add(stringifiedInventorySlots);
         */
+        BeatLevel(1);
+        BeatLevel(2);
+
+        // this all works currently, at least saving to memory. next we need to clean it up and split it into seperate parts
+        // we're gonna have 1 slot for storing abilities, 1 slot for storing player stats and 1 slot for saving beaten levels
+
+        var playerSaveData = new PlayerSaveData();
+        var abilityNames = new string[_playerAttributes.Abilities.Count];
+        for (int i = 0; i < _playerAttributes.Abilities.Count; i++)
+        {
+            abilityNames[i] = _playerAttributes.Abilities[i].name;
+        }
+
+        var beatenLevels = _completedLevels.Keys.ToArray();
+        playerSaveData.Abilities = abilityNames;
+        playerSaveData.HP = _playerAttributes.MaxHP;
+        playerSaveData.BeatenLevels = beatenLevels;
 
         _inMemory.Clear();
-        var stringifiedPlayer = new string[_playerAttributes.Abilities.Count + 1]; // + 1 because we need a spot for HP too
-        for (int i = 0; i < stringifiedPlayer.Length; i++)
+        
+
+        /*
+        Debug.Log("Save to memory start");
+        _inMemory.Clear();
+        var stringifiedPlayer = new string[_playerAttributes.Abilities.Count + 2]; // + 1 because we need a spot for HP too
+        for (int i = 0; i < stringifiedPlayer.Length-2; i++)
         {
-            stringifiedPlayer[i] = JsonUtility.ToJson(_playerAttributes.Abilities[i]);
+            var playerAbilitySave = new PlayerAbilitySaveData();
+            playerAbilitySave.AbilityName = _playerAttributes.Abilities[i].name;
+            stringifiedPlayer[i] = JsonUtility.ToJson(playerAbilitySave);
+            //stringifiedPlayer[i] = JsonUtility.ToJson(_playerAttributes.Abilities[i]);
         }
+        Debug.Log("abilities in memory");
         // last element is HP
-        stringifiedPlayer[stringifiedPlayer.Length-1] = JsonUtility.ToJson(_playerAttributes.MaxHP); // change to current HP later
+
+        // json doesnt support direct serialization of primitive types (such as int)
+        // need to wrap it into a seperate class
+        // we're basically gonna have 3 save files, PlayerAbilities, PlayerStats, PlayerProgress
+
+        //stringifiedPlayer[stringifiedPlayer.Length-1] = JsonUtility.ToJson(_playerAttributes.MaxHP); // change to current HP later // this saves as a 0, should be 5
+        var playerStatsSave = new PlayerStatsSaveData();
+        playerStatsSave.HP = _playerAttributes.MaxHP;
+        stringifiedPlayer[stringifiedPlayer.Length - 2] = JsonUtility.ToJson(playerStatsSave);
+        Debug.Log("hp in memory");
+
+        var playerProgressSave = new PlayerProgressSaveData();
+        playerProgressSave.BeatenLevels = _completedLevels.Keys.ToArray();
+        stringifiedPlayer[stringifiedPlayer.Length - 1] = JsonUtility.ToJson(playerProgressSave);
 
         _inMemory.Add(stringifiedPlayer);
-        
+
         // next we're gonna save level progression
-        var stringifiedProgression = new string[_completedLevels.Count];
-        for (int i = 0; i < stringifiedProgression.Length; i++)
+        //var stringifiedProgression = new string[_completedLevels.Count];
+        /*for (int i = 0; i < stringifiedProgression.Length; i++)
         {
             // we only need to save the keys, since we know that if they are in here they are true
-            stringifiedProgression[i] = JsonUtility.ToJson(_completedLevels.Keys.ToArray()[i]);
-        }
-        _inMemory.Add(stringifiedProgression);
+            //stringifiedProgression[i] = JsonUtility.ToJson(_completedLevels.Keys.ToArray()[i]);
+            var playerProgressSave = new PlayerProgressSaveData();
+            playerProgressSave.BeatenLevelID = _completedLevels.Keys.ToArray()[i];
+            playerProgressSave.BeatenLevels = _completedLevels.Keys.ToArray();
+            stringifiedProgression[i] = JsonUtility.ToJson(playerProgressSave);
+        }*/
+
+        //_inMemory.Add(stringifiedProgression);
+        Debug.Log("save to memory end");
     }
 
     public void LoadFromMemory()
@@ -118,25 +163,33 @@ public class Persister : MonoBehaviour
             }
         }*/
 
+        Debug.Log("loading from memory start");
+
         if (!HasMemoryData) return;
 
         // do I need to clear the abilites and level progression when calling this?
 
         var stringifiedData1 = _inMemory[0];
-        for (int i = 0; i < stringifiedData1.Length-1; i++)
+        /*for (int i = 0; i < stringifiedData1.Length-1; i++)
         {
-            var abilityData = JsonUtility.FromJson<Ability>(stringifiedData1[i]);
+            // cant deserialize JSON to new instance of type 'Ability.'
+            // most likely need to make ability seriazable or possibly use a string format and then recreate the abilities depending on the string given
+            Ability abilityData = JsonUtility.FromJson<Ability>(stringifiedData1[i]);
             _playerAttributes.Abilities.Add(abilityData);
-        }
+        }*/
+        Debug.Log("hp start");
         var hpData = JsonUtility.FromJson<int>(stringifiedData1[stringifiedData1.Length - 1]);
         _playerAttributes.MaxHP = hpData;
+        Debug.Log("hp end");
 
-        var stringifiedData2 = _inMemory[2];
+        var stringifiedData2 = _inMemory[1];
         for (int i = 0; i < stringifiedData2.Length; i++)
         {
             var levelData = JsonUtility.FromJson<int>(stringifiedData2[i]);
             _completedLevels[levelData] = true;
         }
+
+        Debug.Log("loading from memory end");
     }
 
     public void SaveToFiles()
@@ -202,20 +255,20 @@ public class Persister : MonoBehaviour
         File.WriteAllLines(_savePath, stringifiedSaveData);
         */
         
-        _playerAttributes.Abilities.Add(new JumpAbility());
-        BeatLevel(2);
-        BeatLevel(3);
+        //_playerAttributes.Abilities.Add(new JumpAbility());
+        //BeatLevel(2);
+        //BeatLevel(3);
 
         // this only saves the HP, evne if we add values to the lists manually
-        PlayerSaveData temp = new PlayerSaveData();
-        temp.Abilities = _playerAttributes.Abilities;
-        temp.HP = _playerAttributes.MaxHP;
-        temp.BeatenLevels = _completedLevels;
+        //PlayerSaveData temp = new PlayerSaveData();
+        //temp.Abilities = _playerAttributes.Abilities;
+        //temp.HP = _playerAttributes.MaxHP;
+        //temp.BeatenLevels = _completedLevels;
         
 
-        var stringifySaveData = JsonUtility.ToJson(temp);
+        //var stringifySaveData = JsonUtility.ToJson(temp);
         //File.WriteAllLines(_savePath, stringifySaveData);
-        File.WriteAllText(_savePath, stringifySaveData); // this only saves the HP field
+        //File.WriteAllText(_savePath, stringifySaveData); // this only saves the HP field
 
         Debug.Log("saved at " + _savePath);
     }
@@ -247,10 +300,14 @@ public class Persister : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha7))
         {
             SaveToFiles();
         }
+        if (Input.GetKeyDown(KeyCode.Alpha9))
+            SaveToMemory();
+        else if (Input.GetKeyDown(KeyCode.Alpha0))
+            LoadFromMemory();
     }
 
     void OnEnable()
@@ -267,7 +324,8 @@ public class Persister : MonoBehaviour
     {
         Debug.Log("level loaded " + scene.name);
         _playerAttributes = GameObject.Find("Player").GetComponent<PlayerAttributes>();
-        Debug.Log(_playerAttributes);
+        if (_playerAttributes)
+            Debug.Log(_playerAttributes);
         // Every time a level is loaded we can do the init stuff here, like reading from file/memory
 
         // we need to do some logic stuff here, like depending on which level we need check certain things

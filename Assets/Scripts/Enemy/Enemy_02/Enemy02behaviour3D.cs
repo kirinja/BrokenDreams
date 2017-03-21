@@ -14,7 +14,7 @@ public class Enemy02behaviour3D : MonoBehaviour
 
     private float projectileSpeed;
 
-    public PlayerController3D target;
+    public Controller3D target;
 
     private float timeSinceAttack = 4f;
 
@@ -30,7 +30,7 @@ public class Enemy02behaviour3D : MonoBehaviour
     public int rpIndex = 0;
     public int rpThreshold = 2;
     public Vector3 AggroRange;
-    public Vector3 AggroOrigin;
+    public LayerMask AggroMask;
 
     // Use this for initialization
     void Start()
@@ -63,12 +63,15 @@ public class Enemy02behaviour3D : MonoBehaviour
         
         Collider[] col = Physics.OverlapSphere(this.transform.position, 1f);
         int i = 0;
+        RaycastHit hit;
         while(i < col.Length && target ==null)
         {
-            if (col[i].CompareTag("Player"))
+            if (col[i].CompareTag("Player") && Physics.Linecast(this.transform.position, col[i].transform.position, out hit))
             {
-                target = col[i].GetComponent<PlayerController3D>();
-                Debug.Log("Enemy spotted!");
+                if (hit.collider.gameObject.CompareTag("Player"))
+                {
+                    target = col[i].GetComponent<Controller3D>();
+                }
             }
         }
     }*/
@@ -112,7 +115,7 @@ public class Enemy02behaviour3D : MonoBehaviour
     {
         this.state = state;
     }
-    public void setTarget(PlayerController3D target) //Called by Idle when an enemy is found
+    public void setTarget(Controller3D target) //Called by Idle when an enemy is found
     {
         this.target = target;
         projectile.setTarget(target);

@@ -1,20 +1,36 @@
 ﻿using System;
 using UnityEngine;
 
-public class DashState3D : IPlayerState3D
+class DashState3D : ICharacterState3D
 {
-    public void HandleMovement(PlayerController3D player, Vector2 input)
+    public Velocity3D Velocity
     {
-        throw new System.NotImplementedException();
+        get
+        {
+            throw new NotImplementedException();
+        }
     }
 
-    /*public override void HandleCollision(PlayerController3D player, Collision collision)
+    public void AttemptStateSwitch(CharacterStateSwitch3D state)
     {
-        // TODO
-    }*/
+        throw new NotImplementedException();
+    }
 
-    public void AttemptStateSwitch(PlayerController3D player, IPlayerState3D newState)
+    public void Enter()
     {
-        //TODO
+    }
+
+    public void Exit()
+    {
+    }
+
+    public CharacterStateSwitch3D HandleCollisions(CollisionFlags collisionFlags)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Update(float horizontalInput, float verticalInput, float deltaTime)
+    {
+        throw new NotImplementedException();
     }
 }

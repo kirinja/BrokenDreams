@@ -802,11 +802,11 @@ GameObject:
   m_Component:
   - component: {fileID: 2107038393}
   - component: {fileID: 2107038392}
-  - component: {fileID: 2107038391}
   - component: {fileID: 2107038390}
-  - component: {fileID: 2107038399}
-  - component: {fileID: 2107038395}
   - component: {fileID: 2107038394}
+  - component: {fileID: 2107038399}
+  - component: {fileID: 2107038391}
+  - component: {fileID: 2107038395}
   - component: {fileID: 2107038396}
   m_Layer: 8
   m_Name: Player
@@ -846,18 +846,22 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!65 &2107038391
-BoxCollider:
+--- !u!114 &2107038391
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2107038389}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d12760bdc8d465d418e0b664605cf7bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RotationSpeed: 120
+  SlideJumpSpeed: 10
+  TerminalVelocity: 18
+  GroundDeaccelerationScale: 0.8
+  AirDeaccelerationScale: 0.2
 --- !u!33 &2107038392
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -878,7 +882,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2107038394
+--- !u!143 &2107038394
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2107038389}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 1
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.01
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2107038395
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -886,25 +907,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2107038389}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 193c9ecc8ab017947a2fd19eb7d72ad3, type: 3}
+  m_Script: {fileID: 11500000, guid: 013735086adc0b34c96de56f9fd689cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2107038395
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2107038389}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2df5971c46ec1874395472d99f4fcc3f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TurnSpeed: 360
-  CameraTransform: {fileID: 1259720253}
-  CollisionMask:
-    serializedVersion: 2
-    m_Bits: 512
 --- !u!114 &2107038396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -913,7 +918,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2107038389}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d950fe053b8e01544928ee330959729b, type: 3}
+  m_Script: {fileID: 11500000, guid: 150c91118e3dcad44ad672f6feacf5db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &2107038399
@@ -932,6 +937,7 @@ MonoBehaviour:
   AirAccelerationTime: 1
   MaxJumpLength: 6.1
   MaxJumpHeight: 4.2
+  MinJumpHeight: 1
   GroundDeaccelerationTime: 0.05
   MaxRotationTime: 0.2
   MaxHP: 5

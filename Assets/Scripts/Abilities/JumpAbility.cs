@@ -9,10 +9,10 @@ public class JumpAbility : Ability
         Color = (Resources.Load("AbilityColors", typeof(AbilityColors)) as AbilityColors).JumpColor;
     }
 
-    public override IPlayerState Use(bool is3D)
+    public override CharacterStateSwitch3D Use(Controller3D controller)
     {
         Debug.Log("Using Jump");
         timeLeft = Cooldown;
-        return is3D ? new AirState3D(true) : null; // TODO: Maybe make it work for 2D
+        return new CharacterStateSwitch3D(new AirState3D(controller, controller.Velocity, true));
     }
 }

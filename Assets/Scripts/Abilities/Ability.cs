@@ -11,7 +11,7 @@ public abstract class Ability : ScriptableObject
     public Color Color { get; protected set; }
     public bool CanUse { get { return timeLeft <= 0; } }
 
-    public abstract IPlayerState Use(bool is3D);
+    public abstract CharacterStateSwitch3D Use(Controller3D controller);
 
     private void Start()
     {

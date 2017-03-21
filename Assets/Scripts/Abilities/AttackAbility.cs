@@ -8,10 +8,10 @@ class AttackAbility : Ability
         Color = (Resources.Load("AbilityColors", typeof(AbilityColors)) as AbilityColors).AttackColor;
     }
 
-    public override IPlayerState Use(bool is3D)
+    public override CharacterStateSwitch3D Use(Controller3D controller)
     {
         Debug.Log("Using Attack");
         timeLeft = Cooldown;
-        return null;
+        return new CharacterStateSwitch3D();
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Controller2D : MonoBehaviour
 {
 
-	public PlayerAttributes Attributes { get; private set; } //Kommer åt attributes överallt men kan endast ändra dem i Controller2D-klassen
+	public PlayerAttributes Attributes { get; private set; } //Kommer åt Attributes överallt men kan endast ändra dem i Controller2D-klassen
 
 	public Vector2 input;
 
@@ -151,7 +151,7 @@ public class Controller2D : MonoBehaviour
 		boxCollider = GetComponent<BoxCollider2D>();
 		gravity = ( -2 * Attributes.MaxJumpHeight * Mathf.Pow(Attributes.MaxSpeed, 2)) / (Mathf.Pow(Attributes.MaxJumpLength / 2, 2));
 		jumpVelocity = ((2 * Attributes.MaxJumpHeight * Attributes.MaxSpeed) / (Attributes.MaxJumpLength / 2));
-		//gravity = -(2 * attributes.MaxJumpHeight) / Mathf.Pow (TimeToJumpApex, 2);
+		//gravity = -(2 * Attributes.MaxJumpHeight) / Mathf.Pow (TimeToJumpApex, 2);
 		//jumpVelocity = Mathf.Abs (gravity) * TimeToJumpApex;
 		var positiveGravity = gravity * -1;
 		//maxJumpVelocity = positiveGravity * TimeToJumpApex;

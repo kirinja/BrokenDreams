@@ -46,15 +46,6 @@ public class Camera3D : MonoBehaviour
     [HideInInspector]
     public float OffsetY = 0.1f;
     
-    [Tooltip("Time in seconds before the camera starts auto following, after movement")]
-    public float TimeBeforeFollow = 1.5f;
-
-    private bool _isMoving;
-    private float _followTimer;
-
-    public float ResetAngleX = 20.0f;
-    public float ResetAngleY = -180.0f;
-
     private Transform _transform;
 
     void Start()
@@ -73,53 +64,11 @@ public class Camera3D : MonoBehaviour
         // it would be better to split this into possibly three categories: PS4, Xbox 360, No Controller
         _isUsingController = Input.GetJoystickNames().Length != 0;
         
-        _isMoving = false;
-        _followTimer = TimeBeforeFollow;
     }
 
     void Update()
     {
-        /**
-         * What we want to do in this block is check if the player has moved or rotated, if that's the case then we do nothing
-         * If the player is standing still we want to start a timer and then lerp the camera behind the player again
-         * One way of doing this could be to check for controller input
-         */
-        if (Input.GetAxisRaw("Right Horizontal") >= 0.1f)
-        {
-            _followTimer = TimeBeforeFollow;
-            _isMoving = true;
-        }
-        else if (Input.GetAxis("Right Vertical") >= 0.1f)
-        {
-            _followTimer = TimeBeforeFollow;
-            _isMoving = true;
-        }
-        else if (Input.GetAxisRaw("Mouse X") >= 0.1f)
-        {
-            _followTimer = TimeBeforeFollow;
-            _isMoving = true;
-        }
-        else if (Input.GetAxisRaw("Mouse Y") >= 0.1f)
-        {
-            _followTimer = TimeBeforeFollow;
-            _isMoving = true;
-        }
-        else if (Input.GetAxisRaw("Horizontal") >= 0.1f)
-        {
-            _followTimer = TimeBeforeFollow;
-            _isMoving = true;
-        }
-        else if (Input.GetAxisRaw("Vertical") >= 0.1f)
-        {
-            _followTimer = TimeBeforeFollow;
-            _isMoving = true;
-        }
-        else
-        {
-            _followTimer -= Time.deltaTime;
-            if (_followTimer <= Mathf.Epsilon)
-                _isMoving = false;
-        }
+       
     }
 
     void LateUpdate()

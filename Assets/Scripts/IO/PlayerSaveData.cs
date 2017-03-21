@@ -3,9 +3,7 @@ using UnityEngine;
 
 public struct PlayerSaveData
 {
-    [SerializeField]
-    public List<Ability> Abilities;
+    public string[] Abilities;
     public int HP;
-    [SerializeField]
-    public SortedDictionary<int, bool> BeatenLevels;
+    public int[] BeatenLevels;
 }
