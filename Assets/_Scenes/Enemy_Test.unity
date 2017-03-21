@@ -294,6 +294,9 @@ MonoBehaviour:
   rpIndex: 0
   rpThreshold: 2
   AggroRange: {x: 0, y: 0, z: 0}
+  AggroMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!195 &196081431
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -778,7 +781,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ee53961dfc728b43b0442d6d209db8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vec: {x: 1, y: 0}
+  vec: {x: 0, y: 0.5}
   col: {fileID: 0}
 --- !u!23 &1407485689
 MeshRenderer:
