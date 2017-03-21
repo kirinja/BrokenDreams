@@ -167,7 +167,7 @@ public class GameManager : MonoBehaviour
         var stringifiedData = File.ReadAllLines(_savePath);
 
         var playerSaveData = JsonUtility.FromJson<PlayerSaveData>(stringifiedData[0]);
-        _playerAttributes.MinHP = playerSaveData.HP; // TODO FIX THIS SHIT
+        _playerAttributes.MaxHP = playerSaveData.HP; // TODO FIX THIS SHIT
 
         foreach (int i in playerSaveData.BeatenLevels)
             BeatLevel(i);
