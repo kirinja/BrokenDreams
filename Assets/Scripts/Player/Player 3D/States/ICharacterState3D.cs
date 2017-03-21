@@ -2,9 +2,8 @@
 
 public interface ICharacterState3D
 {
-    Velocity3D Velocity { get; }
     void Enter();
-    void Update(float horizontalInput, float verticalInput, float deltaTime);
+    void Update(Vector2 input);
     CharacterStateSwitch3D HandleCollisions(CollisionFlags collisionFlags);
     void Exit();
     void AttemptStateSwitch(CharacterStateSwitch3D state);

@@ -29,10 +29,8 @@ public class Input3D : MonoBehaviour
 
     private void FixedUpdate()
     {
-        var h = Input.GetAxisRaw("Horizontal");
-        var v = Input.GetAxisRaw("Vertical");
-
-        player.HandleMovement(useAbility, h, v);
+        var input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        player.HandleMovement(useAbility, input);
         useAbility = false;
     }
 }
