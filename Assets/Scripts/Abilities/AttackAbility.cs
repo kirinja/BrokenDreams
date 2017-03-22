@@ -12,6 +12,24 @@ class AttackAbility : Ability
     {
         Debug.Log("Using Attack");
         timeLeft = Cooldown;
+
+        var hits =
+            Physics.OverlapSphere(
+                controller.transform.position + controller.transform.TransformDirection(0f, 0f, 0.5f), 1.5f);
+
+        foreach (var gameObject in hits)
+        {
+            if (gameObject.CompareTag("Enemy"))
+            {
+                Debug.Log("Found enemy");
+                var enemy = gameObject.GetComponent<Enemy>();
+                if (enemy)
+                {
+                    enemy.Damage();
+                }
+            }
+        }
+
         return new CharacterStateSwitch3D();
     }
 }
