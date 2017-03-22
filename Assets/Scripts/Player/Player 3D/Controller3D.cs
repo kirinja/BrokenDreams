@@ -95,6 +95,11 @@ public class Controller3D : MonoBehaviour
         return groundSlopeAngle <= MaxTraversableSlopeAngle;
     }
 
+    public void SetPosition(Vector3 position)
+    {
+        this.transform.position = position;
+    }
+
     private void CacheComponents()
     {
         characterController = GetComponent<CharacterController>();
