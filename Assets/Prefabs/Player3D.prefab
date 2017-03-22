@@ -30,7 +30,7 @@ GameObject:
   - component: {fileID: 114725953658717468}
   m_Layer: 8
   m_Name: Player3D
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -215,6 +215,7 @@ MonoBehaviour:
   GroundDeaccelerationTime: 0.05
   MaxRotationTime: 0.2
   MaxHP: 5
+  currentHealth: 0
   Abilities:
   - {fileID: 11400000, guid: bc3e782ac3259c04b8e3c31cf1206b7c, type: 2}
   - {fileID: 11400000, guid: 5faafb6b41012314d965b51bd49994a4, type: 2}
@@ -242,7 +243,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3748e6713b3e5914c93e5ab5e3202745, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHealth: 0
   healthSlider: {fileID: 0}
 --- !u!143 &143716917711517604
 CharacterController:
