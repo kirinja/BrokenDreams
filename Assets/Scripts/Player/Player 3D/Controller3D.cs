@@ -44,6 +44,8 @@ public class Controller3D : MonoBehaviour
         characterState.Update(input);
         HandleCollisions(Move());
         DrawAxes();
+		GetComponentInChildren<Rigidbody> ().position = transform.position;
+		GetComponentInChildren<Rigidbody> ().rotation = transform.rotation;
     }
 
     public void NextAbility()
