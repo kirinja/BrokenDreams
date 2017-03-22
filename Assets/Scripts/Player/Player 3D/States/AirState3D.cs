@@ -4,41 +4,30 @@ using UnityEngine;
 public struct AirState3D : ICharacterState3D
 {
     private readonly Controller3D controller;
-    private readonly Velocity3D velocity;
     private bool jump;
 
-    public AirState3D(Controller3D controller, Velocity3D velocity, bool jump = false)
+    public AirState3D(Controller3D controller, bool jump = false)
     {
         if (controller == null)
         {
             throw new ArgumentNullException("controller");
         }
-        if (velocity == null)
-        {
-            throw new ArgumentNullException("velocity");
-        }
 
         this.jump = jump;
         this.controller = controller;
-        this.velocity = velocity;
     }
 
     public void Enter()
     {
-        velocity.SetY(0.0f);
     }
 
     public void Exit()
     {
     }
 
-    public void Update(float horizontalInput, float verticalInput, float deltatime)
+    public void Update(Vector2 input)
     {
-        if (jump)
-        {
-            PerformJump();
-        }
-        UpdateVelocity(horizontalInput, verticalInput, deltatime);
+        UpdateVelocity(input);
     }
 
     public CharacterStateSwitch3D HandleCollisions(CollisionFlags collisionFlags)
@@ -48,7 +37,7 @@ public struct AirState3D : ICharacterState3D
         {
             if (controller.IsTraversableSlope(controller.ColliderHeight * 10.0f))
             {
-                stateSwitch = new CharacterStateSwitch3D(new GroundState3D(controller, velocity));
+                stateSwitch = new CharacterStateSwitch3D(new GroundState3D(controller));
             }
             else
             {
@@ -63,42 +52,60 @@ public struct AirState3D : ICharacterState3D
         return stateSwitch;
     }
 
-    private void PerformJump()
+    private void UpdateVelocity(Vector2 input)
     {
-        velocity.SetY(controller.MaxJumpVelocity);
-        jump = false;
-    }
+        var move = new Vector3(input.x, 0, input.y);
+        move.Normalize();
+        var currentAngle = controller.transform.eulerAngles.y;
+        var inputAngle = Mathf.Atan2(move.x, move.z) * Mathf.Rad2Deg;
+        var direction = controller.CameraTransform.eulerAngles.y + inputAngle;
+        var forwardMovement = move.magnitude;
+        var attributes = controller.GetComponent<PlayerAttributes>();
+        var desiredForwardVelocity = forwardMovement * attributes.MaxSpeed;
+        var acceleration = attributes.MaxSpeed / attributes.AirAccelerationTime;
 
-    private void UpdateVelocity(float horizontalInput, float verticalInput, float deltaTime)
-    {
-        // TODO: Change to use my own controller thing
-        var movementInput = new Vector3(horizontalInput, 0f , verticalInput);
-        var smoothDampDataX = GetSmoothDampData(movementInput.x);
-        var smoothDampDataZ = GetSmoothDampData(movementInput.z);
-
-        velocity.AddY(controller.Gravity * deltaTime);
-        velocity.SmoothDampUpdate(movementInput, smoothDampDataX, smoothDampDataZ, deltaTime);
-    }
-
-    private SmoothDampData GetSmoothDampData(float input)
-    {
-        var targetVelocity = input * controller.Attributes.MaxSpeed;
-        var smoothTime = controller.Attributes.AirAccelerationTime;
-        if (Mathf.Abs(input) < MathHelper.FloatEpsilon)
+        // Change character direction
+        if (input.magnitude > float.Epsilon)
         {
-            smoothTime *= controller.AirDeaccelerationScale;
+            //var rotationAngle = Mathf.Abs(direction - currentAngle);
+            //var rotationTime = attributes.MaxRotationTime / 180f * rotationAngle;
+            //var rotationSpeed = rotationAngle / rotationTime;
+            //direction = Mathf.LerpAngle(currentAngle, direction, Mathf.Min(1f, Time.deltaTime * rotationSpeed));
+            controller.transform.eulerAngles = new Vector3(0, direction, 0);
+        }
+        var currentLocalVelocity = controller.transform.InverseTransformDirection(controller.Velocity);
+
+        // Calculate and apply acceleration
+        if (forwardMovement > float.Epsilon)
+        {
+            if (currentLocalVelocity.z < desiredForwardVelocity)
+            {
+                var accelerationAmount = Time.deltaTime * acceleration;
+                if (currentLocalVelocity.z + accelerationAmount > desiredForwardVelocity)
+                {
+                    accelerationAmount = desiredForwardVelocity - currentLocalVelocity.z;
+                }
+                currentLocalVelocity.z += accelerationAmount; // Apply acceleration
+            }
         }
 
-        return new SmoothDampData(targetVelocity, smoothTime);
+        if (jump)
+        {
+            currentLocalVelocity.y = ((2 * attributes.MaxJumpHeight * attributes.MaxSpeed) / (attributes.MaxJumpLength / 2));
+            jump = false;
+        }
+
+        var gravity = new Vector3(0f, (-2 * attributes.MaxJumpHeight * Mathf.Pow(attributes.MaxSpeed, 2)) / (Mathf.Pow(attributes.MaxJumpLength / 2, 2)), 0f);
+        currentLocalVelocity += gravity * Time.deltaTime;
+
+        controller.Velocity = controller.transform.TransformDirection(currentLocalVelocity);
     }
 
     public void AttemptStateSwitch(CharacterStateSwitch3D state)
     {
-        if (state.NewState is GroundState3D)
+        if (state.NewState is GroundState3D || state.NewState is DashState3D)
         {
             controller.ChangeCharacterState(state);
         }
     }
-
-    public Velocity3D Velocity { get { return velocity; } }
 }

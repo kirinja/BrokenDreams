@@ -4,10 +4,7 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Movable Object
-  - Push Ability
-  - RoomSound
-  - Wall
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -17,8 +14,8 @@ TagManager:
   - UI
   - 
   - 
-  - Player
-  - Obstacles
+  - 
+  - 
   - 
   - 
   - 

@@ -4,37 +4,29 @@ using UnityEngine;
 public struct GroundState3D : ICharacterState3D
 {
     private readonly Controller3D controller;
-    private readonly Velocity3D velocity;
 
-    public Velocity3D Velocity { get { return velocity; } }
-
-    public GroundState3D(Controller3D controller, Velocity3D velocity)
+    public GroundState3D(Controller3D controller)
     {
         if (controller == null)
         {
             throw new ArgumentNullException("controller");
         }
-        if (velocity == null)
-        {
-            throw new ArgumentNullException("velocity");
-        }
 
         this.controller = controller;
-        this.velocity = velocity;
     }
 
     public void Enter()
     {
-        velocity.SetY(0.0f);
+        controller.Velocity = new Vector3(controller.Velocity.x, 0f, controller.Velocity.z);
     }
 
     public void Exit()
     {
     }
 
-    public void Update(float horizontalInput, float verticalInput, float deltaTime)
+    public void Update(Vector2 input)
     {
-        UpdateVelocity(horizontalInput, verticalInput, deltaTime);
+        UpdateVelocity(input);
     }
 
     public CharacterStateSwitch3D HandleCollisions(CollisionFlags collisionFlags)
@@ -46,32 +38,71 @@ public struct GroundState3D : ICharacterState3D
         }
         else
         {
-            stateSwitch = new CharacterStateSwitch3D(new AirState3D(controller, velocity));
+            stateSwitch = new CharacterStateSwitch3D(new AirState3D(controller));
         }
 
         return stateSwitch;
     }
 
-    private void UpdateVelocity(float horizontalInput, float verticalInput, float deltatime)
+    private void UpdateVelocity(Vector2 input)
     {
-        var movementInput = new Vector3(horizontalInput, 0f, verticalInput);
-        var smoothDampDataX = GetSmoothDampData(movementInput.x);
-        var smoothDampDataZ = GetSmoothDampData(movementInput.z);
+        var move = new Vector3(input.x, 0, input.y);
+        move.Normalize();
+        var currentAngle = controller.transform.eulerAngles.y;
+        var inputAngle = Mathf.Atan2(move.x, move.z) * Mathf.Rad2Deg;
+        var direction = controller.CameraTransform.eulerAngles.y + inputAngle;
+        var forwardMovement = move.magnitude;
+        var attributes = controller.GetComponent<PlayerAttributes>();
+        var desiredForwardVelocity = forwardMovement * attributes.MaxSpeed;
+        var acceleration = attributes.MaxSpeed / attributes.GroundAccelerationTime;
+        var deacceleration = attributes.MaxSpeed / attributes.GroundDeaccelerationTime;
 
-        velocity.SetY(-20.0f);
-        velocity.SmoothDampUpdate(movementInput, smoothDampDataX, smoothDampDataZ, deltatime);
-    }
-
-    private SmoothDampData GetSmoothDampData(float input)
-    {
-        var targetVelocity = input * controller.Attributes.MaxSpeed;
-        var smoothTime = controller.Attributes.GroundAccelerationTime;
-        if (Mathf.Abs(input) < MathHelper.FloatEpsilon)
+        // Change character direction
+        if (input.magnitude > float.Epsilon)
         {
-            smoothTime *= controller.GroundDeaccelerationScale;
+            var rotationAngle = Mathf.Abs(direction - currentAngle);
+            var rotationTime = attributes.MaxRotationTime / 180f * rotationAngle;
+            //var rotationSpeed = rotationAngle / rotationTime;
+            //direction = Mathf.LerpAngle(currentAngle, direction, Mathf.Min(1f, Time.deltaTime * rotationSpeed));
+            controller.transform.eulerAngles = new Vector3(0, direction, 0);
+        }
+        var currentLocalVelocity = controller.transform.InverseTransformDirection(controller.Velocity);
+
+        // Calculate and apply acceleration
+        if (forwardMovement > float.Epsilon)
+        {
+            if (currentLocalVelocity.z < desiredForwardVelocity)
+            {
+                var accelerationAmount = Time.deltaTime * acceleration;
+                if (currentLocalVelocity.z + accelerationAmount > desiredForwardVelocity)
+                {
+                    accelerationAmount = desiredForwardVelocity - currentLocalVelocity.z;
+                }
+                currentLocalVelocity.z += accelerationAmount;
+            }
         }
 
-        return new SmoothDampData(targetVelocity, smoothTime);
+        // Calculate and apply friction
+        var invertedFrictionDirection = currentLocalVelocity - new Vector3(0, 0, desiredForwardVelocity);
+        if ((int)Mathf.Sign(currentLocalVelocity.z) != (int)Mathf.Sign(invertedFrictionDirection.z))
+        {
+            invertedFrictionDirection.z = 0f;
+        }
+        var friction = -invertedFrictionDirection.normalized * deacceleration * Time.deltaTime;
+        var newVelocity = currentLocalVelocity + friction;
+        if (currentLocalVelocity.z > desiredForwardVelocity && desiredForwardVelocity > newVelocity.z)
+        {
+            newVelocity.z = desiredForwardVelocity;
+        }
+        if ((int)Mathf.Sign(newVelocity.x) != (int)Mathf.Sign(currentLocalVelocity.x)) newVelocity.x = 0f;
+        if ((int)Mathf.Sign(newVelocity.y) != (int)Mathf.Sign(currentLocalVelocity.y)) newVelocity.y = 0f;
+        if ((int)Mathf.Sign(newVelocity.z) != (int)Mathf.Sign(currentLocalVelocity.z)) newVelocity.z = 0f;
+        currentLocalVelocity = newVelocity;
+
+        var gravity = new Vector3(0f, (-2 * attributes.MaxJumpHeight * Mathf.Pow(attributes.MaxSpeed, 2)) / (Mathf.Pow(attributes.MaxJumpLength / 2, 2)), 0f);
+        currentLocalVelocity += gravity * Time.deltaTime;
+
+        controller.Velocity = controller.transform.TransformDirection(currentLocalVelocity);
     }
 
     public void AttemptStateSwitch(CharacterStateSwitch3D state)
@@ -81,7 +112,7 @@ public struct GroundState3D : ICharacterState3D
             return;
         }
 
-        if (state.NewState is AirState3D)
+        if (state.NewState is AirState3D || state.NewState is DashState3D)
         {
             controller.ChangeCharacterState(state);
         }

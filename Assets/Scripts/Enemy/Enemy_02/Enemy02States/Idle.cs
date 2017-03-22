@@ -29,7 +29,7 @@ public class Idle : EnemyState {
     }*/
     private void Aggro() {
         
-        Collider[] col = Physics.OverlapSphere(enemy.transform.position, 10f, enemy.AggroMask);
+        Collider[] col = Physics.OverlapSphere(enemy.transform.position, 20f, enemy.AggroMask);
         int i = 0;
         //RaycastHit hit;
         for (int v = 0; v< col.Length; v++)

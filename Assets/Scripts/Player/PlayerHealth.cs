@@ -5,11 +5,9 @@ using UnityEngine.UI;
 public class PlayerHealth : MonoBehaviour {
 
 
-	public int currentHealth;
-
 	public Slider healthSlider;
 
-	Controller2D controller2D;
+	Controller3D controller3D;
 
 	PlayerAttributes playerAttributes;
 
@@ -28,11 +26,11 @@ public class PlayerHealth : MonoBehaviour {
 
 	void Awake() {
 		
-		controller2D = GetComponent<Controller2D> ();
+		controller3D = GetComponent<Controller3D> ();
 
 		playerAttributes = GetComponent<PlayerAttributes> ();
 
-		currentHealth = playerAttributes.MaxHP;
+		playerAttributes.currentHealth = playerAttributes.MaxHP;
 
 	}
 
@@ -40,11 +38,11 @@ public class PlayerHealth : MonoBehaviour {
 
 		damaged = true;
 
-		currentHealth -= amount;
+		playerAttributes.currentHealth -= amount;
 
-		healthSlider.value = currentHealth;
+		healthSlider.value = playerAttributes.currentHealth;
 
-		if (currentHealth <= 0 && !isDead) {
+		if (playerAttributes.currentHealth <= 0 && !isDead) {
 			Death ();
 		}
 	}
@@ -52,6 +50,6 @@ public class PlayerHealth : MonoBehaviour {
 	void Death() {
 		isDead = true;
 
-		//Controller2D.enabled = false;
+		//Controller3D.enabled = false;
 	}
 }

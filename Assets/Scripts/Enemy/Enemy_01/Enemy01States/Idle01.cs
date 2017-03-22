@@ -8,6 +8,8 @@ using UnityEngine;
 public class Idle01 : Enemy01State {
 
     private Enemy01Behaviour enemy;
+    private float switchTimer;
+    private float timetoSwitch;
 
     public void Collision()
     {
@@ -28,21 +30,29 @@ public class Idle01 : Enemy01State {
 
     public void Update()
     {
-        int i = UnityEngine.Random.Range(1, 100) < 50 ? 1 : 0;
-        changeState(i);
+            
+        
+        switchTimer += Time.deltaTime;
+        if(switchTimer > enemy.idleTime)
+        {
+            changeState();
+        }
+
     }
 
-    private void changeState(int i) //go into patrol
+    private void changeState() //go into patrol
     {
-        if (i == 0)
-        {
-            enemy.changeState(new Patrol01(enemy, enemy.vec));
-        }
+        
+         enemy.changeState(new Patrol01(enemy, enemy.vec));
+         Debug.Log("Switching to patrol");
+            
     }
 
     public Idle01(Enemy01Behaviour enemy)
     {
         this.enemy = enemy;
+        switchTimer = 0f;
+        
     }
     
 
