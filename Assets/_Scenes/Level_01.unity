@@ -18703,10 +18703,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxSpeed: 8
   GroundAccelerationTime: 0.2
-  AirAccelerationTime: 1
+  AirAccelerationTime: 0.3
   MaxJumpLength: 12
   MaxJumpHeight: 6
   MinJumpHeight: 1
+  DashTime: 0.3
+  DashLength: 12
   GroundDeaccelerationTime: 0.05
   MaxRotationTime: 0.2
   MaxHP: 5

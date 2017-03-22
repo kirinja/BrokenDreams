@@ -14,16 +14,19 @@ public class Controller3D : MonoBehaviour
     public Vector3 Velocity { get; set; }
     public float MaxTraversableSlopeAngle { get { return characterController.slopeLimit; } }
     public float ColliderHeight { get { return characterController.height; } }
+    public Vector2 MovementInput { get; private set; }
 
     private void Awake()
     {
         selectedAbility = 0;
         CacheComponents();
         SetInitialCharacterState();
+        MovementInput = Vector2.zero;
     }
 
     public void HandleMovement(bool useAbility, Vector2 input)
     {
+        MovementInput = input;
         foreach (var ability in Attributes.Abilities)
         {
             ability.UpdateTime();

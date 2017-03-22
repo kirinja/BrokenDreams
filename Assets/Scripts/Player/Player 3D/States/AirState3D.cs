@@ -103,7 +103,7 @@ public struct AirState3D : ICharacterState3D
 
     public void AttemptStateSwitch(CharacterStateSwitch3D state)
     {
-        if (state.NewState is GroundState3D)
+        if (state.NewState is GroundState3D || state.NewState is DashState3D)
         {
             controller.ChangeCharacterState(state);
         }
