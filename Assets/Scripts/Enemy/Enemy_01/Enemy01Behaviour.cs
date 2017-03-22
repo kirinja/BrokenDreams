@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy01Behaviour : MonoBehaviour {
-
+public class Enemy01Behaviour : Enemy
+{
+    public int MaxHealth = 1;
     public Vector3 vec;
     private Collider col;
     private Enemy01State state;
     public float idleTime;
     public float patrolTime;
+    private int health;
 
 	// Use this for initialization
 	void Start () {
@@ -16,10 +18,12 @@ public class Enemy01Behaviour : MonoBehaviour {
         //state = new Idle01(this, new Vector3(0,0,0));
         state = new Patrol01(this, vec);
         Debug.Log("Patrol");
+	    health = MaxHealth;
 	}
 	
 	// UpdateTime is called once per frame
-	void Update () {
+	void Update ()
+    {
         state.Update();
 	}
 
@@ -43,7 +47,21 @@ public class Enemy01Behaviour : MonoBehaviour {
         vec *= -1;
     }
 
+    public override void Damage()
+    {
+        if (--health <= 0)
+        {
+            Die();
+        }
+    }
 
+    private void Die()
+    {
+        gameObject.SetActive(false);
+    }
 
-
+    public override void changeState(EnemyState e)
+    {
+        throw new System.NotImplementedException();
+    }
 }

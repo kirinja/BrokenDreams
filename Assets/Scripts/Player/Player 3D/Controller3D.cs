@@ -39,8 +39,7 @@ public class Controller3D : MonoBehaviour
                 characterState.AttemptStateSwitch(state);
             }
         }
-
-        Debug.Log(input);
+        
         var deltaTime = Time.deltaTime;
         characterState.Update(input);
         HandleCollisions(Move());
