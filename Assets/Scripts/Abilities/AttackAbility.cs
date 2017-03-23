@@ -19,14 +19,10 @@ class AttackAbility : Ability
 
         foreach (var gameObject in hits)
         {
-            if (gameObject.CompareTag("Enemy"))
+            var hitObject = gameObject.GetComponent<Attackable>();
+            if (hitObject)
             {
-                Debug.Log("Found enemy");
-                var enemy = gameObject.GetComponent<Enemy>();
-                if (enemy)
-                {
-                    enemy.Damage();
-                }
+                hitObject.Damage();
             }
         }
 
