@@ -8,6 +8,7 @@ TagManager:
   - Wall
   - Movable Object
   - Hit Object
+  - Moving
   layers:
   - Default
   - TransparentFX
