@@ -26,8 +26,8 @@ public class Enemy02behaviour3D : Enemy
 
 
     public Transform[] retreatPoints;
-    public int rpIndex = 0;
-    public int rpThreshold = 2;
+    public int rpIndex;
+    public int rpThreshold;
     public Vector3 AggroRange;
     public LayerMask AggroMask;
 
@@ -36,7 +36,8 @@ public class Enemy02behaviour3D : Enemy
     {
 
         state = new Idle(this); //Base state for Enemy is idle, idle contains method for player detection
-        
+        rpThreshold = retreatPoints.Length - 1;
+        rpIndex = 0;
     }
 
     // Update is called once per frame
@@ -125,7 +126,15 @@ public class Enemy02behaviour3D : Enemy
         yield return new WaitForSeconds(0.3f);
     }
 
-    
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Attack"))
+        {
+            Damage();
+        }
+    }
+
+
 
 
 

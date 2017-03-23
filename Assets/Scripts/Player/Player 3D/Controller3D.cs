@@ -44,6 +44,8 @@ public class Controller3D : MonoBehaviour
         characterState.Update(input);
         HandleCollisions(Move());
         DrawAxes();
+		GetComponentInChildren<Rigidbody> ().position = transform.position;
+		GetComponentInChildren<Rigidbody> ().rotation = transform.rotation;
     }
 
     public void NextAbility()
@@ -93,6 +95,11 @@ public class Controller3D : MonoBehaviour
         }
 
         return groundSlopeAngle <= MaxTraversableSlopeAngle;
+    }
+
+    public void SetPosition(Vector3 position)
+    {
+        this.transform.position = position;
     }
 
     private void CacheComponents()
