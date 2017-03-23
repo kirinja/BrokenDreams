@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy01Behaviour : MonoBehaviour {
+public class Enemy01Behaviour : Enemy
+{ 
 
     public Vector3 vec;
     private Collider col;
@@ -44,7 +46,7 @@ public class Enemy01Behaviour : MonoBehaviour {
         vec *= -1;
     }
 
-    private void Damage()
+    public override void Damage()
     {
         health--;
         if (health <= 0)
@@ -56,7 +58,7 @@ public class Enemy01Behaviour : MonoBehaviour {
     private void Defeat()
     {
         StartCoroutine("deathTime");
-        Destroy(this);
+        Destroy(this.gameObject);
     }
 
     private IEnumerator deathTime()
@@ -66,12 +68,14 @@ public class Enemy01Behaviour : MonoBehaviour {
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Attack"))
+        /*if (other.CompareTag("Attack"))
         {
             Damage();
-        }
+        }*/
     }
 
-
-
+    public override void changeState(EnemyState e)
+    {
+        throw new NotImplementedException();
+    }
 }

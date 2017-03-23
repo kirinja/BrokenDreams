@@ -6,6 +6,7 @@ public class Controller3D : MonoBehaviour
 {
     public Transform CameraTransform;
 
+    private Vector3 spawnPosition;
     private CharacterController characterController;
     private ICharacterState3D characterState;
     private int selectedAbility;
@@ -22,7 +23,9 @@ public class Controller3D : MonoBehaviour
         CacheComponents();
         SetInitialCharacterState();
         MovementInput = Vector2.zero;
+        spawnPosition = transform.position;
     }
+
 
     public void HandleMovement(bool useAbility, Vector2 input)
     {
@@ -99,7 +102,33 @@ public class Controller3D : MonoBehaviour
 
     public void SetPosition(Vector3 position)
     {
-        this.transform.position = position;
+        transform.position = position;
+    }
+
+    public void SetSpawn()
+    {
+        spawnPosition = transform.position;
+    }
+
+    public void Damage()
+    {
+        GetComponent<PlayerHealth>().TakeDamage(1);
+    }
+
+    public void Damage(int damage)
+    {
+        GetComponent<PlayerHealth>().TakeDamage(damage);
+    }
+
+    public void Kill()
+    {
+        Debug.Log("Current: " + transform.position + "\tSpawn: " + spawnPosition);
+        characterState = new GroundState3D(this);
+        transform.position = spawnPosition;
+        Velocity = Vector3.zero;
+
+        // TODO: Respawn from somewhere else?
+        GetComponent<PlayerHealth>().Respawn();
     }
 
     private void CacheComponents()
