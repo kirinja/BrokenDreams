@@ -12,43 +12,29 @@ public class TriggerSound : MonoBehaviour {
 	//public AudioClip playerSound;
 	public AudioClip moSound;
 	public AudioClip hitSound;
-	//public AudioClip abilitySound;
+	public AudioClip abilitySound;
+	public AudioClip differentRoomSounds;
+
+	private float volLowRange = 0.5f;
+	private float volHighRange = 1.0f;
 
 	private int hits = 0;
-	//private float pVel;
+	private int count = 1;
+	private float volume = 0.5f;
+
 
 	// Use this for initialization
 	void Start () {
+
 		sources = GetComponents<AudioSource> ();
 		source1 = sources[0];
-		/*source2 = sources[1];	//playersound = source2
-		source2.clip = playerSound;
-		source2.loop = true;*/
 
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		/*if (pVel < 0.03f) {
-			
-			source2.Pause ();
 
-		} else {
-			
-			if (!source2.isPlaying){
-				source2.PlayOneShot (playerSound);
-			}
-		}*/
 	}
-
-	/*void OnCollisionEnter(Collision col){
-		Debug.Log ("Collision");
-		if (col.gameObject.CompareTag("Wall")){
-			Debug.Log ("Wall");
-			source1.PlayOneShot (wallSound);
-
-		}
-	}*/
 
 	void OnTriggerEnter(Collider col){
 	
@@ -67,26 +53,30 @@ public class TriggerSound : MonoBehaviour {
 			source1.PlayOneShot (hitSound);
 		}
 
-
-		/*if (col.gameObject.CompareTag("Ability")){
+		if (col.gameObject.CompareTag("Particle system")){
 			source1.PlayOneShot (abilitySound);
-		}*/
+			//col.gameObject.SetActive (false);	//deactive particle sytem Hit when colliding with the player	
 
-
-	}
-
-	void FixedUpdate(){
-		//pVel = GetComponentInChildren<Rigidbody> ().velocity.magnitude;
-	}
-	/*
-	void OnControllerColliderHit(ControllerColliderHit hit) {
-		
-		if (hit.gameObject.CompareTag("Wall")){
-			Debug.Log ("Wall");
-			hits++;
-			Debug.Log ("Collision hit: " + hits);
-			source1.PlayOneShot (wallSound);
 		}
 
-	}*/
+		if (col.gameObject.CompareTag ("Room")) {
+			source1.PlayOneShot (differentRoomSounds);
+
+		}
+			
+	}
+
+	void OnTriggerExit(Collider col){
+		if (col.gameObject.tag == "Room" && source1.isPlaying){
+			
+			//float volume = Random.Range (volLowRange, volHighRange);
+			//source1.PlayOneShot(differentRoomSounds, volume);
+
+			//source1.pitch = 0.5f;
+			source1.Stop ();
+		}
+	}
+
+
+
 }

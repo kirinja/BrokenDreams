@@ -8,6 +8,8 @@ TagManager:
   - Wall
   - Movable Object
   - Hit Object
+  - Particle system
+  - Room
   - Moving
   layers:
   - Default

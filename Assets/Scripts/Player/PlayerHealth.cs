@@ -49,7 +49,15 @@ public class PlayerHealth : MonoBehaviour {
 
 	void Death() {
 		isDead = true;
+        controller3D.Kill();
 
 		//Controller3D.enabled = false;
 	}
+
+    public void Respawn()
+    {
+        isDead = false;
+        playerAttributes.currentHealth = playerAttributes.MaxHP;
+        healthSlider.value = playerAttributes.currentHealth;
+    }
 }
