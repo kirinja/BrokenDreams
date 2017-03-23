@@ -15,8 +15,11 @@ public class Camera2D : MonoBehaviour
     private Collider _targetCollider;
     // might replace the above with a size that you manually set, at least for the test
 
-    private float newOffsetX;
-    public bool facingLeft;
+    private float _newOffsetX;
+    private bool _facingLeft;
+    private bool _prevFacingLeft;
+
+    private float _origOffsetX;
     
 	// Use this for initialization
 	void Start ()
@@ -28,7 +31,8 @@ public class Camera2D : MonoBehaviour
 
         _targetFocusArea = new FocusArea(0, 0, _targetCollider.bounds.size.x, _targetCollider.bounds.size.y);
         CalculateDirection();
-	    newOffsetX = Offset.x;
+	    _newOffsetX = Offset.x;
+	    _origOffsetX = Offset.x;
 	}
 
     void LateUpdate()
@@ -40,19 +44,28 @@ public class Camera2D : MonoBehaviour
             FlipDirection();
         }
 
+
         CalculateDirection();
         CalculateTargetArea();
         CalculateCameraArea();
 
-        if (_cameraFocusArea.Contains(_targetFocusArea)) return;
+
+        if (_facingLeft && !_prevFacingLeft)
+            FlipDirection();
+        else if (!_facingLeft && _prevFacingLeft)
+            FlipDirection();
+
+        _prevFacingLeft = _facingLeft;
 
         // lerp the offset.x value between old and new
-        Offset.x = Mathf.Lerp(Offset.x, newOffsetX, 0.2f);
-        if (Mathf.Abs(Offset.x - newOffsetX) < 0.1f)
+        Offset.x = Mathf.Lerp(Offset.x, _newOffsetX, Time.deltaTime * 3f);
+        if (Mathf.Abs(Offset.x - _newOffsetX) < 0.1f)
         {
-            Offset.x = newOffsetX;
+            Offset.x = _newOffsetX;
         }
 
+        if (_cameraFocusArea.Contains(_targetFocusArea)) return;
+        
         if (_targetFocusArea.Left <= _cameraFocusArea.Left) // LEFT
             transform.position = new Vector3(_targetFocusArea.Left - Offset.x + _cameraFocusArea.Width/2, transform.position.y, -Offset.z);
         else if (_targetFocusArea.Right >= _cameraFocusArea.Right) // RIGHT
@@ -88,15 +101,17 @@ public class Camera2D : MonoBehaviour
     {
         // we want to flip when we change the direction, but only once, that means we cant do this every frame (since we're effectivly doing *-1)
         //Offset.x = Offset.x * Mathf.Sign(Target.forward.x); // we cant use .right.x (mmight need to introduce a direction variable in controller2d or base it on velocity (method from controller2d))
-        /*facingLeft = !(Target.forward.x > 0);
-        if (facingLeft)
-            newOffsetX = Offset.x * Mathf.Sign(Target.forward.x);
+        _facingLeft = !(Target.forward.x > 0);
+        /*if (_facingLeft)
+            _newOffsetX = Offset.x * Mathf.Sign(Target.forward.x);
         else
         {
-            newOffsetX = Offset.x * Mathf.Sign(Target.forward.x);
+            _newOffsetX = Offset.x * Mathf.Sign(Target.forward.x);
         }*/
         
-        newOffsetX = -Mathf.Sign(Target.forward.x) * Offset.x;
+
+
+        //_newOffsetX = -Mathf.Sign(Target.forward.x) * Offset.x;
 
         //Offset.x = _controller2D.GetHorizontalDirection(_controller2D.Velocity).ToInt();
 
@@ -108,7 +123,9 @@ public class Camera2D : MonoBehaviour
 
     void FlipDirection()
     {
-        newOffsetX = Offset.x * -1;
+        //Debug.Log("Flip");
+        _origOffsetX *= -1;
+        _newOffsetX = _origOffsetX;
         // lerp from one side to the other, so it doesnt just jump
         // cant use lerp since this should only be called once, we have to do the lerp in the main update loop
     }
