@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ee53961dfc728b43b0442d6d209db8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vec: {x: 0, y: 0, z: 0}
+  vec: {x: 0, y: 0, z: 3}
   idleTime: 3
   patrolTime: 6
 --- !u!114 &114520279263905954
