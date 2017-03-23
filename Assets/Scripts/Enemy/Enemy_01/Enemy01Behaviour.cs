@@ -7,6 +7,7 @@ public class Enemy01Behaviour : MonoBehaviour {
     public Vector3 vec;
     private Collider col;
     private Enemy01State state;
+    private int health;
     public float idleTime;
     public float patrolTime;
 
@@ -43,6 +44,33 @@ public class Enemy01Behaviour : MonoBehaviour {
         vec *= -1;
     }
 
+    private void Damage()
+    {
+        health--;
+        if (health <= 0)
+        {
+            Defeat();
+        }
+    }
+
+    private void Defeat()
+    {
+        StartCoroutine("deathTime");
+        Destroy(this);
+    }
+
+    private IEnumerator deathTime()
+    {
+        yield return new WaitForSeconds(0.3f);
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Attack"))
+        {
+            Damage();
+        }
+    }
 
 
 
