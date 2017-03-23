@@ -20,8 +20,8 @@ public class Patrol01 : Enemy01State {
     public void Update()
     {
 
-        
-        enemy.transform.localPosition = enemy.getVec() + enemy.transform.localPosition;
+
+        enemy.transform.localPosition += enemy.getVec() * Time.deltaTime;
         switchTimer += Time.deltaTime;
         if(switchTimer > enemy.patrolTime)
         {
