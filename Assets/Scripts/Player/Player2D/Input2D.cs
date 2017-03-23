@@ -3,6 +3,8 @@
 [RequireComponent(typeof(Controller3D))]
 public class Input2D : MonoBehaviour
 {
+    public float LockedZPosition = -1;
+
     private Controller3D controller;
     private bool useAbility;
 
@@ -31,6 +33,8 @@ public class Input2D : MonoBehaviour
     {
         var input = new Vector2(Input.GetAxisRaw("Horizontal"), 0f);
         controller.HandleMovement(useAbility, input);
+        controller.SetPosition(new Vector3(controller.transform.position.x, controller.transform.position.y,
+            LockedZPosition));
         useAbility = false;
     }
 }
