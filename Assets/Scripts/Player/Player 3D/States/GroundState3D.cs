@@ -43,12 +43,22 @@ public struct GroundState3D : ICharacterState3D
         CharacterStateSwitch3D stateSwitch;
         if ((collisionFlags & CollisionFlags.Below) == CollisionFlags.Below)
         {
+            controller.Velocity = new Vector3(controller.Velocity.x, 0f, controller.Velocity.z);
             stateSwitch = new CharacterStateSwitch3D();
         }
         else
         {
             stateSwitch = new CharacterStateSwitch3D(new AirState3D(controller));
         }
+        if ((collisionFlags & CollisionFlags.Sides) == CollisionFlags.Sides)
+        {
+            controller.Velocity = new Vector3(0f, controller.Velocity.y, 0f);
+        }
+        if ((collisionFlags & CollisionFlags.Above) == CollisionFlags.Above)
+        {
+            controller.Velocity = new Vector3(controller.Velocity.x, 0f, controller.Velocity.z);
+        }
+        
 
         return stateSwitch;
     }
