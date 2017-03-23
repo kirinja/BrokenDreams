@@ -5643,6 +5643,8 @@ GameObject:
   - component: {fileID: 514918017}
   - component: {fileID: 514918016}
   - component: {fileID: 514918015}
+  - component: {fileID: 514918019}
+  - component: {fileID: 514918018}
   m_Layer: 9
   m_Name: Ground (77)
   m_TagString: Wall
@@ -5713,6 +5715,28 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 514918013}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &514918018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 514918013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37b08cab31c827a44bb3423bad4b9354, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &514918019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 514918013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a61370b3a1c51b46b91fe323101bf58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &574184393
 Prefab:
   m_ObjectHideFlags: 0
@@ -9046,6 +9070,8 @@ GameObject:
   - component: {fileID: 680023690}
   - component: {fileID: 680023689}
   - component: {fileID: 680023688}
+  - component: {fileID: 680023692}
+  - component: {fileID: 680023691}
   m_Layer: 9
   m_Name: Ground (72)
   m_TagString: Hit Object
@@ -9074,7 +9100,7 @@ BoxCollider:
   m_GameObject: {fileID: 680023686}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -9116,6 +9142,28 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 680023686}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &680023691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 680023686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37b08cab31c827a44bb3423bad4b9354, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &680023692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 680023686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a61370b3a1c51b46b91fe323101bf58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &701378556
 GameObject:
   m_ObjectHideFlags: 0
@@ -17499,6 +17547,8 @@ GameObject:
   - component: {fileID: 1597355546}
   - component: {fileID: 1597355545}
   - component: {fileID: 1597355544}
+  - component: {fileID: 1597355548}
+  - component: {fileID: 1597355547}
   m_Layer: 9
   m_Name: Ground (74)
   m_TagString: Wall
@@ -17527,7 +17577,7 @@ BoxCollider:
   m_GameObject: {fileID: 1597355542}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 0.99999994, z: 1}
   m_Center: {x: 0, y: 0.0000038146973, z: 0}
@@ -17569,6 +17619,28 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1597355542}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1597355547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1597355542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37b08cab31c827a44bb3423bad4b9354, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1597355548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1597355542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a61370b3a1c51b46b91fe323101bf58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1599195430
 GameObject:
   m_ObjectHideFlags: 0
