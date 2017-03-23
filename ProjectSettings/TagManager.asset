@@ -4,9 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - Enemy
   - Wall
   - Movable Object
-  - Push Ability
+  - Hit Object
   layers:
   - Default
   - TransparentFX
@@ -16,8 +17,8 @@ TagManager:
   - UI
   - 
   - 
-  - Player
-  - Obstacles
+  - 
+  - 
   - 
   - 
   - 

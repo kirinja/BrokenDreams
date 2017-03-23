@@ -14,16 +14,19 @@ public class Controller3D : MonoBehaviour
     public Vector3 Velocity { get; set; }
     public float MaxTraversableSlopeAngle { get { return characterController.slopeLimit; } }
     public float ColliderHeight { get { return characterController.height; } }
+    public Vector2 MovementInput { get; private set; }
 
     private void Awake()
     {
         selectedAbility = 0;
         CacheComponents();
         SetInitialCharacterState();
+        MovementInput = Vector2.zero;
     }
 
     public void HandleMovement(bool useAbility, Vector2 input)
     {
+        MovementInput = input;
         foreach (var ability in Attributes.Abilities)
         {
             ability.UpdateTime();
@@ -36,12 +39,13 @@ public class Controller3D : MonoBehaviour
                 characterState.AttemptStateSwitch(state);
             }
         }
-
-        Debug.Log(input);
+        
         var deltaTime = Time.deltaTime;
         characterState.Update(input);
         HandleCollisions(Move());
         DrawAxes();
+		GetComponentInChildren<Rigidbody> ().position = transform.position;
+		GetComponentInChildren<Rigidbody> ().rotation = transform.rotation;
     }
 
     public void NextAbility()
@@ -91,6 +95,11 @@ public class Controller3D : MonoBehaviour
         }
 
         return groundSlopeAngle <= MaxTraversableSlopeAngle;
+    }
+
+    public void SetPosition(Vector3 position)
+    {
+        this.transform.position = position;
     }
 
     private void CacheComponents()

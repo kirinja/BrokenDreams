@@ -112,7 +112,7 @@ public struct GroundState3D : ICharacterState3D
             return;
         }
 
-        if (state.NewState is AirState3D)
+        if (state.NewState is AirState3D || state.NewState is DashState3D)
         {
             controller.ChangeCharacterState(state);
         }

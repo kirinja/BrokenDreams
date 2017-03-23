@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy02behaviour3D : MonoBehaviour
+public class Enemy02behaviour3D : Enemy
 {
-
-    private int health = 5;
+    private int health = 3;
 
     private float moveSpeed = 2f;
 
@@ -84,10 +83,10 @@ public class Enemy02behaviour3D : MonoBehaviour
         
     }
 
-    public void Damage() //Method to call when player hits an enemy
+    public override void Damage() //Method to call when player hits an enemy
     {
-        health--;
-        if(health <= 0)
+        Debug.Log("Enemy damaged");
+        if(--health <= 0)
         {
             Defeat();
         }
@@ -97,7 +96,7 @@ public class Enemy02behaviour3D : MonoBehaviour
     private void Defeat()
     {
         StartCoroutine("deathTime");
-        Destroy(this);
+        Destroy(this.gameObject);
     }
 
     public void resetTime() //Timer to shoot again starts when projectile hits something
@@ -111,7 +110,7 @@ public class Enemy02behaviour3D : MonoBehaviour
         Fired = !Fired;
     }*/
 
-    public void changeState(EnemyState state) //Called by state when a transition is in order
+    public override void changeState(EnemyState state) //Called by state when a transition is in order
     {
         this.state = state;
     }
