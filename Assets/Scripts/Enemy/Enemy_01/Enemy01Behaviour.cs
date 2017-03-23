@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy01Behaviour : Enemy
-{
-    public int MaxHealth = 1;
+public class Enemy01Behaviour : MonoBehaviour {
+
     public Vector3 vec;
     private Collider col;
     private Enemy01State state;
+    private int health;
     public float idleTime;
     public float patrolTime;
-    private int health;
 
 	// Use this for initialization
 	void Start () {
@@ -18,12 +17,10 @@ public class Enemy01Behaviour : Enemy
         //state = new Idle01(this, new Vector3(0,0,0));
         state = new Patrol01(this, vec);
         Debug.Log("Patrol");
-	    health = MaxHealth;
 	}
 	
 	// UpdateTime is called once per frame
-	void Update ()
-    {
+	void Update () {
         state.Update();
 	}
 
@@ -47,21 +44,34 @@ public class Enemy01Behaviour : Enemy
         vec *= -1;
     }
 
-    public override void Damage()
+    private void Damage()
     {
-        if (--health <= 0)
+        health--;
+        if (health <= 0)
         {
-            Die();
+            Defeat();
         }
     }
 
-    private void Die()
+    private void Defeat()
     {
-        gameObject.SetActive(false);
+        StartCoroutine("deathTime");
+        Destroy(this);
     }
 
-    public override void changeState(EnemyState e)
+    private IEnumerator deathTime()
     {
-        throw new System.NotImplementedException();
+        yield return new WaitForSeconds(0.3f);
     }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Attack"))
+        {
+            Damage();
+        }
+    }
+
+
+
 }

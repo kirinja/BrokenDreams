@@ -125,7 +125,15 @@ public class Enemy02behaviour3D : Enemy
         yield return new WaitForSeconds(0.3f);
     }
 
-    
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Attack"))
+        {
+            Damage();
+        }
+    }
+
+
 
 
 
