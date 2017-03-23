@@ -27,6 +27,15 @@ public struct GroundState3D : ICharacterState3D
     public void Update(Vector2 input)
     {
         UpdateVelocity(input);
+        var gameObject = GetGround();
+        if (gameObject && gameObject.CompareTag("Moving"))
+        {
+            controller.transform.SetParent(gameObject.transform);
+        }
+        else
+        {
+            controller.transform.SetParent(null);
+        }
     }
 
     public CharacterStateSwitch3D HandleCollisions(CollisionFlags collisionFlags)
@@ -103,6 +112,16 @@ public struct GroundState3D : ICharacterState3D
         currentLocalVelocity += gravity * Time.deltaTime;
 
         controller.Velocity = controller.transform.TransformDirection(currentLocalVelocity);
+    }
+
+    private GameObject GetGround()
+    {
+        RaycastHit hitInfo;
+        if (Physics.Raycast(controller.transform.position, Vector3.down, out hitInfo))
+        {
+            return hitInfo.transform.gameObject;
+        }
+        return null;
     }
 
     public void AttemptStateSwitch(CharacterStateSwitch3D state)
