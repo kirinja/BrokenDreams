@@ -8,7 +8,12 @@ TagManager:
   - Wall
   - Movable Object
   - Hit Object
+<<<<<<< HEAD
+  - Particle system
+  - Room
+=======
   - Moving
+>>>>>>> 38d7a7ea2db639cae3888cb71437ed50e6de883c
   layers:
   - Default
   - TransparentFX
