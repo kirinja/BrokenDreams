@@ -40,11 +40,6 @@ public class Pushable : MonoBehaviour
         if (isPushed)
         {
             var collider = GetComponent<Collider>();
-            if (!Physics.BoxCast(transform.position, collider.bounds.extents, Vector3.down, transform.rotation, 1f))
-            {
-                velocity = Vector3.zero;
-                isPushed = false;
-            }
 
             transform.position += velocity * Time.deltaTime;
             GetComponent<Rigidbody>().position = transform.position;
@@ -56,7 +51,6 @@ public class Pushable : MonoBehaviour
             {
                 isPushed = false;
             }
-
         }
     }
 
@@ -77,5 +71,6 @@ public class Pushable : MonoBehaviour
         isPushed = true;
         totalPushLength = onX ? transform.lossyScale.x : transform.lossyScale.z;
         pushedLength = 0f;
+        Debug.Log(velocity);
     }
 }

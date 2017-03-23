@@ -53,9 +53,9 @@ public class TriggerSound : MonoBehaviour {
 	void OnTriggerEnter(Collider col){
 	
 		if (col.gameObject.CompareTag("Wall")){
-			Debug.Log ("Wall");
+			//Debug.Log ("Wall");
 			hits++;
-			Debug.Log ("Collision hit: " + hits);
+			//Debug.Log ("Collision hit: " + hits);
 			source1.PlayOneShot (wallSound);
 		}
 
