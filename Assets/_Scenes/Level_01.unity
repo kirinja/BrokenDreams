@@ -1280,6 +1280,7 @@ GameObject:
   - component: {fileID: 213985085}
   - component: {fileID: 213985090}
   - component: {fileID: 213985089}
+  - component: {fileID: 213985091}
   m_Layer: 0
   m_Name: SmallBox (1)
   m_TagString: Movable Object
@@ -1377,6 +1378,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 120
   m_CollisionDetection: 0
+--- !u!114 &213985091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 213985084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db1d12b4c96d8194b97152b8518cdbdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 1ea159d447ae9034f88d1f45d0f7b7b4, type: 3}
 --- !u!1 &225564951
 GameObject:
   m_ObjectHideFlags: 0
@@ -5989,6 +6002,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &607090189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 607090187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db1d12b4c96d8194b97152b8518cdbdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 1ea159d447ae9034f88d1f45d0f7b7b4, type: 3}
 --- !u!54 &607090191
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6503,7 +6528,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1212029612
+  randomSeed: -1415072762
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -9656,6 +9681,7 @@ GameObject:
   - component: {fileID: 742201505}
   - component: {fileID: 742201510}
   - component: {fileID: 742201509}
+  - component: {fileID: 742201511}
   m_Layer: 0
   m_Name: SmallBox (2)
   m_TagString: Movable Object
@@ -9753,6 +9779,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PushSpeed: 5
+--- !u!114 &742201511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 742201504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db1d12b4c96d8194b97152b8518cdbdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 1ea159d447ae9034f88d1f45d0f7b7b4, type: 3}
 --- !u!1 &766791742
 GameObject:
   m_ObjectHideFlags: 0
@@ -10090,6 +10128,7 @@ GameObject:
   - component: {fileID: 806810377}
   - component: {fileID: 806810381}
   - component: {fileID: 806810380}
+  - component: {fileID: 806810382}
   m_Layer: 0
   m_Name: MeduimBox (2)
   m_TagString: Movable Object
@@ -10187,6 +10226,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PushSpeed: 5
+--- !u!114 &806810382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 806810375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db1d12b4c96d8194b97152b8518cdbdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 1ea159d447ae9034f88d1f45d0f7b7b4, type: 3}
 --- !u!1 &855979397
 GameObject:
   m_ObjectHideFlags: 0
@@ -17252,6 +17303,7 @@ GameObject:
   - component: {fileID: 1313116033}
   - component: {fileID: 1313116036}
   - component: {fileID: 1313116037}
+  - component: {fileID: 1313116038}
   m_Layer: 0
   m_Name: SmallBox (3)
   m_TagString: Movable Object
@@ -17349,6 +17401,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PushSpeed: 5
+--- !u!114 &1313116038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1313116031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db1d12b4c96d8194b97152b8518cdbdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 1ea159d447ae9034f88d1f45d0f7b7b4, type: 3}
 --- !u!1 &1324455897
 GameObject:
   m_ObjectHideFlags: 0
@@ -17362,6 +17426,7 @@ GameObject:
   - component: {fileID: 1324455899}
   - component: {fileID: 1324455903}
   - component: {fileID: 1324455902}
+  - component: {fileID: 1324455904}
   m_Layer: 0
   m_Name: MeduimBox (1)
   m_TagString: Movable Object
@@ -17459,6 +17524,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PushSpeed: 5
+--- !u!114 &1324455904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1324455897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db1d12b4c96d8194b97152b8518cdbdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 1ea159d447ae9034f88d1f45d0f7b7b4, type: 3}
 --- !u!1 &1353468481
 GameObject:
   m_ObjectHideFlags: 0
@@ -19595,6 +19672,23 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0785ab058f58d79488bc873580e5dfaf, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1945295332 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1166803920210218, guid: 0785ab058f58d79488bc873580e5dfaf,
+    type: 2}
+  m_PrefabInternal: {fileID: 1945295331}
+--- !u!114 &1945295333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1945295332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db1d12b4c96d8194b97152b8518cdbdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 1ea159d447ae9034f88d1f45d0f7b7b4, type: 3}
 --- !u!1 &1960673248
 GameObject:
   m_ObjectHideFlags: 0

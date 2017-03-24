@@ -14,6 +14,19 @@ public class Enemy01Behaviour : Enemy
     private Enemy01State state;
     private int health;
 
+    public override GameObject Drop
+    {
+        get
+        {
+            throw new NotImplementedException();
+        }
+
+        set
+        {
+            throw new NotImplementedException();
+        }
+    }
+
     // Use this for initialization
     void Start () {
         col = GetComponent<Collider>();
@@ -30,7 +43,12 @@ public class Enemy01Behaviour : Enemy
     public void OnCollisionEnter(Collision other)
     {
         state.Collision();
+        if (other.gameObject.CompareTag("Player"))
+        {
+            other.gameObject.GetComponent<Controller3D>().AttackPlayer(transform.position, 1);
+        }
     }
+    
 
     public void changeState(Enemy01State state)
     {
@@ -69,6 +87,16 @@ public class Enemy01Behaviour : Enemy
 
     public void OnTriggerEnter(Collider other)
     {
+        
+        if (other.gameObject.CompareTag("Player"))
+        {
+            other.gameObject.GetComponent<Controller3D>().AttackPlayer(transform.position, 1);
+        }
+        else if (!other.gameObject.CompareTag("Player Trigger"))
+        {
+            state.Collision();
+        }
+
         /*if (other.CompareTag("Attack"))
         {
             Damage();

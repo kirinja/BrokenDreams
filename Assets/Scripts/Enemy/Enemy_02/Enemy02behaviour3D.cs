@@ -134,10 +134,5 @@ public class Enemy02behaviour3D : Enemy
         }
     }
 
-
-
-
-
-
-
+    public override GameObject Drop { get; set; }
 }
