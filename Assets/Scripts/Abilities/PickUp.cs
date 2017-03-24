@@ -22,6 +22,7 @@ public class PickUp : MonoBehaviour {
             var abb = Resources.Load<Ability>("Abilities\\" + this.name); // Unsafe
             other.gameObject.GetComponent<PlayerAttributes>().Abilities.Add(abb);
             Destroy(gameObject, 0.5f);
+            other.GetComponent<Controller3D>().RefreshMaterial();
         }
     }
 }

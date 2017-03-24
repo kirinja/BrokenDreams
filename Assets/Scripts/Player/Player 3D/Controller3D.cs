@@ -24,8 +24,18 @@ public class Controller3D : MonoBehaviour
         SetInitialCharacterState();
         MovementInput = Vector2.zero;
         spawnPosition = transform.position;
+        if (Attributes.Abilities.Count <= 0)
+        {
+            var material = GetComponent<Renderer>().sharedMaterial;
+            material.color = Color.gray;
+        }
     }
 
+    public void RefreshMaterial()
+    {
+        var material = GetComponent<Renderer>().sharedMaterial;
+        material.color = Attributes.Abilities[selectedAbility].Color;
+    }
 
     public void HandleMovement(bool useAbility, Vector2 input)
     {
