@@ -6,12 +6,9 @@ public class DoorButton : MonoBehaviour
 {
     public GameObject Door;
 
-    private bool used;
-
 	// Use this for initialization
 	void Start ()
 	{
-	    used = false;
         Door.SetActive(true);
 	}
 	
@@ -22,11 +19,19 @@ public class DoorButton : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Movable Object") && !used)
+        if (other.CompareTag("Movable Object"))
         {
             Debug.Log("Button activate");
-            DestroyObject(Door);
-            used = true;
+            Door.SetActive(false);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Movable Object"))
+        {
+            Debug.Log("Button activate");
+            Door.SetActive(true);
         }
     }
 }
