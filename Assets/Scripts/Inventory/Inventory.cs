@@ -7,6 +7,7 @@ public class Inventory : MonoBehaviour {
 	public int MaxSlots = 4;
 
 	public InventorySlotUI[] slots; //HÄR SKA ABILITY KLASSEN VARA
+    public Controller3D controller3D;
 
 	private void Awake() {
 		/*slots = new InventorySlotUI[4];
@@ -19,7 +20,8 @@ public class Inventory : MonoBehaviour {
 
 	void Start () {
 		slots[0].Selected();
-        GameObject.Find("Player").GetComponent<Controller3D>().SetAbility(0);
+        //GameObject.Find("Player").GetComponent<Controller3D>().SetAbility(0);
+        controller3D.SetAbility(0);
     }
 
 	void Update () {
@@ -29,7 +31,8 @@ public class Inventory : MonoBehaviour {
 			slots [2].Unselected ();
 			slots [3].Unselected ();
 
-		    GameObject.Find("Player").GetComponent<Controller3D>().SetAbility(0);
+		    //GameObject.Find("Player").GetComponent<Controller3D>().SetAbility(0);
+            controller3D.SetAbility(0);
 
 		} else if (Input.GetKeyDown (KeyCode.Alpha2)) {
 			slots[0].Unselected ();
@@ -37,25 +40,31 @@ public class Inventory : MonoBehaviour {
 			slots [2].Unselected ();
 			slots [3].Unselected ();
 
-            GameObject.Find("Player").GetComponent<Controller3D>().SetAbility(1);
+            //GameObject.Find("Player").GetComponent<Controller3D>().SetAbility(1);
+            controller3D.SetAbility(1);
+
         }
-		else if (Input.GetKeyDown (KeyCode.Alpha3)) {
+        else if (Input.GetKeyDown (KeyCode.Alpha3)) {
 			slots[0].Unselected ();
 			slots [1].Unselected ();
 			slots [2].Selected ();
 			slots [3].Unselected ();
 
-            GameObject.Find("Player").GetComponent<Controller3D>().SetAbility(2);
+            //GameObject.Find("Player").GetComponent<Controller3D>().SetAbility(2);
+            controller3D.SetAbility(2);
+
         }
-		else if (Input.GetKeyDown (KeyCode.Alpha4)) {
+        else if (Input.GetKeyDown (KeyCode.Alpha4)) {
 			slots[0].Unselected ();
 			slots [1].Unselected ();
 			slots [2].Unselected ();
 			slots [3].Selected ();
 
-            GameObject.Find("Player").GetComponent<Controller3D>().SetAbility(3);
+            //GameObject.Find("Player").GetComponent<Controller3D>().SetAbility(3);
+            controller3D.SetAbility(3);
+
         }
-	}
+    }
 
 //	public InventorySlot GetSlot (int slotIndex) {
 	//	if(slotIndex < 0 || slotIndex >= slotCount) {

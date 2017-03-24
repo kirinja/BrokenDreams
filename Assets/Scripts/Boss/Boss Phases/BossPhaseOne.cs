@@ -18,6 +18,7 @@ public class BossPhaseOne : IBossPhaseState
 
     public IBossPhaseState Execute()
     {
+        
         //throw new System.NotImplementedException();
         var state = _internalState.Execute();
         // switch internal state if needed
