@@ -27,8 +27,16 @@ public class Controller3D : MonoBehaviour
         if (Attributes.Abilities.Count <= 0)
         {
             var material = GetComponent<Renderer>().sharedMaterial;
-            material.color = Color.gray;
+            var abilityColor = Resources.Load("AbilityColors", typeof(AbilityColors)) as AbilityColors;
+            material.color = abilityColor.DefaultColor;
         }
+    }
+
+    private void OnApplicationQuit()
+    {
+        var material = GetComponent<Renderer>().sharedMaterial;
+        var abilityColor = Resources.Load("AbilityColors", typeof(AbilityColors)) as AbilityColors;
+        material.color = abilityColor.DefaultColor;
     }
 
     public void RefreshMaterial()
