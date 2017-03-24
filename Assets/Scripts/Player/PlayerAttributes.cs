@@ -13,6 +13,8 @@ public class PlayerAttributes : MonoBehaviour
     public float DashLength = 12f;
     public float GroundDeaccelerationTime = 0.05f;
     public float MaxRotationTime = 0.2f;
+    public float KnockbackVelocity = 10f;
+    public float InvincibleTimeOnDamage = 1f;
 	public int MaxHP = 5;
 	public int currentHealth;
     public List<Ability> Abilities = new List<Ability>();

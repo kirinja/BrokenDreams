@@ -35,7 +35,6 @@ public class Patrol01 : Enemy01State {
     public void Collision()
     {
         enemy.invertVec();
-          
     }
 
     public Patrol01(Enemy01Behaviour enemy, Vector3 vec){
