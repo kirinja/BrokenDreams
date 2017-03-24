@@ -20,6 +20,7 @@ public class Camera2D : MonoBehaviour
     private bool _prevFacingLeft;
 
     private float _origOffsetX;
+    public float SmoothFactor = 7.0f;
     
 	// Use this for initialization
 	void Start ()
@@ -44,11 +45,7 @@ public class Camera2D : MonoBehaviour
             FlipDirection();
         }
 
-
         CalculateDirection();
-        CalculateTargetArea();
-        CalculateCameraArea();
-
 
         if (_facingLeft && !_prevFacingLeft)
             FlipDirection();
@@ -57,12 +54,13 @@ public class Camera2D : MonoBehaviour
 
         _prevFacingLeft = _facingLeft;
 
-        // lerp the offset.x value between old and new
-        Offset.x = Mathf.Lerp(Offset.x, _newOffsetX, Time.deltaTime * 3f);
+        Offset.x = Mathf.SmoothStep(Offset.x, _newOffsetX, Time.deltaTime * SmoothFactor);
+        
         if (Mathf.Abs(Offset.x - _newOffsetX) < 0.1f)
-        {
             Offset.x = _newOffsetX;
-        }
+
+        CalculateTargetArea();
+        CalculateCameraArea();
 
         if (_cameraFocusArea.Contains(_targetFocusArea)) return;
         
@@ -70,7 +68,6 @@ public class Camera2D : MonoBehaviour
             transform.position = new Vector3(_targetFocusArea.Left - Offset.x + _cameraFocusArea.Width/2, transform.position.y, -Offset.z);
         else if (_targetFocusArea.Right >= _cameraFocusArea.Right) // RIGHT
             transform.position = new Vector3(_targetFocusArea.Right - Offset.x - _cameraFocusArea.Width/2, transform.position.y, -Offset.z);
-
             
         if (_targetFocusArea.Top >= _cameraFocusArea.Top) // UP
             transform.position = new Vector3(transform.position.x, _targetFocusArea.Top - Offset.y - _cameraFocusArea.Height/2, -Offset.z);
@@ -99,35 +96,13 @@ public class Camera2D : MonoBehaviour
 
     void CalculateDirection()
     {
-        // we want to flip when we change the direction, but only once, that means we cant do this every frame (since we're effectivly doing *-1)
-        //Offset.x = Offset.x * Mathf.Sign(Target.forward.x); // we cant use .right.x (mmight need to introduce a direction variable in controller2d or base it on velocity (method from controller2d))
         _facingLeft = !(Target.forward.x > 0);
-        /*if (_facingLeft)
-            _newOffsetX = Offset.x * Mathf.Sign(Target.forward.x);
-        else
-        {
-            _newOffsetX = Offset.x * Mathf.Sign(Target.forward.x);
-        }*/
-        
-
-
-        //_newOffsetX = -Mathf.Sign(Target.forward.x) * Offset.x;
-
-        //Offset.x = _controller2D.GetHorizontalDirection(_controller2D.Velocity).ToInt();
-
-        // on a direction change (LEFT TO RIGHT and vice versa) we need to smoothly lerp the offset (so it doesnt jump around)
-        // we only need to do this on the X axis
-        // for now we ignore this and fix it later
-        // We could even use a "look ahead" value that only aligns on the X axis and do calulcations on this value and use it in camera placement
     }
 
     void FlipDirection()
     {
-        //Debug.Log("Flip");
         _origOffsetX *= -1;
         _newOffsetX = _origOffsetX;
-        // lerp from one side to the other, so it doesnt just jump
-        // cant use lerp since this should only be called once, we have to do the lerp in the main update loop
     }
 
 }

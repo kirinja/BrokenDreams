@@ -4,6 +4,8 @@ using UnityEngine;
 public struct GroundState3D : ICharacterState3D
 {
     private readonly Controller3D controller;
+    private Transform platform;
+    private Vector3 previousPlatformPosition;
 
     public GroundState3D(Controller3D controller)
     {
@@ -13,6 +15,8 @@ public struct GroundState3D : ICharacterState3D
         }
 
         this.controller = controller;
+        platform = null;
+        previousPlatformPosition = Vector3.zero;
     }
 
     public void Enter()
@@ -28,13 +32,22 @@ public struct GroundState3D : ICharacterState3D
     {
         UpdateVelocity(input);
         var gameObject = GetGround();
-        if (gameObject && gameObject.CompareTag("Moving"))
+        if (gameObject)
         {
-            controller.transform.SetParent(gameObject.transform);
+            if (gameObject.transform == platform)
+            {
+                controller.transform.position += platform.position - previousPlatformPosition;
+                previousPlatformPosition = platform.position;
+            }
+            else
+            {
+                platform = gameObject.transform;
+                previousPlatformPosition = platform.position;
+            }
         }
         else
         {
-            controller.transform.SetParent(null);
+            platform = null;
         }
     }
 

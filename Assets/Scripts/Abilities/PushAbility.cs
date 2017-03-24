@@ -3,6 +3,8 @@
 [CreateAssetMenu(menuName = "Abilities/Push")]
 class PushAbility : Ability
 {
+    public float PushRange = 0.5f;
+
     private void OnEnable()
     {
         Color = (Resources.Load("AbilityColors", typeof(AbilityColors)) as AbilityColors).PushColor;
@@ -13,14 +15,11 @@ class PushAbility : Ability
         Debug.Log("Using Push");
         timeLeft = Cooldown;
 
-        var hits =
-            Physics.OverlapSphere(
-                controller.transform.position + controller.transform.TransformDirection(0f, 0f, 0.5f), 1.5f);
-
-        foreach (var gameObject in hits)
+        RaycastHit hitInfo;
+        if (Physics.Raycast(controller.transform.position,
+            controller.transform.forward * (PushRange + controller.GetComponent<Collider>().bounds.extents.z), out hitInfo))
         {
-            Debug.Log("Found pushable");
-            var pushable = gameObject.GetComponent<Pushable>();
+            var pushable = hitInfo.transform.GetComponent<Pushable>();
             if (pushable)
             {
                 pushable.Push(controller.transform.forward);

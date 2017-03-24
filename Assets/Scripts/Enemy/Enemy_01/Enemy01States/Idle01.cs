@@ -33,7 +33,7 @@ public class Idle01 : Enemy01State {
             
         
         switchTimer += Time.deltaTime;
-        if(switchTimer > enemy.idleTime)
+        if(switchTimer > enemy.IdleTime)
         {
             changeState();
         }
@@ -43,7 +43,7 @@ public class Idle01 : Enemy01State {
     private void changeState() //go into patrol
     {
         
-         enemy.changeState(new Patrol01(enemy, enemy.vec));
+         enemy.changeState(new Patrol01(enemy, enemy.StartVelocity));
          Debug.Log("Switching to patrol");
             
     }

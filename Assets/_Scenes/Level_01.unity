@@ -429,6 +429,26 @@ Prefab:
       propertyPath: vec.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114436770635542760, guid: 06b81ef548e107041b91ba5deaba3943,
+        type: 2}
+      propertyPath: StartVelocity.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114436770635542760, guid: 06b81ef548e107041b91ba5deaba3943,
+        type: 2}
+      propertyPath: IdleTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114436770635542760, guid: 06b81ef548e107041b91ba5deaba3943,
+        type: 2}
+      propertyPath: PatrolTime
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114436770635542760, guid: 06b81ef548e107041b91ba5deaba3943,
+        type: 2}
+      propertyPath: GroundCheckDistance
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 06b81ef548e107041b91ba5deaba3943, type: 2}
   m_IsPrefabParent: 0
@@ -6035,11 +6055,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4619598214104138, guid: 171300cbab6d57f438291baf8d5497c6, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0.33
+      value: 2.3
       objectReference: {fileID: 0}
     - target: {fileID: 4619598214104138, guid: 171300cbab6d57f438291baf8d5497c6, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.99
+      value: 4.3
       objectReference: {fileID: 0}
     - target: {fileID: 4619598214104138, guid: 171300cbab6d57f438291baf8d5497c6, type: 2}
       propertyPath: m_LocalPosition.z
@@ -13213,6 +13233,26 @@ Prefab:
       propertyPath: vec.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114436770635542760, guid: 06b81ef548e107041b91ba5deaba3943,
+        type: 2}
+      propertyPath: StartVelocity.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114436770635542760, guid: 06b81ef548e107041b91ba5deaba3943,
+        type: 2}
+      propertyPath: IdleTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114436770635542760, guid: 06b81ef548e107041b91ba5deaba3943,
+        type: 2}
+      propertyPath: PatrolTime
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114436770635542760, guid: 06b81ef548e107041b91ba5deaba3943,
+        type: 2}
+      propertyPath: GroundCheckDistance
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 06b81ef548e107041b91ba5deaba3943, type: 2}
   m_IsPrefabParent: 0
@@ -19168,6 +19208,36 @@ Prefab:
         type: 2}
       propertyPath: vec.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114436770635542760, guid: 06b81ef548e107041b91ba5deaba3943,
+        type: 2}
+      propertyPath: StartVelocity.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114436770635542760, guid: 06b81ef548e107041b91ba5deaba3943,
+        type: 2}
+      propertyPath: IdleTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114436770635542760, guid: 06b81ef548e107041b91ba5deaba3943,
+        type: 2}
+      propertyPath: PatrolTime
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114436770635542760, guid: 06b81ef548e107041b91ba5deaba3943,
+        type: 2}
+      propertyPath: GroundCheckDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 54682534303534846, guid: 06b81ef548e107041b91ba5deaba3943,
+        type: 2}
+      propertyPath: m_Constraints
+      value: 122
+      objectReference: {fileID: 0}
+    - target: {fileID: 54682534303534846, guid: 06b81ef548e107041b91ba5deaba3943,
+        type: 2}
+      propertyPath: m_UseGravity
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 06b81ef548e107041b91ba5deaba3943, type: 2}
