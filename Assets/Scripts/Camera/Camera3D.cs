@@ -43,7 +43,6 @@ public class Camera3D : MonoBehaviour
 
     [HideInInspector]
     public float Margin = 0.3f;
-    [HideInInspector]
     public float OffsetY = 0.1f;
     
     private Transform _transform;
@@ -54,7 +53,7 @@ public class Camera3D : MonoBehaviour
         _transform = transform;
 
         // Getting the angles to start from
-        Vector3 angles = _transform.eulerAngles;
+        Vector3 angles = Target.eulerAngles;
         _x = angles.y;
         _y = angles.x;
         _actualDistance = PreferredDistance;
@@ -64,11 +63,6 @@ public class Camera3D : MonoBehaviour
         // it would be better to split this into possibly three categories: PS4, Xbox 360, No Controller
         _isUsingController = Input.GetJoystickNames().Length != 0;
         
-    }
-
-    void Update()
-    {
-       
     }
 
     void LateUpdate()
@@ -91,14 +85,14 @@ public class Camera3D : MonoBehaviour
         // this might seem confusing but that's because yaw and pitch, X plane corresponds to moving UP/DOWN and Y lane corresponds to LEFT/RIGHT
         Quaternion rotation = Quaternion.Euler(_y, _x, 0);
 
-        var rayLength = (Target.position - _transform.position).magnitude;
+        var rayLength = ((Target.position + new Vector3(0, OffsetY, 0)) - _transform.position).magnitude;
 
         RaycastHit rayHit;
-        var hit = Physics.Raycast(Target.position, -_transform.forward, out rayHit, rayLength, LayerMask);
+        var hit = Physics.Raycast(Target.position + new Vector3(0, OffsetY, 0), -_transform.forward, out rayHit, rayLength, LayerMask);
         
         if (hit)
         {
-            Debug.DrawLine(Target.position, _transform.position, Color.magenta);
+            Debug.DrawLine(Target.position + new Vector3(0, OffsetY, 0), _transform.position, Color.magenta);
             
             float steps = rayHit.distance * CameraAccelerationIn * Time.deltaTime;
             _actualDistance -= steps;
@@ -108,7 +102,7 @@ public class Camera3D : MonoBehaviour
             Debug.DrawLine(Target.position, _transform.position, Color.green);
 
             // when zooming out we're gonna check a little further ahead than the total distance, to see if we can actually zoom out or not
-            var cantZoomOut = Physics.Raycast(Target.position, -_transform.forward, out rayHit, rayLength + Margin, LayerMask);
+            var cantZoomOut = Physics.Raycast(Target.position + new Vector3(0, OffsetY, 0), -_transform.forward, out rayHit, rayLength + Margin, LayerMask);
             
             if (_actualDistance < PreferredDistance && !cantZoomOut)
             {
