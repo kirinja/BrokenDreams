@@ -6,7 +6,8 @@ public class TriggerSound : MonoBehaviour {
 
 	private AudioSource[] sources;
 	private AudioSource source1;
-	//private AudioSource source2;
+	private AudioSource source2;
+
 
 	public AudioClip wallSound;	//when colliding with a wall 
 	//public AudioClip playerSound;
@@ -15,12 +16,9 @@ public class TriggerSound : MonoBehaviour {
 	public AudioClip abilitySound;
 	public AudioClip differentRoomSounds;
 
-	private float volLowRange = 0.5f;
-	private float volHighRange = 1.0f;
 
 	private int hits = 0;
 	private int count = 1;
-	private float volume = 0.5f;
 
 
 	// Use this for initialization
@@ -45,10 +43,10 @@ public class TriggerSound : MonoBehaviour {
 			source1.PlayOneShot (wallSound);
 		}
 
-		if (col.gameObject.CompareTag("Movable Object")){
+	/*	if (col.gameObject.CompareTag("Movable Object")){
 			source1.PlayOneShot(moSound);
 		}
-
+*/
 		if (col.gameObject.CompareTag("Hit Object")){
 			source1.PlayOneShot (hitSound);
 		}
@@ -68,11 +66,6 @@ public class TriggerSound : MonoBehaviour {
 
 	void OnTriggerExit(Collider col){
 		if (col.gameObject.tag == "Room" && source1.isPlaying){
-			
-			//float volume = Random.Range (volLowRange, volHighRange);
-			//source1.PlayOneShot(differentRoomSounds, volume);
-
-			//source1.pitch = 0.5f;
 			source1.Stop ();
 		}
 	}
