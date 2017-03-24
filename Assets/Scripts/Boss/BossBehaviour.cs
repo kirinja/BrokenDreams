@@ -17,6 +17,18 @@ public class BossBehaviour : MonoBehaviour
     //public float SwitchPhaseThree = 0.3f;
     
     // enemy to spawn
+    public GameObject Enemy1;
+    public Enemy Enemy2;
+
+    public GameObject[] PhasePlatforms;
+    private int phaseIndex = 0;
+
+    public GameObject PushableBox;
+
+    [Tooltip("Amount of enemies boss should spawn during phase 1")]
+    public int Phase1Spawn = 3;
+    [Tooltip("Amount of enemies boss should spawn during phase 2")]
+    public int Phase2Spanw = 2;
 
     // how often we change state
     [Tooltip("This is hacky and should be removed. Right now every state switch is tied to this timer")]
@@ -46,7 +58,8 @@ public class BossBehaviour : MonoBehaviour
 	void Update ()
 	{
         if (Input.GetKeyDown(KeyCode.P))
-            _bossState.TakeDamage(1);
+            if (_bossState != null)
+                _bossState.TakeDamage(1);
 
 	    if (HP <= 0)
 	    {
@@ -62,9 +75,15 @@ public class BossBehaviour : MonoBehaviour
 	    if (newState == null) return;
         
         Debug.Log("Changing phase - (Current Name: " + _bossState.GetType().Name + ")");
+        PhasePlatforms[phaseIndex].SetActive(false);
 	    _bossState.Exit();
 	    _bossState = newState;
 	    newState.Enter(this);
+	    ++phaseIndex;
+	    if (phaseIndex >= PhasePlatforms.Length)
+	        phaseIndex = PhasePlatforms.Length;
+
+        PhasePlatforms[phaseIndex].SetActive(true);
 	    // here we also need to control the boss arena?
 	    // or maybe that should be seperate
 	    // is this controlling only the boss behaviour or the boss arena as well?

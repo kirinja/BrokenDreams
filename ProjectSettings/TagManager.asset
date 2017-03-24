@@ -11,6 +11,7 @@ TagManager:
   - Particle system
   - Room
   - Moving
+  - Platform
   layers:
   - Default
   - TransparentFX
