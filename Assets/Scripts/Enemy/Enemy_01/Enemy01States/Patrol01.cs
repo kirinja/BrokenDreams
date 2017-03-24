@@ -9,7 +9,6 @@ public class Patrol01 : Enemy01State {
     private float switchTimer;
     private float timetoSwitch;
     
-
     public void Enter()
     {}
 
@@ -19,17 +18,18 @@ public class Patrol01 : Enemy01State {
 
     public void Update()
     {
-
+        RaycastHit hitInfo;
+        if (!(Physics.Raycast(enemy.transform.position, Vector3.down * enemy.GroundCheckDistance, out hitInfo) && hitInfo.transform.CompareTag("Wall")))
+        {
+            enemy.invertVec();
+        }
 
         enemy.transform.localPosition += enemy.getVec() * Time.deltaTime;
         switchTimer += Time.deltaTime;
-        if(switchTimer > enemy.patrolTime)
+        if(switchTimer > enemy.PatrolTime)
         {
             changeState();
         }
-    
-            
-       
     }
 
     public void Collision()

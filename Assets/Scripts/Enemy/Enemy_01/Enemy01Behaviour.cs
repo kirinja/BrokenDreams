@@ -4,20 +4,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy01Behaviour : Enemy
-{ 
+{
+    public Vector3 StartVelocity;
+    public float IdleTime;
+    public float PatrolTime;
+    public float GroundCheckDistance;
 
-    public Vector3 vec;
     private Collider col;
     private Enemy01State state;
     private int health;
-    public float idleTime;
-    public float patrolTime;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         col = GetComponent<Collider>();
         //state = new Idle01(this, new Vector3(0,0,0));
-        state = new Patrol01(this, vec);
+        state = new Patrol01(this, StartVelocity);
         Debug.Log("Patrol");
 	}
 	
@@ -38,12 +39,12 @@ public class Enemy01Behaviour : Enemy
 
     public Vector3 getVec()
     {
-        return vec;
+        return StartVelocity;
     }
 
     public void invertVec()
     {
-        vec *= -1;
+        StartVelocity *= -1;
     }
 
     public override void Damage()
