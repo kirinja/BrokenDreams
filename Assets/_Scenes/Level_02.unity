@@ -768,6 +768,7 @@ GameObject:
   - component: {fileID: 59113057}
   - component: {fileID: 59113056}
   - component: {fileID: 59113059}
+  - component: {fileID: 59113060}
   m_Layer: 0
   m_Name: Cube (153)
   m_TagString: Untagged
@@ -850,6 +851,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PushSpeed: 5
+--- !u!54 &59113060
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 59113054}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1 &61894383
 GameObject:
   m_ObjectHideFlags: 0
@@ -5103,6 +5119,7 @@ GameObject:
   - component: {fileID: 423061265}
   - component: {fileID: 423061264}
   - component: {fileID: 423061267}
+  - component: {fileID: 423061268}
   m_Layer: 0
   m_Name: Cube (98)
   m_TagString: Untagged
@@ -5185,6 +5202,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PushSpeed: 5
+--- !u!54 &423061268
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 423061262}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1 &428237270
 GameObject:
   m_ObjectHideFlags: 0
@@ -6863,6 +6895,7 @@ GameObject:
   - component: {fileID: 590115590}
   - component: {fileID: 590115589}
   - component: {fileID: 590115592}
+  - component: {fileID: 590115593}
   m_Layer: 0
   m_Name: Cube (154)
   m_TagString: Untagged
@@ -6945,6 +6978,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PushSpeed: 5
+--- !u!54 &590115593
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 590115587}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1 &592897306
 GameObject:
   m_ObjectHideFlags: 0
@@ -10189,6 +10237,7 @@ GameObject:
   - component: {fileID: 975467040}
   - component: {fileID: 975467039}
   - component: {fileID: 975467042}
+  - component: {fileID: 975467043}
   m_Layer: 0
   m_Name: Cube (152)
   m_TagString: Untagged
@@ -10271,6 +10320,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PushSpeed: 5
+--- !u!54 &975467043
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 975467037}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1 &982370490
 GameObject:
   m_ObjectHideFlags: 0
@@ -11590,6 +11654,7 @@ GameObject:
   - component: {fileID: 1183633579}
   - component: {fileID: 1183633578}
   - component: {fileID: 1183633581}
+  - component: {fileID: 1183633582}
   m_Layer: 0
   m_Name: Cube (157)
   m_TagString: Untagged
@@ -11672,6 +11737,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PushSpeed: 5
+--- !u!54 &1183633582
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1183633576}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1 &1192738360
 GameObject:
   m_ObjectHideFlags: 0
@@ -12387,15 +12467,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4619598214104138, guid: 8a5d5ea2a7e194347834f205bdf1459b, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 19.97
+      value: -77.6
       objectReference: {fileID: 0}
     - target: {fileID: 4619598214104138, guid: 8a5d5ea2a7e194347834f205bdf1459b, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 209.55
+      value: 239.9
       objectReference: {fileID: 0}
     - target: {fileID: 4619598214104138, guid: 8a5d5ea2a7e194347834f205bdf1459b, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -11.7
+      value: -14.49
       objectReference: {fileID: 0}
     - target: {fileID: 4619598214104138, guid: 8a5d5ea2a7e194347834f205bdf1459b, type: 2}
       propertyPath: m_LocalRotation.x
@@ -12462,6 +12542,18 @@ Prefab:
       propertyPath: healthSlider
       value: 
       objectReference: {fileID: 1081566650}
+    - target: {fileID: 4373606323832270, guid: 8a5d5ea2a7e194347834f205bdf1459b, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373606323832270, guid: 8a5d5ea2a7e194347834f205bdf1459b, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373606323832270, guid: 8a5d5ea2a7e194347834f205bdf1459b, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8a5d5ea2a7e194347834f205bdf1459b, type: 2}
   m_IsPrefabParent: 0
@@ -16352,6 +16444,7 @@ GameObject:
   - component: {fileID: 1787451842}
   - component: {fileID: 1787451841}
   - component: {fileID: 1787451844}
+  - component: {fileID: 1787451845}
   m_Layer: 0
   m_Name: Cube (158)
   m_TagString: Untagged
@@ -16434,6 +16527,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PushSpeed: 5
+--- !u!54 &1787451845
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1787451839}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1 &1792080949
 GameObject:
   m_ObjectHideFlags: 0
@@ -17604,6 +17712,7 @@ GameObject:
   - component: {fileID: 1938409913}
   - component: {fileID: 1938409912}
   - component: {fileID: 1938409915}
+  - component: {fileID: 1938409916}
   m_Layer: 0
   m_Name: Cube (75)
   m_TagString: Untagged
@@ -17686,6 +17795,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PushSpeed: 5
+--- !u!54 &1938409916
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1938409910}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1 &1949256378
 GameObject:
   m_ObjectHideFlags: 0
