@@ -10,6 +10,9 @@ public class Controller3D : MonoBehaviour
     private CharacterController characterController;
     private ICharacterState3D characterState;
     private int selectedAbility;
+    private bool invincible;
+    private float invincibleTime;
+    private bool visible;
 
     public PlayerAttributes Attributes { get; private set; }
     public Vector3 Velocity { get; set; }
@@ -30,6 +33,8 @@ public class Controller3D : MonoBehaviour
             var abilityColor = Resources.Load("AbilityColors", typeof(AbilityColors)) as AbilityColors;
             material.color = abilityColor.DefaultColor;
         }
+        invincible = false;
+        invincibleTime = 0f;
     }
 
     private void OnApplicationQuit()
@@ -37,6 +42,25 @@ public class Controller3D : MonoBehaviour
         var material = GetComponent<Renderer>().sharedMaterial;
         var abilityColor = Resources.Load("AbilityColors", typeof(AbilityColors)) as AbilityColors;
         material.color = abilityColor.DefaultColor;
+    }
+
+    private void Update()
+    {
+        if (invincible)
+        {
+            invincibleTime += Time.deltaTime;
+            if (invincibleTime % 0.2f < 0.1f)
+            {
+                visible = !visible;
+                GetComponent<MeshRenderer>().enabled = visible;
+            }
+            if (invincibleTime >= Attributes.InvincibleTimeOnDamage)
+            {
+                invincible = false;
+                invincibleTime = 0f;
+                GetComponent<MeshRenderer>().enabled = true;
+            }
+        }
     }
 
     public void RefreshMaterial()
@@ -126,6 +150,22 @@ public class Controller3D : MonoBehaviour
     public void SetSpawn()
     {
         spawnPosition = transform.position;
+    }
+
+    public void AttackPlayer(Vector3 hitboxCenter, int damage)
+    {
+        if (invincible) return;
+        Debug.Log("Player was attacked");
+        invincible = true;
+        KnockAway(hitboxCenter);
+        Damage(damage);
+    }
+
+    public void KnockAway(Vector3 hitboxCenter)
+    {
+        var direction = transform.position - hitboxCenter;
+        Velocity = direction.normalized * Attributes.KnockbackVelocity + Vector3.up * 10;
+        ChangeCharacterState(new CharacterStateSwitch3D(new AirState3D(this)));
     }
 
     public void Damage()

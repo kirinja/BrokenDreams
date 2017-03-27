@@ -49,7 +49,7 @@ GameObject:
   - component: {fileID: 65777011662754150}
   m_Layer: 8
   m_Name: TriggerSoundThePlayerCollidesWithAndItself (1)
-  m_TagString: Untagged
+  m_TagString: Player Trigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -412,6 +412,8 @@ MonoBehaviour:
   wallSound: {fileID: 8300000, guid: 8964610cd721863428f7257859d8eda7, type: 3}
   moSound: {fileID: 8300000, guid: 7b78ca37fbb58cb4f974f5e6c1dad913, type: 3}
   hitSound: {fileID: 8300000, guid: 4543fd8c38752bc498d1b38c1aeacb21, type: 3}
+  abilitySound: {fileID: 0}
+  differentRoomSounds: {fileID: 0}
 --- !u!114 &114371488763153094
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -433,13 +435,11 @@ MonoBehaviour:
   DashLength: 12
   GroundDeaccelerationTime: 0.05
   MaxRotationTime: 0.2
+  KnockbackVelocity: 10
+  InvincibleTimeOnDamage: 1
   MaxHP: 5
   currentHealth: 0
-  Abilities:
-  - {fileID: 11400000, guid: bc3e782ac3259c04b8e3c31cf1206b7c, type: 2}
-  - {fileID: 11400000, guid: 5faafb6b41012314d965b51bd49994a4, type: 2}
-  - {fileID: 11400000, guid: a2c0237ccb792e544871f99d68e023d2, type: 2}
-  - {fileID: 11400000, guid: e801c40a41e118e46b766f9d36d2b544, type: 2}
+  Abilities: []
 --- !u!114 &114725953658717468
 MonoBehaviour:
   m_ObjectHideFlags: 1

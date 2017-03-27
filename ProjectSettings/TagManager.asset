@@ -12,6 +12,8 @@ TagManager:
   - Room
   - Moving
   - Room2
+  - Platform
+  - Player Trigger
   layers:
   - Default
   - TransparentFX

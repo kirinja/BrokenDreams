@@ -2,57 +2,57 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerHealth : MonoBehaviour {
+public class PlayerHealth : MonoBehaviour
+{
+    public Slider healthSlider;
 
+    private Controller3D controller3D;
+    private PlayerAttributes playerAttributes;
+    bool isDead;
+    bool damaged;
 
-	public Slider healthSlider;
+    private void Start()
+    {
 
-	Controller3D controller3D;
+    }
 
-	PlayerAttributes playerAttributes;
+    private void Update()
+    {
 
-	bool isDead;
+    }
 
-	bool damaged;
+    private void Awake()
+    {
 
+        controller3D = GetComponent<Controller3D>();
 
-	void Start () {
-		
-	}
+        playerAttributes = GetComponent<PlayerAttributes>();
 
-	void Update () {
-		
-	}
+        playerAttributes.currentHealth = playerAttributes.MaxHP;
 
-	void Awake() {
-		
-		controller3D = GetComponent<Controller3D> ();
+    }
 
-		playerAttributes = GetComponent<PlayerAttributes> ();
+    public void TakeDamage(int amount)
+    {
+        damaged = true;
 
-		playerAttributes.currentHealth = playerAttributes.MaxHP;
+        playerAttributes.currentHealth -= amount;
 
-	}
+        healthSlider.value = playerAttributes.currentHealth;
 
-	public void TakeDamage(int amount){
+        if (playerAttributes.currentHealth <= 0 && !isDead)
+        {
+            Death();
+        }
+    }
 
-		damaged = true;
-
-		playerAttributes.currentHealth -= amount;
-
-		healthSlider.value = playerAttributes.currentHealth;
-
-		if (playerAttributes.currentHealth <= 0 && !isDead) {
-			Death ();
-		}
-	}
-
-	void Death() {
-		isDead = true;
+    void Death()
+    {
+        isDead = true;
         controller3D.Kill();
 
-		//Controller3D.enabled = false;
-	}
+        //Controller3D.enabled = false;
+    }
 
     public void Respawn()
     {

@@ -5,4 +5,5 @@ using UnityEngine;
 public abstract class Enemy : Attackable
 {
     public abstract void changeState(EnemyState e);
+    public abstract GameObject Drop { get; set; }
 }
