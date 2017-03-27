@@ -9,9 +9,9 @@ using UnityEngine.SceneManagement;
  * List of levels and their IDs:
  * 0 Bootstrapper
  * 1 Hub
- * 2 Level1
- * 3 Level2
- * 4 BossLevel
+ * 2 Level_01
+ * 3 Level_02
+ * 4 Boss_01
  */
 
 
@@ -29,16 +29,13 @@ public class GameManager : MonoBehaviour
     private string _saveDirectory;
     private static readonly List<string[]> InMemory = new List<string[]>();
     private string _savePath;
-
-    //private Inventory Inventory;
+    
     // the two values we're interested in are current HP and which abilities the player have
     private PlayerAttributes _playerAttributes;
-    public Scene Level1;
-    public Scene Level2;
 
     // the game manager keeps track of which levels the player have beaten, and save them to file/memory
     // TODO should the persistor have this field? The persistor is now in charge of saving/loading and keeping track of progress
-    private static readonly SortedDictionary<int, bool> CompletedLevels = new SortedDictionary<int, bool>();
+    private static readonly Dictionary<string, bool> CompletedLevels = new Dictionary<string, bool>();
 
     private void Awake()
     {
@@ -54,28 +51,31 @@ public class GameManager : MonoBehaviour
         _savePath = Path.Combine(_saveDirectory, SaveFile);
 
         // we can do this since this script is only in the bootstrap scene
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene("Hub");
     }
 
-    public void BeatLevel(int buildIndex)
+    public void BeatLevel(string levelName)
     {
         // add the level to _completedLevels
-        CompletedLevels[buildIndex] = true;
+        CompletedLevels[levelName] = true;
     }
 
-    public bool BossLevelAvailable()
+    public bool LevelAvailable(string levelName)
     {
-        // here we want to return true if we have beaten the previous levels, I think we can just check for their buildIndex at this point but might have to redo in the future
+        // here we want to return true if we have beaten the previous levels, I think we can just check for their levelName at this point but might have to redo in the future
         // TODO This is very hacky, we need a way to do this in a better manner
         // we have to manually set which two levels we need to beat before the boss level unlocks
-        return CompletedLevels[2] && CompletedLevels[3];
-        //return CompletedLevels[level1.buildIndex] && CompletedLevels[level2.buildIndex];
-        //return false;
-    }
-
-    public bool LevelTwoAvailable()
-    {
-        return CompletedLevels[2];
+        switch (levelName)
+        {
+            case "Level_01":
+                return true;
+            case "Level_02":
+                return CompletedLevels.ContainsKey("Level_01") && CompletedLevels["Level_01"];
+            case "Boss_01":
+                return CompletedLevels.ContainsKey("Level_01") && CompletedLevels["Level_01"] && CompletedLevels.ContainsKey("Level_02") && CompletedLevels["Level_02"];
+            default:
+                return false;
+        }
     }
 
     public void SaveToMemory()
@@ -113,7 +113,7 @@ public class GameManager : MonoBehaviour
         var playerSaveData = JsonUtility.FromJson<PlayerSaveData>(stringifiedData[0]);
         _playerAttributes.currentHealth = playerSaveData.HP; // TODO FIX THIS SHIT
 
-        foreach (int i in playerSaveData.BeatenLevels)
+        foreach (var i in playerSaveData.BeatenLevels)
             BeatLevel(i);
 
         // here we need to create abilities depending on the ones we currently have in the save data
@@ -148,7 +148,7 @@ public class GameManager : MonoBehaviour
     {
         var playerSaveData = new PlayerSaveData();
         var abilityNames = new string[_playerAttributes.Abilities.Count];
-        for (int i = 0; i < _playerAttributes.Abilities.Count; i++)
+        for (var i = 0; i < _playerAttributes.Abilities.Count; i++)
         {
             abilityNames[i] = _playerAttributes.Abilities[i].name;
         }
@@ -176,12 +176,12 @@ public class GameManager : MonoBehaviour
         var playerSaveData = JsonUtility.FromJson<PlayerSaveData>(stringifiedData[0]);
         _playerAttributes.currentHealth = playerSaveData.HP; // TODO FIX THIS SHIT
 
-        foreach (int i in playerSaveData.BeatenLevels)
+        foreach (var i in playerSaveData.BeatenLevels)
             BeatLevel(i);
 
         // here we need to create abilities depending on the ones we currently have in the save data
         _playerAttributes.Abilities.Clear();
-        foreach (string s in playerSaveData.Abilities)
+        foreach (var s in playerSaveData.Abilities)
         {
             var abb = Resources.Load<Ability>("Abilities\\" + s);
             _playerAttributes.Abilities.Add(abb);
@@ -224,16 +224,6 @@ public class GameManager : MonoBehaviour
             Debug.Log(_playerAttributes);
             if (!LoadFromMemory())
                 LoadFromFile();
-            /*LoadFromMemory();
-            switch (scene.buildIndex)
-            {
-                case 1:
-                    if (BossLevelAvailable())
-                    {
-                        
-                    }
-                    break;
-            }*/
         }
         // Every time a level is loaded we can do the init stuff here, like reading from file/memory
 

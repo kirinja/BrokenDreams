@@ -46,6 +46,17 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    public void Heal(int amount)
+    {
+        var health = playerAttributes.currentHealth + amount;
+        if (health > playerAttributes.MaxHP)
+        {
+            health = playerAttributes.MaxHP;
+        }
+        playerAttributes.currentHealth = health;
+        healthSlider.value = health;
+    }
+
     void Death()
     {
         isDead = true;

@@ -5,5 +5,5 @@ public struct PlayerSaveData
 {
     public string[] Abilities;
     public int HP;
-    public int[] BeatenLevels;
+    public string[] BeatenLevels;
 }

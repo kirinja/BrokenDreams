@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Dialogue>
+  <DialogueNodeList> <!--List of DialogueNodes-->
+    <DialogueNode> <!--Container for speech(text) and responses(options)-->
+      <nodeID>0</nodeID> <!--Node for ID, used for manouvering to nodes-->
+      <text>Hello</text> <!--The text the NPC will be typed out-->
+      <options> <!--Start of list of options-->
+        <dialogueOption><!--Container for Response text and destinationID-->
+          <text>I have to go now</text><!--Our response-->
+          <destID>-1</destID><!--Where this response will lead-->
+        </dialogueOption> <!--End of Option-->
+        <dialogueOption> 
+          <text>Give me HP</text>
+          <destID>1</destID>
+        </dialogueOption>
+      </options> <!--End of list of options-->
+    </DialogueNode>  <!--End of node-->
+    <DialogueNode>
+      <nodeID>1</nodeID>
+     <text>Maybe</text>
+        <options>
+          <DialogueOption>
+            <text>Maybe?</text>
+            <destID>-1</destID>
+          </DialogueOption>
+        </options>
+     </DialogueNode>
+  </DialogueNodeList> <!--End of list of DialougeNodes-->
+</Dialogue>
