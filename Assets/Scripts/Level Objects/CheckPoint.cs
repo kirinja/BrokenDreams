@@ -20,6 +20,8 @@ public class CheckPoint : MonoBehaviour {
         {
             Debug.Log("CHECKPOINT");
             other.GetComponent<Controller3D>().SetSpawn();
+            GameObject.Find("GameManager").GetComponent<GameManager>().SaveToMemory();
+            GameObject.Find("GameManager").GetComponent<GameManager>().SaveToFiles();
         }
     }
 }
