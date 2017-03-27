@@ -50,6 +50,12 @@ public class BossPhaseTwo : IBossPhaseState
     {
         //throw new System.NotImplementedException();
 
+        var enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject g in enemies)
+        {
+            Object.Destroy(g);
+        }
+
         _bossData.PhasePlatforms[1].SetActive(false);
         _bossData.BossPhase2.SetActive(false);
     }
