@@ -15,6 +15,7 @@ public class TriggerSound : MonoBehaviour {
 	public AudioClip hitSound;
 	public AudioClip abilitySound;
 	public AudioClip differentRoomSounds;
+	public AudioClip melody;
 
 
 	private int hits = 0;
@@ -35,7 +36,8 @@ public class TriggerSound : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider col){
-	
+
+
 		if (col.gameObject.CompareTag("Wall")){
 			//Debug.Log ("Wall");
 			hits++;
@@ -46,26 +48,33 @@ public class TriggerSound : MonoBehaviour {
 	/*	if (col.gameObject.CompareTag("Movable Object")){
 			source1.PlayOneShot(moSound);
 		}
-*/
+		*/
+
 		if (col.gameObject.CompareTag("Hit Object")){
 			source1.PlayOneShot (hitSound);
 		}
 
 		if (col.gameObject.CompareTag("Particle system")){
 			source1.PlayOneShot (abilitySound);
-			//col.gameObject.SetActive (false);	//deactive particle sytem Hit when colliding with the player	
-
 		}
 
 		if (col.gameObject.CompareTag ("Room")) {
 			source1.PlayOneShot (differentRoomSounds);
 
 		}
+
+		if (col.gameObject.CompareTag("Room2")){
+			source1.PlayOneShot (melody);
+		}
 			
 	}
 
 	void OnTriggerExit(Collider col){
 		if (col.gameObject.tag == "Room" && source1.isPlaying){
+			source1.Stop ();
+		}
+
+		if (col.gameObject.tag == "Room2" && source1.isPlaying){
 			source1.Stop ();
 		}
 	}
