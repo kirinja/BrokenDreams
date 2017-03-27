@@ -13,8 +13,9 @@ public class BossPhaseThree : IBossPhaseState
         //throw new System.NotImplementedException();
         _bossData = data;
         _bossData.PhasePlatforms[2].SetActive(true);
+        _bossData.BossPhase3.SetActive(true);
         _internalState = new BossSubThreeIdle(); // TODO FIX
-        _internalState.Enter(_bossData);
+        _internalState.Enter(_bossData, null); // TODO
     }
 
     public IBossPhaseState Execute()
@@ -27,7 +28,7 @@ public class BossPhaseThree : IBossPhaseState
             Debug.Log("Switching internal state 3");
             _internalState.Exit();
             _internalState = state;
-            _internalState.Enter(_bossData);
+            _internalState.Enter(_bossData, null); // TODO
         }
         //return !Alive() ? null : new BossPhaseOne(); // TODO change to phase 3 instead of phase 1
         return null;
@@ -51,6 +52,7 @@ public class BossPhaseThree : IBossPhaseState
         //throw new System.NotImplementedException();
 
         _bossData.PhasePlatforms[2].SetActive(false);
+        _bossData.BossPhase3.SetActive(false);
     }
 
     public bool Alive()

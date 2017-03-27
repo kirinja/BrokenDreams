@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IBossSubState
 {
-    void Enter(BossBehaviour data);
+    void Enter(BossBehaviour data, GameObject head);
     IBossSubState Execute();
     void Exit();
 
