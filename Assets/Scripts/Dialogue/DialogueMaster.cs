@@ -55,7 +55,6 @@ public class DialogueMaster : MonoBehaviour {
 
         window.SetActive(false);
 
-        runDialogue();
     }
 
     private void runDialogue()
