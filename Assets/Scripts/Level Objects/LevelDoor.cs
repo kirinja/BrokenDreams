@@ -1,19 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class LevelDoor : MonoBehaviour
 {
+    public bool Inverted;
     public string Scene;
-    public bool RequiresInput = true;
 
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.CompareTag("Player") && (!RequiresInput || Input.GetAxisRaw("Vertical") >= 0.5f))
+	// Use this for initialization
+	void Start () {
+        if (!GameObject.FindObjectOfType<GameManager>().LevelAvailable(Scene) && !Inverted || GameObject.FindObjectOfType<GameManager>().LevelAvailable(Scene) && Inverted)
         {
-            SceneManager.LoadScene(Scene);
+            enabled = false;
         }
     }
+	
+	// Update is called once per frame
+	void Update () {
+		
+	}
 }
