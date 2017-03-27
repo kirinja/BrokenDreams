@@ -15,6 +15,7 @@ TagManager:
   - Platform
   - Player Trigger
   - Room3
+  - Game Manager
   layers:
   - Default
   - TransparentFX

@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
 
     // the game manager keeps track of which levels the player have beaten, and save them to file/memory
     // TODO should the persistor have this field? The persistor is now in charge of saving/loading and keeping track of progress
-    private static readonly SortedDictionary<string, bool> CompletedLevels = new SortedDictionary<string, bool>();
+    private static readonly Dictionary<string, bool> CompletedLevels = new Dictionary<string, bool>();
 
     private void Awake()
     {
@@ -70,9 +70,9 @@ public class GameManager : MonoBehaviour
             case "Level_01":
                 return true;
             case "Level_02":
-                return CompletedLevels["Level_01"];
+                return CompletedLevels.ContainsKey("Level_01") && CompletedLevels["Level_01"];
             case "Boss_01":
-                return CompletedLevels["Level_01"] && CompletedLevels["Level_02"];
+                return CompletedLevels.ContainsKey("Level_01") && CompletedLevels["Level_01"] && CompletedLevels.ContainsKey("Level_02") && CompletedLevels["Level_02"];
             default:
                 return false;
         }

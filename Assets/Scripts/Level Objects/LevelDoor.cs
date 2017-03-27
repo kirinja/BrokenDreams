@@ -7,16 +7,17 @@ public class LevelDoor : MonoBehaviour
     public bool Inverted;
     public string Scene;
 
-	// Use this for initialization
-	void Start () {
-        if (!GameObject.FindObjectOfType<GameManager>().LevelAvailable(Scene) && !Inverted || GameObject.FindObjectOfType<GameManager>().LevelAvailable(Scene) && Inverted)
-        {
-            enabled = false;
-        }
+    // Use this for initialization
+    void Start()
+    {
+        gameObject.SetActive(Inverted ? 
+                !GameObject.FindGameObjectWithTag("Game Manager").GetComponent<GameManager>().LevelAvailable(Scene):
+                GameObject.FindGameObjectWithTag("Game Manager").GetComponent<GameManager>().LevelAvailable(Scene));
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 }
