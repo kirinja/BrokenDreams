@@ -12,6 +12,7 @@ public class BossPhaseThree : IBossPhaseState
         Debug.Log("Boss Phase 3");
         //throw new System.NotImplementedException();
         _bossData = data;
+        _bossData.PhasePlatforms[2].SetActive(true);
         _internalState = new BossSubThreeIdle(); // TODO FIX
         _internalState.Enter(_bossData);
     }
@@ -48,6 +49,8 @@ public class BossPhaseThree : IBossPhaseState
     public void Exit()
     {
         //throw new System.NotImplementedException();
+
+        _bossData.PhasePlatforms[2].SetActive(false);
     }
 
     public bool Alive()

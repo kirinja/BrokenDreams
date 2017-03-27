@@ -185,7 +185,7 @@ GameObject:
   - component: {fileID: 39425626}
   m_Layer: 0
   m_Name: Cube (3)
-  m_TagString: Platform
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -784,6 +784,41 @@ Prefab:
       propertyPath: controller3D
       value: 
       objectReference: {fileID: 939800171}
+    - target: {fileID: 114591846439093306, guid: 403946d394364944e8f517ea508880b7,
+        type: 2}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114404460564813756, guid: 403946d394364944e8f517ea508880b7,
+        type: 2}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114773762109949642, guid: 403946d394364944e8f517ea508880b7,
+        type: 2}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114700895344534290, guid: 403946d394364944e8f517ea508880b7,
+        type: 2}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114706163903604702, guid: 403946d394364944e8f517ea508880b7,
+        type: 2}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114823795046771958, guid: 403946d394364944e8f517ea508880b7,
+        type: 2}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114060994308713646, guid: 403946d394364944e8f517ea508880b7,
+        type: 2}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 403946d394364944e8f517ea508880b7, type: 2}
   m_IsPrefabParent: 0
@@ -938,7 +973,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 610559889}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 7.5, z: -25}
+  m_LocalPosition: {x: 0, y: 7.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1119,7 +1154,7 @@ GameObject:
   - component: {fileID: 713030751}
   m_Layer: 0
   m_Name: Cube (1)
-  m_TagString: Platform
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1281,7 +1316,7 @@ GameObject:
   - component: {fileID: 789591608}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Platform
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1901,7 +1936,8 @@ MonoBehaviour:
   - {fileID: 268614929}
   - {fileID: 1102160281}
   - {fileID: 1026740105}
-  PushableBox: {fileID: 0}
+  PushableBox: {fileID: 1166803920210218, guid: 0785ab058f58d79488bc873580e5dfaf,
+    type: 2}
   Phase1Spawn: 3
   Phase2Spanw: 2
   StateSwitchTimer: 5
@@ -2442,7 +2478,7 @@ GameObject:
   - component: {fileID: 1720595582}
   m_Layer: 0
   m_Name: Cube (2)
-  m_TagString: Platform
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

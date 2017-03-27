@@ -18,8 +18,8 @@ public class TriggerSound : MonoBehaviour {
 	public AudioClip melody;
 
 
-	private int hits = 0;
-	private int count = 1;
+	//private int hits = 0;
+	//private int count = 1;
 
 
 	// Use this for initialization
@@ -40,7 +40,7 @@ public class TriggerSound : MonoBehaviour {
 
 		if (col.gameObject.CompareTag("Wall")){
 			//Debug.Log ("Wall");
-			hits++;
+			//hits++;
 			//Debug.Log ("Collision hit: " + hits);
 			source1.PlayOneShot (wallSound);
 		}

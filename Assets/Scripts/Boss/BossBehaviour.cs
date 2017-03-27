@@ -21,7 +21,7 @@ public class BossBehaviour : MonoBehaviour
     public Enemy Enemy2;
 
     public GameObject[] PhasePlatforms;
-    private int phaseIndex = 0;
+    //private int phaseIndex = 0;
 
     public GameObject PushableBox;
 
@@ -75,15 +75,15 @@ public class BossBehaviour : MonoBehaviour
 	    if (newState == null) return;
         
         Debug.Log("Changing phase - (Current Name: " + _bossState.GetType().Name + ")");
-        PhasePlatforms[phaseIndex].SetActive(false);
+        //PhasePlatforms[phaseIndex].SetActive(false);
 	    _bossState.Exit();
 	    _bossState = newState;
 	    newState.Enter(this);
-	    ++phaseIndex;
-	    if (phaseIndex >= PhasePlatforms.Length)
-	        phaseIndex = PhasePlatforms.Length;
+	    //++phaseIndex;
+	    //if (phaseIndex >= PhasePlatforms.Length)
+	    //    phaseIndex = PhasePlatforms.Length;
 
-        PhasePlatforms[phaseIndex].SetActive(true);
+        //PhasePlatforms[phaseIndex].SetActive(true);
 	    // here we also need to control the boss arena?
 	    // or maybe that should be seperate
 	    // is this controlling only the boss behaviour or the boss arena as well?

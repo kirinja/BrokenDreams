@@ -39,7 +39,7 @@ public class Pushable : MonoBehaviour
 
         if (isPushed)
         {
-            var collider = GetComponent<Collider>();
+            //var collider = GetComponent<Collider>();
 
             transform.position += velocity * Time.deltaTime;
             GetComponent<Rigidbody>().position = transform.position;

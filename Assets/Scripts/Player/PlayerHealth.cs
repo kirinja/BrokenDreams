@@ -9,7 +9,7 @@ public class PlayerHealth : MonoBehaviour
     private Controller3D controller3D;
     private PlayerAttributes playerAttributes;
     bool isDead;
-    bool damaged;
+    //bool damaged;
 
     private void Start()
     {
@@ -34,7 +34,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
-        damaged = true;
+        //damaged = true;
 
         playerAttributes.currentHealth -= amount;
 
