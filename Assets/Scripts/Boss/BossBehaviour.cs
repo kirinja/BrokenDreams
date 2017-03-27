@@ -6,7 +6,7 @@ using UnityEngine;
 public class BossBehaviour : MonoBehaviour
 {
     [HideInInspector] public int HP;
-    private IBossPhaseState _bossState;
+    public IBossPhaseState BossState;
 
     public int HitsPhaseOne = 1;
     public int HitsPhaseTwo = 3;
@@ -18,7 +18,7 @@ public class BossBehaviour : MonoBehaviour
     
     // enemy to spawn
     public GameObject Enemy1;
-    public Enemy Enemy2;
+    public GameObject Enemy2;
 
     public GameObject[] PhasePlatforms;
     //private int phaseIndex = 0;
@@ -28,11 +28,18 @@ public class BossBehaviour : MonoBehaviour
     [Tooltip("Amount of enemies boss should spawn during phase 1")]
     public int Phase1Spawn = 3;
     [Tooltip("Amount of enemies boss should spawn during phase 2")]
-    public int Phase2Spanw = 2;
+    public int Phase2Spawn = 2;
 
     // how often we change state
     [Tooltip("This is hacky and should be removed. Right now every state switch is tied to this timer")]
     public float StateSwitchTimer = 5.0f;
+
+    public Transform Phase2DefendPos;
+    public Transform Phase2AttackPos;
+
+    public GameObject BossPhase1;
+    public GameObject BossPhase2;
+    public GameObject BossPhase3;
 
     [HideInInspector] public float phase1;
     [HideInInspector] public float phase2;
@@ -40,8 +47,8 @@ public class BossBehaviour : MonoBehaviour
 
 	// Use this for initialization
 	void Start () {
-		_bossState = new BossPhaseOne();
-        _bossState.Enter(this);
+		BossState = new BossPhaseOne();
+        BossState.Enter(this);
         /*
 	    phase1 = HP - HP * SwitchPhaseOne;
 	    phase2 = HP - HP * (SwitchPhaseOne + SwitchPhaseTwo);
@@ -58,26 +65,26 @@ public class BossBehaviour : MonoBehaviour
 	void Update ()
 	{
         if (Input.GetKeyDown(KeyCode.P))
-            if (_bossState != null)
-                _bossState.TakeDamage(1);
+            if (BossState != null)
+                BossState.TakeDamage(1);
 
 	    if (HP <= 0)
 	    {
 	        Debug.Log("BOSS DEAD");
-	        _bossState = null;
+	        BossState = null;
 	    }
 
-	    if (_bossState == null) return;
+	    if (BossState == null) return;
 
-	    var newState = _bossState.Execute();
+	    var newState = BossState.Execute();
 
         // change phase
 	    if (newState == null) return;
         
-        Debug.Log("Changing phase - (Current Name: " + _bossState.GetType().Name + ")");
+        Debug.Log("Changing phase - (Current Name: " + BossState.GetType().Name + ")");
         //PhasePlatforms[phaseIndex].SetActive(false);
-	    _bossState.Exit();
-	    _bossState = newState;
+	    BossState.Exit();
+	    BossState = newState;
 	    newState.Enter(this);
 	    //++phaseIndex;
 	    //if (phaseIndex >= PhasePlatforms.Length)
@@ -94,21 +101,21 @@ public class BossBehaviour : MonoBehaviour
         // here might be a problem, since we're reusing this event for every phase but the way we damage is different depending on state
         // might be able to hack it with an if state check, so in phase 1 only box or whatever can deal damage
         /*
-        if (_bossState.GetType().Name.Equals("BossPhaseOne"))
+        if (BossState.GetType().Name.Equals("BossPhaseOne"))
         {
             Debug.Log("Damage in Phase 1");   
         }
-        else if (_bossState.GetType().Name.Equals("BossPhaseTwo"))
+        else if (BossState.GetType().Name.Equals("BossPhaseTwo"))
         {
             Debug.Log("Damage in Phase 2");
         }
-        else if (_bossState.GetType().Name.Equals("BossPhaseThree"))
+        else if (BossState.GetType().Name.Equals("BossPhaseThree"))
         {
             Debug.Log("Damage in Phase 3");
         }*/
 
         // this might be hacky?
-        switch (_bossState.GetType().Name)
+        switch (BossState.GetType().Name)
         {
             case "BossPhaseOne":
                 Debug.Log("Damage in Phase 1");

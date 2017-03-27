@@ -8,7 +8,7 @@ public class BossSubThreeAttack : IBossSubState
     private BossBehaviour _bossData;
     private float timer;
 
-    public void Enter(BossBehaviour data)
+    public void Enter(BossBehaviour data, GameObject head)
     {
         _bossData = data;
         timer = _bossData.StateSwitchTimer;
