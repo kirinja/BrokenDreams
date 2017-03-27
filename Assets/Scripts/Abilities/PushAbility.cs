@@ -17,7 +17,7 @@ class PushAbility : Ability
 
         RaycastHit hitInfo;
         if (Physics.Raycast(controller.transform.position,
-            controller.transform.forward * (PushRange + controller.GetComponent<Collider>().bounds.extents.z), out hitInfo))
+            controller.transform.forward, out hitInfo, PushRange + controller.GetComponent<Collider>().bounds.extents.z))
         {
             var pushable = hitInfo.transform.GetComponent<Pushable>();
             if (pushable)

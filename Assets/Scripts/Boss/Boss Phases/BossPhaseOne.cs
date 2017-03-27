@@ -13,8 +13,9 @@ public class BossPhaseOne : IBossPhaseState
         //throw new System.NotImplementedException();
         _bossData = data;
         _bossData.PhasePlatforms[0].SetActive(true);
+        _bossData.BossPhase1.SetActive(true);
         _internalState = new BossSubOneIdle();
-        _internalState.Enter(_bossData);
+        _internalState.Enter(_bossData, null); // TODO
     }
 
     public IBossPhaseState Execute()
@@ -28,7 +29,7 @@ public class BossPhaseOne : IBossPhaseState
             Debug.Log("Switching internal state 1");
             _internalState.Exit();
             _internalState = state;
-            _internalState.Enter(_bossData);
+            _internalState.Enter(_bossData, null); // TODO
         }
         return !Alive() ? null : new BossPhaseTwo(); // TODO change to phase 2 instead of phase 1
         /*if (!Alive())
@@ -51,6 +52,19 @@ public class BossPhaseOne : IBossPhaseState
         //throw new System.NotImplementedException();
 
         _bossData.PhasePlatforms[0].SetActive(false);
+        _bossData.BossPhase1.SetActive(false);
+        // we need to kill all the objects we have spawned in this phase as clean up
+        var enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject g in enemies)
+        {
+            Object.Destroy(g);
+        }
+
+        var boxes = GameObject.FindGameObjectsWithTag("Movable Object");
+        foreach (GameObject g in boxes)
+        {
+            Object.Destroy(g);
+        }
     }
 
     public bool Alive()

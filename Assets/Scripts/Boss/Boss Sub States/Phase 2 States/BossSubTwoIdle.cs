@@ -7,7 +7,7 @@ public class BossSubTwoIdle : IBossSubState
     private BossBehaviour _bossData;
     private float timer;
 
-    public void Enter(BossBehaviour data)
+    public void Enter(BossBehaviour data, GameObject head)
     {
         //throw new System.NotImplementedException();
         _bossData = data;

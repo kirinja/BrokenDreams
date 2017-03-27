@@ -29,6 +29,7 @@ public class PickUp : MonoBehaviour {
             other.gameObject.GetComponent<PlayerAttributes>().Abilities.Add(abb);
             Destroy(gameObject, 0.0f);
             other.GetComponent<Controller3D>().RefreshMaterial();
+			GameObject.Find ("HUDCanvas").GetComponent<Inventory>().addAbility();
         }
     }
 }

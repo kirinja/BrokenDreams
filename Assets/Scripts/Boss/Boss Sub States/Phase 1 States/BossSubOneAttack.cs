@@ -12,7 +12,7 @@ public class BossSubOneAttack : IBossSubState{
     private bool _spawned;
     private bool _spawnedBox;
 
-    public void Enter(BossBehaviour data)
+    public void Enter(BossBehaviour data, GameObject head)
     {
         _bossData = data;
         _timer = _bossData.StateSwitchTimer;
