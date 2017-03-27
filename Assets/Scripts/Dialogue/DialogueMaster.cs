@@ -86,7 +86,7 @@ public class DialogueMaster : MonoBehaviour {
             nodeID = selectedOption;
             Debug.Log("Node id updated");
             if (nodeID == 2)
-                //GameObject.Find("Player").GetComponent<>
+                GameObject.Find("Player").GetComponent<PlayerHealth>().Heal(2);
                 Debug.Log("Action");
         }
         window.SetActive(false);
