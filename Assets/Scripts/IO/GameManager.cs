@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     private string _saveDirectory;
     private static readonly List<string[]> InMemory = new List<string[]>();
     private string _savePath;
-    
+
     // the two values we're interested in are current HP and which abilities the player have
     private PlayerAttributes _playerAttributes;
 
@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        DontDestroyOnLoad(this);;
+        DontDestroyOnLoad(this); ;
         _saveDirectory = Path.Combine(Application.dataPath, SaveDirectory);
         //Inventory = GameObject.Find("Player").GetComponent<Inventory>();
 
@@ -98,7 +98,7 @@ public class GameManager : MonoBehaviour
         playerSaveData.HP = _playerAttributes.currentHealth; // TODO TEMP
         playerSaveData.BeatenLevels = beatenLevels;
         var stringifiedPlayer = new string[1]; // TODO TEMP
-        
+
         stringifiedPlayer[0] = JsonUtility.ToJson(playerSaveData);
         InMemory.Add(stringifiedPlayer);
     }
@@ -125,6 +125,12 @@ public class GameManager : MonoBehaviour
         }
 
         return true;
+    }
+
+    public void DeleteSaveFile()
+    {
+        if (File.Exists(SaveFile))
+            File.Delete(SaveFile);
     }
 
     public void SaveToFiles()
@@ -203,6 +209,12 @@ public class GameManager : MonoBehaviour
             SaveToMemory();
         else if (Input.GetKeyDown(KeyCode.Alpha0))
             LoadFromMemory();
+
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            DeleteSaveFile();
+            InMemory.Clear();
+        }
     }
 
     void OnEnable()
