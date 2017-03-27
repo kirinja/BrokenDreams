@@ -6,12 +6,12 @@ public class TriggerSound : MonoBehaviour {
 
 	private AudioSource[] sources;
 	private AudioSource source1;
-//	private AudioSource source2;	till spelarens fotstegljud
+	private AudioSource source2;	//till spelarens fotstegljud
 
 
 	public AudioClip wallSound;	//when colliding with a wall 
-	public AudioClip playerSound;
-	public AudioClip hitSound;
+	public AudioClip playerSound; //-----does not work ordentligt
+//	public AudioClip hitSound;
 	public AudioClip abilitySound;
 	public AudioClip room1;
 	public AudioClip room2;
@@ -19,22 +19,36 @@ public class TriggerSound : MonoBehaviour {
 
 	private int hits = 0;
 
+	private float pVel;
 
 	// Use this for initialization
 	void Start () {
 
 		sources = GetComponents<AudioSource> ();
 		source1 = sources[0];
-		//source2 = sources [1];	sätts till spelarens fotsteg
+
+		source2 = sources [1];	//sätts till spelarens fotsteg
+		source2.clip = playerSound;
+		source2.loop = true;
+		source2.Play ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if (pVel < 0.3f) {
+			source2.Pause ();
+		} else {
+			source2.Play ();
+		}
 
 	}
 
-	void OnTriggerEnter(Collider col){
+	void FixedUpdate(){
+		pVel = GetComponent<Rigidbody> ().velocity.magnitude;
+	}
+		
 
+	void OnTriggerEnter(Collider col){
 
 		if (col.gameObject.CompareTag("Wall")){
 			//Debug.Log ("Wall");
@@ -42,10 +56,6 @@ public class TriggerSound : MonoBehaviour {
 			//Debug.Log ("Collision hit: " + hits);
 			source1.PlayOneShot (wallSound);
 		}
-
-		/*if (col.gameObject.CompareTag("Hit Object")){
-			source1.PlayOneShot (hitSound);
-		}*/
 
 		if (col.gameObject.CompareTag("Particle system")){
 			source1.PlayOneShot (abilitySound);

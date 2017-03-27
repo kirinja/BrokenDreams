@@ -115,8 +115,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1173360}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 118.8, y: -4.3, z: -0.8}
-  m_LocalScale: {x: 1.0000005, y: 1.0910213, z: 4.1546364}
+  m_LocalPosition: {x: 111.6, y: -4.3, z: -0.8}
+  m_LocalScale: {x: 1.0000005, y: 1.0910213, z: 3.443303}
   m_Children: []
   m_Father: {fileID: 1172890805}
   m_RootOrder: 2
@@ -336,6 +336,10 @@ Prefab:
     - target: {fileID: 1658823911832074, guid: 2f72670e7a77f3d48b6289149403bebe, type: 2}
       propertyPath: m_Name
       value: CheckPoint (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1658823911832074, guid: 2f72670e7a77f3d48b6289149403bebe, type: 2}
+      propertyPath: m_TagString
+      value: Checkpoint
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2f72670e7a77f3d48b6289149403bebe, type: 2}
@@ -4986,6 +4990,59 @@ Prefab:
     - {fileID: 61289425390345176, guid: 7976ea1f1cd6f414db2da929e380cb90, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 7976ea1f1cd6f414db2da929e380cb90, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &343043954
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 343043955}
+  - component: {fileID: 343043956}
+  m_Layer: 8
+  m_Name: Reverb Zone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &343043955
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 343043954}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1698534198}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!167 &343043956
+AudioReverbZone:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 343043954}
+  m_Enabled: 1
+  m_MinDistance: 10
+  m_MaxDistance: 15
+  m_ReverbPreset: 6
+  m_Room: -1000
+  m_RoomHF: -300
+  m_DecayTime: 2.31
+  m_DecayHFRatio: 0.64
+  m_Reflections: -711
+  m_ReflectionsDelay: 0.012
+  m_Reverb: 83
+  m_ReverbDelay: 0.017
+  m_HFReference: 5000
+  m_RoomRolloffFactor: 0
+  m_Diffusion: 100
+  m_Density: 100
+  m_LFReference: 250
+  m_RoomLF: 0
 --- !u!1 &345658803
 GameObject:
   m_ObjectHideFlags: 0
@@ -6301,11 +6358,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4619598214104138, guid: 171300cbab6d57f438291baf8d5497c6, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 2.3
+      value: 55.1
       objectReference: {fileID: 0}
     - target: {fileID: 4619598214104138, guid: 171300cbab6d57f438291baf8d5497c6, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 4.3
+      value: 65.4
       objectReference: {fileID: 0}
     - target: {fileID: 4619598214104138, guid: 171300cbab6d57f438291baf8d5497c6, type: 2}
       propertyPath: m_LocalPosition.z
@@ -17131,7 +17188,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   spreadCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -17143,7 +17200,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -17155,7 +17212,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
 --- !u!1 &1185788080
 GameObject:
   m_ObjectHideFlags: 0
@@ -17470,11 +17527,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wallSound: {fileID: 8300000, guid: 8964610cd721863428f7257859d8eda7, type: 3}
   playerSound: {fileID: 8300000, guid: b7cfdb785a573a846a5776893891931c, type: 3}
-  hitSound: {fileID: 8300000, guid: 4543fd8c38752bc498d1b38c1aeacb21, type: 3}
   abilitySound: {fileID: 8300000, guid: 09aa8f8b09e6c044b9ed43c903de4c6d, type: 3}
   room1: {fileID: 8300000, guid: 1e589195c1a1428418c93000a0c8868a, type: 3}
   room2: {fileID: 8300000, guid: 52d58d65c22443342bba4aff05eb0327, type: 3}
-  checkpoints: {fileID: 8300000, guid: 4543fd8c38752bc498d1b38c1aeacb21, type: 3}
+  checkpoints: {fileID: 8300000, guid: 7b78ca37fbb58cb4f974f5e6c1dad913, type: 3}
+  leveldone: {fileID: 0}
 --- !u!114 &1270352984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18778,7 +18835,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1658823911832074, guid: 2f72670e7a77f3d48b6289149403bebe, type: 2}
       propertyPath: m_TagString
-      value: Room3
+      value: Checkpoint
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2f72670e7a77f3d48b6289149403bebe, type: 2}
@@ -18983,7 +19040,8 @@ Transform:
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 45.668003, y: 9.577747, z: 0.5673523}
   m_LocalScale: {x: 1, y: 0.48127404, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 343043955}
   m_Father: {fileID: 1172890805}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -19582,6 +19640,10 @@ Prefab:
     - target: {fileID: 1658823911832074, guid: 2f72670e7a77f3d48b6289149403bebe, type: 2}
       propertyPath: m_Name
       value: CheckPoint (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1658823911832074, guid: 2f72670e7a77f3d48b6289149403bebe, type: 2}
+      propertyPath: m_TagString
+      value: Checkpoint
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2f72670e7a77f3d48b6289149403bebe, type: 2}
