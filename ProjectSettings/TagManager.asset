@@ -11,6 +11,7 @@ TagManager:
   - Particle system
   - Room
   - Moving
+  - Room2
   - Platform
   - Player Trigger
   layers:
