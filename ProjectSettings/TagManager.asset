@@ -17,6 +17,7 @@ TagManager:
   - Room3
   - Checkpoint
   - Game Manager
+  - Level done
   layers:
   - Default
   - TransparentFX

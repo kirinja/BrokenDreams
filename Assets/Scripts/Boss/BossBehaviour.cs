@@ -127,5 +127,10 @@ public class BossBehaviour : MonoBehaviour
                 Debug.Log("Damage in Phase 3");
                 break;
         }
+
+        if (other.gameObject.CompareTag("Player"))
+        {
+            other.gameObject.GetComponent<Controller3D>().Damage();
+        }
     }
 }

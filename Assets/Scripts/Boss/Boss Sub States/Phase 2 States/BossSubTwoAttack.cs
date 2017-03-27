@@ -25,7 +25,10 @@ public class BossSubTwoAttack : IBossSubState
         // use a timer or something to determine when we should switch state
 
         _head.transform.position = _bossData.Phase2AttackPos.position;
-        _head.GetComponent<Collider>().enabled = true;
+        _head.SetActive(true);
+        var cols = _head.GetComponents<Collider>();
+        foreach (var col in cols)
+            col.enabled = true;
 
         if (!_spawned)
         {
@@ -40,14 +43,15 @@ public class BossSubTwoAttack : IBossSubState
                 arr[i] = i;
             }
 
-            // TODO this is broken, we need an enemy2 prefab but an enemy2 needs target to patrol between, which isnt included in the prefab.
-            // TODO need to look over enemy2
+            // TODO this is broken, we need an enemy2 prefab but an enemy2 needs target to patrol between, which isnt included in the prefab
+            // TODO enemy2 also need a projectile which isnt included in the prefab
+            // TODO need to look over enemy2 and make it self-contained, or at least make it find the data it needs to work (cant manually assign when instanciating
             for (int i = 0; i < _bossData.Phase2Spawn; i++)
             {
                 var index = rand.Next(0, arr.Length);
                 var v = arr[index];
                 Debug.Log("Spawn at platform ID " + v);
-                GameObject.Instantiate(_bossData.Enemy2, spawnPoints[v].transform.position + new Vector3(0, spawnPoints[v].transform.localScale.y / 2 + _bossData.Enemy1.transform.localScale.y / 2, 0), Quaternion.identity);
+                GameObject.Instantiate(_bossData.Enemy2, spawnPoints[v].transform.position + new Vector3(0, spawnPoints[v].transform.localScale.y / 2 + _bossData.Enemy1.transform.localScale.y / 2, -1), Quaternion.identity);
                 arr = arr.Where(val => val != v).ToArray();
                 
             }
