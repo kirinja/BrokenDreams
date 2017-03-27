@@ -64,7 +64,7 @@ public struct AirState3D : ICharacterState3D
     {
         var move = new Vector3(input.x, 0, input.y);
         move.Normalize();
-        var currentAngle = controller.transform.eulerAngles.y;
+        //var currentAngle = controller.transform.eulerAngles.y;
         var inputAngle = Mathf.Atan2(move.x, move.z) * Mathf.Rad2Deg;
         var direction = controller.CameraTransform.eulerAngles.y + inputAngle;
         var forwardMovement = move.magnitude;

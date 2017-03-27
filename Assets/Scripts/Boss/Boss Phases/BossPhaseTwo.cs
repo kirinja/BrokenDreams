@@ -12,6 +12,7 @@ public class BossPhaseTwo : IBossPhaseState
         Debug.Log("Boss Phase 2");
         //throw new System.NotImplementedException();
         _bossData = data;
+        _bossData.PhasePlatforms[1].SetActive(true);
         _internalState = new BossSubTwoIdle(); // TODO FIX
         _internalState.Enter(_bossData);
     }
@@ -47,6 +48,8 @@ public class BossPhaseTwo : IBossPhaseState
     public void Exit()
     {
         //throw new System.NotImplementedException();
+
+        _bossData.PhasePlatforms[1].SetActive(false);
     }
 
     public bool Alive()

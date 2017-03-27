@@ -10,19 +10,21 @@ public class BossSubOneAttack : IBossSubState{
     private BossBehaviour _bossData;
     private float _timer;
     private bool _spawned;
+    private bool _spawnedBox;
 
     public void Enter(BossBehaviour data)
     {
         _bossData = data;
         _timer = _bossData.StateSwitchTimer;
         _spawned = false;
+        _spawnedBox = false;
     }
     
     public IBossSubState Execute()
     {
         if (!_spawned)
         {
-            var spawnPoints = GameObject.FindGameObjectsWithTag("Platform");
+            var spawnPoints = GameObject.FindGameObjectsWithTag("Wall");
 
             var rand = new Random();
 
@@ -38,8 +40,19 @@ public class BossSubOneAttack : IBossSubState{
                 var index  = rand.Next(0, arr.Length);
                 var v = arr[index];
                 Debug.Log("Spawn at platform ID " + v);
-                GameObject.Instantiate(_bossData.Enemy1, spawnPoints[v].transform.position + new Vector3(0, spawnPoints[v].transform.localScale.y / 2 + _bossData.Enemy1.transform.localScale.y / 2, 0) , Quaternion.identity);
+                var g = GameObject.Instantiate(_bossData.Enemy1, spawnPoints[v].transform.position + new Vector3(0, spawnPoints[v].transform.localScale.y / 2 + _bossData.Enemy1.transform.localScale.y / 2, 0) , Quaternion.identity);
                 arr = arr.Where(val => val != v).ToArray();
+                if (!_spawnedBox)
+                {
+                    // put box under the newly spawned enemy, disable collision and all that stuff
+                    // also use the .setDrop on the enemy in question
+                    var box = GameObject.Instantiate(_bossData.PushableBox, g.transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity, g.transform);
+                    box.transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
+                    //box.transform.SetParent(g.transform);
+                    box.GetComponent<Collider>().enabled = false;
+                    box.GetComponent<Rigidbody>().useGravity = false;
+                    _spawnedBox = true;
+                }
             }
             _spawned = true;
         }
@@ -59,6 +72,7 @@ public class BossSubOneAttack : IBossSubState{
     {
         //throw new System.NotImplementedException();
         _spawned = false;
+        _spawnedBox = false;
     }
 
     public bool Alive()

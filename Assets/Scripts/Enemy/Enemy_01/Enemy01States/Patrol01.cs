@@ -19,7 +19,7 @@ public class Patrol01 : Enemy01State {
     public void Update()
     {
         RaycastHit hitInfo;
-        if (!(Physics.Raycast(enemy.transform.position, Vector3.down * enemy.GroundCheckDistance, out hitInfo) && hitInfo.transform.CompareTag("Wall")))
+        if (!(Physics.Raycast(enemy.transform.position, Vector3.down * enemy.GroundCheckDistance, out hitInfo) && (hitInfo.transform.CompareTag("Wall"))))
         {
             enemy.invertVec();
         }
