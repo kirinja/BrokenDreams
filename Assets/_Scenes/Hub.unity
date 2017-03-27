@@ -695,6 +695,7 @@ GameObject:
   - component: {fileID: 409217725}
   - component: {fileID: 409217724}
   - component: {fileID: 409217723}
+  - component: {fileID: 409217727}
   m_Layer: 0
   m_Name: Door 01
   m_TagString: Untagged
@@ -768,6 +769,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &409217727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 409217722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67450bbb3885f144aafc8d1e0b84df26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Inverted: 0
+  Scene: Level_01
 --- !u!1 &476041073
 GameObject:
   m_ObjectHideFlags: 0
@@ -1200,7 +1214,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1027310044}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Obstacles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1312,11 +1326,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114371488763153094, guid: 171300cbab6d57f438291baf8d5497c6,
-        type: 2}
-      propertyPath: Abilities.Array.size
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 4619598214104138, guid: 171300cbab6d57f438291baf8d5497c6, type: 2}
       propertyPath: m_LocalPosition.x
       value: 20.26
@@ -1363,30 +1372,6 @@ Prefab:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114371488763153094, guid: 171300cbab6d57f438291baf8d5497c6,
-        type: 2}
-      propertyPath: Abilities.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: e801c40a41e118e46b766f9d36d2b544,
-        type: 2}
-    - target: {fileID: 114371488763153094, guid: 171300cbab6d57f438291baf8d5497c6,
-        type: 2}
-      propertyPath: Abilities.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: 5faafb6b41012314d965b51bd49994a4,
-        type: 2}
-    - target: {fileID: 114371488763153094, guid: 171300cbab6d57f438291baf8d5497c6,
-        type: 2}
-      propertyPath: Abilities.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: bc3e782ac3259c04b8e3c31cf1206b7c,
-        type: 2}
-    - target: {fileID: 114371488763153094, guid: 171300cbab6d57f438291baf8d5497c6,
-        type: 2}
-      propertyPath: Abilities.Array.data[3]
-      value: 
-      objectReference: {fileID: 11400000, guid: a2c0237ccb792e544871f99d68e023d2,
-        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 171300cbab6d57f438291baf8d5497c6, type: 2}
   m_IsPrefabParent: 0
@@ -1655,6 +1640,7 @@ GameObject:
   - component: {fileID: 1689987031}
   - component: {fileID: 1689987030}
   - component: {fileID: 1689987029}
+  - component: {fileID: 1689987033}
   m_Layer: 0
   m_Name: Door 02
   m_TagString: Untagged
@@ -1728,6 +1714,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1689987033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1689987028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67450bbb3885f144aafc8d1e0b84df26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Inverted: 0
+  Scene: Level_02
 --- !u!1 &1980928880
 GameObject:
   m_ObjectHideFlags: 0
@@ -1739,13 +1738,14 @@ GameObject:
   - component: {fileID: 1980928883}
   - component: {fileID: 1980928882}
   - component: {fileID: 1980928881}
+  - component: {fileID: 1980928885}
   m_Layer: 0
   m_Name: Boss Trapdoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!23 &1980928881
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1809,6 +1809,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1980928885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1980928880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67450bbb3885f144aafc8d1e0b84df26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Inverted: 1
+  Scene: Boss_01
 --- !u!1 &2091122670
 GameObject:
   m_ObjectHideFlags: 0

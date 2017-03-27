@@ -29,12 +29,9 @@ public class GameManager : MonoBehaviour
     private string _saveDirectory;
     private static readonly List<string[]> InMemory = new List<string[]>();
     private string _savePath;
-
-    //private Inventory Inventory;
+    
     // the two values we're interested in are current HP and which abilities the player have
     private PlayerAttributes _playerAttributes;
-    /*public Scene Level1;
-    public Scene Level2;*/
 
     // the game manager keeps track of which levels the player have beaten, and save them to file/memory
     // TODO should the persistor have this field? The persistor is now in charge of saving/loading and keeping track of progress
