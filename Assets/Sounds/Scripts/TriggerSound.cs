@@ -6,7 +6,7 @@ public class TriggerSound : MonoBehaviour {
 
 	private AudioSource[] sources;
 	private AudioSource source1;
-//	private AudioSource source2;
+//	private AudioSource source2;	till spelarens fotstegljud
 
 
 	public AudioClip wallSound;	//when colliding with a wall 
@@ -15,7 +15,7 @@ public class TriggerSound : MonoBehaviour {
 	public AudioClip abilitySound;
 	public AudioClip room1;
 	public AudioClip room2;
-	public AudioClip room3;
+	public AudioClip checkpoints;
 
 	private int hits = 0;
 
@@ -25,7 +25,7 @@ public class TriggerSound : MonoBehaviour {
 
 		sources = GetComponents<AudioSource> ();
 		source1 = sources[0];
-
+		//source2 = sources [1];	sätts till spelarens fotsteg
 	}
 	
 	// Update is called once per frame
@@ -59,13 +59,14 @@ public class TriggerSound : MonoBehaviour {
 		if (col.gameObject.CompareTag("Room2")){
 			source1.PlayOneShot (room2);
 		}
-
-		if (col.gameObject.CompareTag("Room3")){
-			source1.PlayOneShot (room3);
-		}
+			
 
 		if (col.gameObject.tag == "Player Trigger"){
 			source1.PlayOneShot (playerSound);
+		}
+
+		if (col.gameObject.CompareTag("Checkpoint")){
+			source1.PlayOneShot (checkpoints);
 		}
 			
 	}
@@ -78,12 +79,5 @@ public class TriggerSound : MonoBehaviour {
 		if (col.gameObject.tag == "Room2" && source1.isPlaying){
 			source1.Stop ();
 		}
-
-		if (col.gameObject.tag == "Room3" && source1.isPlaying){
-			source1.Stop ();
-		}
 	}
-
-
-
 }
