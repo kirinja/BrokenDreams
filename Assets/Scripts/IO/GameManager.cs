@@ -73,6 +73,11 @@ public class GameManager : MonoBehaviour
         //return false;
     }
 
+    public bool LevelTwoAvailable()
+    {
+        return CompletedLevels[2];
+    }
+
     public void SaveToMemory()
     {
 
@@ -90,7 +95,7 @@ public class GameManager : MonoBehaviour
 
         var beatenLevels = CompletedLevels.Keys.ToArray();
         playerSaveData.Abilities = abilityNames;
-        playerSaveData.HP = _playerAttributes.MaxHP; // TODO TEMP
+        playerSaveData.HP = _playerAttributes.currentHealth; // TODO TEMP
         playerSaveData.BeatenLevels = beatenLevels;
         var stringifiedPlayer = new string[1]; // TODO TEMP
         
@@ -98,15 +103,15 @@ public class GameManager : MonoBehaviour
         InMemory.Add(stringifiedPlayer);
     }
 
-    public void LoadFromMemory()
+    public bool LoadFromMemory()
     {
-        if (!HasMemoryData) return;
+        if (!HasMemoryData) return false;
 
         // do I need to clear the abilites and level progression when calling this?
         var stringifiedData = InMemory[0]; // TODO POSSIBLY SCARY
 
         var playerSaveData = JsonUtility.FromJson<PlayerSaveData>(stringifiedData[0]);
-        _playerAttributes.MaxHP = playerSaveData.HP; // TODO FIX THIS SHIT
+        _playerAttributes.currentHealth = playerSaveData.HP; // TODO FIX THIS SHIT
 
         foreach (int i in playerSaveData.BeatenLevels)
             BeatLevel(i);
@@ -118,6 +123,8 @@ public class GameManager : MonoBehaviour
             var abb = Resources.Load<Ability>("Abilities\\" + s);
             _playerAttributes.Abilities.Add(abb);
         }
+
+        return true;
     }
 
     public void SaveToFiles()
@@ -148,7 +155,7 @@ public class GameManager : MonoBehaviour
 
         var beatenLevels = CompletedLevels.Keys.ToArray();
         playerSaveData.Abilities = abilityNames;
-        playerSaveData.HP = _playerAttributes.MaxHP; // TODO TEMP
+        playerSaveData.HP = _playerAttributes.currentHealth; // TODO TEMP
         playerSaveData.BeatenLevels = beatenLevels;
         var stringifiedPlayer = new string[1]; // TODO TEMP
 
@@ -156,18 +163,18 @@ public class GameManager : MonoBehaviour
         File.WriteAllLines(_savePath, stringifiedPlayer);
     }
 
-    private void LoadFromFile()
+    private bool LoadFromFile()
     {
         // NOTE: This is not a fail-safe way to deal with things since the file can be deleted between
         // this check and when we actually tries to use it. For simplicity we disregard proper error
         // handling and such in this tutorial.
 
-        if (!File.Exists(_savePath)) return; // TODO SCARY SHIT
+        if (!File.Exists(_savePath)) return false; // TODO SCARY SHIT
 
         var stringifiedData = File.ReadAllLines(_savePath);
 
         var playerSaveData = JsonUtility.FromJson<PlayerSaveData>(stringifiedData[0]);
-        _playerAttributes.MaxHP = playerSaveData.HP; // TODO FIX THIS SHIT
+        _playerAttributes.currentHealth = playerSaveData.HP; // TODO FIX THIS SHIT
 
         foreach (int i in playerSaveData.BeatenLevels)
             BeatLevel(i);
@@ -179,6 +186,8 @@ public class GameManager : MonoBehaviour
             var abb = Resources.Load<Ability>("Abilities\\" + s);
             _playerAttributes.Abilities.Add(abb);
         }
+
+        return true;
     }
 
 
@@ -213,7 +222,18 @@ public class GameManager : MonoBehaviour
         if (_playerAttributes)
         {
             Debug.Log(_playerAttributes);
-            //LoadFromMemory();
+            if (!LoadFromMemory())
+                LoadFromFile();
+            /*LoadFromMemory();
+            switch (scene.buildIndex)
+            {
+                case 1:
+                    if (BossLevelAvailable())
+                    {
+                        
+                    }
+                    break;
+            }*/
         }
         // Every time a level is loaded we can do the init stuff here, like reading from file/memory
 

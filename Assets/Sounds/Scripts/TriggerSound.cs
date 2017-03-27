@@ -6,19 +6,18 @@ public class TriggerSound : MonoBehaviour {
 
 	private AudioSource[] sources;
 	private AudioSource source1;
-	private AudioSource source2;
+//	private AudioSource source2;
 
 
 	public AudioClip wallSound;	//when colliding with a wall 
-	//public AudioClip playerSound;
-	public AudioClip moSound;
+	public AudioClip playerSound;
 	public AudioClip hitSound;
 	public AudioClip abilitySound;
-	public AudioClip differentRoomSounds;
-
+	public AudioClip room1;
+	public AudioClip room2;
+	public AudioClip room3;
 
 	private int hits = 0;
-	private int count = 1;
 
 
 	// Use this for initialization
@@ -35,7 +34,8 @@ public class TriggerSound : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider col){
-	
+
+
 		if (col.gameObject.CompareTag("Wall")){
 			//Debug.Log ("Wall");
 			hits++;
@@ -43,29 +43,43 @@ public class TriggerSound : MonoBehaviour {
 			source1.PlayOneShot (wallSound);
 		}
 
-	/*	if (col.gameObject.CompareTag("Movable Object")){
-			source1.PlayOneShot(moSound);
-		}
-*/
-		if (col.gameObject.CompareTag("Hit Object")){
+		/*if (col.gameObject.CompareTag("Hit Object")){
 			source1.PlayOneShot (hitSound);
-		}
+		}*/
 
 		if (col.gameObject.CompareTag("Particle system")){
 			source1.PlayOneShot (abilitySound);
-			//col.gameObject.SetActive (false);	//deactive particle sytem Hit when colliding with the player	
-
 		}
 
 		if (col.gameObject.CompareTag ("Room")) {
-			source1.PlayOneShot (differentRoomSounds);
+			source1.PlayOneShot (room1);
 
+		}
+
+		if (col.gameObject.CompareTag("Room2")){
+			source1.PlayOneShot (room2);
+		}
+
+		if (col.gameObject.CompareTag("Room3")){
+			source1.PlayOneShot (room3);
+		}
+
+		if (col.gameObject.tag == "Player Trigger"){
+			source1.PlayOneShot (playerSound);
 		}
 			
 	}
 
 	void OnTriggerExit(Collider col){
 		if (col.gameObject.tag == "Room" && source1.isPlaying){
+			source1.Stop ();
+		}
+
+		if (col.gameObject.tag == "Room2" && source1.isPlaying){
+			source1.Stop ();
+		}
+
+		if (col.gameObject.tag == "Room3" && source1.isPlaying){
 			source1.Stop ();
 		}
 	}

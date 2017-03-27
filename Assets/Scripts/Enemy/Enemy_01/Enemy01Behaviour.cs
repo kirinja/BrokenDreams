@@ -10,7 +10,7 @@ public class Enemy01Behaviour : Enemy
     public float PatrolTime;
     public float GroundCheckDistance;
 
-    private Collider col;
+    //private Collider col;
     private Enemy01State state;
     private int health;
 
@@ -29,7 +29,7 @@ public class Enemy01Behaviour : Enemy
 
     // Use this for initialization
     void Start () {
-        col = GetComponent<Collider>();
+        //col = GetComponent<Collider>();
         //state = new Idle01(this, new Vector3(0,0,0));
         state = new Patrol01(this, StartVelocity);
         Debug.Log("Patrol");

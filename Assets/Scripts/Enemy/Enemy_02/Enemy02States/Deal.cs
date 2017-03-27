@@ -6,7 +6,7 @@ using UnityEngine;
 public class Deal : EnemyState {
 
     private Enemy02behaviour3D enemy;
-    private Vector3 orgPos;
+    //private Vector3 orgPos;
 
 	// Use this for initialization
 	void Start () {
@@ -21,7 +21,7 @@ public class Deal : EnemyState {
     public Deal(Enemy02behaviour3D enemy)
     {
         this.enemy = enemy;
-        orgPos = enemy.transform.position;
+        //orgPos = enemy.transform.position;
     }
 
     private IEnumerator spasmTime()

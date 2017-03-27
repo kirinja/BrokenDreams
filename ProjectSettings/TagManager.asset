@@ -11,8 +11,10 @@ TagManager:
   - Particle system
   - Room
   - Moving
+  - Room2
   - Platform
   - Player Trigger
+  - Room3
   layers:
   - Default
   - TransparentFX

@@ -80,7 +80,7 @@ public struct GroundState3D : ICharacterState3D
     {
         var move = new Vector3(input.x, 0, input.y);
         move.Normalize();
-        var currentAngle = controller.transform.eulerAngles.y;
+        //var currentAngle = controller.transform.eulerAngles.y;
         var inputAngle = Mathf.Atan2(move.x, move.z) * Mathf.Rad2Deg;
         var direction = controller.CameraTransform.eulerAngles.y + inputAngle;
         var forwardMovement = move.magnitude;
@@ -92,8 +92,8 @@ public struct GroundState3D : ICharacterState3D
         // Change character direction
         if (input.magnitude > float.Epsilon)
         {
-            var rotationAngle = Mathf.Abs(direction - currentAngle);
-            var rotationTime = attributes.MaxRotationTime / 180f * rotationAngle;
+            //var rotationAngle = Mathf.Abs(direction - currentAngle);
+            //var rotationTime = attributes.MaxRotationTime / 180f * rotationAngle;
             //var rotationSpeed = rotationAngle / rotationTime;
             //direction = Mathf.LerpAngle(currentAngle, direction, Mathf.Min(1f, Time.deltaTime * rotationSpeed));
             controller.transform.eulerAngles = new Vector3(0, direction, 0);

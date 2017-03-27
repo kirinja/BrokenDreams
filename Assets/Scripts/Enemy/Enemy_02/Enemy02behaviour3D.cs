@@ -7,7 +7,7 @@ public class Enemy02behaviour3D : Enemy
 {
     private int health = 3;
 
-    private float moveSpeed = 2f;
+    //private float moveSpeed = 2f;
 
     private float attackCoolDown = 4f;
 
