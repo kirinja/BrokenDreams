@@ -32,7 +32,7 @@ public struct GroundState3D : ICharacterState3D
     {
         UpdateVelocity(input);
         var gameObject = GetGround();
-        if (gameObject && gameObject.CompareTag("Enemy"))
+        if (gameObject)
         {
             if (gameObject.transform == platform)
             {
