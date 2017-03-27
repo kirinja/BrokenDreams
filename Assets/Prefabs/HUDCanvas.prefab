@@ -37,9 +37,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4246406209042188}
   - component: {fileID: 20462710768324626}
-  - component: {fileID: 124672986908308198}
-  - component: {fileID: 92733465178638944}
-  - component: {fileID: 81890480451702432}
   m_Layer: 5
   m_Name: Camera
   m_TagString: Untagged
@@ -436,20 +433,6 @@ Camera:
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
   m_StereoMirrorMode: 0
---- !u!81 &81890480451702432
-AudioListener:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1160259073855484}
-  m_Enabled: 1
---- !u!92 &92733465178638944
-Behaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1160259073855484}
-  m_Enabled: 1
 --- !u!114 &114060994308713646
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -489,7 +472,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: cb70e65179f4cfd4aa8955e1071dd19c, type: 2}
-  m_Color: {r: 1, g: 0.1544118, b: 0.1544118, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -820,13 +803,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!124 &124672986908308198
-Behaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1160259073855484}
-  m_Enabled: 1
 --- !u!198 &198092624095228864
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -11670,8 +11646,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 5, y: -5}
-  m_SizeDelta: {x: 50, y: 50}
+  m_AnchoredPosition: {x: -15, y: 15}
+  m_SizeDelta: {x: 85, y: 85}
   m_Pivot: {x: 0, y: 1}
 --- !u!224 &224261887309244270
 RectTransform:
