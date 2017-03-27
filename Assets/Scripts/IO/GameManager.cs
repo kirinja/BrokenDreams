@@ -210,9 +210,10 @@ public class GameManager : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Alpha0))
             LoadFromMemory();
 
-        if (Input.GetKeyDown(KeyCode.Plus))
+        if (Input.GetKeyDown(KeyCode.Alpha6))
         {
             DeleteSaveFile();
+            InMemory.Clear();
         }
     }
 
