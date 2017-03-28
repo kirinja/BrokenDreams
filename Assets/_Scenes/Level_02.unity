@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44288555, g: 0.49205285, b: 0.5718068, a: 1}
+  m_IndirectSpecularColor: {r: 0.4428854, g: 0.49205232, b: 0.5718069, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -871,6 +871,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PushSpeed: 5
+  CollisionMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!54 &59113060
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -881,10 +884,10 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!1 &60557024
 GameObject:
@@ -2024,6 +2027,7 @@ GameObject:
   - component: {fileID: 117981875}
   - component: {fileID: 117981874}
   - component: {fileID: 117981877}
+  - component: {fileID: 117981878}
   m_Layer: 0
   m_Name: KillerWall_3
   m_TagString: Wall
@@ -2082,7 +2086,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 117981872}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -2111,6 +2115,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &117981878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 117981872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99067053c3e6da74baf53adec809b7e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &132394154
 GameObject:
   m_ObjectHideFlags: 0
@@ -2627,6 +2642,7 @@ GameObject:
   - component: {fileID: 185980472}
   - component: {fileID: 185980471}
   - component: {fileID: 185980474}
+  - component: {fileID: 185980475}
   m_Layer: 0
   m_Name: KillerWall_2
   m_TagString: Wall
@@ -2685,7 +2701,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 185980469}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -2714,6 +2730,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &185980475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 185980469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99067053c3e6da74baf53adec809b7e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &189729226
 GameObject:
   m_ObjectHideFlags: 0
@@ -3442,7 +3469,7 @@ GameObject:
   - component: {fileID: 251890936}
   - component: {fileID: 251890935}
   - component: {fileID: 251890934}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Floor_6
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -3660,7 +3687,7 @@ GameObject:
   - component: {fileID: 264879905}
   - component: {fileID: 264879904}
   - component: {fileID: 264879903}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Floor_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4147,6 +4174,7 @@ GameObject:
   - component: {fileID: 370442450}
   - component: {fileID: 370442449}
   - component: {fileID: 370442452}
+  - component: {fileID: 370442453}
   m_Layer: 0
   m_Name: KillerWall_1
   m_TagString: Wall
@@ -4205,7 +4233,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 370442447}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -4234,6 +4262,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &370442453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 370442447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99067053c3e6da74baf53adec809b7e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &374776801
 GameObject:
   m_ObjectHideFlags: 0
@@ -4448,6 +4487,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PushSpeed: 5
+  CollisionMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!54 &423061268
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4458,10 +4500,10 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!1 &428237270
 GameObject:
@@ -5170,7 +5212,7 @@ GameObject:
   - component: {fileID: 488465163}
   - component: {fileID: 488465162}
   - component: {fileID: 488465161}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Floor_3
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -5251,7 +5293,7 @@ GameObject:
   - component: {fileID: 500098750}
   - component: {fileID: 500098749}
   - component: {fileID: 500098748}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Floor_2
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -5532,7 +5574,7 @@ GameObject:
   - component: {fileID: 537866923}
   - component: {fileID: 537866922}
   - component: {fileID: 537866921}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Floor_2
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -6199,6 +6241,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PushSpeed: 5
+  CollisionMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!54 &590115593
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6209,10 +6254,10 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!1 &592897306
 GameObject:
@@ -7116,7 +7161,7 @@ GameObject:
   - component: {fileID: 713127980}
   - component: {fileID: 713127979}
   - component: {fileID: 713127978}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Floor_6
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -8693,6 +8738,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PushSpeed: 5
+  CollisionMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!54 &975467043
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -8703,10 +8751,10 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!1 &982778317
 GameObject:
@@ -9790,6 +9838,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PushSpeed: 5
+  CollisionMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!54 &1183633582
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9800,10 +9851,10 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!1 &1192738360
 GameObject:
@@ -10193,6 +10244,7 @@ GameObject:
   - component: {fileID: 1251623218}
   - component: {fileID: 1251623217}
   - component: {fileID: 1251623220}
+  - component: {fileID: 1251623221}
   m_Layer: 0
   m_Name: MegaKillerWall_1
   m_TagString: Untagged
@@ -10251,7 +10303,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1251623215}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -10280,6 +10332,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &1251623221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1251623215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99067053c3e6da74baf53adec809b7e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1253406992
 GameObject:
   m_ObjectHideFlags: 0
@@ -10686,7 +10749,7 @@ GameObject:
   - component: {fileID: 1280901053}
   - component: {fileID: 1280901052}
   - component: {fileID: 1280901051}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Floor_1
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -10947,7 +11010,7 @@ GameObject:
   - component: {fileID: 1310046495}
   - component: {fileID: 1310046494}
   - component: {fileID: 1310046493}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Floor_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11149,7 +11212,7 @@ GameObject:
   - component: {fileID: 1352010950}
   - component: {fileID: 1352010949}
   - component: {fileID: 1352010948}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Floor_3
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -11486,6 +11549,7 @@ GameObject:
   - component: {fileID: 1417522346}
   - component: {fileID: 1417522345}
   - component: {fileID: 1417522348}
+  - component: {fileID: 1417522349}
   m_Layer: 0
   m_Name: MegaKillerWall_2
   m_TagString: Untagged
@@ -11544,7 +11608,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1417522343}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -11573,6 +11637,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &1417522349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1417522343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99067053c3e6da74baf53adec809b7e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1434117012
 GameObject:
   m_ObjectHideFlags: 0
@@ -13486,7 +13561,7 @@ GameObject:
   - component: {fileID: 1760147174}
   - component: {fileID: 1760147173}
   - component: {fileID: 1760147172}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Floor_4
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -13567,7 +13642,7 @@ GameObject:
   - component: {fileID: 1763792532}
   - component: {fileID: 1763792531}
   - component: {fileID: 1763792530}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Floor_7
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -13813,6 +13888,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PushSpeed: 5
+  CollisionMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!54 &1787451845
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -13823,10 +13901,10 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!1 &1792080949
 GameObject:
@@ -14610,7 +14688,7 @@ GameObject:
   - component: {fileID: 1901600539}
   - component: {fileID: 1901600538}
   - component: {fileID: 1901600537}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Floor_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14695,7 +14773,7 @@ GameObject:
   - component: {fileID: 1938409916}
   m_Layer: 0
   m_Name: HugeMovableBox
-  m_TagString: Untagged
+  m_TagString: Movable Object
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14707,8 +14785,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1938409910}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -30.8469, y: 32.2, z: 11.97}
-  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_LocalPosition: {x: -30.8469, y: 35.51, z: 11.97}
+  m_LocalScale: {x: 8.5, y: 13, z: 8.5}
   m_Children: []
   m_Father: {fileID: 552249013}
   m_RootOrder: 20
@@ -14775,6 +14853,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PushSpeed: 5
+  CollisionMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!54 &1938409916
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -14785,10 +14866,10 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!1 &1949256378
 GameObject:
@@ -14964,6 +15045,7 @@ GameObject:
   - component: {fileID: 1984869561}
   - component: {fileID: 1984869560}
   - component: {fileID: 1984869563}
+  - component: {fileID: 1984869564}
   m_Layer: 0
   m_Name: KillerWall_4
   m_TagString: Wall
@@ -15022,7 +15104,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1984869558}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -15051,6 +15133,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &1984869564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1984869558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99067053c3e6da74baf53adec809b7e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1994322525
 GameObject:
   m_ObjectHideFlags: 0
@@ -15753,7 +15846,7 @@ GameObject:
   - component: {fileID: 2087975425}
   - component: {fileID: 2087975424}
   - component: {fileID: 2087975423}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Floor_4
   m_TagString: Wall
   m_Icon: {fileID: 0}
