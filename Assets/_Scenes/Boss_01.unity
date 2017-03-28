@@ -371,7 +371,7 @@ GameObject:
   m_Component:
   - component: {fileID: 198464025}
   m_Layer: 0
-  m_Name: Path2
+  m_Name: VERTICAL_SPLINE_PATH
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -390,7 +390,7 @@ Transform:
   - {fileID: 974919463}
   - {fileID: 771685150}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &268614929
 GameObject:
@@ -547,7 +547,7 @@ GameObject:
   - component: {fileID: 350090601}
   - component: {fileID: 350090600}
   m_Layer: 0
-  m_Name: Phase2
+  m_Name: BossPhase2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -567,7 +567,7 @@ Transform:
   - {fileID: 13359483}
   - {fileID: 1682816686}
   m_Father: {fileID: 1553723376}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &350090597
 MeshRenderer:
@@ -923,7 +923,7 @@ GameObject:
   - component: {fileID: 502045062}
   - component: {fileID: 502045061}
   m_Layer: 0
-  m_Name: Phase1
+  m_Name: BossPhase1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -938,9 +938,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1778034139}
   m_Father: {fileID: 1553723376}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &502045061
 MeshRenderer:
@@ -1685,7 +1686,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 771685149}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 198464025}
@@ -1909,7 +1910,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 974919462}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 20, z: 0}
+  m_LocalPosition: {x: 0, y: 15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 198464025}
@@ -2589,7 +2590,7 @@ GameObject:
   - component: {fileID: 1525407906}
   - component: {fileID: 1525407905}
   m_Layer: 0
-  m_Name: Phase3
+  m_Name: Phase3Vertical
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2606,7 +2607,6 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 1838757104}
-  - {fileID: 1911028057}
   m_Father: {fileID: 1553723376}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2699,9 +2699,9 @@ Transform:
   m_LocalPosition: {x: 11.9, y: 0.26, z: 0}
   m_LocalScale: {x: 8.5, y: 8.5, z: 5}
   m_Children:
-  - {fileID: 1778034139}
   - {fileID: 502045060}
   - {fileID: 350090596}
+  - {fileID: 1911028057}
   - {fileID: 1525407904}
   m_Father: {fileID: 0}
   m_RootOrder: 12
@@ -3435,7 +3435,7 @@ GameObject:
   - component: {fileID: 1778034140}
   - component: {fileID: 1778034143}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Phase1DamageTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3447,11 +3447,11 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1778034138}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.454, y: -0.045, z: 0}
-  m_LocalScale: {x: 0.52454156, y: 0.10452097, z: 0.6973175}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.45400003, y: -0.045, z: 0}
+  m_LocalScale: {x: 0.52454156, y: 0.10452097, z: 0.69731754}
   m_Children: []
-  m_Father: {fileID: 1553723376}
+  m_Father: {fileID: 502045060}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &1778034140
@@ -3803,7 +3803,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1838757104
 Transform:
   m_ObjectHideFlags: 0
@@ -3883,7 +3883,7 @@ GameObject:
   - component: {fileID: 1891674587}
   - component: {fileID: 1891674589}
   m_Layer: 0
-  m_Name: Path
+  m_Name: INFINITY_SPLINE_PATH
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3906,7 +3906,7 @@ Transform:
   - {fileID: 928510937}
   - {fileID: 280534806}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1891674589
 MonoBehaviour:
@@ -3936,8 +3936,9 @@ GameObject:
   - component: {fileID: 1911028064}
   - component: {fileID: 1911028066}
   - component: {fileID: 1911028065}
+  - component: {fileID: 1911028067}
   m_Layer: 0
-  m_Name: Phase3Boss
+  m_Name: BossPhase3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3950,11 +3951,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1911028056}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -1.438, y: 1.572, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
-  m_Father: {fileID: 1525407904}
-  m_RootOrder: 1
+  m_Father: {fileID: 1553723376}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &1911028058
 MeshRenderer:
@@ -4080,6 +4081,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6de56c11c68032a43ab4d1ba7204dcce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1911028067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1911028056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7527acdc82e6bb41a2ba26861c24079, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Target: {fileID: 1525407904}
 --- !u!1 &1941325355
 GameObject:
   m_ObjectHideFlags: 0
