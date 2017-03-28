@@ -19,6 +19,7 @@ public class BossBehaviour : MonoBehaviour
     // enemy to spawn
     public GameObject Enemy1;
     public GameObject Enemy2;
+    public GameObject Projectiles;
 
     public GameObject[] PhasePlatforms;
     //private int phaseIndex = 0;
