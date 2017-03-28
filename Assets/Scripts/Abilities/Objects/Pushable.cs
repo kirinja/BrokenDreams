@@ -1,26 +1,20 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 
 public class Pushable : MonoBehaviour
 {
-    private enum Axis { NONE, X, Z }
-
     public float PushSpeed = 5f;
 
-    private Material material;
     private AbilityColors abilityColor;
-    private Vector3 velocity;
     private bool isPushed;
-    private float totalPushLength;
+    private Material material;
     private Axis pushAxis;
     private Vector3 startPosition;
+    private float totalPushLength;
+    private Vector3 velocity;
 
     // Use this for initialization
-    void Start()
+    private void Start()
     {
         material = GetComponent<Renderer>().sharedMaterial;
         abilityColor = Resources.Load("AbilityColors", typeof(AbilityColors)) as AbilityColors;
@@ -32,7 +26,7 @@ public class Pushable : MonoBehaviour
     }
 
     // UpdateTime is called once per frame
-    void Update()
+    private void Update()
     {
         if (isPushed)
         {
@@ -46,89 +40,82 @@ public class Pushable : MonoBehaviour
             {
                 case Axis.X:
                     if (velocity.x > 0f)
-                    {
                         pushedLength = transform.position.x - startPosition.x;
-                    }
                     else
-                    {
                         pushedLength = startPosition.x - transform.position.x;
-                    }
                     break;
                 case Axis.Z:
                     if (velocity.z > 0f)
-                    {
                         pushedLength = transform.position.z - startPosition.z;
-                    }
                     else
-                    {
                         pushedLength = startPosition.z - transform.position.z;
-                    }
                     break;
             }
 
             var didHit = false;
             var hits = Physics.OverlapBox(transform.position, GetComponent<Collider>().bounds.extents);
             foreach (var collider in hits)
-            {
                 if (collider.CompareTag("Wall"))
-                {
                     didHit = true;
-                }
                 else if (collider.CompareTag("Movable Object"))
-                {
                     collider.GetComponent<Pushable>().Push(velocity.normalized);
-                }
-            }
             if (didHit)
             {
                 transform.position = previousPosition;
                 isPushed = false;
             }
 
-            
 
             if (pushedLength >= totalPushLength)
             {
+                switch (pushAxis)
+                {
+                    case Axis.X:
+                        transform.position = new Vector3(startPosition.x + totalPushLength * Mathf.Sign(velocity.x),
+                            transform.position.y, transform.position.z);
+                        break;
+                    case Axis.Z:
+                        transform.position = new Vector3(startPosition.x, transform.position.y,
+                            transform.position.z + totalPushLength * Mathf.Sign(velocity.z));
+                        break;
+                }
                 isPushed = false;
             }
         }
         {
             Debug.Log("Starting box gravity");
             var gravity = Physics.gravity;
+            velocity += gravity * Time.deltaTime;
             var previousPosition = transform.position;
 
-            transform.position += gravity * Time.deltaTime;
+            transform.position += new Vector3(0f, velocity.y, 0f) * Time.deltaTime;
 
             var didHit = false;
             var hits = Physics.OverlapBox(transform.position, GetComponent<Collider>().bounds.extents);
             foreach (var collider in hits)
-            {
-                if (collider.CompareTag("Wall") || collider.CompareTag("Movable Object") && collider.gameObject != this.gameObject)
+                if (collider.CompareTag("Wall") ||
+                    collider.CompareTag("Movable Object") && collider.gameObject != gameObject)
                 {
+                    velocity = new Vector3(velocity.x, 0f, velocity.z);
                     didHit = true;
                     break;
                 }
-            }
             if (didHit)
-            {
                 transform.position = previousPosition;
-            }
         }
         GetComponent<Rigidbody>().position = transform.position;
     }
 
-    void UpdateColor()
+    private void UpdateColor()
     {
         // this snippet only run when in the editor
 #if UNITY_EDITOR
         if (Application.isEditor && !Application.isPlaying)
-        {
             material.color = abilityColor.PushColor;
-        }
 #endif
     }
 
-    void OnEnable()
+    private void OnEnable()
     {
         EditorApplication.update += UpdateColor;
     }
@@ -138,7 +125,7 @@ public class Pushable : MonoBehaviour
         if (isPushed) return;
 
         var localVel = transform.InverseTransformDirection(direction);
-        pushAxis = (Mathf.Abs(localVel.x) > Mathf.Abs(localVel.z)) ? Axis.X : Axis.Z;
+        pushAxis = Mathf.Abs(localVel.x) > Mathf.Abs(localVel.z) ? Axis.X : Axis.Z;
 
         var pushDirection = Vector3.zero;
         switch (pushAxis)
@@ -152,8 +139,16 @@ public class Pushable : MonoBehaviour
                 totalPushLength = GetComponent<Collider>().bounds.extents.z * 2;
                 break;
         }
-        velocity = transform.TransformDirection(pushDirection * PushSpeed);
+        var horizontalVvelocity = transform.TransformDirection(pushDirection * PushSpeed);
+        velocity = new Vector3(horizontalVvelocity.x, velocity.y, horizontalVvelocity.z);
         isPushed = true;
         startPosition = transform.position;
+    }
+
+    private enum Axis
+    {
+        NONE,
+        X,
+        Z
     }
 }
