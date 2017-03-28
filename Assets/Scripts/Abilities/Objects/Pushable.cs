@@ -31,11 +31,6 @@ public class Pushable : MonoBehaviour
     {
         if (isPushed)
         {
-            string debugString = "";
-            debugString += "Collision before moving: " +
-                           Physics.OverlapBox(transform.position, GetComponent<Collider>().bounds.extents,
-                               transform.rotation, CollisionMask).Length;
-
             var previousPosition = transform.position;
 
             transform.position += velocity * Time.deltaTime;
@@ -44,9 +39,6 @@ public class Pushable : MonoBehaviour
 
             var didHit = false;
             var hits = Physics.OverlapBox(transform.position, GetComponent<Collider>().bounds.extents, transform.rotation, CollisionMask);
-
-            debugString += " Collision after moving: " + hits.Length;
-            Debug.Log(debugString);
 
             foreach (var collider in hits)
             {
@@ -58,7 +50,6 @@ public class Pushable : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("Box colliding with something...");
                     didHit = true;
                 }
             }
@@ -91,11 +82,6 @@ public class Pushable : MonoBehaviour
 
     private void HandleGravity()
     {
-        string debugString = "";
-        debugString += "Collision before gravity: " +
-                       Physics.OverlapBox(transform.position, GetComponent<Collider>().bounds.extents,
-                           transform.rotation, CollisionMask).Length;
-
         var gravity = Physics.gravity;
         velocity += gravity * Time.deltaTime;
         var previousPosition = transform.position;
@@ -104,9 +90,6 @@ public class Pushable : MonoBehaviour
 
         var didHit = false;
         var hits = Physics.OverlapBox(transform.position, GetComponent<Collider>().bounds.extents, transform.rotation, CollisionMask);
-
-        debugString += " Collision after gravity: " + hits.Length;
-        Debug.Log(debugString);
 
         foreach (var collider in hits)
         {
