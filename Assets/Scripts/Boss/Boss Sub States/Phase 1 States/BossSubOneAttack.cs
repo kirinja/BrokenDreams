@@ -12,7 +12,7 @@ public class BossSubOneAttack : IBossSubState{
     private bool _spawned;
     private bool _spawnedBox;
 
-    public void Enter(BossBehaviour data, GameObject head)
+    public void Enter(BossBehaviour data)
     {
         _bossData = data;
         _timer = _bossData.StateSwitchTimer;
@@ -40,7 +40,7 @@ public class BossSubOneAttack : IBossSubState{
                 var index  = rand.Next(0, arr.Length);
                 var v = arr[index];
                 Debug.Log("Spawn at platform ID " + v);
-                var g = GameObject.Instantiate(_bossData.Enemy1, spawnPoints[v].transform.position + new Vector3(0, spawnPoints[v].transform.localScale.y / 2 + _bossData.Enemy1.transform.localScale.y / 2, 0) , Quaternion.identity);
+                var g = GameObject.Instantiate(_bossData.Enemy1, spawnPoints[v].transform.position + new Vector3(0, spawnPoints[v].transform.localScale.y / 2 + _bossData.Enemy1.transform.localScale.y / 2, -1) , Quaternion.identity);
                 arr = arr.Where(val => val != v).ToArray();
                 if (!_spawnedBox)
                 {

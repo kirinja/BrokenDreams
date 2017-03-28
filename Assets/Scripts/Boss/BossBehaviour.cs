@@ -29,6 +29,8 @@ public class BossBehaviour : MonoBehaviour
     public int Phase1Spawn = 3;
     [Tooltip("Amount of enemies boss should spawn during phase 2")]
     public int Phase2Spawn = 2;
+    [Tooltip("Amount of projectiles the boss should spawn during phase 3")]
+    public int Phase3Projectiles = 3;
 
     // how often we change state
     [Tooltip("This is hacky and should be removed. Right now every state switch is tied to this timer")]
@@ -127,5 +129,10 @@ public class BossBehaviour : MonoBehaviour
                 Debug.Log("Damage in Phase 3");
                 break;
         }
+        /*
+        if (other.gameObject.CompareTag("Player"))
+        {
+            other.gameObject.GetComponent<Controller3D>().Damage();
+        }*/
     }
 }

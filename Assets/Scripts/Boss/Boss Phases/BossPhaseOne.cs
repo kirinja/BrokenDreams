@@ -15,7 +15,7 @@ public class BossPhaseOne : IBossPhaseState
         _bossData.PhasePlatforms[0].SetActive(true);
         _bossData.BossPhase1.SetActive(true);
         _internalState = new BossSubOneIdle();
-        _internalState.Enter(_bossData, null); // TODO
+        _internalState.Enter(_bossData); // TODO
     }
 
     public IBossPhaseState Execute()
@@ -29,7 +29,7 @@ public class BossPhaseOne : IBossPhaseState
             Debug.Log("Switching internal state 1");
             _internalState.Exit();
             _internalState = state;
-            _internalState.Enter(_bossData, null); // TODO
+            _internalState.Enter(_bossData); // TODO
         }
         return !Alive() ? null : new BossPhaseTwo(); // TODO change to phase 2 instead of phase 1
         /*if (!Alive())
