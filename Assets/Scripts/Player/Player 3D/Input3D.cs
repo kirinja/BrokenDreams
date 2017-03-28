@@ -16,6 +16,10 @@ public class Input3D : MonoBehaviour
         if (!useAbility)
         {
             useAbility = Input.GetButtonDown("Use Ability");
+            if (!useAbility)
+            {
+                useAbility = Input.GetAxisRaw("Ability Axis") > 0f;
+            }
         }
         if (Input.GetButtonDown("Next Ability"))
         {

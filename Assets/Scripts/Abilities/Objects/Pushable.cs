@@ -4,6 +4,7 @@ using UnityEngine;
 public class Pushable : MonoBehaviour
 {
     public float PushSpeed = 5f;
+    public LayerMask CollisionMask;
 
     private AbilityColors abilityColor;
     private bool isPushed;
@@ -30,43 +31,43 @@ public class Pushable : MonoBehaviour
     {
         if (isPushed)
         {
+            string debugString = "";
+            debugString += "Collision before moving: " +
+                           Physics.OverlapBox(transform.position, GetComponent<Collider>().bounds.extents,
+                               transform.rotation, CollisionMask).Length;
+
             var previousPosition = transform.position;
 
             transform.position += velocity * Time.deltaTime;
 
-            var pushedLength = 0f;
-
-            switch (pushAxis)
-            {
-                case Axis.X:
-                    if (velocity.x > 0f)
-                        pushedLength = transform.position.x - startPosition.x;
-                    else
-                        pushedLength = startPosition.x - transform.position.x;
-                    break;
-                case Axis.Z:
-                    if (velocity.z > 0f)
-                        pushedLength = transform.position.z - startPosition.z;
-                    else
-                        pushedLength = startPosition.z - transform.position.z;
-                    break;
-            }
+            var pushedLength = CalculateDistancePushed();
 
             var didHit = false;
-            var hits = Physics.OverlapBox(transform.position, GetComponent<Collider>().bounds.extents);
+            var hits = Physics.OverlapBox(transform.position, GetComponent<Collider>().bounds.extents, transform.rotation, CollisionMask);
+
+            debugString += " Collision after moving: " + hits.Length;
+            Debug.Log(debugString);
+
             foreach (var collider in hits)
-                if (collider.CompareTag("Wall"))
-                    didHit = true;
-                else if (collider.CompareTag("Movable Object"))
+            {
+                if (collider.gameObject == gameObject) continue;
+
+                if (collider.CompareTag("Movable Object"))
+                {
                     collider.GetComponent<Pushable>().Push(velocity.normalized);
+                }
+                else
+                {
+                    Debug.Log("Box colliding with something...");
+                    didHit = true;
+                }
+            }
             if (didHit)
             {
                 transform.position = previousPosition;
                 isPushed = false;
             }
-
-
-            if (pushedLength >= totalPushLength)
+            else if (pushedLength >= totalPushLength)
             {
                 switch (pushAxis)
                 {
@@ -82,28 +83,64 @@ public class Pushable : MonoBehaviour
                 isPushed = false;
             }
         }
-        {
-            Debug.Log("Starting box gravity");
-            var gravity = Physics.gravity;
-            velocity += gravity * Time.deltaTime;
-            var previousPosition = transform.position;
 
-            transform.position += new Vector3(0f, velocity.y, 0f) * Time.deltaTime;
+        HandleGravity();
 
-            var didHit = false;
-            var hits = Physics.OverlapBox(transform.position, GetComponent<Collider>().bounds.extents);
-            foreach (var collider in hits)
-                if (collider.CompareTag("Wall") ||
-                    collider.CompareTag("Movable Object") && collider.gameObject != gameObject)
-                {
-                    velocity = new Vector3(velocity.x, 0f, velocity.z);
-                    didHit = true;
-                    break;
-                }
-            if (didHit)
-                transform.position = previousPosition;
-        }
         GetComponent<Rigidbody>().position = transform.position;
+    }
+
+    private void HandleGravity()
+    {
+        string debugString = "";
+        debugString += "Collision before gravity: " +
+                       Physics.OverlapBox(transform.position, GetComponent<Collider>().bounds.extents,
+                           transform.rotation, CollisionMask).Length;
+
+        var gravity = Physics.gravity;
+        velocity += gravity * Time.deltaTime;
+        var previousPosition = transform.position;
+
+        transform.position += new Vector3(0f, velocity.y * Time.deltaTime, 0f);
+
+        var didHit = false;
+        var hits = Physics.OverlapBox(transform.position, GetComponent<Collider>().bounds.extents, transform.rotation, CollisionMask);
+
+        debugString += " Collision after gravity: " + hits.Length;
+        Debug.Log(debugString);
+
+        foreach (var collider in hits)
+        {
+            if (collider.gameObject == gameObject) continue;
+
+            didHit = true;
+            break;
+        }
+        if (didHit)
+        {
+            transform.position = previousPosition;
+            velocity = new Vector3(velocity.x, 0f, velocity.z);
+        }
+    }
+
+    private float CalculateDistancePushed()
+    {
+        switch (pushAxis)
+        {
+            case Axis.X:
+                if (velocity.x > 0f)
+                {
+                    return transform.position.x - startPosition.x;
+                }
+                return startPosition.x - transform.position.x;
+            case Axis.Z:
+                if (velocity.z > 0f)
+                {
+                    return transform.position.z - startPosition.z;
+                }
+                return startPosition.z - transform.position.z;
+            default:
+                return 0f;
+        }
     }
 
     private void UpdateColor()
