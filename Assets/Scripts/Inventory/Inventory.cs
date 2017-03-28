@@ -7,6 +7,7 @@ public class Inventory : MonoBehaviour {
 	public int MaxSlots = 4;
 
 	private int activeSlots;
+    private int currentSlot;
 
 	public InventorySlotUI[] slots; //HÄR SKA ABILITY KLASSEN VARA
     public Controller3D controller3D;
@@ -27,56 +28,71 @@ public class Inventory : MonoBehaviour {
 			slots [i].gameObject.SetActive (true);
 			activeSlots = i + 1;
 		}
+
+	    currentSlot = 0;
 			
 		if (activeSlots > 0) {
 			slots[0].Selected();
-			//GameObject.Find("Player").GetComponent<Controller3D>().SetAbility(0);
 			controller3D.SetAbility(0);
 		}
-			
-
-
     }
 
 	void Update () {
-		if (Input.GetKeyDown (KeyCode.Alpha1) && activeSlots > 0) {
+		if (Input.GetButtonDown("Select Ability 1") && activeSlots > 0) {
 			slots[0].Selected ();
-			slots [1].Unselected ();
-			slots [2].Unselected ();
-			slots [3].Unselected ();
+			slots[1].Unselected ();
+			slots[2].Unselected ();
+			slots[3].Unselected ();
 
-		    //GameObject.Find("Player").GetComponent<Controller3D>().SetAbility(0);
-            controller3D.SetAbility(0);
+		    currentSlot = 0;
+            controller3D.SetAbility(currentSlot);
 
-		} else if (Input.GetKeyDown (KeyCode.Alpha2) && activeSlots > 1) {
+		} else if (Input.GetButtonDown("Select Ability 2") && activeSlots > 1) {
 			slots[0].Unselected ();
-			slots [1].Selected ();
-			slots [2].Unselected ();
-			slots [3].Unselected ();
+			slots[1].Selected ();
+			slots[2].Unselected ();
+			slots[3].Unselected ();
 
-            //GameObject.Find("Player").GetComponent<Controller3D>().SetAbility(1);
-            controller3D.SetAbility(1);
-
+            currentSlot = 1;
+            controller3D.SetAbility(currentSlot);
         }
-		else if (Input.GetKeyDown (KeyCode.Alpha3) && activeSlots > 2) {
+		else if (Input.GetButtonDown ("Select Ability 3") && activeSlots > 2) {
 			slots[0].Unselected ();
-			slots [1].Unselected ();
-			slots [2].Selected ();
-			slots [3].Unselected ();
+			slots[1].Unselected ();
+			slots[2].Selected ();
+			slots[3].Unselected ();
 
-            //GameObject.Find("Player").GetComponent<Controller3D>().SetAbility(2);
-            controller3D.SetAbility(2);
-
+            currentSlot = 2;
+            controller3D.SetAbility(currentSlot);
         }
-		else if (Input.GetKeyDown (KeyCode.Alpha4) && activeSlots > 3) {
+		else if (Input.GetButtonDown ("Select Ability 4") && activeSlots > 3) {
 			slots[0].Unselected ();
-			slots [1].Unselected ();
-			slots [2].Unselected ();
-			slots [3].Selected ();
+			slots[1].Unselected ();
+			slots[2].Unselected ();
+			slots[3].Selected ();
 
-            //GameObject.Find("Player").GetComponent<Controller3D>().SetAbility(3);
-            controller3D.SetAbility(3);
-
+            currentSlot = 3;
+            controller3D.SetAbility(currentSlot);
+        }
+        else if (Input.GetButtonDown("Next Ability") && activeSlots > currentSlot + 1)
+		{
+		    ++currentSlot;
+		    foreach (var slot in slots)
+		    {
+		        slot.Unselected();
+		    }
+            slots[currentSlot].Selected();
+            controller3D.SetAbility(currentSlot);
+        }
+        else if (Input.GetButtonDown("Previous Ability") && currentSlot > 0)
+        {
+            --currentSlot;
+            foreach (var slot in slots)
+            {
+                slot.Unselected();
+            }
+            slots[currentSlot].Selected();
+            controller3D.SetAbility(currentSlot);
         }
     }
 
