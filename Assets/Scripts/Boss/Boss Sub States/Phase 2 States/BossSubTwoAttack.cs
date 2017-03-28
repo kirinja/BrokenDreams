@@ -7,12 +7,14 @@ public class BossSubTwoAttack : IBossSubState
     private BossBehaviour _bossData;
     private GameObject _head;
     private bool _spawned;
-    private float timer;
+    private float _timer;
+    private float _projDelay = 0.5f; // TODO implement phase 2 projectiles
 
     public void Enter(BossBehaviour data)
     {
         _bossData = data;
-        timer = _bossData.StateSwitchTimer;
+        _timer = _bossData.StateSwitchTimer;
+        
 
         _head = GameObject.Find("Head");
     }
@@ -23,7 +25,7 @@ public class BossSubTwoAttack : IBossSubState
         Debug.Log("Phase 2 Attack State");
         // we cant spawn enemies  like this, it needs to happen once and then move back to idle, otherwise we're gonna spawn enemies every frame for X amount of time
         //Debug.Log("Spawn enemy 1 at random locations");
-        // use a timer or something to determine when we should switch state
+        // use a _timer or something to determine when we should switch state
 
         _head.transform.position = _bossData.Phase2AttackPos.position;
 
@@ -61,8 +63,8 @@ public class BossSubTwoAttack : IBossSubState
             _spawned = true;
         }
 
-        timer -= Time.deltaTime;
-        return timer <= 0.0f ? new BossSubTwoDefend() : null;
+        _timer -= Time.deltaTime;
+        return _timer <= 0.0f ? new BossSubTwoDefend() : null;
         //throw new System.NotImplementedException();
     }
 
