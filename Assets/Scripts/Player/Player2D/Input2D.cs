@@ -18,14 +18,10 @@ public class Input2D : MonoBehaviour
         if (!useAbility)
         {
             useAbility = Input.GetButtonDown("Use Ability");
-        }
-        if (Input.GetButtonDown("Next Ability"))
-        {
-            controller.NextAbility();
-        }
-        if (Input.GetButtonDown("Previous Ability"))
-        {
-            controller.PreviousAbility();
+            if (!useAbility)
+            {
+                useAbility = Input.GetAxisRaw("Use Ability") > 0f;
+            }
         }
     }
 

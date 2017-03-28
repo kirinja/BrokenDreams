@@ -18,16 +18,8 @@ public class Input3D : MonoBehaviour
             useAbility = Input.GetButtonDown("Use Ability");
             if (!useAbility)
             {
-                useAbility = Input.GetAxisRaw("Ability Axis") > 0f;
+                useAbility = Input.GetAxisRaw("Use Ability") > 0f;
             }
-        }
-        if (Input.GetButtonDown("Next Ability"))
-        {
-            player.NextAbility();
-        }
-        if (Input.GetButtonDown("Previous Ability"))
-        {
-            player.PreviousAbility();
         }
     }
 
