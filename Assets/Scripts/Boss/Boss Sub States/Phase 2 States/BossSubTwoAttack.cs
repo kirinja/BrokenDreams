@@ -9,11 +9,12 @@ public class BossSubTwoAttack : IBossSubState
     private bool _spawned;
     private float timer;
 
-    public void Enter(BossBehaviour data, GameObject head)
+    public void Enter(BossBehaviour data)
     {
         _bossData = data;
-        _head = head;
         timer = _bossData.StateSwitchTimer;
+
+        _head = GameObject.Find("Head");
     }
 
     public IBossSubState Execute()

@@ -15,7 +15,7 @@ public class BossPhaseTwo : IBossPhaseState
         _bossData.PhasePlatforms[1].SetActive(true);
         _bossData.BossPhase2.SetActive(true);
         _internalState = new BossSubTwoIdle(); // TODO FIX
-        _internalState.Enter(_bossData, GameObject.Find("Head")); // TODO
+        _internalState.Enter(_bossData);
     }
 
     public IBossPhaseState Execute()
@@ -28,7 +28,7 @@ public class BossPhaseTwo : IBossPhaseState
             Debug.Log("Switching internal state 2");
             _internalState.Exit();
             _internalState = state;
-            _internalState.Enter(_bossData, GameObject.Find("Head")); // TODO
+            _internalState.Enter(_bossData);
         }
         return !Alive() ? null : new BossPhaseThree(); // TODO change to phase 3 instead of phase 1
         /*if (!Alive())
