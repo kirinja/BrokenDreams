@@ -18,6 +18,8 @@ TagManager:
   - Checkpoint
   - Game Manager
   - Level done
+  - Room0
+  - Deadzones sound
   layers:
   - Default
   - TransparentFX
@@ -28,6 +30,7 @@ TagManager:
   - 
   - 
   - Objects
+  - ColliderObjects
   - 
   - 
   - 

@@ -6,70 +6,45 @@ public class TriggerSound : MonoBehaviour {
 
 	private AudioSource[] sources;
 	private AudioSource source1;
-	private AudioSource source2;	//till spelarens fotstegljud
+	private AudioSource source2;
 
-
-	public AudioClip wallSound;	//when colliding with a wall 
-	public AudioClip playerSound; //-----does not work ordentligt
-//	public AudioClip hitSound;
+	public AudioClip wallSound;	
+	public AudioClip playerSound; 	//spelarens egen ljudfil för fotsteg
 	public AudioClip abilitySound;
+	public AudioClip checkpoints;
+	public AudioClip deadzones;
+
+	public AudioClip room0;
 	public AudioClip room1;
 	public AudioClip room2;
-	public AudioClip checkpoints;
+	public AudioClip room3;
 
-	private int hits = 0;
-
-	private float pVel;
 
 	// Use this for initialization
 	void Start () {
 
 		sources = GetComponents<AudioSource> ();
 		source1 = sources[0];
+		source2 = sources[1];
 
-		source2 = sources [1];	//sätts till spelarens fotsteg
-		source2.clip = playerSound;
 		source2.loop = true;
-		source2.Play ();
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (pVel < 0.3f) {
-			source2.Pause ();
-		} else {
-			source2.Play ();
-		}
 
-	}
-
-	void FixedUpdate(){
-		pVel = GetComponent<Rigidbody> ().velocity.magnitude;
 	}
 		
-
 	void OnTriggerEnter(Collider col){
 
 		if (col.gameObject.CompareTag("Wall")){
-			//Debug.Log ("Wall");
-			hits++;
-			//Debug.Log ("Collision hit: " + hits);
 			source1.PlayOneShot (wallSound);
 		}
 
 		if (col.gameObject.CompareTag("Particle system")){
 			source1.PlayOneShot (abilitySound);
 		}
-
-		if (col.gameObject.CompareTag ("Room")) {
-			source1.PlayOneShot (room1);
-
-		}
-
-		if (col.gameObject.CompareTag("Room2")){
-			source1.PlayOneShot (room2);
-		}
-			
 
 		if (col.gameObject.tag == "Player Trigger"){
 			source1.PlayOneShot (playerSound);
@@ -78,16 +53,48 @@ public class TriggerSound : MonoBehaviour {
 		if (col.gameObject.CompareTag("Checkpoint")){
 			source1.PlayOneShot (checkpoints);
 		}
-			
+
+		if (col.gameObject.CompareTag("Deadzones sound")){
+			source1.PlayOneShot (deadzones);
+		}
+
+		if (col.gameObject.CompareTag("Room0")){
+			source2.clip = room0;
+			source2.Play ();
+		}
+
+		if (col.gameObject.CompareTag ("Room")) {
+			source2.clip = room1;
+			source2.Play ();
+		}
+
+		if (col.gameObject.CompareTag("Room2")){
+			source2.clip = room2;
+			source2.Play ();
+		}
+
+		if (col.gameObject.CompareTag("Room3")){
+			source2.clip = room3;
+			source2.Play ();
+		}
 	}
 
 	void OnTriggerExit(Collider col){
+
+		if (col.gameObject.tag == "Room0" && source1.isPlaying){
+			source2.Stop ();
+		}
+
 		if (col.gameObject.tag == "Room" && source1.isPlaying){
-			source1.Stop ();
+			source2.Stop ();
 		}
 
 		if (col.gameObject.tag == "Room2" && source1.isPlaying){
-			source1.Stop ();
+			source2.Stop ();
+		}
+
+		if (col.gameObject.tag == "Room3" && source1.isPlaying){
+			source2.Stop ();
 		}
 	}
 }

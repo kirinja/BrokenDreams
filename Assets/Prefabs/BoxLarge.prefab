@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 65774793371130602}
   - component: {fileID: 54936547734590680}
   - component: {fileID: 114020401943875860}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BoxLarge
   m_TagString: Movable Object
   m_Icon: {fileID: 0}
@@ -121,3 +121,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PushSpeed: 5
+  CollisionMask:
+    serializedVersion: 2
+    m_Bits: 256

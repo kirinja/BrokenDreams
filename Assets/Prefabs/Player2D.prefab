@@ -26,7 +26,7 @@ GameObject:
   - component: {fileID: 143716917711517604}
   - component: {fileID: 114013248401071146}
   - component: {fileID: 114450476005096784}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Player2D
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 114339153856659292}
   - component: {fileID: 54962181557542994}
   - component: {fileID: 65190053459802926}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: TriggerSoundThePlayerCollidesWithAndItself
   m_TagString: Player Trigger
   m_Icon: {fileID: 0}
@@ -329,10 +329,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wallSound: {fileID: 8300000, guid: 8964610cd721863428f7257859d8eda7, type: 3}
-  moSound: {fileID: 8300000, guid: 7b78ca37fbb58cb4f974f5e6c1dad913, type: 3}
-  hitSound: {fileID: 8300000, guid: 4543fd8c38752bc498d1b38c1aeacb21, type: 3}
+  playerSound: {fileID: 0}
   abilitySound: {fileID: 0}
-  differentRoomSounds: {fileID: 0}
+  room1: {fileID: 0}
+  room2: {fileID: 0}
+  checkpoints: {fileID: 0}
 --- !u!114 &114371488763153094
 MonoBehaviour:
   m_ObjectHideFlags: 1
