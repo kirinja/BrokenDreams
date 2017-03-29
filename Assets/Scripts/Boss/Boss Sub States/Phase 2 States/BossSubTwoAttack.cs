@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BossSubTwoAttack : IBossSubState
@@ -16,7 +17,7 @@ public class BossSubTwoAttack : IBossSubState
     public void Enter(BossBehaviour data)
     {
         _bossData = data;
-        _timer = _bossData.StateSwitchTimer;
+        _timer = _bossData.StateSwitchTimer; // TODO
         _projTimer = TimeBetweenShots;
 
         _head = GameObject.Find("Head");
@@ -24,16 +25,8 @@ public class BossSubTwoAttack : IBossSubState
 
     public IBossSubState Execute()
     {
-        // behaviour for spawning enemies
-        Debug.Log("Phase 2 Attack State");
-        // we cant spawn enemies  like this, it needs to happen once and then move back to idle, otherwise we're gonna spawn enemies every frame for X amount of time
-        //Debug.Log("Spawn enemy 1 at random locations");
-        // use a _timer or something to determine when we should switch state
-
+        Debug.Log("Phase 2 Attack");
         _head.transform.position = _bossData.Phase2AttackPos.position;
-
-        //cant set active since we cant find it in the hierarchy afterwards. we should disable the colliders and renderer
-        //_head.SetActive(true);
         _head.GetComponent<Renderer>().enabled = true;
         var cols = _head.GetComponents<Collider>();
         foreach (var col in cols)
@@ -60,9 +53,13 @@ public class BossSubTwoAttack : IBossSubState
                 var index = rand.Next(0, arr.Length);
                 var v = arr[index];
                 Debug.Log("Spawn at platform ID " + v);
-                GameObject.Instantiate(_bossData.Enemy2, spawnPoints[v].transform.position + new Vector3(0, spawnPoints[v].transform.localScale.y / 2 + _bossData.Enemy1.transform.localScale.y / 2, -1), Quaternion.identity);
+                Object.Instantiate(_bossData.Enemy2,
+                    spawnPoints[v].transform.position +
+                    new Vector3(0,
+                        spawnPoints[v].transform.localScale.y / 2 + _bossData.Enemy1.transform.localScale.y / 2, -1),
+                    Quaternion.identity);
                 arr = arr.Where(val => val != v).ToArray();
-                
+
             }
             _spawned = true;
         }
@@ -71,9 +68,9 @@ public class BossSubTwoAttack : IBossSubState
         {
             Debug.Log("Try to spawn projectiles");
             // spawn projectiles and launch them at the player
-            var g = Object.Instantiate(_bossData.Projectiles, _bossData.BossPhase2.transform.position, Quaternion.identity);
+            var g = Object.Instantiate(_bossData.Projectiles, _bossData.BossPhase2.transform.position,
+                Quaternion.identity);
             g.transform.position = new Vector3(g.transform.position.x, g.transform.position.y, -1);
-            //Debug.Log(g);
 
             _projCounter++;
             _projTimer = TimeBetweenShots;
@@ -82,13 +79,16 @@ public class BossSubTwoAttack : IBossSubState
 
         _projTimer -= Time.deltaTime;
         _timer -= Time.deltaTime;
-        return _timer <= 0.0f ? new BossSubTwoDefend() : null;
-        //throw new System.NotImplementedException();
+        if (!(_timer <= 0.0f)) return null;
+        var r = Random.value;
+        if (r <= 0.5f)
+            return new BossSubTwoDefend();
+
+        return new BossSubTwoIdle();
     }
 
     public void Exit()
     {
-        //throw new System.NotImplementedException();
         _spawned = false;
     }
 

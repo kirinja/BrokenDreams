@@ -49,7 +49,6 @@ public class Patrol01 : Enemy01State {
     {
         {
             enemy.changeState(new Idle01(enemy));
-            Debug.Log("Switching to Idle");
         }
     }
 

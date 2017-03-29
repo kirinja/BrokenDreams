@@ -60,7 +60,7 @@ public class BossBehaviour : MonoBehaviour
     private AudioSource _bossProjSounds;
 
     // TODO Boss defeated sounds? 
-    public AudioClip[] BossDirectSounds;
+    public AudioClip[] BossIdleSounds;
     public AudioClip[] BossProjSounds;
     public AudioClip[] BossSpawnSounds;
     public AudioClip[] BossDamageSounds;
@@ -158,14 +158,14 @@ public class BossBehaviour : MonoBehaviour
         }*/
     }
 
-    public void PlayBossDirectSound()
+    public void PlayBossIdleSound()
     {
 
-        int range = Random.Range(1, BossDirectSounds.Length);
-        _bossDirectSounds.clip = BossDirectSounds[range];
+        int range = Random.Range(1, BossIdleSounds.Length);
+        _bossDirectSounds.clip = BossIdleSounds[range];
         _bossDirectSounds.PlayOneShot(_bossDirectSounds.clip);
-        BossDirectSounds[range] = BossDirectSounds[0];
-        BossDirectSounds[0] = _bossDirectSounds.clip;
+        BossIdleSounds[range] = BossIdleSounds[0];
+        BossIdleSounds[0] = _bossDirectSounds.clip;
     }
 
     public void PlayBossProjSound()

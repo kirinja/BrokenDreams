@@ -44,7 +44,6 @@ public class Idle01 : Enemy01State {
     {
         
          enemy.changeState(new Patrol01(enemy, enemy.StartVelocity));
-         Debug.Log("Switching to patrol");
             
     }
 

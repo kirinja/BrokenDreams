@@ -15,13 +15,14 @@ public class BossSubOneAttack : IBossSubState{
     public void Enter(BossBehaviour data)
     {
         _bossData = data;
-        _timer = _bossData.StateSwitchTimer;
+        _timer = _bossData.StateSwitchTimer; // TODO
         _spawned = false;
         _spawnedBox = false;
     }
     
     public IBossSubState Execute()
     {
+        Debug.Log("Phase 1 Attack");
         if (!_spawned)
         {
             var spawnPoints = GameObject.FindGameObjectsWithTag("Platform");
@@ -56,24 +57,20 @@ public class BossSubOneAttack : IBossSubState{
                     b.transform.SetParent(g.transform);
                     _spawnedBox = true;
                 }
+
+                //_bossData.PlayBossSpawnSound();
             }
             _spawned = true;
         }
 
         // behaviour for spawning enemies
-        Debug.Log("Phase 1 Attack State");
-        // we cant spawn enemies  like this, it needs to happen once and then move back to idle, otherwise we're gonna spawn enemies every frame for X amount of time
-        //Debug.Log("Spawn enemy 1 at random locations");
-
-        // use a _timer or something to determine when we should switch state
+        
         _timer -= Time.deltaTime;
         return _timer <= 0.0f ? new BossSubOneIdle() : null;
-        //throw new System.NotImplementedException();
     }
 
     public void Exit()
     {
-        //throw new System.NotImplementedException();
         _spawned = false;
         _spawnedBox = false;
     }

@@ -7,42 +7,37 @@ public class BossSubTwoDefend: IBossSubState
 
     private BossBehaviour _bossData;
     private GameObject _head;
-    private float timer;
+    private float _timer;
 
     public void Enter(BossBehaviour data)
     {
         _bossData = data;
-        timer = _bossData.StateSwitchTimer;
+        _timer = _bossData.StateSwitchTimer; // TODO
 
         _head = GameObject.Find("Head");
     }
 
     public IBossSubState Execute()
     {
-        // behaviour for spawning enemies
-        Debug.Log("Phase 2 Defend State");
-        // we cant spawn enemies  like this, it needs to happen once and then move back to idle, otherwise we're gonna spawn enemies every frame for X amount of time
-        //Debug.Log("Spawn enemy 1 at random locations");
-
-        //_bossData.Phase2AttackPos.position;
-
+        Debug.Log("Phase 2 Defend");
         _head.transform.position = _bossData.Phase2DefendPos.position;
-        //_head.SetActive(false);
-
         _head.GetComponent<Renderer>().enabled = false;
         var cols = _head.GetComponents<Collider>();
         foreach (var col in cols)
             col.enabled = false;
+        
+        _timer -= Time.deltaTime;
+        if (!(_timer <= 0.0f)) return null;
 
-        // use a timer or something to determine when we should switch state
-        timer -= Time.deltaTime;
-        return timer <= 0.0f ? new BossSubTwoIdle() : null;
-        //throw new System.NotImplementedException();
+        var r = Random.value;
+        if (r <= 0.5)
+            return new BossSubTwoIdle();
+
+        return new BossSubTwoAttack();
     }
 
     public void Exit()
     {
-        //throw new System.NotImplementedException();
     }
 
     public bool Alive()

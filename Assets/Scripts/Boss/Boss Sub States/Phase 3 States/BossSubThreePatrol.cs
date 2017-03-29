@@ -6,12 +6,12 @@ public class BossSubThreePatrol : IBossSubState
 {
 
     private BossBehaviour _bossData;
-    private float timer;
+    private float _timer;
 
     public void Enter(BossBehaviour data)
     {
         _bossData = data;
-        timer = _bossData.StateSwitchTimer;
+        _timer = _bossData.StateSwitchTimer;
     }
 
     public IBossSubState Execute()
@@ -24,10 +24,15 @@ public class BossSubThreePatrol : IBossSubState
         GameObject.Find("BossPhase3").GetComponent<SplineInterpolator>().enabled = true;
 
 
-        // use a timer or something to determine when we should switch state
-        timer -= Time.deltaTime;
-        return timer <= 0.0f ? new BossSubThreeIdle() : null;
-        //throw new System.NotImplementedException();
+        // use a _timer or something to determine when we should switch state
+        _timer -= Time.deltaTime;
+
+        if (!(_timer <= 0.0f)) return null;
+        var r = Random.value;
+        if (r <= 0.5f)
+            return new BossSubThreeIdle();
+
+        return new BossSubThreeAttack();
     }
 
     public void Exit()

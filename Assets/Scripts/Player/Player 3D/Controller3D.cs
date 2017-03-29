@@ -21,6 +21,7 @@ public class Controller3D : MonoBehaviour
     public Vector2 MovementInput { get; private set; }
 
 	public Animator animator; //!!!
+    public Material Material;
 
 	void Start(){
 		
@@ -36,9 +37,10 @@ public class Controller3D : MonoBehaviour
         spawnPosition = transform.position;
         if (Attributes.Abilities.Count <= 0)
         {
-            var material = GetComponent<Renderer>().sharedMaterial;
+            //var material = GetComponent<Renderer>().sharedMaterial;
             var abilityColor = Resources.Load("AbilityColors", typeof(AbilityColors)) as AbilityColors;
-            material.color = abilityColor.DefaultColor;
+            //material.color = abilityColor.DefaultColor;
+            Material.SetColor("_Color", abilityColor.DefaultColor);
         }
         invincible = false;
         invincibleTime = 0f;
@@ -46,9 +48,11 @@ public class Controller3D : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        var material = GetComponent<Renderer>().sharedMaterial;
+        //var material = GetComponent<Renderer>().sharedMaterial;
         var abilityColor = Resources.Load("AbilityColors", typeof(AbilityColors)) as AbilityColors;
-        material.color = abilityColor.DefaultColor;
+        //material.color = abilityColor.DefaultColor;
+        Material.SetColor("_Color", abilityColor.DefaultColor);
+
     }
 
     private void Update()
@@ -59,13 +63,23 @@ public class Controller3D : MonoBehaviour
             if (invincibleTime % 0.2f < 0.1f)
             {
                 visible = !visible;
-                GetComponent<MeshRenderer>().enabled = visible;
+                //GetComponent<MeshRenderer>().enabled = visible;
+                var renders = GetComponentsInChildren<SkinnedMeshRenderer>();
+                foreach (var r in renders)
+                {
+                    r.enabled = visible;
+                }
             }
             if (invincibleTime >= Attributes.InvincibleTimeOnDamage)
             {
                 invincible = false;
                 invincibleTime = 0f;
-                GetComponent<MeshRenderer>().enabled = true;
+                //GetComponent<MeshRenderer>().enabled = true;
+                var renders = GetComponentsInChildren<SkinnedMeshRenderer>();
+                foreach (var r in renders)
+                {
+                    r.enabled = true;
+                }
             }
         }
 		if (animator != null){ //!!!
@@ -77,6 +91,9 @@ public class Controller3D : MonoBehaviour
     {
         var material = GetComponent<Renderer>().sharedMaterial;
         material.color = Attributes.Abilities[selectedAbility].Color;
+        Material.SetColor("_Color", Attributes.Abilities[selectedAbility].Color);
+
+
     }
 
     public void HandleMovement(bool useAbility, Vector2 input)
@@ -114,6 +131,8 @@ public class Controller3D : MonoBehaviour
         {
             var material = GetComponent<Renderer>().sharedMaterial;
             material.color = Attributes.Abilities[++selectedAbility].Color;
+            Material.color = Attributes.Abilities[++selectedAbility].Color;
+            Material.SetColor("_Color", Attributes.Abilities[++selectedAbility].Color);
         }
     }
 
@@ -123,6 +142,9 @@ public class Controller3D : MonoBehaviour
         {
             var material = GetComponent<Renderer>().sharedMaterial;
             material.color = Attributes.Abilities[--selectedAbility].Color;
+            Material.SetColor("_Color", Attributes.Abilities[--selectedAbility].Color);
+
+
         }
     }
 
@@ -131,8 +153,9 @@ public class Controller3D : MonoBehaviour
         if (index < Attributes.Abilities.Count)
         {
             selectedAbility = index;
-            var material = GetComponent<Renderer>().sharedMaterial;
-            material.color = Attributes.Abilities[selectedAbility].Color;
+            //var material = GetComponent<Renderer>().sharedMaterial;
+            //material.color = Attributes.Abilities[selectedAbility].Color;
+            Material.SetColor("_Color", Attributes.Abilities[selectedAbility].Color);
         }
     }
 

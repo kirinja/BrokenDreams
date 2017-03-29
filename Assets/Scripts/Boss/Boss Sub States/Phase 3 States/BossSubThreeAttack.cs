@@ -7,7 +7,7 @@ public class BossSubThreeAttack : IBossSubState
 {
 
     private BossBehaviour _bossData;
-    private float timer;
+    private float _timer;
     private int _projCounter = 0;
     private const float TimeBetweenShots = 0.5f;
     private float _attackTimer;
@@ -17,7 +17,7 @@ public class BossSubThreeAttack : IBossSubState
     public void Enter(BossBehaviour data)
     {
         _bossData = data;
-        timer = _bossData.StateSwitchTimer;
+        _timer = _bossData.StateSwitchTimer;
         _attackTimer = TimeBetweenShots;
         _projCounter = 0;
         _acidTimer = _bossData.AcidTimer;
@@ -26,7 +26,7 @@ public class BossSubThreeAttack : IBossSubState
     public IBossSubState Execute()
     {
         // behaviour for spawning enemies
-        Debug.Log("Phase 3 Attack State");
+        Debug.Log("Phase 3 Attack");
         // we cant spawn enemies  like this, it needs to happen once and then move back to idle, otherwise we're gonna spawn enemies every frame for X amount of time
         //Debug.Log("Spawn enemy 1 at random locations");
 
@@ -53,13 +53,18 @@ public class BossSubThreeAttack : IBossSubState
             _acidTimer = _bossData.AcidTimer;
         }
 
-        // use a timer or something to determine when we should switch state
+        // use a _timer or something to determine when we should switch state
 
         _acidTimer -= Time.deltaTime;
         _attackTimer -= Time.deltaTime;
-        timer -= Time.deltaTime;
-        return timer <= 0.0f ? new BossSubThreePatrol() : null;
-        //throw new System.NotImplementedException();
+        _timer -= Time.deltaTime;
+
+        if (!(_timer <= 0.0f)) return null;
+        var r = Random.value;
+        if (r <= 0.5f)
+            return new BossSubThreePatrol();
+
+        return new BossSubThreeIdle();
     }
 
     public void Exit()
