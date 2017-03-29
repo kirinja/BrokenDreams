@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CheckPoint : MonoBehaviour {
+public class CheckPoint : MonoBehaviour
+{
+    private bool activated;
 
 	// Use this for initialization
-	void Start () {
-		
+	void Start ()
+	{
+	    activated = false;
 	}
 	
 	// Update is called once per frame
@@ -16,7 +19,7 @@ public class CheckPoint : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && !activated)
         {
             Debug.Log("CHECKPOINT");
             other.GetComponent<Controller3D>().SetSpawn();
