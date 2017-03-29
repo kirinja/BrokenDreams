@@ -36,6 +36,7 @@ public class Deal : EnemyState {
 
     public void Enter()
     {
+        //Need sound?
         enemy.StartCoroutine("spasmTime");
         Exit();
     }

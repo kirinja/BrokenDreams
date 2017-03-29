@@ -5,9 +5,9 @@ using UnityEngine;
 public class Projectile : MonoBehaviour {
 
 
-    public Controller3D target;
-    public Enemy02behaviour3D shooter;
-    public Rigidbody rb;
+    private Controller3D target;
+    private Enemy02behaviour3D shooter;
+    private Rigidbody rb;
 	// Use this for initialization
 	void Start () {
 
@@ -20,6 +20,7 @@ public class Projectile : MonoBehaviour {
         Vector3 shooterPos = shooter.transform.position;
         this.transform.position = shooterPos;
         rb.velocity = calculateVelocity(target.transform, 45f);
+        //Need sound
         Debug.Log("Åker nu");
     }
 
@@ -54,12 +55,18 @@ public class Projectile : MonoBehaviour {
     public void OnCollisionEnter(Collision col)
     {
         shooter.Fired = false;
+        //Need sound
     }
 
     public void setTarget(Controller3D target)
     {
         rb = GetComponent<Rigidbody>();
         this.target = target;
+    }
+
+    public void setShooter(Enemy02behaviour3D enemy)
+    {
+        shooter = enemy;
     }
 
 }

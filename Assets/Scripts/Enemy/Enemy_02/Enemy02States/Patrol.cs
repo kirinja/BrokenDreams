@@ -35,10 +35,14 @@ public class Patrol : EnemyState {
     }
 
     public void Enter()
-    { }
+    {
+        //Start footstep loop?
+    }
 
     public void Exit()
-    { }
+    {
+        //Exit footstep loop?
+    }
 
     public bool getCanShoot()
     {
