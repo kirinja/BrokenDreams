@@ -30,3 +30,4 @@ sysinfo.txt
 *.unitypackage
 Assets/Save/Save.sav
 Assets/Save/Save.sav.meta
+Assets/Save.meta
