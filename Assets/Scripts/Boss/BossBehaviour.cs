@@ -20,6 +20,7 @@ public class BossBehaviour : MonoBehaviour
     public GameObject Enemy1;
     public GameObject Enemy2;
     public GameObject Projectiles;
+    public GameObject Acid;
 
     public GameObject[] PhasePlatforms;
     //private int phaseIndex = 0;
@@ -32,6 +33,9 @@ public class BossBehaviour : MonoBehaviour
     public int Phase2Spawn = 2;
     [Tooltip("Amount of projectiles the boss should spawn during phase 3")]
     public int Phase3Projectiles = 3;
+
+    [Tooltip("Interval between acid droppings")]
+    public float AcidTimer;
 
     // how often we change state
     [Tooltip("This is hacky and should be removed. Right now every state switch is tied to this timer")]

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class BossSubThreeAttack : IBossSubState
@@ -7,18 +8,19 @@ public class BossSubThreeAttack : IBossSubState
 
     private BossBehaviour _bossData;
     private float timer;
-    private bool _attacked;
     private int _projCounter = 0;
-    private const float TimeBetweenShots = 1.0f;
+    private const float TimeBetweenShots = 0.5f;
     private float _attackTimer;
+
+    private float _acidTimer;
 
     public void Enter(BossBehaviour data)
     {
         _bossData = data;
         timer = _bossData.StateSwitchTimer;
         _attackTimer = TimeBetweenShots;
-        _attacked = false;
         _projCounter = 0;
+        _acidTimer = _bossData.AcidTimer;
     }
 
     public IBossSubState Execute()
@@ -35,13 +37,25 @@ public class BossSubThreeAttack : IBossSubState
             Debug.Log("Try to spawn projectiles");
             // spawn projectiles and launch them at the player
             var g = Object.Instantiate(_bossData.Projectiles, _bossData.BossPhase3.transform.position, Quaternion.identity);
-            Debug.Log(g);
+            g.transform.position = new Vector3(g.transform.position.x, g.transform.position.y, -1);
+            //Debug.Log(g);
 
             _projCounter++;
             _attackTimer = TimeBetweenShots;
         }
 
+        if (_acidTimer <= 0.0f)
+        {
+            Debug.Log("Try to drop acid");
+            var g = Object.Instantiate(_bossData.Acid, _bossData.BossPhase3.transform.position, _bossData.Acid.transform.rotation);
+            g.transform.position = new Vector3(g.transform.position.x, g.transform.position.y, -1);
+
+            _acidTimer = _bossData.AcidTimer;
+        }
+
         // use a timer or something to determine when we should switch state
+
+        _acidTimer -= Time.deltaTime;
         _attackTimer -= Time.deltaTime;
         timer -= Time.deltaTime;
         return timer <= 0.0f ? new BossSubThreePatrol() : null;
@@ -51,7 +65,6 @@ public class BossSubThreeAttack : IBossSubState
     public void Exit()
     {
         //throw new System.NotImplementedException();
-        _attacked = false;
         _projCounter = 0;
     }
 

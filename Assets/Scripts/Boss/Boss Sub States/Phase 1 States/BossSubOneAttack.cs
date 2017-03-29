@@ -24,7 +24,7 @@ public class BossSubOneAttack : IBossSubState{
     {
         if (!_spawned)
         {
-            var spawnPoints = GameObject.FindGameObjectsWithTag("Wall");
+            var spawnPoints = GameObject.FindGameObjectsWithTag("Platform");
 
             var rand = new Random();
 
