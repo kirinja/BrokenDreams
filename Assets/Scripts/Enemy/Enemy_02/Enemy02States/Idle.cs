@@ -34,11 +34,11 @@ public class Idle : EnemyState {
         //RaycastHit hit;
         for (int v = 0; v< col.Length; v++)
         {
-            if (col[i].CompareTag("Player")) //&& Physics.Linecast(enemy.transform.position, col[i].transform.position, out hit)
+            if (col[v].CompareTag("Player")) //&& Physics.Linecast(enemy.transform.position, col[i].transform.position, out hit)
             {
                 //if (hit.collider.gameObject.CompareTag("Player"))
                 //{
-                enemy.setTarget(col[i].GetComponent<Controller3D>());
+                enemy.setTarget(col[v].GetComponent<Controller3D>());
                 enemy.changeState(new Patrol(this.enemy));
                 //Alert sound
                 //}

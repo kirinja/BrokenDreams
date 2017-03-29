@@ -26,6 +26,7 @@ public class Projectile : MonoBehaviour {
 
     public Vector3 calculateVelocity(Transform target, float angle)
     {
+        if (!target) return Vector3.zero;
         var dir = target.position - transform.position;  // get target direction
         var h = dir.y;  // get height difference
         dir.y = 0;  // retain only the horizontal direction

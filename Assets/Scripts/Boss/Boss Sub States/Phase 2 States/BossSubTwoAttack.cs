@@ -30,7 +30,8 @@ public class BossSubTwoAttack : IBossSubState
         _head.transform.position = _bossData.Phase2AttackPos.position;
 
         //cant set active since we cant find it in the hierarchy afterwards. we should disable the colliders and renderer
-        _head.SetActive(true);
+        //_head.SetActive(true);
+        _head.GetComponent<Renderer>().enabled = true;
         var cols = _head.GetComponents<Collider>();
         foreach (var col in cols)
             col.enabled = true;
