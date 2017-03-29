@@ -2715,7 +2715,7 @@ MonoBehaviour:
   HP: 0
   HitsPhaseOne: 1
   HitsPhaseTwo: 3
-  HitsPhaseThree: 5
+  HitsPhaseThree: 3
   Enemy1: {fileID: 1787403253253894, guid: 06b81ef548e107041b91ba5deaba3943, type: 2}
   Enemy2: {fileID: 1793933580056596, guid: f943da3cbfe1b2d44b9082c5fb20670a, type: 2}
   Projectiles: {fileID: 1191082914418746, guid: cba9953463c055a44ace64e03954af8b,
