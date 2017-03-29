@@ -7,7 +7,7 @@ public class BossProjectile : MonoBehaviour
 
     private Vector3 _target;
     public float ProjectileSpeed = 5.0f;
-    private Rigidbody rbody;
+    private Rigidbody _rbody;
 
 	// Use this for initialization
 	void Start ()
@@ -16,14 +16,14 @@ public class BossProjectile : MonoBehaviour
         // need to lock Z value to same plane
 	    var direction = _target - transform.position;
 	    _target = direction.normalized;
-	    rbody = GetComponent<Rigidbody>();
+	    _rbody = GetComponent<Rigidbody>();
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
 	    transform.position += _target * Time.deltaTime * ProjectileSpeed;
-        rbody.position = transform.position;
+        _rbody.position = transform.position;
 	}
 
     void OnTriggerEnter(Collider other)
