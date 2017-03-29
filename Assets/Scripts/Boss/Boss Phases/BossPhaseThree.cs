@@ -30,21 +30,7 @@ public class BossPhaseThree : IBossPhaseState
             _internalState = state;
             _internalState.Enter(_bossData);
         }
-        //return !Alive() ? null : new BossPhaseOne(); // TODO change to phase 3 instead of phase 1
         return null;
-        /*if (!Alive())
-            return null;
-        else
-        {
-            return new BossPhaseOne();
-        }
-        Debug.Log(Alive());
-        if (Alive())
-            return null;
-        else
-        {
-            return new BossPhaseOne();
-        }*/
     }
 
     public void Exit()
@@ -64,7 +50,7 @@ public class BossPhaseThree : IBossPhaseState
     // this will be called via monobehaviour
     public void TakeDamage(int value)
     {
-        Debug.Log("Taking " + value + " damage 3");
+        _bossData.PlayBossDamageSound();
         _internalState.TakeDamage(value);
     }
 }

@@ -13,11 +13,11 @@ public class Enemy02behaviour3D : Enemy
 
     private float projectileSpeed;
 
-    public Controller3D target;
+    private Controller3D target;
 
     private float timeSinceAttack = 4f;
 
-    public Projectile projectile;
+    private Projectile projectile;
 
     public bool Fired;
 
@@ -25,6 +25,7 @@ public class Enemy02behaviour3D : Enemy
 
 
 
+    public GameObject projectilePreFab;
     public Transform[] retreatPoints;
     public int rpIndex;
     public int rpThreshold;
@@ -34,8 +35,10 @@ public class Enemy02behaviour3D : Enemy
     // Use this for initialization
     void Start()
     {
-
         state = new Idle(this); //Base state for Enemy is idle, idle contains method for player detection
+        var p = Instantiate<GameObject>(projectilePreFab);
+        projectile = p.GetComponent<Projectile>();
+        projectile.setShooter(this);
         rpThreshold = retreatPoints.Length - 1;
         rpIndex = 0;
     }
@@ -54,6 +57,8 @@ public class Enemy02behaviour3D : Enemy
             timeSinceAttack += Time.deltaTime;
         }
         state.Update();
+
+        Debug.Log(state.GetType().ToString());
     }
 
 
@@ -113,7 +118,9 @@ public class Enemy02behaviour3D : Enemy
 
     public override void changeState(EnemyState state) //Called by state when a transition is in order
     {
+        state.Exit();
         this.state = state;
+        state.Enter();
     }
     public void setTarget(Controller3D target) //Called by Idle when an enemy is found
     {
@@ -128,9 +135,14 @@ public class Enemy02behaviour3D : Enemy
 
     public void OnTriggerEnter(Collider other)
     {
+        /*
         if (other.CompareTag("Attack"))
         {
             Damage();
+        }*/
+        if (other.gameObject.CompareTag("Player"))
+        {
+            other.gameObject.GetComponent<Controller3D>().AttackPlayer(transform.position, 1);
         }
     }
 

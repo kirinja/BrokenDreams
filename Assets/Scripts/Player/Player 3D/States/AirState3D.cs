@@ -66,7 +66,7 @@ public struct AirState3D : ICharacterState3D
     {
         var move = new Vector3(input.x, 0, input.y);
         move.Normalize();
-        //var currentAngle = controller.transform.eulerAngles.y;
+        var currentAngle = controller.transform.eulerAngles.y;
         var inputAngle = Mathf.Atan2(move.x, move.z) * Mathf.Rad2Deg;
         var direction = controller.CameraTransform.eulerAngles.y + inputAngle;
         var forwardMovement = move.magnitude;
@@ -74,41 +74,64 @@ public struct AirState3D : ICharacterState3D
         var desiredForwardVelocity = forwardMovement * attributes.MaxSpeed;
         var acceleration = attributes.MaxSpeed / attributes.AirAccelerationTime;
 
+        var actualAngle = controller.transform.eulerAngles.y;
+        controller.transform.eulerAngles = new Vector3(0, direction, 0);
+        var desiredAngleVelocity = controller.transform.InverseTransformDirection(controller.Velocity);
+
         // Change character direction
         if (input.magnitude > float.Epsilon)
         {
-            //var rotationAngle = Mathf.Abs(direction - currentAngle);
-            //var rotationTime = attributes.MaxRotationTime / 180f * rotationAngle;
-            //var rotationSpeed = rotationAngle / rotationTime;
-            //direction = Mathf.LerpAngle(currentAngle, direction, Mathf.Min(1f, Time.deltaTime * rotationSpeed));
-            controller.transform.eulerAngles = new Vector3(0, direction, 0);
+            var rotationAngle = direction - currentAngle;
+            if (rotationAngle > 180f)
+            {
+                rotationAngle = rotationAngle - 360f;
+            }
+            else if (rotationAngle < -180f)
+            {
+                rotationAngle = rotationAngle + 360;
+            }
+            var rotationSpeed = (180f / attributes.MaxRotationTime) * Mathf.Sign(rotationAngle) * Time.deltaTime;
+
+            if (Mathf.Abs(rotationSpeed) > Math.Abs(rotationAngle))
+            {
+                rotationSpeed = rotationAngle;
+            }
+
+            var finalAngle = actualAngle + rotationSpeed;
+            if (finalAngle > 360f)
+            {
+                finalAngle -= 360f;
+            }
+
+            actualAngle = finalAngle;
         }
-        var currentLocalVelocity = controller.transform.InverseTransformDirection(controller.Velocity);
+        //var currentLocalVelocity = controller.transform.InverseTransformDirection(controller.Velocity);
 
         // Calculate and apply acceleration
         if (forwardMovement > float.Epsilon)
         {
-            if (currentLocalVelocity.z < desiredForwardVelocity)
+            if (desiredAngleVelocity.z < desiredForwardVelocity)
             {
                 var accelerationAmount = Time.deltaTime * acceleration;
-                if (currentLocalVelocity.z + accelerationAmount > desiredForwardVelocity)
+                if (desiredAngleVelocity.z + accelerationAmount > desiredForwardVelocity)
                 {
-                    accelerationAmount = desiredForwardVelocity - currentLocalVelocity.z;
+                    accelerationAmount = desiredForwardVelocity - desiredAngleVelocity.z;
                 }
-                currentLocalVelocity.z += accelerationAmount; // Apply acceleration
+                desiredAngleVelocity.z += accelerationAmount; // Apply acceleration
             }
         }
 
         if (jump)
         {
-            currentLocalVelocity.y = ((2 * attributes.MaxJumpHeight * attributes.MaxSpeed) / (attributes.MaxJumpLength / 2));
+            desiredAngleVelocity.y = ((2 * attributes.MaxJumpHeight * attributes.MaxSpeed) / (attributes.MaxJumpLength / 2));
             jump = false;
         }
 
         var gravity = new Vector3(0f, (-2 * attributes.MaxJumpHeight * Mathf.Pow(attributes.MaxSpeed, 2)) / (Mathf.Pow(attributes.MaxJumpLength / 2, 2)), 0f);
-        currentLocalVelocity += gravity * Time.deltaTime;
+        desiredAngleVelocity += gravity * Time.deltaTime;
 
-        controller.Velocity = controller.transform.TransformDirection(currentLocalVelocity);
+        controller.Velocity = controller.transform.TransformDirection(desiredAngleVelocity);
+        controller.transform.eulerAngles = new Vector3(0f, actualAngle, 0f);
     }
 
     public void AttemptStateSwitch(CharacterStateSwitch3D state)

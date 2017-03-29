@@ -35,10 +35,16 @@ public class Patrol : EnemyState {
     }
 
     public void Enter()
-    { }
+    {
+        agent.Resume();
+        //Start footstep loop?
+    }
 
     public void Exit()
-    { }
+    {
+        agent.Stop();
+        //Exit footstep loop?
+    }
 
     public bool getCanShoot()
     {
