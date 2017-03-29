@@ -106,8 +106,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  projectile: {fileID: 0}
   Fired: 0
+  projectilePreFab: {fileID: 1738751761851474, guid: ba4265d501b6f8c42a61385c1f2015b1,
+    type: 2}
   retreatPoints: []
   rpIndex: 0
   rpThreshold: 2

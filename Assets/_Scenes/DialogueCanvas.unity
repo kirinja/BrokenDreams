@@ -91,115 +91,6 @@ NavMeshSettings:
     cellSize: 0.16666667
     accuratePlacement: 0
   m_NavMeshData: {fileID: 0}
---- !u!224 &596421496 stripped
-RectTransform:
-  m_PrefabParentObject: {fileID: 224442232889295386, guid: 9ed872ee0021bb54ab15365b90bf2531,
-    type: 2}
-  m_PrefabInternal: {fileID: 820161273}
---- !u!1001 &820161273
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 994389581}
-    m_Modifications:
-    - target: {fileID: 224442232889295386, guid: 9ed872ee0021bb54ab15365b90bf2531,
-        type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224442232889295386, guid: 9ed872ee0021bb54ab15365b90bf2531,
-        type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224442232889295386, guid: 9ed872ee0021bb54ab15365b90bf2531,
-        type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224442232889295386, guid: 9ed872ee0021bb54ab15365b90bf2531,
-        type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224442232889295386, guid: 9ed872ee0021bb54ab15365b90bf2531,
-        type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224442232889295386, guid: 9ed872ee0021bb54ab15365b90bf2531,
-        type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224442232889295386, guid: 9ed872ee0021bb54ab15365b90bf2531,
-        type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224442232889295386, guid: 9ed872ee0021bb54ab15365b90bf2531,
-        type: 2}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224442232889295386, guid: 9ed872ee0021bb54ab15365b90bf2531,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224442232889295386, guid: 9ed872ee0021bb54ab15365b90bf2531,
-        type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224442232889295386, guid: 9ed872ee0021bb54ab15365b90bf2531,
-        type: 2}
-      propertyPath: m_SizeDelta.x
-      value: 500
-      objectReference: {fileID: 0}
-    - target: {fileID: 224442232889295386, guid: 9ed872ee0021bb54ab15365b90bf2531,
-        type: 2}
-      propertyPath: m_SizeDelta.y
-      value: 250
-      objectReference: {fileID: 0}
-    - target: {fileID: 224442232889295386, guid: 9ed872ee0021bb54ab15365b90bf2531,
-        type: 2}
-      propertyPath: m_AnchorMin.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 224442232889295386, guid: 9ed872ee0021bb54ab15365b90bf2531,
-        type: 2}
-      propertyPath: m_AnchorMin.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 224442232889295386, guid: 9ed872ee0021bb54ab15365b90bf2531,
-        type: 2}
-      propertyPath: m_AnchorMax.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 224442232889295386, guid: 9ed872ee0021bb54ab15365b90bf2531,
-        type: 2}
-      propertyPath: m_AnchorMax.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 224442232889295386, guid: 9ed872ee0021bb54ab15365b90bf2531,
-        type: 2}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 224442232889295386, guid: 9ed872ee0021bb54ab15365b90bf2531,
-        type: 2}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1363622487526474, guid: 9ed872ee0021bb54ab15365b90bf2531, type: 2}
-      propertyPath: m_Name
-      value: Window
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 9ed872ee0021bb54ab15365b90bf2531, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &964573180
 GameObject:
   m_ObjectHideFlags: 0
@@ -345,8 +236,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
-  m_Children:
-  - {fileID: 596421496}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -532,7 +422,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ac0e326f6c85e942bee7c817a45c2b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathToDialogueXML: /Scripts/Dialogue/BrokenDreams_Dialogue
+  pathToDialogueXML: C:\Broken_Dreams\Assets\Scripts\Dialogue\BrokenDreams_dialogue.xml
   dialoguePreFab: {fileID: 1363622487526474, guid: 9ed872ee0021bb54ab15365b90bf2531,
     type: 2}
 --- !u!4 &1314962467

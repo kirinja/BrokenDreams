@@ -27,9 +27,11 @@ public class BossSubTwoDefend: IBossSubState
         //_bossData.Phase2AttackPos.position;
 
         _head.transform.position = _bossData.Phase2DefendPos.position;
-        _head.SetActive(false);
+        //_head.SetActive(false);
+
+        _head.GetComponent<Renderer>().enabled = false;
         var cols = _head.GetComponents<Collider>();
-        foreach (Collider col in cols)
+        foreach (var col in cols)
             col.enabled = false;
 
         // use a timer or something to determine when we should switch state
@@ -45,7 +47,7 @@ public class BossSubTwoDefend: IBossSubState
 
     public bool Alive()
     {
-        return _bossData.HP <= _bossData.phase2;
+        return _bossData.HP <= _bossData.damageSwitchPhase2;
     }
 
     public void TakeDamage(int value)

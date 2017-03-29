@@ -10,7 +10,7 @@ public class BossBehaviour : MonoBehaviour
 
     public int HitsPhaseOne = 1;
     public int HitsPhaseTwo = 3;
-    public int HitsPhaseThree = 5;
+    public int HitsPhaseThree = 3;
 
     //public float SwitchPhaseOne = 0.3f;
     //public float SwitchPhaseTwo = 0.3f;
@@ -31,6 +31,8 @@ public class BossBehaviour : MonoBehaviour
     public int Phase1Spawn = 3;
     [Tooltip("Amount of enemies boss should spawn during phase 2")]
     public int Phase2Spawn = 2;
+    [Tooltip("Amount of projectiles the boss should spawn during phase 2")]
+    public int Phase2Projectiles = 1;
     [Tooltip("Amount of projectiles the boss should spawn during phase 3")]
     public int Phase3Projectiles = 3;
 
@@ -38,6 +40,7 @@ public class BossBehaviour : MonoBehaviour
     public float AcidTimer;
 
     // how often we change state
+    // HACK this should be randomized in an interval and different for each state/phase
     [Tooltip("This is hacky and should be removed. Right now every state switch is tied to this timer")]
     public float StateSwitchTimer = 5.0f;
 
@@ -48,24 +51,38 @@ public class BossBehaviour : MonoBehaviour
     public GameObject BossPhase2;
     public GameObject BossPhase3;
 
-    [HideInInspector] public float phase1;
-    [HideInInspector] public float phase2;
-    [HideInInspector] public float phase3;
+    [HideInInspector] public float damageSwitchPhase1;
+    [HideInInspector] public float damageSwitchPhase2;
+    [HideInInspector] public float damageSwitchPhase3;
+
+    private AudioSource[] _audioSources;
+    private AudioSource _bossDirectSounds;
+    private AudioSource _bossProjSounds;
+
+    // TODO Boss defeated sounds? 
+    public AudioClip[] BossDirectSounds;
+    public AudioClip[] BossProjSounds;
+    public AudioClip[] BossSpawnSounds;
+    public AudioClip[] BossDamageSounds;
 
 	// Use this for initialization
 	void Start () {
 		BossState = new BossPhaseOne();
         BossState.Enter(this);
         /*
-	    phase1 = HP - HP * SwitchPhaseOne;
-	    phase2 = HP - HP * (SwitchPhaseOne + SwitchPhaseTwo);
-	    phase3 = HP - HP;
+	    damageSwitchPhase1 = HP - HP * SwitchPhaseOne;
+	    damageSwitchPhase2 = HP - HP * (SwitchPhaseOne + SwitchPhaseTwo);
+	    damageSwitchPhase3 = HP - HP;
         */
 
+	    _audioSources = GetComponents<AudioSource>();
+	    _bossDirectSounds = _audioSources[0];
+	    _bossProjSounds = _audioSources[1];
+
 	    HP = HitsPhaseOne + HitsPhaseTwo + HitsPhaseThree;
-	    phase1 = HP - HitsPhaseOne;
-	    phase2 = phase1 - HitsPhaseTwo;
-	    phase3 = phase2 - HitsPhaseThree;
+	    damageSwitchPhase1 = HP - HitsPhaseOne;
+	    damageSwitchPhase2 = damageSwitchPhase1 - HitsPhaseTwo;
+	    damageSwitchPhase3 = damageSwitchPhase2 - HitsPhaseThree;
 	}
 	
 	// Update is called once per frame
@@ -139,5 +156,45 @@ public class BossBehaviour : MonoBehaviour
         {
             other.gameObject.GetComponent<Controller3D>().Damage();
         }*/
+    }
+
+    public void PlayBossDirectSound()
+    {
+
+        int range = Random.Range(1, BossDirectSounds.Length);
+        _bossDirectSounds.clip = BossDirectSounds[range];
+        _bossDirectSounds.PlayOneShot(_bossDirectSounds.clip);
+        BossDirectSounds[range] = BossDirectSounds[0];
+        BossDirectSounds[0] = _bossDirectSounds.clip;
+    }
+
+    public void PlayBossProjSound()
+    {
+
+        int range = Random.Range(1, BossProjSounds.Length);
+        _bossProjSounds.clip = BossProjSounds[range];
+        _bossProjSounds.PlayOneShot(_bossProjSounds.clip);
+        BossProjSounds[range] = BossProjSounds[0];
+        BossProjSounds[0] = _bossProjSounds.clip;
+    }
+
+    public void PlayBossSpawnSound()
+    {
+
+        int range = Random.Range(1, BossSpawnSounds.Length);
+        _bossDirectSounds.clip = BossSpawnSounds[range];
+        _bossDirectSounds.PlayOneShot(_bossDirectSounds.clip);
+        BossSpawnSounds[range] = BossSpawnSounds[0];
+        BossSpawnSounds[0] = _bossDirectSounds.clip;
+    }
+
+    public void PlayBossDamageSound()
+    {
+
+        int range = Random.Range(1, BossDamageSounds.Length);
+        _bossDirectSounds.clip = BossDamageSounds[range];
+        _bossDirectSounds.PlayOneShot(_bossDirectSounds.clip);
+        BossDamageSounds[range] = BossDamageSounds[0];
+        BossDamageSounds[0] = _bossDirectSounds.clip;
     }
 }

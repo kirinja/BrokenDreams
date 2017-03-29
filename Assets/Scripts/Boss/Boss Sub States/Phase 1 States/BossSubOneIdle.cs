@@ -31,7 +31,7 @@ public class BossSubOneIdle : IBossSubState
     public bool Alive()
     {
         //throw new System.NotImplementedException();
-        return _bossData.HP <= _bossData.phase1;
+        return _bossData.HP <= _bossData.damageSwitchPhase1;
     }
 
     public void TakeDamage(int value)

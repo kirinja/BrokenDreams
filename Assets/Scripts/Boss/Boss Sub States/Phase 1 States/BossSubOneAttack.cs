@@ -46,11 +46,14 @@ public class BossSubOneAttack : IBossSubState{
                 {
                     // put box under the newly spawned enemy, disable collision and all that stuff
                     // also use the .setDrop on the enemy in question
-                    var box = GameObject.Instantiate(_bossData.PushableBox, g.transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity, g.transform);
-                    box.transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
-                    //box.transform.SetParent(g.transform);
-                    box.GetComponent<Collider>().enabled = false;
-                    box.GetComponent<Rigidbody>().useGravity = false;
+
+                    // create a cube, assign the pushable color to it, disable all stuff that has with collision, asign correct position ans scale, set previously spawned enemy as parent
+                    var b = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                    b.GetComponent<Renderer>().sharedMaterial = _bossData.PushableBox.GetComponent<Renderer>().sharedMaterial;
+                    b.GetComponent<Collider>().enabled = false;
+                    b.transform.position = g.transform.position + new Vector3(0, 0.5f, 0);
+                    b.transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
+                    b.transform.SetParent(g.transform);
                     _spawnedBox = true;
                 }
             }
@@ -77,7 +80,7 @@ public class BossSubOneAttack : IBossSubState{
 
     public bool Alive()
     {
-        return _bossData.HP <= _bossData.phase1;
+        return _bossData.HP <= _bossData.damageSwitchPhase1;
     }
 
     public void TakeDamage(int value)
