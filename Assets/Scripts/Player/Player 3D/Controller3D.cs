@@ -20,6 +20,13 @@ public class Controller3D : MonoBehaviour
     public float ColliderHeight { get { return characterController.height; } }
     public Vector2 MovementInput { get; private set; }
 
+	public Animator animator; //!!!
+
+	void Start(){
+		
+		animator = GetComponent<Animator> (); //!!!
+	}
+
     private void Awake()
     {
         selectedAbility = 0;
@@ -61,6 +68,9 @@ public class Controller3D : MonoBehaviour
                 GetComponent<MeshRenderer>().enabled = true;
             }
         }
+		if (animator != null){ //!!!
+			UpdateAnimator(); //!!!
+		}
     }
 
     public void RefreshMaterial()
@@ -92,6 +102,11 @@ public class Controller3D : MonoBehaviour
 		GetComponentInChildren<Rigidbody> ().position = transform.position;
 		GetComponentInChildren<Rigidbody> ().rotation = transform.rotation;
     }
+
+	private void UpdateAnimator(){
+		animator.SetFloat("VelocityX", Velocity.x);
+		animator.SetFloat ("VelocityY", Velocity.z);
+	}
 
     public void NextAbility()
     {

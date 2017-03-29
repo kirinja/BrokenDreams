@@ -19,10 +19,12 @@ public struct AirState3D : ICharacterState3D
 
     public void Enter()
     {
+		controller.animator.SetBool("InAir", true);
     }
 
     public void Exit()
     {
+		controller.animator.SetBool("InAir", false);
     }
 
     public void Update(Vector2 input)
