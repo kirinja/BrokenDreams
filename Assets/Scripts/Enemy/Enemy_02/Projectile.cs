@@ -17,6 +17,7 @@ public class Projectile : MonoBehaviour {
 
     public void Fire()
     {
+        gameObject.SetActive(true);
         Vector3 shooterPos = shooter.transform.position;
         this.transform.position = shooterPos;
         rb.velocity = calculateVelocity(target.transform, 45f);
@@ -55,6 +56,7 @@ public class Projectile : MonoBehaviour {
 
     public void OnCollisionEnter(Collision col)
     {
+        gameObject.SetActive(false);
         shooter.Fired = false;
         //Need sound
     }

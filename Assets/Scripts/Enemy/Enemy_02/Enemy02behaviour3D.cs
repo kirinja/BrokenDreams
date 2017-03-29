@@ -118,7 +118,9 @@ public class Enemy02behaviour3D : Enemy
 
     public override void changeState(EnemyState state) //Called by state when a transition is in order
     {
+        state.Exit();
         this.state = state;
+        state.Enter();
     }
     public void setTarget(Controller3D target) //Called by Idle when an enemy is found
     {

@@ -7,6 +7,9 @@ public class Deal : EnemyState {
 
     private Enemy02behaviour3D enemy;
     private Vector3 orgPos;
+    private float countdown = 1f;
+    private float timer = 1.2f;
+    private int count = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -15,13 +18,25 @@ public class Deal : EnemyState {
 	
 	// UpdateTime is called once per frame
 	public void Update () {
-		
+        countdown -= Time.deltaTime;
+        if(countdown < timer - 0.1f)
+        {
+            spasm();
+            count++;
+        }
+        if(count >= 5)
+        {
+            enemy.changeState(new Idle(enemy));
+        }
+
+
+
 	}
 
     public Deal(Enemy02behaviour3D enemy)
     {
         this.enemy = enemy;
-        Enter();
+        
         //orgPos = enemy.transform.position;
     }
 
@@ -42,19 +57,20 @@ public class Deal : EnemyState {
         //Need sound?
         Debug.Log("Entering deal");
         orgPos = enemy.transform.position;
-        enemy.StartCoroutine("spasmTime");
+        
+        
         
     }
 
-    /*private void spasm()
+    private void spasm()
     {
-        enemy.transform.translate(UnityEngine.Random.insideUnitSphere / 10);
-    }*/
+        Debug.Log("Shake");
+        enemy.transform.Translate(UnityEngine.Random.insideUnitSphere / 5);
+    }
 
     public void Exit()
     {
         enemy.transform.position = orgPos;
-        enemy.changeState(new Idle(enemy));
         Debug.Log("Exiting deal");
     }
 
