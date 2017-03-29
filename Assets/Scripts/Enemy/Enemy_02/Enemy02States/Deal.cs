@@ -6,7 +6,7 @@ using UnityEngine;
 public class Deal : EnemyState {
 
     private Enemy02behaviour3D enemy;
-    //private Vector3 orgPos;
+    private Vector3 orgPos;
 
 	// Use this for initialization
 	void Start () {
@@ -21,34 +21,41 @@ public class Deal : EnemyState {
     public Deal(Enemy02behaviour3D enemy)
     {
         this.enemy = enemy;
+        Enter();
         //orgPos = enemy.transform.position;
     }
 
-    private IEnumerator spasmTime()
+    /*private IEnumerator spasmTime()
     {
         for (float i = 1; i >= 0; i -= 0.2f)
         {
             spasm();
+            yield return new WaitForSeconds(0.16f);
 
         }
-        yield return new WaitForSeconds(0.16f);
-    }
+        Exit();
+        
+    }*/
 
     public void Enter()
     {
         //Need sound?
+        Debug.Log("Entering deal");
+        orgPos = enemy.transform.position;
         enemy.StartCoroutine("spasmTime");
-        Exit();
+        
     }
 
-    private void spasm()
+    /*private void spasm()
     {
-        enemy.transform.position = UnityEngine.Random.insideUnitSphere + enemy.transform.position;
-    }
+        enemy.transform.translate(UnityEngine.Random.insideUnitSphere / 10);
+    }*/
 
     public void Exit()
     {
-        enemy.changeState(new Patrol(enemy));
+        enemy.transform.position = orgPos;
+        enemy.changeState(new Idle(enemy));
+        Debug.Log("Exiting deal");
     }
 
     
