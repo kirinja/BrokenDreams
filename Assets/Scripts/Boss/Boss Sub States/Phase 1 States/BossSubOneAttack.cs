@@ -80,7 +80,7 @@ public class BossSubOneAttack : IBossSubState{
 
     public bool Alive()
     {
-        return _bossData.HP <= _bossData.phase1;
+        return _bossData.HP <= _bossData.damageSwitchPhase1;
     }
 
     public void TakeDamage(int value)

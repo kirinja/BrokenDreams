@@ -8,13 +8,16 @@ public class BossSubTwoAttack : IBossSubState
     private GameObject _head;
     private bool _spawned;
     private float _timer;
-    private float _projDelay = 0.5f; // TODO implement phase 2 projectiles
+
+    private int _projCounter = 0;
+    private const float TimeBetweenShots = 0.5f;
+    private float _projTimer;
 
     public void Enter(BossBehaviour data)
     {
         _bossData = data;
         _timer = _bossData.StateSwitchTimer;
-        
+        _projTimer = TimeBetweenShots;
 
         _head = GameObject.Find("Head");
     }
@@ -64,6 +67,20 @@ public class BossSubTwoAttack : IBossSubState
             _spawned = true;
         }
 
+        if (_projCounter < _bossData.Phase3Projectiles && _projTimer <= 0.0f)
+        {
+            Debug.Log("Try to spawn projectiles");
+            // spawn projectiles and launch them at the player
+            var g = Object.Instantiate(_bossData.Projectiles, _bossData.BossPhase2.transform.position, Quaternion.identity);
+            g.transform.position = new Vector3(g.transform.position.x, g.transform.position.y, -1);
+            //Debug.Log(g);
+
+            _projCounter++;
+            _projTimer = TimeBetweenShots;
+        }
+
+
+        _projTimer -= Time.deltaTime;
         _timer -= Time.deltaTime;
         return _timer <= 0.0f ? new BossSubTwoDefend() : null;
         //throw new System.NotImplementedException();
@@ -77,7 +94,7 @@ public class BossSubTwoAttack : IBossSubState
 
     public bool Alive()
     {
-        return _bossData.HP <= _bossData.phase2;
+        return _bossData.HP <= _bossData.damageSwitchPhase2;
     }
 
     public void TakeDamage(int value)

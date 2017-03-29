@@ -47,7 +47,7 @@ public class BossSubTwoDefend: IBossSubState
 
     public bool Alive()
     {
-        return _bossData.HP <= _bossData.phase2;
+        return _bossData.HP <= _bossData.damageSwitchPhase2;
     }
 
     public void TakeDamage(int value)

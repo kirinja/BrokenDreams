@@ -70,7 +70,7 @@ public class BossSubThreeAttack : IBossSubState
 
     public bool Alive()
     {
-        return _bossData.HP <= _bossData.phase3;
+        return _bossData.HP <= _bossData.damageSwitchPhase3;
     }
 
     public void TakeDamage(int value)
