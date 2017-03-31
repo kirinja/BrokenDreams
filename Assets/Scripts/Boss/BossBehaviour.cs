@@ -64,6 +64,7 @@ public class BossBehaviour : MonoBehaviour
     public AudioClip[] BossProjSounds;
     public AudioClip[] BossSpawnSounds;
     public AudioClip[] BossDamageSounds;
+    public AudioClip[] BossDeathSounds;
 
 	// Use this for initialization
 	void Start () {
@@ -105,6 +106,7 @@ public class BossBehaviour : MonoBehaviour
         // change phase
 	    if (newState == null) return;
         
+        PlayBossDeathSound();
         Debug.Log("Changing phase - (Current Name: " + BossState.GetType().Name + ")");
         //PhasePlatforms[phaseIndex].SetActive(false);
 	    BossState.Exit();
@@ -196,5 +198,15 @@ public class BossBehaviour : MonoBehaviour
         _bossDirectSounds.PlayOneShot(_bossDirectSounds.clip);
         BossDamageSounds[range] = BossDamageSounds[0];
         BossDamageSounds[0] = _bossDirectSounds.clip;
+    }
+
+    public void PlayBossDeathSound()
+    {
+
+        int range = Random.Range(1, BossDeathSounds.Length);
+        _bossDirectSounds.clip = BossDeathSounds[range];
+        _bossDirectSounds.PlayOneShot(_bossDirectSounds.clip);
+        BossDeathSounds[range] = BossDeathSounds[0];
+        BossDeathSounds[0] = _bossDirectSounds.clip;
     }
 }
