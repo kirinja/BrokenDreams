@@ -882,7 +882,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1113272165826444}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 43.48, y: 210.91, z: -9.73}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4766498613024338}
@@ -1670,11 +1670,7 @@ MonoBehaviour:
   InvincibleTimeOnDamage: 1
   MaxHP: 5
   currentHealth: 0
-  Abilities:
-  - {fileID: 11400000, guid: e801c40a41e118e46b766f9d36d2b544, type: 2}
-  - {fileID: 11400000, guid: 5faafb6b41012314d965b51bd49994a4, type: 2}
-  - {fileID: 11400000, guid: bc3e782ac3259c04b8e3c31cf1206b7c, type: 2}
-  - {fileID: 11400000, guid: a2c0237ccb792e544871f99d68e023d2, type: 2}
+  Abilities: []
 --- !u!114 &114471618969616452
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -16,16 +16,18 @@ public class Controller3D : MonoBehaviour
 
     public PlayerAttributes Attributes { get; private set; }
     public Vector3 Velocity { get; set; }
+    public Vector3 InputForward { get; set; }
     public float MaxTraversableSlopeAngle { get { return characterController.slopeLimit; } }
     public float ColliderHeight { get { return characterController.height; } }
     public Vector2 MovementInput { get; private set; }
 
+    [HideInInspector]
 	public Animator animator; //!!!
     public Material Material;
 
 	void Start(){
-		
 		animator = GetComponent<Animator> (); //!!!
+	    InputForward = transform.forward;
 	}
 
     private void Awake()
@@ -89,11 +91,9 @@ public class Controller3D : MonoBehaviour
 
     public void RefreshMaterial()
     {
-        var material = GetComponent<Renderer>().sharedMaterial;
-        material.color = Attributes.Abilities[selectedAbility].Color;
+        //var material = GetComponent<Renderer>().sharedMaterial;
+        //material.color = Attributes.Abilities[selectedAbility].Color;
         Material.SetColor("_Color", Attributes.Abilities[selectedAbility].Color);
-
-
     }
 
     public void HandleMovement(bool useAbility, Vector2 input)
@@ -188,6 +188,11 @@ public class Controller3D : MonoBehaviour
     public void SetSpawn()
     {
         spawnPosition = transform.position;
+    }
+
+    public void SetSpawn(Vector3 position)
+    {
+        spawnPosition = position;
     }
 
     public void AttackPlayer(Vector3 hitboxCenter, int damage)
