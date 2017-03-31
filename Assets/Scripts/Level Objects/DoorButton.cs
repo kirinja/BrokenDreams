@@ -26,7 +26,6 @@ public class DoorButton : MonoBehaviour
         {
             if (++count > 0)
             {
-                Debug.Log("Button activate");
                 Door.SetActive(false);
             }
         }
@@ -38,7 +37,6 @@ public class DoorButton : MonoBehaviour
         {
             if (--count <= 0)
             {
-                Debug.Log("Button activate");
                 Door.SetActive(true);
             }
         }

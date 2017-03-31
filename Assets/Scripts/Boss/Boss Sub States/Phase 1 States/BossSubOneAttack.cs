@@ -23,7 +23,9 @@ public class BossSubOneAttack : IBossSubState
     public void Enter(BossBehaviour data)
     {
         _bossData = data;
-        _timer = _bossData.StateSwitchTimer; // TODO
+        //_timer = _bossData.StateSwitchTimer; // TODO
+        _timer = new Random().Next((int)_bossData.MinStateSwitch, (int)_bossData.MaxStateSwitch); // HACK
+        Debug.Log(_timer);
         _spawned = false;
         _spawnedBox = false;
 
@@ -46,7 +48,6 @@ public class BossSubOneAttack : IBossSubState
 
     public IBossSubState Execute()
     {
-        Debug.Log("Phase 1 Attack");
         if (!_spawned)
         {
             var rand = new Random();
@@ -55,7 +56,6 @@ public class BossSubOneAttack : IBossSubState
             {
                 var index = rand.Next(0, _platformIds.Length);
                 var v = _platformIds[index];
-                Debug.Log("Spawn at platform ID " + v);
                 //var g = GameObject.Instantiate(_bossData.Enemy1, _spawnPoints[v].transform.position + new Vector3(0, _spawnPoints[v].transform.localScale.y / 2 + _bossData.Enemy1.transform.localScale.y / 2, -1), Quaternion.identity);
 
                 _platformIds = _platformIds.Where(val => val != v).ToArray();

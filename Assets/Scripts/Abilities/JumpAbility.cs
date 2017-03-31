@@ -11,7 +11,6 @@ public class JumpAbility : Ability
 
     public override CharacterStateSwitch3D Use(Controller3D controller)
     {
-        Debug.Log("Using Jump");
         timeLeft = Cooldown;
         return new CharacterStateSwitch3D(new AirState3D(controller, true));
     }

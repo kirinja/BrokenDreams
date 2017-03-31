@@ -229,11 +229,9 @@ public class GameManager : MonoBehaviour
 
     void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("level loaded " + scene.name);
         _playerAttributes = GameObject.Find("Player").GetComponent<PlayerAttributes>();
         if (_playerAttributes)
         {
-            Debug.Log(_playerAttributes);
             if (!LoadFromMemory())
                 LoadFromFile();
         }

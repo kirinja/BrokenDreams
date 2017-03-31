@@ -22,7 +22,6 @@ public class Enemy01Behaviour : Enemy
     // Use this for initialization
     void Start () {
         state = new Patrol01(this, StartVelocity);
-        Debug.Log("Patrol");
 	}
 	
 	// UpdateTime is called once per frame

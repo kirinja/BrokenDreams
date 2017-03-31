@@ -193,7 +193,6 @@ public class Controller3D : MonoBehaviour
     public void AttackPlayer(Vector3 hitboxCenter, int damage)
     {
         if (invincible) return;
-        Debug.Log("Player was attacked");
         invincible = true;
         KnockAway(hitboxCenter);
         Damage(damage);
@@ -218,7 +217,6 @@ public class Controller3D : MonoBehaviour
 
     public void Kill()
     {
-        Debug.Log("Current: " + transform.position + "\tSpawn: " + spawnPosition);
         ChangeCharacterState(new CharacterStateSwitch3D(new GroundState3D(this)));
         transform.position = spawnPosition;
         Velocity = Vector3.zero;

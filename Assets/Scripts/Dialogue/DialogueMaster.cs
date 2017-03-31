@@ -60,13 +60,11 @@ public class DialogueMaster : MonoBehaviour {
     private void runDialogue()
     {
         StartCoroutine("run");
-        Debug.Log("Run start");
     }
 
     private void setSelectedOption(int i)
     {
         selectedOption = i;
-        Debug.Log(i);
     }
 
     public IEnumerator run()
@@ -84,25 +82,20 @@ public class DialogueMaster : MonoBehaviour {
                 yield return new WaitForSeconds(0.25f);
             }
             nodeID = selectedOption;
-            Debug.Log("Node id updated");
             if (nodeID == 2)
                 GameObject.Find("Player").GetComponent<PlayerHealth>().Heal(2);
-                Debug.Log("Action");
         }
         window.SetActive(false);
-        Debug.Log("Window setactive false");
     }
 
     private void displayNode(DialogueNode node)
     {
-        Debug.Log("Setting buttons");
         nodeText.GetComponent<Text>().text = node.getText();
 
 
         option01.SetActive(false);
         option02.SetActive(false);
         option03.SetActive(false);
-        Debug.Log("Entering display for");
         for(int i = 0; i<node.Options.Count || i < 2; i++)
         {
             switch (i)

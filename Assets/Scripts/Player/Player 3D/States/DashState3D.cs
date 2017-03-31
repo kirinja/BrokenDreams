@@ -35,7 +35,6 @@ class DashState3D : ICharacterState3D
 
     public void Enter()
     {
-        Debug.Log("Blerg");
         timePassed = 0;
 
 		controller.transform.Find("Dash").Find("DashTrail").GetComponent<ParticleSystem>().Play();

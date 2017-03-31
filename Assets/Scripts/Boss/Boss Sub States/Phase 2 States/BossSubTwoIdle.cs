@@ -12,13 +12,15 @@ public class BossSubTwoIdle : IBossSubState
     {
         //throw new System.NotImplementedException();
         _bossData = data;
-        _timer = _bossData.StateSwitchTimer;
+        //_timer = _bossData.StateSwitchTimer;
+        _timer = new System.Random().Next((int)_bossData.MinStateSwitch, (int)_bossData.MaxStateSwitch); // HACK
+        Debug.Log(_timer);
+
         _playing = false;
     }
 
     public IBossSubState Execute()
     {
-        Debug.Log("Phase 2 Idle State");
         _timer -= Time.deltaTime;
 
         var r = Random.value;

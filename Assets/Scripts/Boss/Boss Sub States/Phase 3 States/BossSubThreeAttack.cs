@@ -17,7 +17,10 @@ public class BossSubThreeAttack : IBossSubState
     public void Enter(BossBehaviour data)
     {
         _bossData = data;
-        _timer = _bossData.StateSwitchTimer;
+        //_timer = _bossData.StateSwitchTimer;
+        _timer = new System.Random().Next((int)_bossData.MinStateSwitch, (int)_bossData.MaxStateSwitch); // HACK
+        Debug.Log(_timer);
+
         _attackTimer = TimeBetweenShots;
         _projCounter = 0;
         _acidTimer = _bossData.AcidTimer;
@@ -26,7 +29,6 @@ public class BossSubThreeAttack : IBossSubState
     public IBossSubState Execute()
     {
         // behaviour for spawning enemies
-        Debug.Log("Phase 3 Attack");
         // we cant spawn enemies  like this, it needs to happen once and then move back to idle, otherwise we're gonna spawn enemies every frame for X amount of time
         //Debug.Log("Spawn enemy 1 at random locations");
 
@@ -34,7 +36,6 @@ public class BossSubThreeAttack : IBossSubState
 
         if (_projCounter < _bossData.Phase3Projectiles && _attackTimer <= 0.0f)
         {
-            Debug.Log("Try to spawn projectiles");
             // spawn projectiles and launch them at the player
             var g = Object.Instantiate(_bossData.Projectiles, _bossData.BossPhase3.transform.position, Quaternion.identity);
             g.transform.position = new Vector3(g.transform.position.x, g.transform.position.y, -1);
@@ -48,7 +49,6 @@ public class BossSubThreeAttack : IBossSubState
 
         if (_acidTimer <= 0.0f)
         {
-            Debug.Log("Try to drop acid");
             var g = Object.Instantiate(_bossData.Acid, _bossData.BossPhase3.transform.position, _bossData.Acid.transform.rotation);
             g.transform.position = new Vector3(g.transform.position.x, g.transform.position.y, -1);
 

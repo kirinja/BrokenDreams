@@ -49,6 +49,9 @@ public class BossBehaviour : MonoBehaviour
     [Tooltip("This is hacky and should be removed. Right now every state switch is tied to this timer")]
     public float StateSwitchTimer = 5.0f;
 
+    public float MinStateSwitch = 7.5f;
+    public float MaxStateSwitch = 15.0f;
+
     public Transform Phase2DefendPos;
     public Transform Phase2AttackPos;
 
@@ -98,9 +101,9 @@ public class BossBehaviour : MonoBehaviour
             if (BossState != null)
                 BossState.TakeDamage(1);
 
-	    if (HP <= 0)
+	    if (HP <= 0 && BossState != null)
 	    {
-	        Debug.Log("BOSS DEAD");
+            BossState.Exit();
 	        BossState = null;
 	    }
 
@@ -112,7 +115,6 @@ public class BossBehaviour : MonoBehaviour
 	    if (newState == null) return;
         
         PlayBossDeathSound();
-        Debug.Log("Changing phase - (Current Name: " + BossState.GetType().Name + ")");
         //PhasePlatforms[phaseIndex].SetActive(false);
 	    BossState.Exit();
 	    BossState = newState;

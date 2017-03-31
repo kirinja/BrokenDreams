@@ -31,7 +31,6 @@ public class BossPhase1Damage : MonoBehaviour {
         yield return new WaitForSeconds(seconds);
         Destroy(other);
         GetComponentInParent<BossBehaviour>().BossState.TakeDamage(1);
-        Debug.Log("routine");
     }
 
 

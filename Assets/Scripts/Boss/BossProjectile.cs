@@ -8,6 +8,7 @@ public class BossProjectile : MonoBehaviour
     private Vector3 _target;
     public float ProjectileSpeed = 5.0f;
     private Rigidbody _rbody;
+    public float ProjectileLifeTime = 10.0f;
 
 	// Use this for initialization
 	void Start ()
@@ -22,8 +23,13 @@ public class BossProjectile : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+        if (ProjectileLifeTime <= 0.0f)
+            Destroy(gameObject);
+
 	    transform.position += _target * Time.deltaTime * ProjectileSpeed;
         _rbody.position = transform.position;
+
+	    ProjectileLifeTime -= Time.deltaTime;
 	}
 
     void OnTriggerEnter(Collider other)
@@ -32,5 +38,8 @@ public class BossProjectile : MonoBehaviour
         // here we should spawn the acid stuff (whenever it hits a surface we're gonna instanciate an acid prefab on there, matching normals)
         //if (!other.CompareTag("Enemy")) // || !other.CompareTag("Platform"))
             //Destroy(gameObject);
+
+        if (other.CompareTag("Player"))
+            Destroy(gameObject);
     }
 }
