@@ -17,7 +17,8 @@ class PushAbility : Ability
 
 		controller.animator.SetTrigger ("Push");
 
-		controller.transform.Find("Push");
+		controller.transform.Find("Push").Find("Circle").GetComponent<ParticleSystem>().Play();
+		controller.transform.Find("Push").Find("Glow").GetComponent<ParticleSystem>().Play();
 
         RaycastHit hitInfo;
         if (Physics.Raycast(controller.transform.position,

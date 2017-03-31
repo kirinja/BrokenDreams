@@ -13,6 +13,9 @@ class AttackAbility : Ability
         Debug.Log("Using Attack");
         timeLeft = Cooldown;
 
+		controller.transform.Find("Hit").Find("Slash").GetComponent<ParticleSystem>().Play();
+
+
 		controller.animator.SetTrigger ("Attack");
 
 
