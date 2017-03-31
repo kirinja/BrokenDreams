@@ -6638,7 +6638,7 @@ MonoBehaviour:
   InvertX: 1
   InvertY: 0
   Margin: 0.3
-  OffsetY: 0.1
+  OffsetY: 2
 --- !u!1 &622938653
 GameObject:
   m_ObjectHideFlags: 0
@@ -11578,7 +11578,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4393096243718074, guid: de333fd6865a1924abd6495a01270364, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -11.524873
+      value: -9.73
       objectReference: {fileID: 0}
     - target: {fileID: 4393096243718074, guid: de333fd6865a1924abd6495a01270364, type: 2}
       propertyPath: m_LocalRotation.x
