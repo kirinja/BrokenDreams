@@ -17,6 +17,7 @@ class PushAbility : Ability
 
 		controller.animator.SetTrigger ("Push");
 
+		controller.transform.Find("Push");
 
         RaycastHit hitInfo;
         if (Physics.Raycast(controller.transform.position,

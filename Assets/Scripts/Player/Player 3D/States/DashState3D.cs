@@ -37,6 +37,9 @@ class DashState3D : ICharacterState3D
     {
         Debug.Log("Blerg");
         timePassed = 0;
+
+		controller.transform.Find("Dash").Find("DashTrail").GetComponent<ParticleSystem>().Play();
+		controller.transform.Find("Dash").Find("Sparkle").GetComponent<ParticleSystem>().Play();
     }
 
     public void Exit()
@@ -50,6 +53,9 @@ class DashState3D : ICharacterState3D
             controller.Velocity =
                 controller.transform.TransformDirection(new Vector3(0f, 0f, controller.Attributes.MaxSpeed));
         }
+
+		controller.transform.Find("Dash").Find("DashTrail").GetComponent<ParticleSystem>().Stop();
+		controller.transform.Find("Dash").Find("Sparkle").GetComponent<ParticleSystem>().Stop();
     }
 
     public CharacterStateSwitch3D HandleCollisions(CollisionFlags collisionFlags)
