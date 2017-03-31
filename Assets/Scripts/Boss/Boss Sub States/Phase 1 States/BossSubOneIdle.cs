@@ -11,13 +11,15 @@ public class BossSubOneIdle : IBossSubState
     public void Enter(BossBehaviour data)
     {
         _bossData = data;
-        _timer = _bossData.StateSwitchTimer; //TODO
+        //_timer = _bossData.StateSwitchTimer; //TODO
+        _timer = new System.Random().Next((int)_bossData.MinStateSwitch, (int)_bossData.MaxStateSwitch); // HACK
+        Debug.Log(_timer);
+
         _playing = false;
     }
 
     public IBossSubState Execute()
     {
-        Debug.Log("Phase 1 Idle");
         var r = Random.value;
         if (r <= 0.01f && !_playing)
         {

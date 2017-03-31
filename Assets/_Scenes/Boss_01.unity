@@ -3981,7 +3981,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -4064,7 +4064,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HP: 0
   HitsPhaseOne: 1
-  HitsPhaseTwo: 3
+  HitsPhaseTwo: 2
   HitsPhaseThree: 3
   Enemy1: {fileID: 1787403253253894, guid: 06b81ef548e107041b91ba5deaba3943, type: 2}
   Enemy2: {fileID: 1793933580056596, guid: f943da3cbfe1b2d44b9082c5fb20670a, type: 2}
@@ -4085,6 +4085,8 @@ MonoBehaviour:
   Phase3Projectiles: 5
   AcidTimer: 2
   StateSwitchTimer: 5
+  MinStateSwitch: 7
+  MaxStateSwitch: 14
   Phase2DefendPos: {fileID: 1682816686}
   Phase2AttackPos: {fileID: 13359483}
   BossPhase1: {fileID: 502045059}

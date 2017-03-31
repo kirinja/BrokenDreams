@@ -12,14 +12,16 @@ public class BossSubThreePatrol : IBossSubState
     public void Enter(BossBehaviour data)
     {
         _bossData = data;
-        _timer = _bossData.StateSwitchTimer;
+        //_timer = _bossData.StateSwitchTimer;
+        _timer = new System.Random().Next((int)_bossData.MinStateSwitch, (int)_bossData.MaxStateSwitch); // HACK
+        Debug.Log(_timer);
+
         _playing = false;
     }
 
     public IBossSubState Execute()
     {
         // behaviour for spawning enemies
-        Debug.Log("Phase 3 Patrol State");
         // we cant spawn enemies  like this, it needs to happen once and then move back to idle, otherwise we're gonna spawn enemies every frame for X amount of time
         //Debug.Log("Spawn enemy 1 at random locations");
 
@@ -45,7 +47,6 @@ public class BossSubThreePatrol : IBossSubState
 
     public void Exit()
     {
-        //throw new System.NotImplementedException();
     }
 
     public bool Alive()

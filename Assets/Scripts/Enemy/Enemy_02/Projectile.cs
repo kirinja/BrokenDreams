@@ -22,7 +22,6 @@ public class Projectile : MonoBehaviour {
         this.transform.position = shooterPos;
         rb.velocity = calculateVelocity(target.transform, 45f);
         //Need sound
-        Debug.Log("Åker nu");
     }
 
     public Vector3 calculateVelocity(Transform target, float angle)

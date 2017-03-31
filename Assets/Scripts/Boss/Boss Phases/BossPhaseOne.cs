@@ -24,7 +24,6 @@ public class BossPhaseOne : IBossPhaseState
         // switch internal state if needed
         if (state != null)
         {
-            Debug.Log("Switching internal state 1");
             _internalState.Exit();
             _internalState = state;
             _internalState.Enter(_bossData);

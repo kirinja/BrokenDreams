@@ -10,7 +10,6 @@ class AttackAbility : Ability
 
     public override CharacterStateSwitch3D Use(Controller3D controller)
     {
-        Debug.Log("Using Attack");
         timeLeft = Cooldown;
 
 		controller.transform.Find("Hit").Find("Slash").GetComponent<ParticleSystem>().Play();

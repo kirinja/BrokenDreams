@@ -17,7 +17,6 @@ public class BossOnDamage : Attackable {
     public override void Damage()
     {
         //throw new System.NotImplementedException();
-        Debug.Log("Player hit");
         GetComponentInParent<BossBehaviour>().BossState.TakeDamage(1);
     }
 }

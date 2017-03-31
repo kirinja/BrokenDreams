@@ -140,7 +140,6 @@ public struct AirState3D : ICharacterState3D
         var minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity.y) * attributes.MinJumpHeight);
         if (Input.GetButtonUp("Use Ability") && jumping && desiredAngleVelocity.y > minJumpVelocity)
         {
-            Debug.Log("short hop");
             desiredAngleVelocity = new Vector3(0f, minJumpVelocity, 0f);
             jumping = false;
         }

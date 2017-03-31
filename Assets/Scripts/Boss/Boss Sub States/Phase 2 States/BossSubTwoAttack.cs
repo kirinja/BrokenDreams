@@ -25,7 +25,10 @@ public class BossSubTwoAttack : IBossSubState
     public void Enter(BossBehaviour data)
     {
         _bossData = data;
-        _timer = _bossData.StateSwitchTimer; // TODO
+        //_timer = _bossData.StateSwitchTimer; // TODO
+        _timer = new System.Random().Next((int)_bossData.MinStateSwitch, (int)_bossData.MaxStateSwitch); // HACK
+        Debug.Log(_timer);
+
         _projTimer = TimeBetweenShots;
 
         _head = GameObject.Find("Head");
@@ -51,7 +54,6 @@ public class BossSubTwoAttack : IBossSubState
 
     public IBossSubState Execute()
     {
-        Debug.Log("Phase 2 Attack");
         _head.transform.position = _bossData.Phase2AttackPos.position;
         _head.GetComponent<Renderer>().enabled = true;
         var cols = _head.GetComponents<Collider>();
@@ -110,7 +112,6 @@ public class BossSubTwoAttack : IBossSubState
 
         if (_projCounter < _bossData.Phase3Projectiles && _projTimer <= 0.0f)
         {
-            Debug.Log("Try to spawn projectiles");
             // spawn projectiles and launch them at the player
             var g = Object.Instantiate(_bossData.Projectiles, _bossData.BossPhase2.transform.position,
                 Quaternion.identity);

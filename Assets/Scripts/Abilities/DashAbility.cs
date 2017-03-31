@@ -10,7 +10,6 @@ class DashAbility : Ability
 
     public override CharacterStateSwitch3D Use(Controller3D controller)
     {
-        Debug.Log("Using Dash");
         timeLeft = Cooldown;
 
 		controller.animator.SetTrigger ("Dash");

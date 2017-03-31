@@ -9,7 +9,6 @@ public class BossPhaseThree : IBossPhaseState
 
     public void Enter(BossBehaviour data)
     {
-        Debug.Log("Boss Phase 3");
         //throw new System.NotImplementedException();
         _bossData = data;
         _bossData.PhasePlatforms[2].SetActive(true);
@@ -25,7 +24,6 @@ public class BossPhaseThree : IBossPhaseState
         // switch internal state if needed
         if (state != null)
         {
-            Debug.Log("Switching internal state 3");
             _internalState.Exit();
             _internalState = state;
             _internalState.Enter(_bossData);

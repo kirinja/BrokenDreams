@@ -12,7 +12,6 @@ class PushAbility : Ability
 
     public override CharacterStateSwitch3D Use(Controller3D controller)
     {
-        Debug.Log("Using Push");
         timeLeft = Cooldown;
 
 		controller.animator.SetTrigger ("Push");
