@@ -7,6 +7,7 @@ public class Input2D : MonoBehaviour
 
     private Controller3D controller;
     private bool useAbility;
+    private float previousAbilityAxis;
 
     private void Start()
     {
@@ -15,14 +16,13 @@ public class Input2D : MonoBehaviour
 
     private void Update()
     {
-        if (!useAbility)
+        if (useAbility) return;
+
+        if (previousAbilityAxis <= float.Epsilon)
         {
-            useAbility = Input.GetButtonDown("Use Ability");
-            if (!useAbility)
-            {
-                useAbility = Input.GetAxisRaw("Use Ability") > 0f;
-            }
+            useAbility = Input.GetAxisRaw("Use Ability") > float.Epsilon;
         }
+        previousAbilityAxis = Input.GetAxisRaw("Use Ability");
     }
 
     private void FixedUpdate()

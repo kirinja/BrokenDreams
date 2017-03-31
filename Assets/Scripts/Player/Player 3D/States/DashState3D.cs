@@ -68,7 +68,7 @@ class DashState3D : ICharacterState3D
     public void Update(Vector2 input)
     {
         timePassed += Time.deltaTime;
-        if (timePassed >= controller.GetComponent<PlayerAttributes>().DashTime)
+        if (timePassed >= controller.GetComponent<PlayerAttributes>().DashTime || Input.GetButtonUp("Use Ability"))
         {
             controller.ChangeCharacterState(new CharacterStateSwitch3D(new AirState3D(controller)));
         }
