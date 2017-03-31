@@ -390,7 +390,7 @@ Transform:
   - {fileID: 974919463}
   - {fileID: 771685150}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &268614929
 GameObject:
@@ -843,7 +843,7 @@ GameObject:
   - component: {fileID: 501294928}
   m_Layer: 8
   m_Name: Cube
-  m_TagString: Wall
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1067,7 +1067,7 @@ Prefab:
     - target: {fileID: 224045127885542206, guid: 403946d394364944e8f517ea508880b7,
         type: 2}
       propertyPath: m_RootOrder
-      value: 9
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 224045127885542206, guid: 403946d394364944e8f517ea508880b7,
         type: 2}
@@ -1169,6 +1169,31 @@ Prefab:
       propertyPath: m_RaycastTarget
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114337080433172932, guid: 403946d394364944e8f517ea508880b7,
+        type: 2}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114337080433172932, guid: 403946d394364944e8f517ea508880b7,
+        type: 2}
+      propertyPath: m_ReferenceResolution.x
+      value: 800
+      objectReference: {fileID: 0}
+    - target: {fileID: 114337080433172932, guid: 403946d394364944e8f517ea508880b7,
+        type: 2}
+      propertyPath: m_ReferenceResolution.y
+      value: 600
+      objectReference: {fileID: 0}
+    - target: {fileID: 223874435356336128, guid: 403946d394364944e8f517ea508880b7,
+        type: 2}
+      propertyPath: m_PixelPerfect
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114337080433172932, guid: 403946d394364944e8f517ea508880b7,
+        type: 2}
+      propertyPath: m_MatchWidthOrHeight
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 403946d394364944e8f517ea508880b7, type: 2}
   m_IsPrefabParent: 0
@@ -1262,6 +1287,11 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114013248401071146, guid: 171300cbab6d57f438291baf8d5497c6,
+        type: 2}
+      propertyPath: Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 0a30316fcf65e0144863a6dd1c357e3c, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 171300cbab6d57f438291baf8d5497c6, type: 2}
   m_IsPrefabParent: 0
@@ -1346,7 +1376,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 610559889}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 7.5, z: -25}
+  m_LocalPosition: {x: 0, y: 8, z: -20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1446,7 +1476,7 @@ GameObject:
   - component: {fileID: 665646512}
   m_Layer: 8
   m_Name: Cube (2)
-  m_TagString: Wall
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1826,11 +1856,11 @@ GameObject:
   - component: {fileID: 968225723}
   m_Layer: 8
   m_Name: Cube (4)
-  m_TagString: Wall
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &968225722
 Transform:
   m_ObjectHideFlags: 0
@@ -1959,7 +1989,7 @@ Transform:
   - {fileID: 1697059804}
   - {fileID: 1941325356}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1077588864
 GameObject:
@@ -2128,8 +2158,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1226730660}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -15.25, y: 0.38, z: 0}
-  m_LocalScale: {x: 1.5, y: 1, z: 5}
+  m_LocalPosition: {x: -15.25, y: 0.02, z: 0}
+  m_LocalScale: {x: 1.5, y: 2, z: 5}
   m_Children: []
   m_Father: {fileID: 1740165080}
   m_RootOrder: 4
@@ -2482,7 +2512,7 @@ GameObject:
   - component: {fileID: 1500095367}
   m_Layer: 8
   m_Name: Cube (1)
-  m_TagString: Wall
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2833,9 +2863,22 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 93f78f12998b83c40a9047b83912e648, type: 3}
   - {fileID: 8300000, guid: 26bcf8a2291fb2c498fddd3cb61b6af7, type: 3}
   - {fileID: 8300000, guid: 11cef1bc988dcdc4191888043e8cd6fd, type: 3}
-  BossProjSounds: []
-  BossSpawnSounds: []
-  BossDamageSounds: []
+  BossProjSounds:
+  - {fileID: 8300000, guid: 930abf913c474f84fa89261f30e0d21c, type: 3}
+  - {fileID: 8300000, guid: 177d699e55e110743baaf0fe049f639d, type: 3}
+  - {fileID: 8300000, guid: 97ceee4218bd3ca489a0047c3835dd6b, type: 3}
+  BossSpawnSounds:
+  - {fileID: 8300000, guid: 0b4896b331a104144a0bac2714d884b7, type: 3}
+  - {fileID: 8300000, guid: 7445459ae6b9a894481eb1a38f88c666, type: 3}
+  - {fileID: 8300000, guid: 34c0d4d78c800424a9dceb53ce60b059, type: 3}
+  BossDamageSounds:
+  - {fileID: 8300000, guid: 3989377fd60667d4cb4f517066cd78de, type: 3}
+  - {fileID: 8300000, guid: 0a938946f4838fa4a96e165c4398fea1, type: 3}
+  - {fileID: 8300000, guid: 69af79f93c25f0b419fe3a3ecc5cbee6, type: 3}
+  BossDeathSounds:
+  - {fileID: 8300000, guid: f50ad7e2c30b68e4c93a100610481c0d, type: 3}
+  - {fileID: 8300000, guid: b4819c292e6335b49b976b2450b3d39c, type: 3}
+  - {fileID: 8300000, guid: eaedb3062b5a6b2468fd69a849d6071f, type: 3}
 --- !u!82 &1553723375
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3183,7 +3226,7 @@ GameObject:
   - component: {fileID: 1651956647}
   m_Layer: 8
   m_Name: Cube (3)
-  m_TagString: Wall
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4274,7 +4317,7 @@ Transform:
   - {fileID: 928510937}
   - {fileID: 280534806}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1911028056
 GameObject:
@@ -4454,7 +4497,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1941325356
 Transform:
   m_ObjectHideFlags: 0

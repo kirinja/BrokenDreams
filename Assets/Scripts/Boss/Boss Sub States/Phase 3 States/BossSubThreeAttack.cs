@@ -42,6 +42,8 @@ public class BossSubThreeAttack : IBossSubState
 
             _projCounter++;
             _attackTimer = TimeBetweenShots;
+
+            _bossData.PlayBossProjSound();
         }
 
         if (_acidTimer <= 0.0f)
@@ -51,6 +53,8 @@ public class BossSubThreeAttack : IBossSubState
             g.transform.position = new Vector3(g.transform.position.x, g.transform.position.y, -1);
 
             _acidTimer = _bossData.AcidTimer;
+
+            _bossData.PlayBossSpawnSound();
         }
 
         // use a _timer or something to determine when we should switch state

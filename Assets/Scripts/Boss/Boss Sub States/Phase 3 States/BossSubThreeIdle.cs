@@ -7,11 +7,13 @@ public class BossSubThreeIdle : IBossSubState
 
     private BossBehaviour _bossData;
     private float _timer;
+    private bool _playing;
 
     public void Enter(BossBehaviour data)
     {
         _bossData = data;
         _timer = _bossData.StateSwitchTimer;
+        _playing = false;
     }
 
     public IBossSubState Execute()
@@ -23,12 +25,20 @@ public class BossSubThreeIdle : IBossSubState
 
         GameObject.Find("BossPhase3").GetComponent<SplineInterpolator>().enabled = false;
 
+        var r = Random.value;
+        if (r <= 0.01f && !_playing)
+        {
+            _bossData.PlayBossIdleSound();
+            _playing = true;
+        }
+
+
         // use a _timer or something to determine when we should switch state
         _timer -= Time.deltaTime;
 
         if (!(_timer <= 0.0f)) return null;
-        var r = Random.value;
-        if (r <= 0.5f)
+        var t = Random.value;
+        if (t <= 0.5f)
             return new BossSubThreeAttack();
 
         return new BossSubThreePatrol();
