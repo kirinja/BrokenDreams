@@ -125,6 +125,9 @@ MonoBehaviour:
   IdleTime: 2
   PatrolTime: 5
   GroundCheckDistance: 1
+  CollisionMask:
+    serializedVersion: 2
+    m_Bits: 768
 --- !u!114 &114520279263905954
 MonoBehaviour:
   m_ObjectHideFlags: 1

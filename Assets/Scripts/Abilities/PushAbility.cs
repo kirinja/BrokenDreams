@@ -15,6 +15,9 @@ class PushAbility : Ability
         Debug.Log("Using Push");
         timeLeft = Cooldown;
 
+		controller.animator.SetTrigger ("Push");
+
+
         RaycastHit hitInfo;
         if (Physics.Raycast(controller.transform.position,
             controller.transform.forward, out hitInfo, PushRange + controller.GetComponent<Collider>().bounds.extents.z))

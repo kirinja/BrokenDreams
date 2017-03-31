@@ -13,6 +13,9 @@ class AttackAbility : Ability
         Debug.Log("Using Attack");
         timeLeft = Cooldown;
 
+		controller.animator.SetTrigger ("Attack");
+
+
         var hits =
             Physics.OverlapSphere(
                 controller.transform.position + controller.transform.TransformDirection(0f, 0f, 0.5f), 1.5f);

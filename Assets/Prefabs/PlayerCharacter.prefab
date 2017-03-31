@@ -1138,7 +1138,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CameraTransform: {fileID: 0}
   animator: {fileID: 0}
-  Material: {fileID: 0}
+  Material: {fileID: 2100000, guid: 0a30316fcf65e0144863a6dd1c357e3c, type: 2}
 --- !u!114 &114134480092361830
 MonoBehaviour:
   m_ObjectHideFlags: 1
