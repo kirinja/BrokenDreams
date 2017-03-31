@@ -219,7 +219,7 @@ public class Controller3D : MonoBehaviour
     public void Kill()
     {
         Debug.Log("Current: " + transform.position + "\tSpawn: " + spawnPosition);
-        characterState = new GroundState3D(this);
+        ChangeCharacterState(new CharacterStateSwitch3D(new GroundState3D(this)));
         transform.position = spawnPosition;
         Velocity = Vector3.zero;
 

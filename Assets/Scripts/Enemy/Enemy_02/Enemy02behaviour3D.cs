@@ -96,7 +96,10 @@ public class Enemy02behaviour3D : Enemy
         {
             Defeat();
         }
-       // changeState(new Deal(this)); //If not defeated spasm
+        else
+        {
+            changeState(new Deal(this)); //If not defeated spasm
+        }
     }
 
     private void Defeat()
@@ -135,11 +138,6 @@ public class Enemy02behaviour3D : Enemy
 
     public void OnTriggerEnter(Collider other)
     {
-        /*
-        if (other.CompareTag("Attack"))
-        {
-            Damage();
-        }*/
         if (other.gameObject.CompareTag("Player"))
         {
             other.gameObject.GetComponent<Controller3D>().AttackPlayer(transform.position, 1);

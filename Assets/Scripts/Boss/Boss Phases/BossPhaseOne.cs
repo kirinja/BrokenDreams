@@ -12,6 +12,7 @@ public class BossPhaseOne : IBossPhaseState
         _bossData = data;
         _bossData.PhasePlatforms[0].SetActive(true);
         _bossData.BossPhase1.SetActive(true);
+        _bossData.Phase1Launch.SetActive(true);
         _internalState = new BossSubOneIdle();
         _internalState.Enter(_bossData);
     }
@@ -35,6 +36,7 @@ public class BossPhaseOne : IBossPhaseState
     {
         _bossData.PhasePlatforms[0].SetActive(false);
         _bossData.BossPhase1.SetActive(false);
+        _bossData.Phase1Launch.SetActive(false);
         // we need to kill all the objects we have spawned in this phase as clean up
         var enemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (GameObject g in enemies)

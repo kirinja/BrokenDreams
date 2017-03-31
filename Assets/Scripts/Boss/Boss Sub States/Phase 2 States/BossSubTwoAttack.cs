@@ -19,7 +19,8 @@ public class BossSubTwoAttack : IBossSubState
     private int _spawnCounter;
 
     private int[] _platformIds;
-    private GameObject[] _spawnPoints;
+
+    private GameObject[] _arcs;
 
     public void Enter(BossBehaviour data)
     {
@@ -32,11 +33,19 @@ public class BossSubTwoAttack : IBossSubState
         _spawnCounter = 0;
         _spawnTimer = TimeBetweenShots;
 
-        _spawnPoints = GameObject.FindGameObjectsWithTag("Platform");
-        _platformIds = new int[_spawnPoints.Length];
-        for (int i = 0; i < _spawnPoints.Length; i++)
+        var spawnPoints = GameObject.FindGameObjectsWithTag("Platform");
+        _platformIds = new int[spawnPoints.Length];
+        for (int i = 0; i < spawnPoints.Length; i++)
         {
             _platformIds[i] = i;
+        }
+
+        //_arcs = _bossData.Phase2Launch;
+
+        _arcs = new GameObject[_bossData.Phase2Launch.transform.childCount];
+        for (int i = 0; i < _bossData.Phase2Launch.transform.childCount; i++)
+        {
+            _arcs[i] = _bossData.Phase2Launch.transform.GetChild(i).gameObject;
         }
     }
 
@@ -82,10 +91,16 @@ public class BossSubTwoAttack : IBossSubState
             {
                 var index = rand.Next(0, _platformIds.Length);
                 var v = _platformIds[index];
-                Debug.Log("Spawn at platform ID " + v);
-                var g = GameObject.Instantiate(_bossData.Enemy2, _spawnPoints[v].transform.position + new Vector3(0, _spawnPoints[v].transform.localScale.y / 2 + _bossData.Enemy2.transform.localScale.y / 2, -1), Quaternion.identity);
-                _platformIds = _platformIds.Where(val => val != v).ToArray();
+                //Debug.Log("Spawn at platform ID " + v);
+                //var g = GameObject.Instantiate(_bossData.Enemy2, _spawnPoints[v].transform.position + new Vector3(0, _spawnPoints[v].transform.localScale.y / 2 + _bossData.Enemy2.transform.localScale.y / 2, -1), Quaternion.identity);
                 
+                _platformIds = _platformIds.Where(val => val != v).ToArray();
+
+                _arcs[v].GetComponent<MeshFilter>().sharedMesh =_bossData.Enemy2.GetComponent<MeshFilter>().sharedMesh;
+                _arcs[v].GetComponent<EnemySpawn>().Enemy = _bossData.Enemy2;
+                _arcs[v].GetComponent<MeshRenderer>().enabled = true;
+                _arcs[v].GetComponent<SplineController>().FollowSpline();
+
                 _spawnCounter++;
                 _spawnTimer = TimeBetweenSpawns;
 
