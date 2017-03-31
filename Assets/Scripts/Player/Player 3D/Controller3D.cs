@@ -121,8 +121,8 @@ public class Controller3D : MonoBehaviour
     }
 
 	private void UpdateAnimator(){
-		animator.SetFloat("VelocityX", Velocity.x);
-		animator.SetFloat ("VelocityY", Velocity.z);
+		animator.SetFloat("VelocityX", transform.InverseTransformDirection(Velocity).x);
+		animator.SetFloat ("VelocityY", transform.InverseTransformDirection(Velocity).z);
 	}
 
     public void NextAbility()
@@ -219,7 +219,7 @@ public class Controller3D : MonoBehaviour
     public void Kill()
     {
         Debug.Log("Current: " + transform.position + "\tSpawn: " + spawnPosition);
-        characterState = new GroundState3D(this);
+        ChangeCharacterState(new CharacterStateSwitch3D(new GroundState3D(this)));
         transform.position = spawnPosition;
         Velocity = Vector3.zero;
 

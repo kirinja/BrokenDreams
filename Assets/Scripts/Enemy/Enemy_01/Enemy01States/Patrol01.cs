@@ -15,11 +15,10 @@ public class Patrol01 : Enemy01State {
     public void Exit()
     {}
 
-
     public void Update()
     {
         RaycastHit hitInfo;
-        if (!(Physics.Raycast(enemy.transform.position, Vector3.down * enemy.GroundCheckDistance, out hitInfo) && (hitInfo.transform.CompareTag("Wall"))))
+        if (!(Physics.Raycast(enemy.transform.position, Vector3.down, out hitInfo, enemy.GroundCheckDistance, enemy.CollisionMask)))
         {
             enemy.invertVec();
         }
@@ -41,10 +40,8 @@ public class Patrol01 : Enemy01State {
 
         this.enemy = enemy;
         switchTimer = 0f;
-        
-        
-
     }
+
     public void changeState()
     {
         {

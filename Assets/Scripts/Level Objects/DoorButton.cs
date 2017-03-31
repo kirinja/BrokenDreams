@@ -6,10 +6,13 @@ public class DoorButton : MonoBehaviour
 {
     public GameObject Door;
 
+    private int count;
+
 	// Use this for initialization
 	void Start ()
 	{
         Door.SetActive(true);
+	    count = 0;
 	}
 	
 	// Update is called once per frame
@@ -19,19 +22,25 @@ public class DoorButton : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Movable Object"))
+        if (other.CompareTag("Movable Object") || other.CompareTag("Player"))
         {
-            Debug.Log("Button activate");
-            Door.SetActive(false);
+            if (++count > 0)
+            {
+                Debug.Log("Button activate");
+                Door.SetActive(false);
+            }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Movable Object"))
+        if (other.CompareTag("Movable Object") || other.CompareTag("Player"))
         {
-            Debug.Log("Button activate");
-            Door.SetActive(true);
+            if (--count <= 0)
+            {
+                Debug.Log("Button activate");
+                Door.SetActive(true);
+            }
         }
     }
 }

@@ -105,7 +105,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: deb854bca03e35a49a03a852b197ed69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
   Fired: 0
   projectilePreFab: {fileID: 1738751761851474, guid: ba4265d501b6f8c42a61385c1f2015b1,
     type: 2}
@@ -115,7 +114,7 @@ MonoBehaviour:
   AggroRange: {x: 0, y: 0, z: 0}
   AggroMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 1024
 --- !u!136 &136222362272044268
 CapsuleCollider:
   m_ObjectHideFlags: 1
