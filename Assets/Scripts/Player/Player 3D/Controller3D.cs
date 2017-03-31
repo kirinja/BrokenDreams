@@ -121,8 +121,8 @@ public class Controller3D : MonoBehaviour
     }
 
 	private void UpdateAnimator(){
-		animator.SetFloat("VelocityX", Velocity.x);
-		animator.SetFloat ("VelocityY", Velocity.z);
+		animator.SetFloat("VelocityX", transform.InverseTransformDirection(Velocity).x);
+		animator.SetFloat ("VelocityY", transform.InverseTransformDirection(Velocity).z);
 	}
 
     public void NextAbility()

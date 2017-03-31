@@ -9,6 +9,7 @@ public class Enemy01Behaviour : Enemy
     public float IdleTime;
     public float PatrolTime;
     public float GroundCheckDistance;
+    public LayerMask CollisionMask;
 
     //private Collider col;
     private Enemy01State state;

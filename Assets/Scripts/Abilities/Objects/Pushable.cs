@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Pushable : MonoBehaviour
 {
-    public float PushSpeed = 5f;
+    public float PushSpeed = 10f;
     public LayerMask CollisionMask;
 
     private AbilityColors abilityColor;
@@ -68,7 +68,7 @@ public class Pushable : MonoBehaviour
                         break;
                     case Axis.Z:
                         transform.position = new Vector3(startPosition.x, transform.position.y,
-                            transform.position.z + totalPushLength * Mathf.Sign(velocity.z));
+                            startPosition.z + totalPushLength * Mathf.Sign(velocity.z));
                         break;
                 }
                 isPushed = false;
@@ -152,11 +152,11 @@ public class Pushable : MonoBehaviour
         {
             case Axis.X:
                 pushDirection = new Vector3(localVel.x, 0f, 0f).normalized;
-                totalPushLength = GetComponent<Collider>().bounds.extents.x * 2;
+                totalPushLength = GetComponent<Collider>().bounds.size.x;
                 break;
             case Axis.Z:
                 pushDirection = new Vector3(0f, 0f, localVel.z).normalized;
-                totalPushLength = GetComponent<Collider>().bounds.extents.z * 2;
+                totalPushLength = GetComponent<Collider>().bounds.size.z;
                 break;
         }
         var horizontalVvelocity = transform.TransformDirection(pushDirection * PushSpeed);
