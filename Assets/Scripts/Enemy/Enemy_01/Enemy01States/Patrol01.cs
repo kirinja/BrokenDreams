@@ -15,7 +15,6 @@ public class Patrol01 : Enemy01State {
     public void Exit()
     {}
 
-
     public void Update()
     {
         RaycastHit hitInfo;

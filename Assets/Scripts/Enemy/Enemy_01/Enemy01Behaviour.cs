@@ -10,8 +10,7 @@ public class Enemy01Behaviour : Enemy
     public float PatrolTime;
     public float GroundCheckDistance;
     public LayerMask CollisionMask;
-
-    //private Collider col;
+    
     private Enemy01State state;
     private int health;
 
@@ -30,8 +29,6 @@ public class Enemy01Behaviour : Enemy
 
     // Use this for initialization
     void Start () {
-        //col = GetComponent<Collider>();
-        //state = new Idle01(this, new Vector3(0,0,0));
         state = new Patrol01(this, StartVelocity);
         Debug.Log("Patrol");
 	}
@@ -49,7 +46,6 @@ public class Enemy01Behaviour : Enemy
             other.gameObject.GetComponent<Controller3D>().AttackPlayer(transform.position, 1);
         }
     }
-    
 
     public void changeState(Enemy01State state)
     {
@@ -97,11 +93,6 @@ public class Enemy01Behaviour : Enemy
         {
             state.Collision();
         }
-
-        /*if (other.CompareTag("Attack"))
-        {
-            Damage();
-        }*/
     }
 
     public override void changeState(EnemyState e)

@@ -2,14 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Deal : EnemyState {
 
     private Enemy02behaviour3D enemy;
     private Vector3 orgPos;
-    private float countdown = 1f;
-    private float timer = 1.2f;
-    private int count = 0;
+    private float timeActive;
+    private const float dealTime = 1.2f;
 
 	// Use this for initialization
 	void Start () {
@@ -18,26 +18,17 @@ public class Deal : EnemyState {
 	
 	// UpdateTime is called once per frame
 	public void Update () {
-        countdown -= Time.deltaTime;
-        if(countdown < timer - 0.1f)
-        {
-            spasm();
-            count++;
-        }
-        if(count >= 5)
-        {
+        spasm();
+        timeActive += Time.deltaTime;
+	    if (timeActive >= dealTime)
+	    {
             enemy.changeState(new Idle(enemy));
         }
-
-
-
-	}
+    }
 
     public Deal(Enemy02behaviour3D enemy)
     {
         this.enemy = enemy;
-        
-        //orgPos = enemy.transform.position;
     }
 
     /*private IEnumerator spasmTime()
@@ -55,26 +46,18 @@ public class Deal : EnemyState {
     public void Enter()
     {
         //Need sound?
-        Debug.Log("Entering deal");
         orgPos = enemy.transform.position;
-        
-        
-        
-    }
-
-    private void spasm()
-    {
-        Debug.Log("Shake");
-        enemy.transform.Translate(UnityEngine.Random.insideUnitSphere / 5);
     }
 
     public void Exit()
     {
         enemy.transform.position = orgPos;
-        Debug.Log("Exiting deal");
     }
 
-    
+    private void spasm()
+    {
+        enemy.transform.Translate(UnityEngine.Random.insideUnitSphere / 5 * Time.deltaTime);
+    }
 
     public bool getCanShoot()
     {
