@@ -14,9 +14,7 @@ public class JumpAbility : Ability
         Debug.Log("Using Jump");
         timeLeft = Cooldown;
 
-		controller.transform.Find("Jump").Find("JumpTrail01").GetComponent<ParticleSystem>().Play();
-		controller.transform.Find("Jump").Find("JumpTrail02").GetComponent<ParticleSystem>().Play();
-		controller.transform.Find("Jump").Find("JumpTrail03").GetComponent<ParticleSystem>().Play();
+
 
         return new CharacterStateSwitch3D(new AirState3D(controller, true));
     }

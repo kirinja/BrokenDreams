@@ -98,7 +98,7 @@ public class Enemy02behaviour3D : Enemy
         }
         else
         {
-            changeState(new Deal(this)); //If not defeated spasm
+            //changeState(new Deal(this)); //If not defeated spasm
         }
     }
 
