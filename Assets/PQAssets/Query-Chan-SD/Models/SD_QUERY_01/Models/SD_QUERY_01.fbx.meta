@@ -797,8 +797,8 @@ ModelImporter:
     - serializedVersion: 16
       name: 0008_Win
       takeName: Take 001
-      firstFrame: 400
-      lastFrame: 480
+      firstFrame: 430
+      lastFrame: 443
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -1289,7 +1289,7 @@ ModelImporter:
     - serializedVersion: 16
       name: 0015_Fly_Circle
       takeName: Take 001
-      firstFrame: 1080
+      firstFrame: 1120
       lastFrame: 1159
       wrapMode: 0
       orientationOffsetY: 0
