@@ -16,15 +16,7 @@ public class Enemy01Behaviour : Enemy
 
     public override GameObject Drop
     {
-        get
-        {
-            throw new NotImplementedException();
-        }
-
-        set
-        {
-            throw new NotImplementedException();
-        }
+        get; set;
     }
 
     // Use this for initialization
@@ -77,6 +69,11 @@ public class Enemy01Behaviour : Enemy
     private void Defeat()
     {
         StartCoroutine("deathTime");
+
+        var g = Drop;
+        if (g != null)
+            GameObject.Instantiate(g, transform.position + new Vector3(0, 1.0f, 0), Quaternion.identity);
+
         Destroy(this.gameObject);
     }
 

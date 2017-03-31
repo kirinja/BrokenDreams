@@ -14,6 +14,7 @@ public class BossPhaseTwo : IBossPhaseState
         _bossData = data;
         _bossData.PhasePlatforms[1].SetActive(true);
         _bossData.BossPhase2.SetActive(true);
+        _bossData.Phase2Launch.SetActive(true);
         _internalState = new BossSubTwoIdle(); // TODO FIX
         _internalState.Enter(_bossData);
     }
@@ -58,6 +59,7 @@ public class BossPhaseTwo : IBossPhaseState
 
         _bossData.PhasePlatforms[1].SetActive(false);
         _bossData.BossPhase2.SetActive(false);
+        _bossData.Phase2Launch.SetActive(false);
     }
 
     public bool Alive()

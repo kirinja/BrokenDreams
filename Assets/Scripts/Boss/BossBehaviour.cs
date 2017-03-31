@@ -23,6 +23,11 @@ public class BossBehaviour : MonoBehaviour
     public GameObject Acid;
 
     public GameObject[] PhasePlatforms;
+    //public GameObject[] Phase1Launch;
+    //public GameObject[] Phase2Launch;
+
+    public GameObject Phase1Launch;
+    public GameObject Phase2Launch;
     //private int phaseIndex = 0;
 
     public GameObject PushableBox;
