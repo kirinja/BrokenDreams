@@ -72,7 +72,6 @@ public struct GroundState3D : ICharacterState3D
             controller.Velocity = new Vector3(controller.Velocity.x, 0f, controller.Velocity.z);
         }
         
-
         return stateSwitch;
     }
 

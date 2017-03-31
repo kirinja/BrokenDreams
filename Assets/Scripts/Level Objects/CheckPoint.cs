@@ -10,6 +10,7 @@ public class CheckPoint : MonoBehaviour
 	void Start ()
 	{
 	    activated = false;
+        transform.Find("Checkpoint_circle").GetComponent<ParticleSystem>().Stop();
 	}
 	
 	// Update is called once per frame
@@ -23,6 +24,7 @@ public class CheckPoint : MonoBehaviour
         {
             Debug.Log("CHECKPOINT");
             other.GetComponent<Controller3D>().SetSpawn();
+            transform.Find("Checkpoint_circle").GetComponent<ParticleSystem>().Stop();
             GameObject.Find("GameManager").GetComponent<GameManager>().SaveToMemory();
             GameObject.Find("GameManager").GetComponent<GameManager>().SaveToFiles();
         }

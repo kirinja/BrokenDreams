@@ -15,13 +15,14 @@ public class Input2D : MonoBehaviour
 
     private void Update()
     {
-        if (!useAbility)
+        if (useAbility) return;
+        if (Input.GetJoystickNames().Length == 0)
         {
             useAbility = Input.GetButtonDown("Use Ability");
-            if (!useAbility)
-            {
-                useAbility = Input.GetAxisRaw("Use Ability") > 0f;
-            }
+        }
+        else
+        {
+            useAbility = Input.GetAxisRaw("Use Ability") > 0f;
         }
     }
 

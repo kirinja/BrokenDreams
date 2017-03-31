@@ -4,16 +4,17 @@ using UnityEngine;
 public struct AirState3D : ICharacterState3D
 {
     private readonly Controller3D controller;
-    private bool jump;
+    private bool willJump, jumping;
 
-    public AirState3D(Controller3D controller, bool jump = false)
+    public AirState3D(Controller3D controller, bool willJump = false)
     {
         if (controller == null)
         {
             throw new ArgumentNullException("controller");
         }
 
-        this.jump = jump;
+        jumping = false;
+        this.willJump = willJump;
         this.controller = controller;
     }
 
@@ -121,17 +122,31 @@ public struct AirState3D : ICharacterState3D
             }
         }
 
-        if (jump)
+        if (willJump)
         {
             desiredAngleVelocity.y = ((2 * attributes.MaxJumpHeight * attributes.MaxSpeed) / (attributes.MaxJumpLength / 2));
-            jump = false;
+            willJump = false;
+            jumping = true;
         }
 
         var gravity = new Vector3(0f, (-2 * attributes.MaxJumpHeight * Mathf.Pow(attributes.MaxSpeed, 2)) / (Mathf.Pow(attributes.MaxJumpLength / 2, 2)), 0f);
         desiredAngleVelocity += gravity * Time.deltaTime;
 
+        var minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity.y) * attributes.MinJumpHeight);
+        if (Input.GetButtonUp("Use Ability") && jumping && desiredAngleVelocity.y > minJumpVelocity)
+        {
+            Debug.Log("short hop");
+            desiredAngleVelocity = new Vector3(0f, minJumpVelocity, 0f);
+            jumping = false;
+        }
+
         controller.Velocity = controller.transform.TransformDirection(desiredAngleVelocity);
         controller.transform.eulerAngles = new Vector3(0f, actualAngle, 0f);
+
+        if (controller.Velocity.y <= 0f)
+        {
+            jumping = false;
+        }
     }
 
     public void AttemptStateSwitch(CharacterStateSwitch3D state)
