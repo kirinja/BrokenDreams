@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StaticFootSteps : MonoBehaviour {
+public class StaticJumping : MonoBehaviour {
 
 	private AudioSource source;
 	public AudioClip clip;
@@ -17,7 +17,7 @@ public class StaticFootSteps : MonoBehaviour {
 		
 	}
 
-	void PlayStaticFootstepSound(){
+	void PlayStaticJumpSound(){
 		source.PlayOneShot (clip);
 	}
 }

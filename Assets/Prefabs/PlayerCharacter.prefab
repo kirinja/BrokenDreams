@@ -107,6 +107,7 @@ GameObject:
   - component: {fileID: 114134480092361830}
   - component: {fileID: 54941427953152864}
   - component: {fileID: 65140873783422804}
+  - component: {fileID: 114686585740528660}
   m_Layer: 10
   m_Name: TriggerSoundThePlayerCollidesWithAndItself (2)
   m_TagString: Player Trigger
@@ -1200,6 +1201,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 013735086adc0b34c96de56f9fd689cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114686585740528660
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1241654465295370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a0cfe82a1f821c48919dbb91be7ec34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 2c754cfd660f8324eb020d0c604bdc12, type: 3}
 --- !u!114 &114973150886939512
 MonoBehaviour:
   m_ObjectHideFlags: 1
