@@ -5,7 +5,7 @@ using UnityEngine;
 public class StaticJumping : MonoBehaviour {
 
 	private AudioSource source;
-	public AudioClip clip;
+	public AudioClip[] clip;
 
 	// Use this for initialization
 	void Start () {
@@ -17,7 +17,39 @@ public class StaticJumping : MonoBehaviour {
 		
 	}
 
-	void PlayStaticJumpSound(){
-		source.PlayOneShot (clip);
+	public void PlayStaticJumpSound(){
+
+		int range = Random.Range (1, clip.Length);
+		source.clip = clip [range];
+		source.PlayOneShot (source.clip);
+		clip [range] = clip [0];
+		clip [0] = source.clip;
+	}
+
+	public void PlayStaticDashSound(){
+
+		int range = Random.Range (1, clip.Length);
+		source.clip = clip [range];
+		source.PlayOneShot (source.clip);
+		clip [range] = clip [0];
+		clip [0] = source.clip;
+	}
+
+	public void PlayStaticPushSound(){
+
+		int range = Random.Range (1, clip.Length);
+		source.clip = clip [range];
+		source.PlayOneShot (source.clip);
+		clip [range] = clip [0];
+		clip [0] = source.clip;
+	}
+
+	public void PlayStaticHitSound(){
+
+		int range = Random.Range (1, clip.Length);
+		source.clip = clip [range];
+		source.PlayOneShot (source.clip);
+		clip [range] = clip [0];
+		clip [0] = source.clip;
 	}
 }

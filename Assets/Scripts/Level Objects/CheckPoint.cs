@@ -22,7 +22,8 @@ public class CheckPoint : MonoBehaviour
     {
         if (other.CompareTag("Player") && !activated)
         {
-            other.GetComponent<Controller3D>().SetSpawn();
+            Debug.Log("CHECKPOINT");
+            other.GetComponent<Controller3D>().SetSpawn(transform.position);
             transform.Find("Checkpoint_circle").GetComponent<ParticleSystem>().Play();
             GameObject.Find("GameManager").GetComponent<GameManager>().SaveToMemory();
             GameObject.Find("GameManager").GetComponent<GameManager>().SaveToFiles();

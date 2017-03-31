@@ -82,6 +82,7 @@ public struct AirState3D : ICharacterState3D
         // Change character direction
         if (input.magnitude > float.Epsilon)
         {
+            controller.InputForward = controller.transform.forward;
             var rotationAngle = direction - currentAngle;
             if (rotationAngle > 180f)
             {
@@ -127,6 +128,10 @@ public struct AirState3D : ICharacterState3D
             desiredAngleVelocity.y = ((2 * attributes.MaxJumpHeight * attributes.MaxSpeed) / (attributes.MaxJumpLength / 2));
             willJump = false;
             jumping = true;
+
+			controller.transform.Find("Jump").Find("JumpTrail01").GetComponent<ParticleSystem>().Play();
+			controller.transform.Find("Jump").Find("JumpTrail02").GetComponent<ParticleSystem>().Play();
+			controller.transform.Find("Jump").Find("JumpTrail03").GetComponent<ParticleSystem>().Play();
         }
 
         var gravity = new Vector3(0f, (-2 * attributes.MaxJumpHeight * Mathf.Pow(attributes.MaxSpeed, 2)) / (Mathf.Pow(attributes.MaxJumpLength / 2, 2)), 0f);
@@ -146,6 +151,12 @@ public struct AirState3D : ICharacterState3D
         {
             jumping = false;
         }
+
+		if (!jumping && controller.transform.Find("Jump").Find("JumpTrail01").GetComponent<ParticleSystem>().isPlaying) {
+			controller.transform.Find("Jump").Find("JumpTrail01").GetComponent<ParticleSystem>().Stop();
+			controller.transform.Find("Jump").Find("JumpTrail02").GetComponent<ParticleSystem>().Stop();
+			controller.transform.Find("Jump").Find("JumpTrail03").GetComponent<ParticleSystem>().Stop();
+		}
     }
 
     public void AttemptStateSwitch(CharacterStateSwitch3D state)

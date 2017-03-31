@@ -6654,7 +6654,7 @@ MonoBehaviour:
   InvertX: 1
   InvertY: 0
   Margin: 0.3
-  OffsetY: 2
+  OffsetY: 1
 --- !u!1 &622938653
 GameObject:
   m_ObjectHideFlags: 0
