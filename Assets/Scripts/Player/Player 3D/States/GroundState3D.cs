@@ -95,6 +95,7 @@ public struct GroundState3D : ICharacterState3D
         // Change character direction
         if (input.magnitude > float.Epsilon)
         {
+            controller.InputForward = controller.transform.forward;
             var rotationAngle = direction - currentAngle;
             if (rotationAngle > 180f)
             {
