@@ -24,8 +24,8 @@ public class Enemy02behaviour3D : Enemy
     private EnemyState state;
 
     public float projLifeTime;
-
-
+    public float HealthDropChance = 0.3f;
+    public GameObject HealthDrop;
 
     public GameObject projectilePreFab;
     public Transform[] retreatPoints;
@@ -137,6 +137,19 @@ public class Enemy02behaviour3D : Enemy
     private void Defeat()
     {
         StartCoroutine("deathTime");
+
+        if (Drop == null)
+        {
+            if (UnityEngine.Random.value < HealthDropChance)
+            {
+                Drop = HealthDrop;
+            }
+        }
+
+        var g = Drop;
+        if (g != null)
+            GameObject.Instantiate(g, transform.position + new Vector3(0, 1.0f, 0), Quaternion.identity);
+
         Destroy(this.gameObject);
     }
 
