@@ -17,7 +17,7 @@ public class CollisionAnimatorStopper : MonoBehaviour
 		
 	}
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.CompareTag("Movable Object"))
         {
@@ -25,7 +25,7 @@ public class CollisionAnimatorStopper : MonoBehaviour
         }
     }
 
-    private void OnCollisionExit(Collision collision)
+    private void OnTriggerExit(Collider collision)
     {
         if (collision.gameObject.CompareTag("Movable Object"))
         {
