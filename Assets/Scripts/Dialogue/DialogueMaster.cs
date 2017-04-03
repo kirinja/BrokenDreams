@@ -17,7 +17,7 @@ public class DialogueMaster : MonoBehaviour {
     private GameObject option02;
     private GameObject option03;
 
-    public string pathToDialogueXML;
+    //public string pathToDialogueXML;
 
     public GameObject dialoguePreFab;
 
@@ -43,7 +43,7 @@ public class DialogueMaster : MonoBehaviour {
         dialogue.Add(n3);
         
 
-        var canvas = GameObject.Find("Canvas");
+        var canvas = GameObject.Find("HUDCanvas");
         window = Instantiate<GameObject>(dialoguePreFab);
         window.transform.parent = canvas.transform;
         window.transform.localPosition = new Vector3(0, 0, 0);
@@ -57,12 +57,12 @@ public class DialogueMaster : MonoBehaviour {
 
     }
 
-    private void runDialogue()
+    public void runDialogue()
     {
         StartCoroutine("run");
     }
 
-    private void setSelectedOption(int i)
+    public void setSelectedOption(int i)
     {
         selectedOption = i;
     }

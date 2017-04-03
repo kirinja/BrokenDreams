@@ -205,7 +205,7 @@ MonoBehaviour:
     m_Bits: 1024
   attackClip: {fileID: 0}
   damageClip: {fileID: 0}
-  aggroClip: {fileID: 0}
+  aggroClip: {fileID: 8300000, guid: 804b98e3d722da143a54f37d838dda56, type: 3}
   deathClip: {fileID: 0}
 --- !u!136 &136222362272044268
 CapsuleCollider:
