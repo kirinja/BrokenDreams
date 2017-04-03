@@ -40,6 +40,7 @@ public class Idle : EnemyState {
                 //{
                 enemy.setTarget(col[v].GetComponent<Controller3D>());
                 enemy.changeState(new Patrol(this.enemy));
+                enemy.getSource().PlayOneShot(enemy.aggroClip);
                 //Alert sound
                 //}
             }

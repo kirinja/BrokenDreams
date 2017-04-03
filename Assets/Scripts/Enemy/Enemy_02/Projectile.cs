@@ -10,6 +10,8 @@ public class Projectile : MonoBehaviour {
     private Rigidbody rb;
     private float maxLifeTime;
     private float currentLifeTime;
+    private AudioSource src;
+    public AudioClip hitClip;
 	// Use this for initialization
 	void Start () {
 
@@ -73,6 +75,7 @@ public class Projectile : MonoBehaviour {
 
     public void OnCollisionEnter(Collision col)
     {
+        src.PlayOneShot(hitClip);
         gameObject.SetActive(false);
         shooter.Fired = false;
         //Need sound

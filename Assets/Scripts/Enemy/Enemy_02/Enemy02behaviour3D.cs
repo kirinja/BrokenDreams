@@ -33,6 +33,11 @@ public class Enemy02behaviour3D : Enemy
     public int rpThreshold;
     public Vector3 AggroRange;
     public LayerMask AggroMask;
+    private AudioSource src;
+    public AudioClip attackClip;
+    public AudioClip damageClip;
+    public AudioClip aggroClip;
+    public AudioClip deathClip;
 
     // Use this for initialization
     void Start()
@@ -44,6 +49,7 @@ public class Enemy02behaviour3D : Enemy
         projectile.setLifeTime(projLifeTime);
         rpThreshold = retreatPoints.Length - 1;
         rpIndex = 0;
+        src = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -139,6 +145,11 @@ public class Enemy02behaviour3D : Enemy
         {
             other.gameObject.GetComponent<Controller3D>().AttackPlayer(transform.position, 1);
         }
+    }
+
+    public AudioSource getSource()
+    {
+        return src;
     }
 
     public override GameObject Drop { get; set; }
