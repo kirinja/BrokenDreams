@@ -25,7 +25,7 @@ public class EnemySpawn : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Platform"))
+        if (other.CompareTag("Platform") || other.CompareTag("Wall"))
         {
             //GameObject.Instantiate(_bossData.Enemy1, _spawnPoints[v].transform.position + new Vector3(0, _spawnPoints[v].transform.localScale.y / 2 + _bossData.Enemy1.transform.localScale.y / 2, -1), Quaternion.identity);
             BoxCollider box = Enemy.transform.GetComponent<BoxCollider>();
