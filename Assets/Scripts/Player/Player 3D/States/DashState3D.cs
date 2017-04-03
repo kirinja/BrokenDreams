@@ -71,7 +71,7 @@ class DashState3D : ICharacterState3D
         return new CharacterStateSwitch3D();
     }
 
-    public void Update(Vector2 input)
+    public void Update(Vector2 input, bool forceRotate)
     {
         timePassed += Time.deltaTime;
         if (timePassed >= controller.GetComponent<PlayerAttributes>().DashTime || Input.GetButtonUp("Use Ability"))

@@ -12,6 +12,7 @@ public class Input2D : MonoBehaviour
     private void Start()
     {
         controller = GetComponent<Controller3D>();
+        controller.Is3D = false;
     }
 
     private void Update()
@@ -28,7 +29,7 @@ public class Input2D : MonoBehaviour
     private void FixedUpdate()
     {
         var input = new Vector2(Input.GetAxisRaw("Horizontal"), 0f);
-        controller.HandleMovement(useAbility, input);
+        controller.HandleMovement(useAbility, input, true);
         controller.SetPosition(new Vector3(controller.transform.position.x, controller.transform.position.y,
             LockedZPosition));
         useAbility = false;

@@ -25,7 +25,11 @@ public class Controller3D : MonoBehaviour
 	public Animator animator; //!!!
     public Material Material;
 
-	void Start(){
+    [HideInInspector]
+    public bool Is3D { get; set; }
+
+
+    void Start(){
 		animator = GetComponent<Animator> (); //!!!
 	    InputForward = transform.forward;
 	}
@@ -96,7 +100,7 @@ public class Controller3D : MonoBehaviour
         Material.SetColor("_Color", Attributes.Abilities[selectedAbility].Color);
     }
 
-    public void HandleMovement(bool useAbility, Vector2 input)
+    public void HandleMovement(bool useAbility, Vector2 input, bool forceRotate)
     {
         MovementInput = input;
         foreach (var ability in Attributes.Abilities)
@@ -113,7 +117,7 @@ public class Controller3D : MonoBehaviour
         }
         
         var deltaTime = Time.deltaTime;
-        characterState.Update(input);
+        characterState.Update(input, forceRotate);
         HandleCollisions(Move());
         DrawAxes();
 		GetComponentInChildren<Rigidbody> ().position = transform.position;

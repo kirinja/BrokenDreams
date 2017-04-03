@@ -10,6 +10,7 @@ public class Input3D : MonoBehaviour
     private void Start()
     {
         player = GetComponent<Controller3D>();
+        player.Is3D = true;
     }
 
     private void Update()
@@ -26,7 +27,7 @@ public class Input3D : MonoBehaviour
     private void FixedUpdate()
     {
         var input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        player.HandleMovement(useAbility, input);
+        player.HandleMovement(useAbility, input, false);
         useAbility = false;
     }
 }

@@ -28,9 +28,9 @@ public struct AirState3D : ICharacterState3D
 		controller.animator.SetBool("InAir", false);
     }
 
-    public void Update(Vector2 input)
+    public void Update(Vector2 input, bool forceRotate)
     {
-        UpdateVelocity(input);
+        UpdateVelocity(input, forceRotate);
     }
 
     public CharacterStateSwitch3D HandleCollisions(CollisionFlags collisionFlags)
@@ -63,7 +63,7 @@ public struct AirState3D : ICharacterState3D
         return stateSwitch;
     }
 
-    private void UpdateVelocity(Vector2 input)
+    private void UpdateVelocity(Vector2 input, bool forceRotate)
     {
         var move = new Vector3(input.x, 0, input.y);
         move.Normalize();
@@ -80,9 +80,16 @@ public struct AirState3D : ICharacterState3D
         var desiredAngleVelocity = controller.transform.InverseTransformDirection(controller.Velocity);
 
         // Change character direction
-        if (input.magnitude > float.Epsilon)
+        if (input.magnitude > float.Epsilon || forceRotate)
         {
-            controller.InputForward = controller.transform.forward;
+            if (input.magnitude > float.Epsilon)
+            {
+                controller.InputForward = controller.transform.forward;
+            }
+            else
+            {
+                direction = Mathf.Atan2(controller.InputForward.x, controller.InputForward.z) * Mathf.Rad2Deg;
+            }
             var rotationAngle = direction - currentAngle;
             if (rotationAngle > 180f)
             {
