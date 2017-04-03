@@ -18,7 +18,6 @@ public class DeathZone : MonoBehaviour {
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("DIE!");
             other.GetComponent<Controller3D>().Damage(9999);
         }
     }

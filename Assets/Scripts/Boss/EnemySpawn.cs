@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Xml;
 using UnityEngine;
 
 public class EnemySpawn : MonoBehaviour
@@ -27,7 +28,12 @@ public class EnemySpawn : MonoBehaviour
         if (other.CompareTag("Platform"))
         {
             //GameObject.Instantiate(_bossData.Enemy1, _spawnPoints[v].transform.position + new Vector3(0, _spawnPoints[v].transform.localScale.y / 2 + _bossData.Enemy1.transform.localScale.y / 2, -1), Quaternion.identity);
-            var g = Instantiate(Enemy, other.gameObject.transform.position + new Vector3(0, other.transform.localScale.y / 2 + Enemy.transform.localScale.y / 2, 0), Quaternion.identity);
+            BoxCollider box = Enemy.transform.GetComponent<BoxCollider>();
+            CapsuleCollider caps = Enemy.transform.GetComponent<CapsuleCollider>();
+            var g = Instantiate(Enemy, 
+                other.gameObject.transform.position + new Vector3(0, other.transform.lossyScale.y / 2 + (box == null ? caps.height / 2 : box.size.y / 2), 0),
+                Quaternion.identity);
+
             if (transform.childCount > 0)
             {
                 var c = transform.GetChild(0);

@@ -49,6 +49,10 @@ public struct GroundState3D : ICharacterState3D
         {
             platform = null;
         }
+
+		if (Input.GetKeyDown(KeyCode.V)){
+			controller.animator.SetTrigger ("Wave");
+		}
     }
 
     public CharacterStateSwitch3D HandleCollisions(CollisionFlags collisionFlags)

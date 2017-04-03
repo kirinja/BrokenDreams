@@ -13,7 +13,9 @@ public class BossSubTwoDefend: IBossSubState
     public void Enter(BossBehaviour data)
     {
         _bossData = data;
-        _timer = _bossData.StateSwitchTimer; // TODO
+        //_timer = _bossData.StateSwitchTimer; // TODO
+        _timer = new System.Random().Next((int)_bossData.MinStateSwitch, (int)_bossData.MaxStateSwitch); // HACK
+        Debug.Log(_timer);
 
         _head = GameObject.Find("Head");
         _playing = false;
@@ -21,7 +23,6 @@ public class BossSubTwoDefend: IBossSubState
 
     public IBossSubState Execute()
     {
-        Debug.Log("Phase 2 Defend");
         _head.transform.position = _bossData.Phase2DefendPos.position;
         _head.GetComponent<Renderer>().enabled = false;
         var cols = _head.GetComponents<Collider>();

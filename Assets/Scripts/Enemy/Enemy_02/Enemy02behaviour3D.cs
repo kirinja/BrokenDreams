@@ -57,8 +57,6 @@ public class Enemy02behaviour3D : Enemy
             timeSinceAttack += Time.deltaTime;
         }
         state.Update();
-
-        Debug.Log(state.GetType().ToString());
     }
 
 
@@ -83,22 +81,18 @@ public class Enemy02behaviour3D : Enemy
 
     public void Attack() //Tells associated projectile to fire
     {
-        Debug.Log("Skjuter");
         projectile.Fire();
-        
-        
     }
 
     public override void Damage() //Method to call when player hits an enemy
     {
-        Debug.Log("Enemy damaged");
         if(--health <= 0)
         {
             Defeat();
         }
         else
         {
-            changeState(new Deal(this)); //If not defeated spasm
+            //changeState(new Deal(this)); //If not defeated spasm
         }
     }
 
