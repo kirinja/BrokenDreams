@@ -4769,6 +4769,11 @@ Prefab:
       propertyPath: wallSound
       value: 
       objectReference: {fileID: 8300000, guid: 16e81111e2f50b244a6273d30e99222f, type: 3}
+    - target: {fileID: 114134480092361830, guid: de333fd6865a1924abd6495a01270364,
+        type: 2}
+      propertyPath: checkpoints
+      value: 
+      objectReference: {fileID: 8300000, guid: ecd114ecaeb261d4d8b478c85cbd23c4, type: 3}
     m_RemovedComponents:
     - {fileID: 114471618969616452, guid: de333fd6865a1924abd6495a01270364, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: de333fd6865a1924abd6495a01270364, type: 2}
@@ -6272,6 +6277,14 @@ Prefab:
     - target: {fileID: 4223767668459952, guid: 5e6e341cfca315e4eaa6b1bfa41a88f1, type: 2}
       propertyPath: m_LocalPosition.x
       value: -0.13
+      objectReference: {fileID: 0}
+    - target: {fileID: 1370002775023330, guid: 5e6e341cfca315e4eaa6b1bfa41a88f1, type: 2}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 1936148138986236, guid: 5e6e341cfca315e4eaa6b1bfa41a88f1, type: 2}
+      propertyPath: m_TagString
+      value: Checkpoint
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5e6e341cfca315e4eaa6b1bfa41a88f1, type: 2}
@@ -20742,6 +20755,10 @@ Prefab:
       propertyPath: m_LocalPosition.y
       value: 8.47
       objectReference: {fileID: 0}
+    - target: {fileID: 1936148138986236, guid: 5e6e341cfca315e4eaa6b1bfa41a88f1, type: 2}
+      propertyPath: m_TagString
+      value: Checkpoint
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5e6e341cfca315e4eaa6b1bfa41a88f1, type: 2}
   m_IsPrefabParent: 0
@@ -20806,6 +20823,10 @@ Prefab:
     - target: {fileID: 4223767668459952, guid: 5e6e341cfca315e4eaa6b1bfa41a88f1, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 1936148138986236, guid: 5e6e341cfca315e4eaa6b1bfa41a88f1, type: 2}
+      propertyPath: m_TagString
+      value: Checkpoint
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5e6e341cfca315e4eaa6b1bfa41a88f1, type: 2}
