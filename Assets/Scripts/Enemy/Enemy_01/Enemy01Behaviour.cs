@@ -10,10 +10,14 @@ public class Enemy01Behaviour : Enemy
     public float PatrolTime;
     public float GroundCheckDistance;
     public LayerMask CollisionMask;
+    public float HealthDropChance = 0.2f;
+    public GameObject HealthDrop;
 
     public AudioClip damageClip;
     public AudioClip deathClip;
     public AudioClip attackClip;
+
+    
 
     private Enemy01State state;
     private int health;
@@ -100,6 +104,14 @@ public class Enemy01Behaviour : Enemy
     {
         StartCoroutine("deathTime");
         src.PlayOneShot(deathClip);
+
+        if (Drop == null)
+        {
+            if (UnityEngine.Random.value < HealthDropChance)
+            {
+                Drop = HealthDrop;
+            }
+        }
 
         var g = Drop;
         if (g != null)
