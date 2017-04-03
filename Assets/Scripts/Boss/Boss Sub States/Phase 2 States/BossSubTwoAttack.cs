@@ -27,14 +27,13 @@ public class BossSubTwoAttack : IBossSubState
         _bossData = data;
         //_timer = _bossData.StateSwitchTimer; // TODO
         _timer = new System.Random().Next((int)_bossData.MinStateSwitch, (int)_bossData.MaxStateSwitch); // HACK
-        Debug.Log(_timer);
 
         _projTimer = TimeBetweenShots;
 
         _head = GameObject.Find("Head");
 
         _spawnCounter = 0;
-        _spawnTimer = TimeBetweenShots;
+        _spawnTimer = TimeBetweenSpawns;
 
         var spawnPoints = GameObject.FindGameObjectsWithTag("Platform");
         _platformIds = new int[spawnPoints.Length];
@@ -95,18 +94,28 @@ public class BossSubTwoAttack : IBossSubState
                 var v = _platformIds[index];
                 //Debug.Log("Spawn at platform ID " + v);
                 //var g = GameObject.Instantiate(_bossData.Enemy2, _spawnPoints[v].transform.position + new Vector3(0, _spawnPoints[v].transform.localScale.y / 2 + _bossData.Enemy2.transform.localScale.y / 2, -1), Quaternion.identity);
-                
-                _platformIds = _platformIds.Where(val => val != v).ToArray();
+
+                var childCount = _bossData.NavmeshTargets.transform.childCount;
+                Transform[] childs = new Transform[childCount];
+                for (int i = 0; i < childCount; i++)
+                {
+                    childs[i] = _bossData.NavmeshTargets.transform.GetChild(i);
+                }
 
                 _arcs[v].GetComponent<MeshFilter>().sharedMesh =_bossData.Enemy2.GetComponent<MeshFilter>().sharedMesh;
+
+                _bossData.Enemy2.GetComponent<Enemy02behaviour3D>().retreatPoints = childs;
                 _arcs[v].GetComponent<EnemySpawn>().Enemy = _bossData.Enemy2;
+                
                 _arcs[v].GetComponent<MeshRenderer>().enabled = true;
                 _arcs[v].GetComponent<SplineController>().FollowSpline();
 
-                _spawnCounter++;
+                ++_spawnCounter;
                 _spawnTimer = TimeBetweenSpawns;
 
                 _bossData.PlayBossSpawnSound();
+
+                _platformIds = _platformIds.Where(val => val != v).ToArray();
             }
         }
 
@@ -141,6 +150,7 @@ public class BossSubTwoAttack : IBossSubState
     public void Exit()
     {
         _spawned = false;
+        _spawnCounter = 0;
     }
 
     public bool Alive()

@@ -19,7 +19,6 @@ public class BossSubThreeAttack : IBossSubState
         _bossData = data;
         //_timer = _bossData.StateSwitchTimer;
         _timer = new System.Random().Next((int)_bossData.MinStateSwitch, (int)_bossData.MaxStateSwitch); // HACK
-        Debug.Log(_timer);
 
         _attackTimer = TimeBetweenShots;
         _projCounter = 0;
