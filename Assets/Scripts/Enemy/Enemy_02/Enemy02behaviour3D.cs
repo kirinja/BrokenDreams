@@ -23,6 +23,8 @@ public class Enemy02behaviour3D : Enemy
 
     private EnemyState state;
 
+    public float projLifeTime;
+
 
 
     public GameObject projectilePreFab;
@@ -39,6 +41,7 @@ public class Enemy02behaviour3D : Enemy
         var p = Instantiate<GameObject>(projectilePreFab);
         projectile = p.GetComponent<Projectile>();
         projectile.setShooter(this);
+        projectile.setLifeTime(projLifeTime);
         rpThreshold = retreatPoints.Length - 1;
         rpIndex = 0;
     }
