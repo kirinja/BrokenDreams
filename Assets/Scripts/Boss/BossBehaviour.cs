@@ -32,6 +32,8 @@ public class BossBehaviour : MonoBehaviour
 
     public GameObject PushableBox;
 
+    public GameObject NavmeshTargets;
+
     [Tooltip("Amount of enemies boss should spawn during phase 1")]
     public int Phase1Spawn = 3;
     [Tooltip("Amount of enemies boss should spawn during phase 2")]
@@ -128,44 +130,6 @@ public class BossBehaviour : MonoBehaviour
 	    // or maybe that should be seperate
 	    // is this controlling only the boss behaviour or the boss arena as well?
 	}
-
-    void OnCollisionEnter(Collision other)
-    {
-        // here might be a problem, since we're reusing this event for every phase but the way we damage is different depending on state
-        // might be able to hack it with an if state check, so in phase 1 only box or whatever can deal damage
-        /*
-        if (BossState.GetType().Name.Equals("BossPhaseOne"))
-        {
-            Debug.Log("Damage in Phase 1");   
-        }
-        else if (BossState.GetType().Name.Equals("BossPhaseTwo"))
-        {
-            Debug.Log("Damage in Phase 2");
-        }
-        else if (BossState.GetType().Name.Equals("BossPhaseThree"))
-        {
-            Debug.Log("Damage in Phase 3");
-        }*/
-
-        // this might be hacky?
-        switch (BossState.GetType().Name)
-        {
-            case "BossPhaseOne":
-                Debug.Log("Damage in Phase 1");
-                break;
-            case "BossPhaseTwo":
-                Debug.Log("Damage in Phase 2");
-                break;
-            case "BossPhaseThree":
-                Debug.Log("Damage in Phase 3");
-                break;
-        }
-        /*
-        if (other.gameObject.CompareTag("Player"))
-        {
-            other.gameObject.GetComponent<Controller3D>().Damage();
-        }*/
-    }
 
     public void PlayBossIdleSound()
     {

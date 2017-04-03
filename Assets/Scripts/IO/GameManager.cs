@@ -229,12 +229,15 @@ public class GameManager : MonoBehaviour
 
     void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
     {
-        _playerAttributes = GameObject.Find("Player").GetComponent<PlayerAttributes>();
-        if (_playerAttributes)
-        {
-            if (!LoadFromMemory())
-                LoadFromFile();
-        }
+        //_playerAttributes = GameObject.Find("Player").GetComponent<PlayerAttributes>();
+        var g = GameObject.FindGameObjectWithTag("Player");
+        if (!g) return;
+
+        _playerAttributes = g.GetComponent<PlayerAttributes>();
+        if (!_playerAttributes) return;
+
+        if (!LoadFromMemory())
+            LoadFromFile();
         // Every time a level is loaded we can do the init stuff here, like reading from file/memory
 
         // we need to do some logic stuff here, like depending on which level we need check certain things

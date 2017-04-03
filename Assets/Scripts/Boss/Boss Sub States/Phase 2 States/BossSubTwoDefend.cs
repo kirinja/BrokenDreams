@@ -15,7 +15,6 @@ public class BossSubTwoDefend: IBossSubState
         _bossData = data;
         //_timer = _bossData.StateSwitchTimer; // TODO
         _timer = new System.Random().Next((int)_bossData.MinStateSwitch, (int)_bossData.MaxStateSwitch); // HACK
-        Debug.Log(_timer);
 
         _head = GameObject.Find("Head");
         _playing = false;

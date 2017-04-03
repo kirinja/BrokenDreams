@@ -190,7 +190,13 @@ MonoBehaviour:
   projLifeTime: 0
   projectilePreFab: {fileID: 1738751761851474, guid: ba4265d501b6f8c42a61385c1f2015b1,
     type: 2}
-  retreatPoints: []
+  retreatPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   rpIndex: 0
   rpThreshold: 2
   AggroRange: {x: 0, y: 0, z: 0}
@@ -208,7 +214,7 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1793933580056596}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2
