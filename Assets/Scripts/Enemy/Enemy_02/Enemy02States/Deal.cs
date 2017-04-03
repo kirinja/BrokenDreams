@@ -46,6 +46,7 @@ public class Deal : EnemyState {
     public void Enter()
     {
         //Need sound?
+        enemy.getSource().PlayOneShot(enemy.aggroClip);
         orgPos = enemy.transform.position;
     }
 
