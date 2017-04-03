@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class CollisionAnimatorStopper : MonoBehaviour
 {
     public LayerMask CollisionMask;
@@ -20,7 +21,7 @@ public class CollisionAnimatorStopper : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Movable Object"))
         {
-            GetComponent<Animator>().StartPlayback();
+            GetComponent<Animator>().enabled = false;
         }
     }
 
@@ -28,7 +29,7 @@ public class CollisionAnimatorStopper : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Movable Object"))
         {
-            GetComponent<Animator>().StartPlayback();
+            GetComponent<Animator>().enabled = true;
         }
     }
 }
