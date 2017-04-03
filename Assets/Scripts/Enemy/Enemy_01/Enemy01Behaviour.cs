@@ -10,13 +10,16 @@ public class Enemy01Behaviour : Enemy
     public float PatrolTime;
     public float GroundCheckDistance;
     public LayerMask CollisionMask;
-    
-    private Enemy01State state;
-    private int health;
-    private AudioSource src;
+
     public AudioClip damageClip;
     public AudioClip deathClip;
     public AudioClip attackClip;
+
+    private Enemy01State state;
+    private int health;
+    private AudioSource src;
+    private Transform platform;
+    private Vector3 previousPlatformPosition;
 
     public override GameObject Drop
     {
@@ -32,7 +35,21 @@ public class Enemy01Behaviour : Enemy
 	// UpdateTime is called once per frame
 	void Update () {
         state.Update();
-	}
+        var platformObject = GetGround();
+        if (platformObject)
+        {
+            if (platformObject.transform == platform)
+            {
+                transform.position += platform.position - previousPlatformPosition;
+                previousPlatformPosition = platform.position;
+            }
+            else
+            {
+                platform = platformObject.transform;
+                previousPlatformPosition = platform.position;
+            }
+        }
+    }
 
     public void OnCollisionEnter(Collision other)
     {
@@ -42,6 +59,16 @@ public class Enemy01Behaviour : Enemy
             other.gameObject.GetComponent<Controller3D>().AttackPlayer(transform.position, 1);
             src.PlayOneShot(attackClip);
         }
+    }
+
+    private GameObject GetGround()
+    {
+        RaycastHit hitInfo;
+        if (Physics.Raycast(transform.position, Vector3.down, out hitInfo))
+        {
+            return hitInfo.transform.gameObject;
+        }
+        return null;
     }
 
     public void changeState(Enemy01State state)

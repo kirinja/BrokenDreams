@@ -38,6 +38,8 @@ public class Enemy02behaviour3D : Enemy
     public AudioClip damageClip;
     public AudioClip aggroClip;
     public AudioClip deathClip;
+    private Transform platform;
+    private Vector3 previousPlatformPosition;
 
     // Use this for initialization
     void Start()
@@ -66,9 +68,36 @@ public class Enemy02behaviour3D : Enemy
             timeSinceAttack += Time.deltaTime;
         }
         state.Update();
+
+        var platformObject = GetGround();
+        if (platformObject)
+        {
+            if (platformObject.transform == platform)
+            {
+                transform.position += platform.position - previousPlatformPosition;
+                foreach (var point in retreatPoints)
+                {
+                    point.position += platform.position - previousPlatformPosition;
+                }
+                previousPlatformPosition = platform.position;
+            }
+            else
+            {
+                platform = platformObject.transform;
+                previousPlatformPosition = platform.position;
+            }
+        }
     }
 
-
+    private GameObject GetGround()
+    {
+        RaycastHit hitInfo;
+        if (Physics.Raycast(transform.position, Vector3.down, out hitInfo, 1.5f))
+        {
+            return hitInfo.transform.gameObject;
+        }
+        return null;
+    }
 
     /*private void Aggro() {
 
