@@ -8,6 +8,10 @@ public class Projectile : MonoBehaviour {
     private Controller3D target;
     private Enemy02behaviour3D shooter;
     private Rigidbody rb;
+    private float maxLifeTime;
+    private float currentLifeTime;
+    private AudioSource src;
+    public AudioClip hitClip;
 	// Use this for initialization
 	void Start () {
 
@@ -15,11 +19,17 @@ public class Projectile : MonoBehaviour {
         
 	}
 
+    public void setLifeTime(float f)
+    {
+        maxLifeTime = f;
+    }
+
     public void Fire()
     {
         gameObject.SetActive(true);
         Vector3 shooterPos = shooter.transform.position;
         this.transform.position = shooterPos;
+        currentLifeTime = 0;
         rb.velocity = calculateVelocity(target.transform, 45f);
         //Need sound
     }
@@ -40,21 +50,32 @@ public class Projectile : MonoBehaviour {
         return vel * dir.normalized; //Koden är orginellt skriven av unity user aldonaletto
     }
 
-    /*public void Update()
+    public void Update()
     {
-        Collider[] col = Physics.OverlapSphere(this.transform.position, 0.5f);
+        /*Collider[] col = Physics.OverlapSphere(this.transform.position, 0.5f);
         int i = 0;
         while(i< col.Length)
         {
             if (col[i].CompareTag("Player"))
             {
                 shooter.resetTime();
+            }*/
+
+        if (shooter.Fired)
+        {
+            currentLifeTime += Time.deltaTime;
+            if (currentLifeTime >= maxLifeTime)
+            {
+                gameObject.SetActive(false);
+                shooter.Fired = false;
             }
         }
-    }*/
+    }
+    
 
     public void OnCollisionEnter(Collision col)
     {
+        src.PlayOneShot(hitClip);
         gameObject.SetActive(false);
         shooter.Fired = false;
         //Need sound

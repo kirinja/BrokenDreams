@@ -13,6 +13,10 @@ public class Enemy01Behaviour : Enemy
     
     private Enemy01State state;
     private int health;
+    private AudioSource src;
+    public AudioClip damageClip;
+    public AudioClip deathClip;
+    public AudioClip attackClip;
 
     public override GameObject Drop
     {
@@ -22,6 +26,7 @@ public class Enemy01Behaviour : Enemy
     // Use this for initialization
     void Start () {
         state = new Patrol01(this, StartVelocity);
+        src = GetComponent<AudioSource>();
 	}
 	
 	// UpdateTime is called once per frame
@@ -35,6 +40,7 @@ public class Enemy01Behaviour : Enemy
         if (other.gameObject.CompareTag("Player"))
         {
             other.gameObject.GetComponent<Controller3D>().AttackPlayer(transform.position, 1);
+            src.PlayOneShot(attackClip);
         }
     }
 
@@ -56,6 +62,7 @@ public class Enemy01Behaviour : Enemy
     public override void Damage()
     {
         health--;
+        src.PlayOneShot(damageClip);
         if (health <= 0)
         {
             Defeat();
@@ -65,6 +72,7 @@ public class Enemy01Behaviour : Enemy
     private void Defeat()
     {
         StartCoroutine("deathTime");
+        src.PlayOneShot(deathClip);
 
         var g = Drop;
         if (g != null)
