@@ -13,7 +13,7 @@ public class BossPhaseThree : IBossPhaseState
         _bossData = data;
         _bossData.PhasePlatforms[2].SetActive(true);
         _bossData.BossPhase3.SetActive(true);
-        _internalState = new BossSubThreePatrol(); // TODO FIX
+        _internalState = new BossSubThreePatrol();
         _internalState.Enter(_bossData);
     }
 

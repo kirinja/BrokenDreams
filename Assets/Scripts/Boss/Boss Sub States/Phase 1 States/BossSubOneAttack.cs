@@ -23,7 +23,6 @@ public class BossSubOneAttack : IBossSubState
     public void Enter(BossBehaviour data)
     {
         _bossData = data;
-        //_timer = _bossData.StateSwitchTimer; // TODO
         _timer = new Random().Next((int)_bossData.MinStateSwitch, (int)_bossData.MaxStateSwitch); // HACK
         _spawned = false;
         _spawnedBox = false;
