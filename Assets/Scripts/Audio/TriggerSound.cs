@@ -13,9 +13,6 @@ public class TriggerSound : MonoBehaviour {
 	public AudioClip checkpoints;
 	public AudioClip deadzones;
 
-	public AudioClip room0;
-	public AudioClip room1;
-	public AudioClip room2;
 	public AudioClip room3;
 
 	private float targetAudio = 0; 
@@ -53,24 +50,6 @@ public class TriggerSound : MonoBehaviour {
 			source1.PlayOneShot (deadzones);
 		}
 
-		if (col.gameObject.CompareTag("Room0")){
-			targetAudio = 1;
-			source2.clip = room0;
-			source2.Play ();
-		}
-
-		if (col.gameObject.CompareTag ("Room")) {
-			targetAudio = 1;
-			source2.clip = room1;
-			source2.Play ();
-		}
-
-		if (col.gameObject.CompareTag("Room2")){
-			targetAudio = 1;
-			source2.clip = room2;
-			source2.Play ();
-		}
-
 		if (col.gameObject.CompareTag("Room3")){
 			targetAudio = 1;
 			source2.clip = room3;
@@ -80,18 +59,6 @@ public class TriggerSound : MonoBehaviour {
 
 	void OnTriggerExit(Collider col){
 		targetAudio = 0;
-
-		if (col.gameObject.tag == "Room0" && source1.isPlaying){
-			source2.Stop ();
-		}
-
-		if (col.gameObject.tag == "Room" && source1.isPlaying){
-			source2.Stop ();
-		}
-
-		if (col.gameObject.tag == "Room2" && source1.isPlaying){
-			source2.Stop ();
-		}
 
 		if (col.gameObject.tag == "Room3" && source1.isPlaying){
 			source2.Stop ();
