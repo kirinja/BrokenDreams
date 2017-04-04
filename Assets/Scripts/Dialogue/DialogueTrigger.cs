@@ -11,9 +11,9 @@ public class DialogueTrigger : MonoBehaviour {
         master = GetComponent<DialogueMaster>();
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player") && Input.GetAxisRaw("Vertical") >= 0.5f)
+        if(other.CompareTag("Player"))
         {
             master.runDialogue();
         }
@@ -23,7 +23,7 @@ public class DialogueTrigger : MonoBehaviour {
     {
         if (other.CompareTag("Player"))
         {
-
+            master.setSelectedOption(-1);
         }
     }
 }

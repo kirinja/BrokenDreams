@@ -50,7 +50,7 @@ public struct GroundState3D : ICharacterState3D
             platform = null;
         }
 
-		if (Input.GetKeyDown(KeyCode.V)){
+		if (Input.GetButtonDown("Taunt")){
 			controller.animator.SetTrigger ("Wave");
 		}
     }

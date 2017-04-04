@@ -17,6 +17,8 @@ public class DialogueMaster : MonoBehaviour {
     private GameObject option02;
     private GameObject option03;
 
+    private int option01ID, option02ID, option03ID;
+
     //public string pathToDialogueXML;
 
     public GameObject dialoguePreFab;
@@ -28,22 +30,22 @@ public class DialogueMaster : MonoBehaviour {
         //Debug.Log(dialogue.DialogueNodeList[0].getText());
         dialogue = new Dialogue();
         var n1 = new DialogueNode(0, "hello");
-        n1.Add(new DialogueOption(-1, "I need to go"));
-        n1.Add(new DialogueOption(1, "Give me a potion!"));
-        n1.Add(new DialogueOption(2, "Would you kindly give me a potion?"));
+        n1.Add(new DialogueOption(-1, "X: I need to go"));
+        n1.Add(new DialogueOption(1, "Y: Give me a potion!"));
+        n1.Add(new DialogueOption(2, "B: Would you kindly give me a potion?"));
         var n2 = new DialogueNode(1, "maybe");
-        n2.Add(new DialogueOption(-1, "To hell with your maybe!"));
-        n2.Add(new DialogueOption(-1, "I need to go now"));
-        n2.Add(new DialogueOption(2, "Sorry, would you kindly give me a potion"));
+        n2.Add(new DialogueOption(-1, "X: To hell with your maybe!"));
+        n2.Add(new DialogueOption(-1, "Y: I need to go now"));
+        n2.Add(new DialogueOption(2, "B: Sorry, would you kindly give me a potion"));
         var n3 = new DialogueNode(2, "Here you go!");
-        n3.Add(new DialogueOption(-1, "Thanks!"));
-        n3.Add(new DialogueOption(-1, "I need to go now"));
+        n3.Add(new DialogueOption(-1, "X: Thanks!"));
+        n3.Add(new DialogueOption(-1, "Y: I need to go now"));
         dialogue.Add(n1);
         dialogue.Add(n2);
         dialogue.Add(n3);
         
 
-        var canvas = GameObject.Find("HUDCanvas");
+        var canvas = GameObject.Find("DialogueCanvas");
         window = Instantiate<GameObject>(dialoguePreFab);
         window.transform.parent = canvas.transform;
         window.transform.localPosition = new Vector3(0, 0, 0);
@@ -54,7 +56,22 @@ public class DialogueMaster : MonoBehaviour {
         option03 = GameObject.Find("Option03");
 
         window.SetActive(false);
+    }
 
+    private void Update()
+    {
+        if (Input.GetButtonDown("Option1"))
+        {
+            setSelectedOption(option01ID);
+        }
+        else if (Input.GetButtonDown("Option2"))
+        {
+            setSelectedOption(option02ID);
+        }
+        else if (Input.GetButtonDown("Option3"))
+        {
+            setSelectedOption(option03ID);
+        }
     }
 
     public void runDialogue()
@@ -83,7 +100,7 @@ public class DialogueMaster : MonoBehaviour {
             }
             nodeID = selectedOption;
             if (nodeID == 2)
-                GameObject.Find("Player").GetComponent<PlayerHealth>().Heal(2);
+                GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().Heal(2);
         }
         window.SetActive(false);
     }
@@ -103,14 +120,17 @@ public class DialogueMaster : MonoBehaviour {
                 case 0:
                     setOptionButton(option01, node.Options[i]);
                     Debug.Log(i);
+                    option01ID = node.Options[i].getID();
                     break;
                 case 1:
                     setOptionButton(option02, node.Options[i]);
                     Debug.Log(i);
+                    option02ID = node.Options[i].getID();
                     break;
                 case 2:
                     setOptionButton(option03, node.Options[i]);
                     Debug.Log(i);
+                    option03ID = node.Options[i].getID();
                     break;
             }
         }
