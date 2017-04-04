@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Prime31.TransitionKit;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BossBehaviour : MonoBehaviour
 {
@@ -107,7 +109,23 @@ public class BossBehaviour : MonoBehaviour
 	    {
             BossState.Exit();
 	        BossState = null;
-	    }
+
+            var gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+            gameManager.BeatLevel(SceneManager.GetActiveScene().name);
+            gameManager.SaveToMemory();
+            gameManager.SaveToFiles();
+            
+
+            var fishEye = new FishEyeTransition()
+            {
+                nextScene = "Hub",
+                duration = 5.0f,
+                size = 0.2f,
+                zoom = 100.0f,
+                colorSeparation = 0.1f
+            };
+            TransitionKit.instance.transitionWithDelegate(fishEye);
+        }
 
 	    if (BossState == null) return;
 

@@ -9498,7 +9498,7 @@ MonoBehaviour:
   - {fileID: 1722993524}
   - {fileID: 1513749189}
   - {fileID: 1181250761}
-  controller3D: {fileID: 0}
+  controller3D: {fileID: 1472186298}
 --- !u!225 &1105201857
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -12837,9 +12837,20 @@ Prefab:
       propertyPath: randomSeed
       value: -929352725
       objectReference: {fileID: 0}
+    - target: {fileID: 114973150886939512, guid: de333fd6865a1924abd6495a01270364,
+        type: 2}
+      propertyPath: healthSlider
+      value: 
+      objectReference: {fileID: 487527503}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: de333fd6865a1924abd6495a01270364, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &1472186298 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114096058426615598, guid: de333fd6865a1924abd6495a01270364,
+    type: 2}
+  m_PrefabInternal: {fileID: 1472186297}
+  m_Script: {fileID: 11500000, guid: d12760bdc8d465d418e0b664605cf7bc, type: 3}
 --- !u!1 &1513749188
 GameObject:
   m_ObjectHideFlags: 0
