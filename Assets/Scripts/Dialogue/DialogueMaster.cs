@@ -43,7 +43,7 @@ public class DialogueMaster : MonoBehaviour {
         dialogue.Add(n3);
         
 
-        var canvas = GameObject.Find("HUDCanvas");
+        var canvas = GameObject.Find("DialogueCanvas");
         window = Instantiate<GameObject>(dialoguePreFab);
         window.transform.parent = canvas.transform;
         window.transform.localPosition = new Vector3(0, 0, 0);
@@ -54,7 +54,6 @@ public class DialogueMaster : MonoBehaviour {
         option03 = GameObject.Find("Option03");
 
         window.SetActive(false);
-
     }
 
     public void runDialogue()
@@ -64,6 +63,7 @@ public class DialogueMaster : MonoBehaviour {
 
     public void setSelectedOption(int i)
     {
+        Debug.Log("Button pressed");
         selectedOption = i;
     }
 
@@ -83,7 +83,7 @@ public class DialogueMaster : MonoBehaviour {
             }
             nodeID = selectedOption;
             if (nodeID == 2)
-                GameObject.Find("Player").GetComponent<PlayerHealth>().Heal(2);
+                GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().Heal(2);
         }
         window.SetActive(false);
     }
