@@ -213,6 +213,7 @@ MonoBehaviour:
   HealthDrop: {fileID: 1958238337431084, guid: 7bc5bfbcda9a48e4782a0019183c90bd, type: 2}
   deathClip: {fileID: 8300000, guid: 70f822fa4e2346a48b596a375a64a773, type: 3}
   attackClip: {fileID: 8300000, guid: 70451933a64fdbe4e8688667994c4f03, type: 3}
+  damageClip: {fileID: 8300000, guid: f50ad7e2c30b68e4c93a100610481c0d, type: 3}
 --- !u!114 &114520279263905954
 MonoBehaviour:
   m_ObjectHideFlags: 1
