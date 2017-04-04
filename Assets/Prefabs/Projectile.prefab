@@ -166,7 +166,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -201,7 +201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bc136f743268ba4aa3b441952adfb9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitClip: {fileID: 0}
+  hitClip: {fileID: 8300000, guid: 4543fd8c38752bc498d1b38c1aeacb21, type: 3}
 --- !u!135 &135490818731079156
 SphereCollider:
   m_ObjectHideFlags: 1

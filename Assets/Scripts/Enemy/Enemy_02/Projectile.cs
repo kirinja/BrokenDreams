@@ -16,7 +16,7 @@ public class Projectile : MonoBehaviour {
 	void Start () {
 
         rb = GetComponent<Rigidbody>();
-        
+		//src = GetComponent<AudioSource>();
 	}
 
     public void setLifeTime(float f)
@@ -75,10 +75,12 @@ public class Projectile : MonoBehaviour {
 
     public void OnTriggerEnter(Collider col)
     {
+		if (col.gameObject != shooter.gameObject) {
         src.PlayOneShot(hitClip);
-        gameObject.SetActive(false);
-        shooter.Fired = false;
+		shooter.Fired = false;
+		gameObject.SetActive(false);
         //Need sound
+		}
     }
 
     public void setTarget(Controller3D target)

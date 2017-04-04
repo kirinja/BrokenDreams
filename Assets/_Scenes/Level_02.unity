@@ -13496,15 +13496,15 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1216024468}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0a0cfe82a1f821c48919dbb91be7ec34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   clip:
-  - {fileID: 8300000, guid: 2c754cfd660f8324eb020d0c604bdc12, type: 3}
-  - {fileID: 8300000, guid: 93f78f12998b83c40a9047b83912e648, type: 3}
-  - {fileID: 8300000, guid: cf5802674a898cb4581787b9ca079afb, type: 3}
+  - {fileID: 8300000, guid: 7a4642facd07fff4e8137c16957fec6e, type: 3}
+  - {fileID: 0}
+  - {fileID: 8300000, guid: ff7d811116fe4ae4495fb6856616fb72, type: 3}
 --- !u!1 &1220301319
 GameObject:
   m_ObjectHideFlags: 0
@@ -22123,6 +22123,11 @@ Prefab:
       propertyPath: retreatPoints.Array.data[3]
       value: 
       objectReference: {fileID: 1487007377}
+    - target: {fileID: 82456050249633266, guid: f943da3cbfe1b2d44b9082c5fb20670a,
+        type: 2}
+      propertyPath: spreadCustomCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f943da3cbfe1b2d44b9082c5fb20670a, type: 2}
   m_IsPrefabParent: 0

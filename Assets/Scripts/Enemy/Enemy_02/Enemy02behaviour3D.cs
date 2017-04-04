@@ -91,7 +91,7 @@ public class Enemy02behaviour3D : Enemy
                     previousPlatformPosition = platform.position;
                 }
             }
-        } else if(dead && src.isPlaying)
+        } else if(dead && !src.isPlaying)
         {
             Destroy(gameObject);
         }
