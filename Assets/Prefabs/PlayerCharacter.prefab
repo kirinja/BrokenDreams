@@ -1565,9 +1565,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a115265077a114c4f8827884da12a518, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxSpeed: 13
-  GroundAccelerationTime: 0.15
-  AirAccelerationTime: 0.2
+  MaxSpeed: 11
+  GroundAccelerationTime: 0.17
+  AirAccelerationTime: 0.45
   MaxJumpLength: 12
   MaxJumpHeight: 6
   MinJumpHeight: 1
