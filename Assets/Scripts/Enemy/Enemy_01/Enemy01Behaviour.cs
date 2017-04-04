@@ -16,6 +16,7 @@ public class Enemy01Behaviour : Enemy
     
     public AudioClip deathClip;
     public AudioClip attackClip;
+    public AudioClip damageClip;
 
     
 
@@ -106,6 +107,10 @@ public class Enemy01Behaviour : Enemy
         if (health <= 0)
         {
             Defeat();
+        }
+        if (!dead)
+        {
+            src.PlayOneShot(damageClip);
         }
     }
 

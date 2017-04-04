@@ -39,6 +39,7 @@ public class Enemy02behaviour3D : Enemy
     public AudioClip attackClip;
     public AudioClip aggroClip;
     public AudioClip deathClip;
+    public AudioClip damageClip;
     private Transform platform;
     private Vector3 previousPlatformPosition;
 
@@ -139,6 +140,7 @@ public class Enemy02behaviour3D : Enemy
         }
         else
         {
+            src.PlayOneShot(damageClip);
             changeState(new Deal(this)); //If not defeated spasm
         }
     }
