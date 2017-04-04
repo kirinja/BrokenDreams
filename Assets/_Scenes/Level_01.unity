@@ -7512,7 +7512,7 @@ Prefab:
         type: 2}
       propertyPath: checkpoints
       value: 
-      objectReference: {fileID: 8300000, guid: ecd114ecaeb261d4d8b478c85cbd23c4, type: 3}
+      objectReference: {fileID: 8300000, guid: 20b7fc023f09d5b4b85b230f5d5728fb, type: 3}
     - target: {fileID: 198197831779550812, guid: de333fd6865a1924abd6495a01270364,
         type: 2}
       propertyPath: playOnAwake
