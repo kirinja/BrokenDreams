@@ -9,7 +9,7 @@ public class Enemy02behaviour3D : Enemy
 
     //private float moveSpeed = 2f;
 
-    private float attackCoolDown = 4f;
+    public float AttackCoolDown = 2f;
 
     private float projectileSpeed;
 
@@ -34,6 +34,7 @@ public class Enemy02behaviour3D : Enemy
     public int rpThreshold;
     public Vector3 AggroRange;
     public LayerMask AggroMask;
+    public LayerMask AggroCollisionMask;
     private AudioSource src;
     public AudioClip attackClip;
     public AudioClip aggroClip;
@@ -60,7 +61,7 @@ public class Enemy02behaviour3D : Enemy
     {
         if (!dead)
         {
-            if (target && timeSinceAttack >= attackCoolDown && state.getCanShoot()) //Checks if you can shoot
+            if (target && timeSinceAttack >= AttackCoolDown && state.getCanShoot()) //Checks if you can shoot
             {
                 resetTime();
                 Fired = true;

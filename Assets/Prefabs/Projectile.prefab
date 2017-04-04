@@ -24,11 +24,10 @@ GameObject:
   - component: {fileID: 23995216074882402}
   - component: {fileID: 54456617360857766}
   - component: {fileID: 114511244378967168}
-  - component: {fileID: 114259049161262396}
   - component: {fileID: 82042237233521446}
   m_Layer: 0
   m_Name: Projectile
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -179,17 +178,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!114 &114259049161262396
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1738751761851474}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 854f0de21c93ac74695a9f6b398cd239, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114511244378967168
 MonoBehaviour:
   m_ObjectHideFlags: 1

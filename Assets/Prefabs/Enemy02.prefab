@@ -186,6 +186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: deb854bca03e35a49a03a852b197ed69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AttackCoolDown: 2
   Fired: 0
   projLifeTime: 2
   HealthDropChance: 0.3
@@ -205,6 +206,9 @@ MonoBehaviour:
   AggroMask:
     serializedVersion: 2
     m_Bits: 1024
+  AggroCollisionMask:
+    serializedVersion: 2
+    m_Bits: 768
   attackClip: {fileID: 8300000, guid: d5e161b62b9fc254190d269eba9ff569, type: 3}
   aggroClip: {fileID: 8300000, guid: 804b98e3d722da143a54f37d838dda56, type: 3}
   deathClip: {fileID: 8300000, guid: 70f822fa4e2346a48b596a375a64a773, type: 3}

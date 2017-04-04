@@ -16,7 +16,8 @@ public class Projectile : MonoBehaviour {
 	void Start () {
 
         rb = GetComponent<Rigidbody>();
-		//src = GetComponent<AudioSource>();
+	    src = GetComponent<AudioSource>();
+
 	}
 
     public void setLifeTime(float f)
@@ -26,11 +27,13 @@ public class Projectile : MonoBehaviour {
 
     public void Fire()
     {
-        gameObject.SetActive(true);
-        Vector3 shooterPos = shooter.transform.position;
+        Vector3 shooterPos = shooter.transform.position + Vector3.up * 0.25f;
         this.transform.position = shooterPos;
+        rb.position = shooterPos;
         currentLifeTime = 0;
         rb.velocity = calculateVelocity(target.transform, 45f);
+        GetComponent<MeshRenderer>().enabled = true;
+        GetComponent<Collider>().enabled = true;
         //Need sound
     }
 
@@ -52,11 +55,11 @@ public class Projectile : MonoBehaviour {
 
     public void Update()
     {
-        /*Collider[] col = Physics.OverlapSphere(this.transform.position, 0.5f);
+        /*Collider[] cola = Physics.OverlapSphere(this.transform.position, 0.5f);
         int i = 0;
-        while(i< col.Length)
+        while(i< cola.Length)
         {
-            if (col[i].CompareTag("Player"))
+            if (cola[i].CompareTag("Player"))
             {
                 shooter.resetTime();
             }*/
@@ -66,21 +69,27 @@ public class Projectile : MonoBehaviour {
             currentLifeTime += Time.deltaTime;
             if (currentLifeTime >= maxLifeTime)
             {
-                gameObject.SetActive(false);
+                GetComponent<MeshRenderer>().enabled = false;
+                GetComponent<Collider>().enabled = false;
                 shooter.Fired = false;
             }
         }
     }
     
 
-    public void OnTriggerEnter(Collider col)
+    public void OnTriggerEnter(Collider cola)
     {
-		if (col.gameObject != shooter.gameObject) {
+        if (cola.gameObject.CompareTag("Enemy") || cola.gameObject.CompareTag("Platform") || cola.isTrigger) return;
         src.PlayOneShot(hitClip);
-		shooter.Fired = false;
-		gameObject.SetActive(false);
+        GetComponent<MeshRenderer>().enabled = false;
+        GetComponent<Collider>().enabled = false;
+        shooter.Fired = false;
+
+        if (cola.gameObject.CompareTag("Player"))
+        {
+            cola.gameObject.GetComponent<Controller3D>().AttackPlayer(transform.position, 1);
+        }
         //Need sound
-		}
     }
 
     public void setTarget(Controller3D target)

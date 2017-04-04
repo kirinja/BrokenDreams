@@ -31,10 +31,10 @@ public class Idle : EnemyState {
         
         Collider[] col = Physics.OverlapSphere(enemy.transform.position, 20f, enemy.AggroMask);
         int i = 0;
-        //RaycastHit hit;
+        RaycastHit hit;
         for (int v = 0; v< col.Length; v++)
         {
-            if (col[v].CompareTag("Player")) //&& Physics.Linecast(enemy.transform.position, col[i].transform.position, out hit)
+            if (col[v].CompareTag("Player") && !Physics.Linecast(enemy.transform.position, col[i].transform.position, out hit, enemy.AggroCollisionMask))
             {
                 //if (hit.collider.gameObject.CompareTag("Player"))
                 //{
