@@ -130,7 +130,7 @@ public class Enemy02behaviour3D : Enemy
         }
         else
         {
-            //changeState(new Deal(this)); //If not defeated spasm
+            changeState(new Deal(this)); //If not defeated spasm
         }
     }
 
@@ -166,7 +166,7 @@ public class Enemy02behaviour3D : Enemy
 
     public override void changeState(EnemyState state) //Called by state when a transition is in order
     {
-        state.Exit();
+        this.state.Exit();
         this.state = state;
         state.Enter();
     }
