@@ -997,7 +997,15 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.5244914
+        functionName: PlayMovingAroundSound
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 0a0cfe82a1f821c48919dbb91be7ec34,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask:
       - path: 
         weight: 1
@@ -1162,7 +1170,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.75200003
+      - time: 0.69751954
         functionName: PlayStaticJumpSound
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: 0a0cfe82a1f821c48919dbb91be7ec34,

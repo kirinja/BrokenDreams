@@ -9,7 +9,6 @@ public class TriggerSound : MonoBehaviour {
 	private AudioSource source2;
 
 	public AudioClip wallSound;	
-	public AudioClip playerSound; 	//spelarens egen ljudfil för fotsteg
 	public AudioClip abilitySound;
 	public AudioClip checkpoints;
 	public AudioClip deadzones;
@@ -19,7 +18,7 @@ public class TriggerSound : MonoBehaviour {
 	public AudioClip room2;
 	public AudioClip room3;
 
-
+	private float targetAudio = 0; 
 	// Use this for initialization
 	void Start () {
 
@@ -46,10 +45,6 @@ public class TriggerSound : MonoBehaviour {
 			source1.PlayOneShot (abilitySound);
 		}
 
-		if (col.gameObject.tag == "Player Trigger"){
-			source1.PlayOneShot (playerSound);
-		}
-
 		if (col.gameObject.CompareTag("Checkpoint")){
 			source1.PlayOneShot (checkpoints);
 		}
@@ -59,27 +54,32 @@ public class TriggerSound : MonoBehaviour {
 		}
 
 		if (col.gameObject.CompareTag("Room0")){
+			targetAudio = 1;
 			source2.clip = room0;
 			source2.Play ();
 		}
 
 		if (col.gameObject.CompareTag ("Room")) {
+			targetAudio = 1;
 			source2.clip = room1;
 			source2.Play ();
 		}
 
 		if (col.gameObject.CompareTag("Room2")){
+			targetAudio = 1;
 			source2.clip = room2;
 			source2.Play ();
 		}
 
 		if (col.gameObject.CompareTag("Room3")){
+			targetAudio = 1;
 			source2.clip = room3;
 			source2.Play ();
 		}
 	}
 
 	void OnTriggerExit(Collider col){
+		targetAudio = 0;
 
 		if (col.gameObject.tag == "Room0" && source1.isPlaying){
 			source2.Stop ();
