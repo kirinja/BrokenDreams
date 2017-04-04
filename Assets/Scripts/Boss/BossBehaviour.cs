@@ -47,12 +47,7 @@ public class BossBehaviour : MonoBehaviour
 
     [Tooltip("Interval between acid droppings")]
     public float AcidTimer;
-
-    // how often we change state
-    // HACK this should be randomized in an interval and different for each state/phase
-    [Tooltip("This is hacky and should be removed. Right now every state switch is tied to this timer")]
-    public float StateSwitchTimer = 5.0f;
-
+    
     public float MinStateSwitch = 7.5f;
     public float MaxStateSwitch = 15.0f;
 
@@ -70,8 +65,8 @@ public class BossBehaviour : MonoBehaviour
     private AudioSource[] _audioSources;
     private AudioSource _bossDirectSounds;
     private AudioSource _bossProjSounds;
+    
 
-    // TODO Boss defeated sounds? 
     public AudioClip[] BossIdleSounds;
     public AudioClip[] BossProjSounds;
     public AudioClip[] BossSpawnSounds;
@@ -101,9 +96,9 @@ public class BossBehaviour : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-        if (Input.GetKeyDown(KeyCode.P))
-            if (BossState != null)
-                BossState.TakeDamage(1);
+        //if (Input.GetKeyDown(KeyCode.P))
+        //    if (BossState != null)
+        //        BossState.TakeDamage(1);
 
 	    if (HP <= 0 && BossState != null)
 	    {

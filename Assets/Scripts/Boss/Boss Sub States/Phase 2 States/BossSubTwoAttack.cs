@@ -17,7 +17,6 @@ public class BossSubTwoAttack : IBossSubState
     public void Enter(BossBehaviour data)
     {
         _bossData = data;
-        //_timer = _bossData.StateSwitchTimer; // TODO
         _timer = new System.Random().Next((int)_bossData.MinStateSwitch, (int)_bossData.MaxStateSwitch); // HACK
 
         _projTimer = TimeBetweenShots;

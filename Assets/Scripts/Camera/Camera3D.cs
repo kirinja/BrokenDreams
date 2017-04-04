@@ -69,6 +69,13 @@ public class Camera3D : MonoBehaviour
     {
         if (!Target) return;
 
+        if (Input.GetButtonDown("Reset Camera"))
+        {
+            Vector3 angles = Target.eulerAngles;
+            _x = angles.y;
+            _y = angles.x;
+        }
+
         if (_isUsingController)
         {
             _x += Input.GetAxis("Right Horizontal") * HorizontalSensitivityGamepad * Time.deltaTime * (InvertX ? 1 : -1);

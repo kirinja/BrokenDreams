@@ -422,6 +422,11 @@ InputManager:
     axis: 0
     joyNum: 0
   - serializedVersion: 3
+    m_Name: Reset Camera
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: joystick button 9
     m_Name: Option1
     descriptiveName: 
     descriptiveNegativeName: 
@@ -438,6 +443,11 @@ InputManager:
     axis: 0
     joyNum: 0
   - serializedVersion: 3
+    m_Name: Reset Camera
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: i
     m_Name: Option2
     descriptiveName: 
     descriptiveNegativeName: 

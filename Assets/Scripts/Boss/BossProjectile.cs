@@ -34,11 +34,6 @@ public class BossProjectile : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        // TODO: implement collision in a correct manner (ignore platforms but not walls?)
-        // here we should spawn the acid stuff (whenever it hits a surface we're gonna instanciate an acid prefab on there, matching normals)
-        //if (!other.CompareTag("Enemy")) // || !other.CompareTag("Platform"))
-            //Destroy(gameObject);
-
         if (other.CompareTag("Player"))
             Destroy(gameObject);
     }

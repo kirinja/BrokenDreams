@@ -52,4 +52,13 @@ public class StaticJumping : MonoBehaviour {
 		clip [range] = clip [0];
 		clip [0] = source.clip;
 	}
+
+	public void PlayMovingAroundSound(){
+
+		int range = Random.Range (1, clip.Length);
+		source.clip = clip [range];
+		source.PlayOneShot (source.clip);
+		clip [range] = clip [0];
+		clip [0] = source.clip;
+	}
 }
