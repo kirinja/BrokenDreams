@@ -12221,9 +12221,30 @@ Prefab:
       propertyPath: healthSlider
       value: 
       objectReference: {fileID: 487527503}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114686585740528660, guid: de333fd6865a1924abd6495a01270364, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: de333fd6865a1924abd6495a01270364, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1472186298 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1113272165826444, guid: de333fd6865a1924abd6495a01270364,
+    type: 2}
+  m_PrefabInternal: {fileID: 1472186297}
+--- !u!114 &1472186299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1472186298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a0cfe82a1f821c48919dbb91be7ec34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip:
+  - {fileID: 8300000, guid: 5017482d737023c4fb86ccf53fbd435d, type: 3}
+  - {fileID: 8300000, guid: 725c80baaa402314ba80a038f261ef9c, type: 3}
+  - {fileID: 8300000, guid: 725c80baaa402314ba80a038f261ef9c, type: 3}
 --- !u!1 &1528624493
 GameObject:
   m_ObjectHideFlags: 0

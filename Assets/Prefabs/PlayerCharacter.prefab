@@ -1545,15 +1545,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48bbcac2d92929f479794a975269be29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallSound: {fileID: 8300000, guid: 8964610cd721863428f7257859d8eda7, type: 3}
-  playerSound: {fileID: 0}
-  abilitySound: {fileID: 0}
-  checkpoints: {fileID: 0}
-  deadzones: {fileID: 0}
-  room0: {fileID: 0}
-  room1: {fileID: 0}
-  room2: {fileID: 0}
-  room3: {fileID: 0}
+  wallSound: {fileID: 8300000, guid: 16e81111e2f50b244a6273d30e99222f, type: 3}
+  abilitySound: {fileID: 8300000, guid: 09aa8f8b09e6c044b9ed43c903de4c6d, type: 3}
+  checkpoints: {fileID: 8300000, guid: 20b7fc023f09d5b4b85b230f5d5728fb, type: 3}
+  deadzones: {fileID: 8300000, guid: 7f6c801fb8eae9e4091fbfec57460ead, type: 3}
+  room3: {fileID: 8300000, guid: dcfc578212442bb46b35617bfffd1814, type: 3}
 --- !u!114 &114215857018685574
 MonoBehaviour:
   m_ObjectHideFlags: 1
