@@ -34,6 +34,7 @@ public class Enemy02behaviour3D : Enemy
     public int rpThreshold;
     public Vector3 AggroRange;
     public LayerMask AggroMask;
+    public LayerMask AggroCollisionMask;
     private AudioSource src;
     public AudioClip attackClip;
     public AudioClip aggroClip;
@@ -91,7 +92,7 @@ public class Enemy02behaviour3D : Enemy
                     previousPlatformPosition = platform.position;
                 }
             }
-        } else if(dead && src.isPlaying)
+        } else if(dead && !src.isPlaying)
         {
             Destroy(gameObject);
         }
