@@ -156,6 +156,7 @@ public class Enemy02behaviour3D : Enemy
                 Drop = HealthDrop;
             }
         }
+        dead = true;
 
         var g = Drop;
         if (g != null)
