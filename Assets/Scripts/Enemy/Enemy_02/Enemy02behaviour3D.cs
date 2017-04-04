@@ -9,7 +9,7 @@ public class Enemy02behaviour3D : Enemy
 
     //private float moveSpeed = 2f;
 
-    private float attackCoolDown = 4f;
+    public float AttackCoolDown = 2f;
 
     private float projectileSpeed;
 
@@ -61,7 +61,7 @@ public class Enemy02behaviour3D : Enemy
     {
         if (!dead)
         {
-            if (target && timeSinceAttack >= attackCoolDown && state.getCanShoot()) //Checks if you can shoot
+            if (target && timeSinceAttack >= AttackCoolDown && state.getCanShoot()) //Checks if you can shoot
             {
                 resetTime();
                 Fired = true;
