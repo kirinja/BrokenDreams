@@ -187,7 +187,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Fired: 0
-  projLifeTime: 0
+  projLifeTime: 2
+  HealthDropChance: 0.3
+  HealthDrop: {fileID: 1958238337431084, guid: 7bc5bfbcda9a48e4782a0019183c90bd, type: 2}
   projectilePreFab: {fileID: 1738751761851474, guid: ba4265d501b6f8c42a61385c1f2015b1,
     type: 2}
   retreatPoints:
