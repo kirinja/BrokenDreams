@@ -209,6 +209,8 @@ MonoBehaviour:
   CollisionMask:
     serializedVersion: 2
     m_Bits: 768
+  HealthDropChance: 0.2
+  HealthDrop: {fileID: 1958238337431084, guid: 7bc5bfbcda9a48e4782a0019183c90bd, type: 2}
   damageClip: {fileID: 0}
   deathClip: {fileID: 0}
   attackClip: {fileID: 0}

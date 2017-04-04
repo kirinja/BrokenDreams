@@ -34,7 +34,6 @@ public class GameManager : MonoBehaviour
     private PlayerAttributes _playerAttributes;
 
     // the game manager keeps track of which levels the player have beaten, and save them to file/memory
-    // TODO should the persistor have this field? The persistor is now in charge of saving/loading and keeping track of progress
     private static readonly Dictionary<string, bool> CompletedLevels = new Dictionary<string, bool>();
 
     private void Awake()
@@ -62,9 +61,7 @@ public class GameManager : MonoBehaviour
 
     public bool LevelAvailable(string levelName)
     {
-        // here we want to return true if we have beaten the previous levels, I think we can just check for their levelName at this point but might have to redo in the future
-        // TODO This is very hacky, we need a way to do this in a better manner
-        // we have to manually set which two levels we need to beat before the boss level unlocks
+        // HACK This is very hacky
         switch (levelName)
         {
             case "Level_01":
@@ -95,9 +92,9 @@ public class GameManager : MonoBehaviour
 
         var beatenLevels = CompletedLevels.Keys.ToArray();
         playerSaveData.Abilities = abilityNames;
-        playerSaveData.HP = _playerAttributes.currentHealth; // TODO TEMP
+        playerSaveData.HP = _playerAttributes.currentHealth;
         playerSaveData.BeatenLevels = beatenLevels;
-        var stringifiedPlayer = new string[1]; // TODO TEMP
+        var stringifiedPlayer = new string[1];
 
         stringifiedPlayer[0] = JsonUtility.ToJson(playerSaveData);
         InMemory.Add(stringifiedPlayer);
@@ -111,7 +108,7 @@ public class GameManager : MonoBehaviour
         var stringifiedData = InMemory[0]; // TODO POSSIBLY SCARY
 
         var playerSaveData = JsonUtility.FromJson<PlayerSaveData>(stringifiedData[0]);
-        _playerAttributes.currentHealth = playerSaveData.HP; // TODO FIX THIS SHIT
+        _playerAttributes.currentHealth = playerSaveData.HP;
 
         foreach (var i in playerSaveData.BeatenLevels)
             BeatLevel(i);
@@ -161,9 +158,9 @@ public class GameManager : MonoBehaviour
 
         var beatenLevels = CompletedLevels.Keys.ToArray();
         playerSaveData.Abilities = abilityNames;
-        playerSaveData.HP = _playerAttributes.currentHealth; // TODO TEMP
+        playerSaveData.HP = _playerAttributes.currentHealth;
         playerSaveData.BeatenLevels = beatenLevels;
-        var stringifiedPlayer = new string[1]; // TODO TEMP
+        var stringifiedPlayer = new string[1];
 
         stringifiedPlayer[0] = JsonUtility.ToJson(playerSaveData);
         File.WriteAllLines(_savePath, stringifiedPlayer);
@@ -180,7 +177,7 @@ public class GameManager : MonoBehaviour
         var stringifiedData = File.ReadAllLines(_savePath);
 
         var playerSaveData = JsonUtility.FromJson<PlayerSaveData>(stringifiedData[0]);
-        _playerAttributes.currentHealth = playerSaveData.HP; // TODO FIX THIS SHIT
+        _playerAttributes.currentHealth = playerSaveData.HP;
 
         foreach (var i in playerSaveData.BeatenLevels)
             BeatLevel(i);
@@ -194,27 +191,6 @@ public class GameManager : MonoBehaviour
         }
 
         return true;
-    }
-
-
-    // TODO REMOVE THIS SHIT
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha7))
-            SaveToFiles();
-        else if (Input.GetKeyDown(KeyCode.Alpha8))
-            LoadFromFiles();
-
-        if (Input.GetKeyDown(KeyCode.Alpha9))
-            SaveToMemory();
-        else if (Input.GetKeyDown(KeyCode.Alpha0))
-            LoadFromMemory();
-
-        if (Input.GetKeyDown(KeyCode.Alpha6))
-        {
-            DeleteSaveFile();
-            InMemory.Clear();
-        }
     }
 
     void OnEnable()
