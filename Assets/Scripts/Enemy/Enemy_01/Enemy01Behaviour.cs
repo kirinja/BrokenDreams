@@ -13,7 +13,7 @@ public class Enemy01Behaviour : Enemy
     public float HealthDropChance = 0.2f;
     public GameObject HealthDrop;
 
-    public AudioClip damageClip;
+    
     public AudioClip deathClip;
     public AudioClip attackClip;
 
@@ -24,6 +24,7 @@ public class Enemy01Behaviour : Enemy
     private AudioSource src;
     private Transform platform;
     private Vector3 previousPlatformPosition;
+    private bool dead;
 
     public override GameObject Drop
     {
@@ -34,25 +35,33 @@ public class Enemy01Behaviour : Enemy
     void Start () {
         state = new Patrol01(this, StartVelocity);
         src = GetComponent<AudioSource>();
+        dead = false;
 	}
 	
 	// UpdateTime is called once per frame
 	void Update () {
-        state.Update();
-        var platformObject = GetGround();
-        if (platformObject)
+        if (!dead)
         {
-            if (platformObject.transform == platform)
+            state.Update();
+            var platformObject = GetGround();
+            if (platformObject)
             {
-                transform.position += platform.position - previousPlatformPosition;
-                previousPlatformPosition = platform.position;
+                if (platformObject.transform == platform)
+                {
+                    transform.position += platform.position - previousPlatformPosition;
+                    previousPlatformPosition = platform.position;
+                }
+                else
+                {
+                    platform = platformObject.transform;
+                    previousPlatformPosition = platform.position;
+                }
             }
-            else
-            {
-                platform = platformObject.transform;
-                previousPlatformPosition = platform.position;
-            }
+        } else if(dead && !src.isPlaying)
+        {
+            Destroy(gameObject);
         }
+        
     }
 
     public void OnCollisionEnter(Collision other)
@@ -60,8 +69,9 @@ public class Enemy01Behaviour : Enemy
         state.Collision();
         if (other.gameObject.CompareTag("Player"))
         {
-            other.gameObject.GetComponent<Controller3D>().AttackPlayer(transform.position, 1);
             src.PlayOneShot(attackClip);
+            other.gameObject.GetComponent<Controller3D>().AttackPlayer(transform.position, 1);
+            
         }
     }
 
@@ -93,7 +103,6 @@ public class Enemy01Behaviour : Enemy
     public override void Damage()
     {
         health--;
-        src.PlayOneShot(damageClip);
         if (health <= 0)
         {
             Defeat();
@@ -102,6 +111,7 @@ public class Enemy01Behaviour : Enemy
 
     private void Defeat()
     {
+        dead = true;
         StartCoroutine("deathTime");
         src.PlayOneShot(deathClip);
 
@@ -116,8 +126,8 @@ public class Enemy01Behaviour : Enemy
         var g = Drop;
         if (g != null)
             GameObject.Instantiate(g, transform.position + new Vector3(0, 1.0f, 0), Quaternion.identity);
-
-        Destroy(this.gameObject);
+        src.PlayOneShot(deathClip);
+        GetComponent<Collider>().enabled = false;
     }
 
     private IEnumerator deathTime()
@@ -130,6 +140,7 @@ public class Enemy01Behaviour : Enemy
         
         if (other.gameObject.CompareTag("Player"))
         {
+            src.PlayOneShot(attackClip);
             other.gameObject.GetComponent<Controller3D>().AttackPlayer(transform.position, 1);
         }
         else if (!other.gameObject.CompareTag("Player Trigger"))

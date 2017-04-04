@@ -73,7 +73,7 @@ public class Projectile : MonoBehaviour {
     }
     
 
-    public void OnCollisionEnter(Collision col)
+    public void OnTriggerEnter(Collider col)
     {
         src.PlayOneShot(hitClip);
         gameObject.SetActive(false);

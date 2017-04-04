@@ -26,6 +26,7 @@ public class Enemy02behaviour3D : Enemy
     public float projLifeTime;
     public float HealthDropChance = 0.3f;
     public GameObject HealthDrop;
+    private bool dead;
 
     public GameObject projectilePreFab;
     public Transform[] retreatPoints;
@@ -35,7 +36,6 @@ public class Enemy02behaviour3D : Enemy
     public LayerMask AggroMask;
     private AudioSource src;
     public AudioClip attackClip;
-    public AudioClip damageClip;
     public AudioClip aggroClip;
     public AudioClip deathClip;
     private Transform platform;
@@ -52,40 +52,48 @@ public class Enemy02behaviour3D : Enemy
         rpThreshold = retreatPoints.Length - 1;
         rpIndex = 0;
         src = GetComponent<AudioSource>();
+        dead = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (target && timeSinceAttack >= attackCoolDown && state.getCanShoot()) //Checks if you can shoot
+        if (!dead)
         {
-            resetTime();
-            Fired = true;
-            Attack();
-        }
-        if (!Fired)
-        {
-            timeSinceAttack += Time.deltaTime;
-        }
-        state.Update();
+            if (target && timeSinceAttack >= attackCoolDown && state.getCanShoot()) //Checks if you can shoot
+            {
+                resetTime();
+                Fired = true;
+                src.PlayOneShot(attackClip);
+                Attack();
+            }
+            if (!Fired)
+            {
+                timeSinceAttack += Time.deltaTime;
+            }
+            state.Update();
 
-        var platformObject = GetGround();
-        if (platformObject)
-        {
-            if (platformObject.transform == platform)
+            var platformObject = GetGround();
+            if (platformObject)
             {
-                transform.position += platform.position - previousPlatformPosition;
-                foreach (var point in retreatPoints)
+                if (platformObject.transform == platform)
                 {
-                    point.position += platform.position - previousPlatformPosition;
+                    transform.position += platform.position - previousPlatformPosition;
+                    foreach (var point in retreatPoints)
+                    {
+                        point.position += platform.position - previousPlatformPosition;
+                    }
+                    previousPlatformPosition = platform.position;
                 }
-                previousPlatformPosition = platform.position;
+                else
+                {
+                    platform = platformObject.transform;
+                    previousPlatformPosition = platform.position;
+                }
             }
-            else
-            {
-                platform = platformObject.transform;
-                previousPlatformPosition = platform.position;
-            }
+        } else if(dead && src.isPlaying)
+        {
+            Destroy(gameObject);
         }
     }
 
@@ -130,7 +138,7 @@ public class Enemy02behaviour3D : Enemy
         }
         else
         {
-            //changeState(new Deal(this)); //If not defeated spasm
+            changeState(new Deal(this)); //If not defeated spasm
         }
     }
 
@@ -149,8 +157,8 @@ public class Enemy02behaviour3D : Enemy
         var g = Drop;
         if (g != null)
             GameObject.Instantiate(g, transform.position + new Vector3(0, 1.0f, 0), Quaternion.identity);
-
-        Destroy(this.gameObject);
+        src.PlayOneShot(deathClip);
+        GetComponent<Collider>().enabled = false;
     }
 
     public void resetTime() //Timer to shoot again starts when projectile hits something
@@ -166,7 +174,7 @@ public class Enemy02behaviour3D : Enemy
 
     public override void changeState(EnemyState state) //Called by state when a transition is in order
     {
-        state.Exit();
+        this.state.Exit();
         this.state = state;
         state.Enter();
     }
