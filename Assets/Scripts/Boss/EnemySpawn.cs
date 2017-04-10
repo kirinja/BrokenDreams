@@ -34,6 +34,12 @@ public class EnemySpawn : MonoBehaviour
                 other.gameObject.transform.position + new Vector3(0, other.transform.lossyScale.y / 2 + (box == null ? caps.height / 2 : box.size.y / 2), 0),
                 Quaternion.identity);
 
+            Debug.Log(other.transform.lossyScale.y / 2 + " - " + (box == null ? caps.height / 2 : box.size.y / 2));
+            g.transform.position = other.gameObject.transform.position +
+                                   new Vector3(0,
+                                       other.transform.lossyScale.y / 2 +
+                                       (box == null ? caps.height / 2 : box.size.y / 2), 0);
+
             if (transform.childCount > 0)
             {
                 var c = transform.GetChild(0);

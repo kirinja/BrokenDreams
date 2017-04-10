@@ -96,9 +96,9 @@ public class BossBehaviour : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-        //if (Input.GetKeyDown(KeyCode.P))
-        //    if (BossState != null)
-        //        BossState.TakeDamage(1);
+        if (Input.GetKeyDown(KeyCode.P))
+            if (BossState != null)
+                BossState.TakeDamage(1);
 
 	    if (HP <= 0 && BossState != null)
 	    {

@@ -13,7 +13,7 @@ public class BossPhaseOne : IBossPhaseState
         _bossData.PhasePlatforms[0].SetActive(true);
         _bossData.BossPhase1.SetActive(true);
         _bossData.Phase1Launch.SetActive(true);
-        _internalState = new BossSubOneIdle();
+        _internalState = new BossSubOneAttack();
         _internalState.Enter(_bossData);
     }
 

@@ -79,7 +79,8 @@ public class Enemy01Behaviour : Enemy
     private GameObject GetGround()
     {
         RaycastHit hitInfo;
-        if (Physics.Raycast(transform.position, Vector3.down, out hitInfo))
+        //if (Physics.Raycast(transform.position, Vector3.down, out hitInfo))
+        if (Physics.Raycast(transform.position, Vector3.down, out hitInfo, GroundCheckDistance, CollisionMask))
         {
             return hitInfo.transform.gameObject;
         }

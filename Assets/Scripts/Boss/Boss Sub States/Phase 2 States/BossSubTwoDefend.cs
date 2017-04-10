@@ -56,6 +56,7 @@ public class BossSubTwoDefend: IBossSubState
         foreach (var col in cols)
             col.enabled = false;
 
+        // here we need to add so we cant flood the scene
         if (!_spawned)
         {
             
