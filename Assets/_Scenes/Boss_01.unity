@@ -7553,6 +7553,7 @@ GameObject:
   - component: {fileID: 610559891}
   - component: {fileID: 610559890}
   - component: {fileID: 610559895}
+  - component: {fileID: 610559896}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -7600,8 +7601,8 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
-  orthographic size: 5
+  orthographic: 1
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -7645,6 +7646,21 @@ MonoBehaviour:
   blurIterations: 1
   blurType: 0
   fastBloomShader: {fileID: 4800000, guid: 68a00c837b82e4c6d92e7da765dc5f1d, type: 3}
+--- !u!114 &610559896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 610559889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c74bca25725aff4f9eb89556e74ef4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Target: {fileID: 1877938115}
+  Size: {x: 2, y: 2}
+  Offset: {x: -2, y: -8, z: 10}
+  SmoothFactor: 7
 --- !u!1 &613926320
 GameObject:
   m_ObjectHideFlags: 0
@@ -13105,7 +13121,7 @@ MeshRenderer:
   m_GameObject: {fileID: 1611285726}
   m_Enabled: 1
   m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_ReceiveShadows: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -17336,6 +17352,11 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1609804544}
   m_Script: {fileID: 11500000, guid: d12760bdc8d465d418e0b664605cf7bc, type: 3}
+--- !u!4 &1877938115 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4393096243718074, guid: de333fd6865a1924abd6495a01270364,
+    type: 2}
+  m_PrefabInternal: {fileID: 1609804544}
 --- !u!114 &1877938117
 MonoBehaviour:
   m_ObjectHideFlags: 0

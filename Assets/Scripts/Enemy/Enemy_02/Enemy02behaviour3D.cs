@@ -161,9 +161,10 @@ public class Enemy02behaviour3D : Enemy
 
         var g = Drop;
         if (g != null)
-            GameObject.Instantiate(g, transform.position + new Vector3(0, 1.0f, 0), Quaternion.identity);
+            GameObject.Instantiate(g, transform.position + new Vector3(0, 0, 0), Quaternion.identity);
         src.PlayOneShot(deathClip);
         GetComponent<Collider>().enabled = false;
+        GetComponent<MeshRenderer>().enabled = false;
     }
 
     public void resetTime() //Timer to shoot again starts when projectile hits something
