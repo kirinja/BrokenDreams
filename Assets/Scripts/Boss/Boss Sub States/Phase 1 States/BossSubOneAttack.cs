@@ -74,6 +74,8 @@ public class BossSubOneAttack : IBossSubState
                 // TODO fix bug here. Spawning is wonky right now and we can spawn multiple on the same platforms
                 // we should try a different platform to spawn on if we cant do this one (recurssion maybe?)
                 // there is also the issue that we can spawn more than the max value set in Boss Behaviour
+                // if a platform is unfit for spawning, then remove that platform from the platform IDs?
+                // still buggy but takes longer time before it breaks down
                 if (_spawnPoints[v].GetComponentInChildren<EnemiesOnPlatform>().Amount >= _bossData.MaxEnemiesPerPlatfor)
                 {
                     _trySpawnCounter++;
@@ -83,6 +85,8 @@ public class BossSubOneAttack : IBossSubState
 
                     //Debug.Log("cant spawn since platform is full " + _trySpawnCounter + " - " + _spawned);
                     canSpawn = false;
+
+                    _platformIds = _platformIds.Where(val => val != v).ToArray();
                     Execute();
                     //return null;
                 }

@@ -18,8 +18,6 @@ public class Enemy01Behaviour : Enemy
     public AudioClip attackClip;
     public AudioClip damageClip;
 
-    
-
     private Enemy01State state;
     private int health;
     private AudioSource src;
@@ -104,6 +102,7 @@ public class Enemy01Behaviour : Enemy
 
     public override void Damage()
     {
+        transform.Find("Damage").GetComponent<ParticleSystem>().Play();
         health--;
         if (health <= 0)
         {
