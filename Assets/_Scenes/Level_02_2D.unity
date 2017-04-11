@@ -918,7 +918,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Target: {fileID: 623230791}
   Size: {x: 2, y: 2}
-  Offset: {x: -2, y: -2, z: 10}
+  Offset: {x: -2, y: 0, z: 10}
   SmoothFactor: 7
 --- !u!1 &1252630680
 GameObject:
