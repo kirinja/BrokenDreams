@@ -30,8 +30,9 @@ public class EnemySpawn : MonoBehaviour
             //GameObject.Instantiate(_bossData.Enemy1, _spawnPoints[v].transform.position + new Vector3(0, _spawnPoints[v].transform.localScale.y / 2 + _bossData.Enemy1.transform.localScale.y / 2, -1), Quaternion.identity);
             BoxCollider box = Enemy.transform.GetComponent<BoxCollider>();
             CapsuleCollider caps = Enemy.transform.GetComponent<CapsuleCollider>();
+            var pos = new Vector3(other.gameObject.transform.position.x, other.transform.position.y, -1);
             var g = Instantiate(Enemy, 
-                other.gameObject.transform.position + new Vector3(0, other.transform.lossyScale.y / 2 + (box == null ? caps.height / 2 : box.size.y / 2), 0),
+                pos + new Vector3(0, other.transform.lossyScale.y / 2 + (box == null ? caps.height / 2 : box.size.y / 2), 0),
                 Quaternion.identity);
             
 
