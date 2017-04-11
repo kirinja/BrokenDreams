@@ -76,6 +76,7 @@ public class DialogueMaster : MonoBehaviour {
 
     public void runDialogue()
     {
+
         StartCoroutine("run");
     }
 
@@ -86,6 +87,7 @@ public class DialogueMaster : MonoBehaviour {
 
     public IEnumerator run()
     {
+        Time.timeScale = 0;
         int nodeID = 0;
         Debug.Log(nodeID);
         window.SetActive(true);
@@ -96,13 +98,23 @@ public class DialogueMaster : MonoBehaviour {
             selectedOption = -2;
             while( selectedOption == -2)
             {
-                yield return new WaitForSeconds(0.25f);
+                yield return StartCoroutine(WaitForRealSeconds(0.25f));
             }
             nodeID = selectedOption;
             if (nodeID == 2)
                 GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().Heal(2);
         }
+        Time.timeScale = 1;
         window.SetActive(false);
+    }
+
+    public IEnumerator WaitForRealSeconds(float f)
+    {
+        float start = Time.realtimeSinceStartup;
+        while (Time.realtimeSinceStartup < start + f)
+        {
+            yield return null;
+        }
     }
 
     private void displayNode(DialogueNode node)
