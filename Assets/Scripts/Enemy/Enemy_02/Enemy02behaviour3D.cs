@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class Enemy02behaviour3D : Enemy
 {
     private int health = 3;
+    public float projSpeed;
 
     //private float moveSpeed = 2f;
 
@@ -51,6 +52,7 @@ public class Enemy02behaviour3D : Enemy
         projectile = p.GetComponent<Projectile>();
         projectile.setShooter(this);
         projectile.setLifeTime(projLifeTime);
+        projectile.projSpeed = this.projSpeed;
         rpThreshold = retreatPoints.Length - 1;
         rpIndex = 0;
         src = GetComponent<AudioSource>();

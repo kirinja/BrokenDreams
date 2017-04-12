@@ -12,6 +12,7 @@ public class Projectile : MonoBehaviour {
     private float currentLifeTime;
     private AudioSource src;
     public AudioClip hitClip;
+    public float projSpeed;
 	// Use this for initialization
 	void Start () {
 
@@ -27,11 +28,12 @@ public class Projectile : MonoBehaviour {
 
     public void Fire()
     {
-        Vector3 shooterPos = shooter.transform.position + Vector3.up * 0.25f;
+        Vector3 shooterPos = shooter.transform.position + Vector3.up * 3f;
         this.transform.position = shooterPos;
         rb.position = shooterPos;
         currentLifeTime = 0;
-        rb.velocity = calculateVelocity(target.transform, 45f);
+        /*rb.velocity = calculateVelocity(target.transform, 45f);*/
+        rb.velocity = TrajectoryPredicter.HitTargetBySpeed(shooterPos, target.transform.position + Vector3.up * 0.5f, Physics.gravity, projSpeed);
         GetComponent<MeshRenderer>().enabled = true;
         GetComponent<Collider>().enabled = true;
         //Need sound
