@@ -17,9 +17,12 @@ public class BossSubTwoDefend: IBossSubState
     private int _spawnCounter;
 
     private int[] _platformIds;
+    private GameObject[] _spawnPoints;
 
     private GameObject[] _arcs;
 
+    private int _trySpawnCounter;
+    private bool canSpawn = true;
 
     public void Enter(BossBehaviour data)
     {
@@ -30,11 +33,12 @@ public class BossSubTwoDefend: IBossSubState
         _playing = false;
 
         _spawnCounter = 0;
+        _trySpawnCounter = 0;
         _spawnTimer = TimeBetweenSpawns;
 
-        var spawnPoints = GameObject.FindGameObjectsWithTag("Platform");
-        _platformIds = new int[spawnPoints.Length];
-        for (int i = 0; i < spawnPoints.Length; i++)
+        _spawnPoints = GameObject.FindGameObjectsWithTag("Platform");
+        _platformIds = new int[_spawnPoints.Length];
+        for (int i = 0; i < _spawnPoints.Length; i++)
         {
             _platformIds[i] = i;
         }
@@ -56,38 +60,59 @@ public class BossSubTwoDefend: IBossSubState
         foreach (var col in cols)
             col.enabled = false;
 
+        if (_trySpawnCounter >= _bossData.MaxTrySpawnCycles)
+            _spawned = true;
+
         // here we need to add so we cant flood the scene
         if (!_spawned)
         {
-            
             var rand = new System.Random();
             
             if (_spawnCounter < _bossData.Phase2Spawn && _spawnTimer <= 0.0f)
             {
+                // check how many enemies are on the selected platforms trigger area
+                // if it is higher than a certain value then dont spawn at that platform
+                // count up the try to spawn counter, if it is higher than X then set _spawned to true (we cant spawn)
                 var index = rand.Next(0, _platformIds.Length);
                 var v = _platformIds[index];
-                
-                var childCount = _bossData.NavmeshTargets.transform.childCount;
-                Transform[] childs = new Transform[childCount];
-                for (int i = 0; i < childCount; i++)
+
+                if (_spawnPoints[v].GetComponentInChildren<EnemiesOnPlatform>().Amount >= _bossData.MaxEnemiesPerPlatfor)
                 {
-                    childs[i] = _bossData.NavmeshTargets.transform.GetChild(i);
+                    _trySpawnCounter++;
+                    if (_trySpawnCounter >= _bossData.MaxTrySpawnCycles)
+                        _spawned = true;
+                    // might get stuck in a loop here
+
+                    //Debug.Log("cant spawn since platform is full " + _trySpawnCounter + " - " + _spawned);
+                    canSpawn = false;
+                    //return null;
                 }
 
-                _arcs[v].GetComponent<MeshFilter>().sharedMesh = _bossData.Enemy2.GetComponent<MeshFilter>().sharedMesh;
+                if (canSpawn)
+                {
+                    var childCount = _bossData.NavmeshTargets.transform.childCount;
+                    Transform[] childs = new Transform[childCount];
+                    for (int i = 0; i < childCount; i++)
+                    {
+                        childs[i] = _bossData.NavmeshTargets.transform.GetChild(i);
+                    }
 
-                _bossData.Enemy2.GetComponent<Enemy02behaviour3D>().retreatPoints = childs;
-                _arcs[v].GetComponent<EnemySpawn>().Enemy = _bossData.Enemy2;
+                    _arcs[v].GetComponent<MeshFilter>().sharedMesh =
+                        _bossData.Enemy2.GetComponent<MeshFilter>().sharedMesh;
 
-                _arcs[v].GetComponent<MeshRenderer>().enabled = true;
-                _arcs[v].GetComponent<SplineController>().FollowSpline();
+                    _bossData.Enemy2.GetComponent<Enemy02behaviour3D>().retreatPoints = childs;
+                    _arcs[v].GetComponent<EnemySpawn>().Enemy = _bossData.Enemy2;
 
-                ++_spawnCounter;
-                _spawnTimer = TimeBetweenSpawns;
+                    _arcs[v].GetComponent<MeshRenderer>().enabled = true;
+                    _arcs[v].GetComponent<SplineController>().FollowSpline();
 
-                _bossData.PlayBossSpawnSound();
+                    ++_spawnCounter;
+                    _spawnTimer = TimeBetweenSpawns;
 
-                _platformIds = _platformIds.Where(val => val != v).ToArray();
+                    _bossData.PlayBossSpawnSound();
+
+                    _platformIds = _platformIds.Where(val => val != v).ToArray();
+                }
             }
         }
 

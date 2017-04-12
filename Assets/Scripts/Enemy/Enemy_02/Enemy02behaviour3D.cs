@@ -137,7 +137,9 @@ public class Enemy02behaviour3D : Enemy
 
     public override void Damage() //Method to call when player hits an enemy
     {
-        if(--health <= 0)
+
+        transform.Find("Damage").GetComponent<ParticleSystem>().Play();
+        if (--health <= 0)
         {
             Defeat();
         }

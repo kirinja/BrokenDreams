@@ -47,7 +47,13 @@ public class BossBehaviour : MonoBehaviour
 
     [Tooltip("Interval between acid droppings")]
     public float AcidTimer;
-    
+
+    [Tooltip("Max amount of enemies allowed on a platform")]
+    public int MaxEnemiesPerPlatfor = 2;
+
+    [Tooltip("Max amount of tries the boss try to spawn before it determins it can't")]
+    public int MaxTrySpawnCycles = 10;
+
     public float MinStateSwitch = 7.5f;
     public float MaxStateSwitch = 15.0f;
 
