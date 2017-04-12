@@ -148,26 +148,4 @@ public class BossSubOneAttack : IBossSubState
     {
         _bossData.HP -= value;
     }
-
-    void Launch(Transform projectile, Transform target, float angle)
-    {
-        Vector3 pos = projectile.position;
-        Vector3 tar = target.position;
-
-        float distance = Vector3.Distance(pos, tar);
-
-        projectile.LookAt(target);
-
-        float Vi = Mathf.Sqrt(distance * -Physics.gravity.y / (Mathf.Sin(Mathf.Deg2Rad * angle * 2)));
-        float Vy, Vz;
-
-        Vy = Vi * Mathf.Sin(Mathf.Deg2Rad * angle);
-        Vz = Vi * Mathf.Cos(Mathf.Deg2Rad * angle);
-
-        Vector3 localVel = new Vector3(0f, Vy, Vz);
-
-        Vector3 globalVel = projectile.TransformDirection(localVel);
-
-        projectile.position += globalVel * Time.deltaTime;
-    }
 }
