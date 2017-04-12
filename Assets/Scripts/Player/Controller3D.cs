@@ -1,38 +1,40 @@
-﻿using UnityEngine;
+﻿using System.Diagnostics;
+using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(PlayerAttributes))]
+[RequireComponent(typeof(Animator))]
 public class Controller3D : MonoBehaviour
 {
     public Transform CameraTransform;
+    public Material Material;
 
-    private Vector3 spawnPosition;
     private CharacterController characterController;
     private ICharacterState3D characterState;
-    private int selectedAbility;
     private bool invincible;
     private float invincibleTime;
+    private int selectedAbility;
+    private Vector3 spawnPosition;
     private bool visible;
 
     public PlayerAttributes Attributes { get; private set; }
-    public Vector3 Velocity { get; set; }
-    public Vector3 InputForward { get; set; }
-    public float MaxTraversableSlopeAngle { get { return characterController.slopeLimit; } }
-    public float ColliderHeight { get { return characterController.height; } }
+    public Vector2 Velocity { get; set; }
+    public Vector2 Forward { get; set; }
     public Vector2 MovementInput { get; private set; }
+    public Animator Animator { get; private set; }
 
-    [HideInInspector]
-	public Animator animator; //!!!
-    public Material Material;
+    public float ColliderHeight { get { return characterController.height; } }
+    public float MaxTraversableSlopeAngle { get { return characterController.slopeLimit; } }
+    public Vector2 Gravity { get { return Vector2.up * (-2 * GetComponent<PlayerAttributes>().MaxJumpHeight * Mathf.Pow(GetComponent<PlayerAttributes>().MaxSpeed, 2)) / Mathf.Pow(GetComponent<PlayerAttributes>().MaxJumpLength / 2, 2); } }
+    public float MaxJumpVelocity { get { return 2 * GetComponent<PlayerAttributes>().MaxJumpHeight * GetComponent<PlayerAttributes>().MaxSpeed / (GetComponent<PlayerAttributes>().MaxJumpLength / 2); } }
+    public float MinJumpVelocity { get { return Mathf.Sqrt(2 * Gravity.magnitude * GetComponent<PlayerAttributes>().MinJumpHeight); } }
 
-    [HideInInspector]
-    public bool Is3D { get; set; }
-
-
-    void Start(){
-		animator = GetComponent<Animator> (); //!!!
-	    InputForward = transform.forward;
-	}
+    private void Start()
+    {
+        Animator = GetComponent<Animator>();
+        Forward = transform.forward;
+    }
 
     private void Awake()
     {
@@ -43,9 +45,7 @@ public class Controller3D : MonoBehaviour
         spawnPosition = transform.position;
         if (Attributes.Abilities.Count <= 0)
         {
-            //var material = GetComponent<Renderer>().sharedMaterial;
             var abilityColor = Resources.Load("AbilityColors", typeof(AbilityColors)) as AbilityColors;
-            //material.color = abilityColor.DefaultColor;
             Material.SetColor("_Color", abilityColor.DefaultColor);
         }
         invincible = false;
@@ -54,11 +54,8 @@ public class Controller3D : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        //var material = GetComponent<Renderer>().sharedMaterial;
         var abilityColor = Resources.Load("AbilityColors", typeof(AbilityColors)) as AbilityColors;
-        //material.color = abilityColor.DefaultColor;
         Material.SetColor("_Color", abilityColor.DefaultColor);
-
     }
 
     private void Update()
@@ -69,38 +66,28 @@ public class Controller3D : MonoBehaviour
             if (invincibleTime % 0.2f < 0.1f)
             {
                 visible = !visible;
-                //GetComponent<MeshRenderer>().enabled = visible;
                 var renders = GetComponentsInChildren<SkinnedMeshRenderer>();
                 foreach (var r in renders)
-                {
                     r.enabled = visible;
-                }
             }
             if (invincibleTime >= Attributes.InvincibleTimeOnDamage)
             {
                 invincible = false;
                 invincibleTime = 0f;
-                //GetComponent<MeshRenderer>().enabled = true;
                 var renders = GetComponentsInChildren<SkinnedMeshRenderer>();
                 foreach (var r in renders)
-                {
                     r.enabled = true;
-                }
             }
         }
-		if (animator != null){ //!!!
-			UpdateAnimator(); //!!!
-		}
+        UpdateAnimator();
     }
 
     public void RefreshMaterial()
     {
-        //var material = GetComponent<Renderer>().sharedMaterial;
-        //material.color = Attributes.Abilities[selectedAbility].Color;
         Material.SetColor("_Color", Attributes.Abilities[selectedAbility].Color);
     }
 
-    public void HandleMovement(bool useAbility, Vector2 input, bool forceRotate)
+    public void HandleMovement(bool useAbility, Vector2 input)
     {
         MovementInput = input;
         foreach (var ability in Attributes.Abilities)
@@ -111,23 +98,22 @@ public class Controller3D : MonoBehaviour
         {
             var state = Attributes.Abilities[selectedAbility].Use(this);
             if (state.NewState != null)
-            {
                 characterState.AttemptStateSwitch(state);
-            }
         }
-        
+
         var deltaTime = Time.deltaTime;
-        characterState.Update(input, forceRotate);
+        characterState.Update(input);
         HandleCollisions(Move());
         DrawAxes();
-		GetComponentInChildren<Rigidbody> ().position = transform.position;
-		GetComponentInChildren<Rigidbody> ().rotation = transform.rotation;
+        GetComponentInChildren<Rigidbody>().position = transform.position;
+        GetComponentInChildren<Rigidbody>().rotation = transform.rotation;
     }
 
-	private void UpdateAnimator(){
-		animator.SetFloat("VelocityX", transform.InverseTransformDirection(Velocity).x);
-		animator.SetFloat ("VelocityY", transform.InverseTransformDirection(Velocity).z);
-	}
+    private void UpdateAnimator()
+    {
+        Animator.SetFloat("VelocityX", transform.InverseTransformDirection(Velocity).x);
+        Animator.SetFloat("VelocityY", transform.InverseTransformDirection(Velocity).z);
+    }
 
     public void NextAbility()
     {
@@ -147,8 +133,6 @@ public class Controller3D : MonoBehaviour
             var material = GetComponent<Renderer>().sharedMaterial;
             material.color = Attributes.Abilities[--selectedAbility].Color;
             Material.SetColor("_Color", Attributes.Abilities[--selectedAbility].Color);
-
-
         }
     }
 
@@ -177,9 +161,7 @@ public class Controller3D : MonoBehaviour
         var groundSlopeAngle = 0.0f;
         RaycastHit hitInfo;
         if (Physics.Raycast(transform.position, Vector3.down, out hitInfo, maxDistance))
-        {
             groundSlopeAngle = Vector3.Angle(Vector3.up, hitInfo.normal);
-        }
 
         return groundSlopeAngle <= MaxTraversableSlopeAngle;
     }
@@ -243,20 +225,12 @@ public class Controller3D : MonoBehaviour
     private void SetInitialCharacterState()
     {
         if (characterController.isGrounded)
-        {
             if (IsTraversableSlope(ColliderHeight * 10.0f))
-            {
                 characterState = new AirState3D(this);
-            }
             else
-            {
                 characterState = new GroundState3D(this);
-            }
-        }
         else
-        {
             characterState = new AirState3D(this);
-        }
     }
 
     private CollisionFlags Move()
@@ -268,21 +242,20 @@ public class Controller3D : MonoBehaviour
     {
         var stateSwitch = characterState.HandleCollisions(collisionFlags);
         if (stateSwitch.NewState != null)
-        {
             ChangeCharacterState(stateSwitch);
-        }
     }
 
-    [System.Diagnostics.Conditional("UNITY_EDITOR")]
+    [Conditional("UNITY_EDITOR")]
     private void DrawAxes()
     {
-        Debug.DrawRay(transform.position + transform.forward * characterController.radius, transform.forward, Color.blue);
+        Debug.DrawRay(transform.position + transform.forward * characterController.radius, transform.forward,
+            Color.blue);
         Debug.DrawRay(transform.position + transform.right * characterController.radius, transform.right, Color.red);
         Debug.DrawRay(transform.position + transform.up * characterController.height * 0.5f, transform.up, Color.green);
     }
 
     private void PrintStateSwitch(CharacterStateSwitch3D stateSwitch)
     {
-        print("Switching character state from " + characterState.ToString() + " to " + stateSwitch.NewState.ToString());
+        print("Switching character state from " + characterState + " to " + stateSwitch.NewState);
     }
 }
