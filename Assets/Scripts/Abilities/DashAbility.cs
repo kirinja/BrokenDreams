@@ -12,7 +12,7 @@ class DashAbility : Ability
     {
         timeLeft = Cooldown;
 
-		controller.animator.SetTrigger ("Dash");
+        controller.Animator.SetTrigger("Dash");
 
         return new CharacterStateSwitch3D(new DashState3D(controller));
     }

@@ -14,19 +14,19 @@ class PushAbility : Ability
     {
         timeLeft = Cooldown;
 
-		controller.animator.SetTrigger ("Push");
+		controller.Animator.SetTrigger ("Push");
 
 		controller.transform.Find("Push").Find("SpeedLines").GetComponent<ParticleSystem>().Play();
 		controller.transform.Find("Push").Find("Magic").GetComponent<ParticleSystem>().Play();
 
         RaycastHit hitInfo;
         if (Physics.Raycast(controller.transform.position,
-            controller.InputForward, out hitInfo, PushRange + controller.GetComponent<Collider>().bounds.extents.z))
+            controller.Forward, out hitInfo, PushRange + controller.GetComponent<Collider>().bounds.extents.z))
         {
             var pushable = hitInfo.transform.GetComponent<Pushable>();
             if (pushable)
             {
-                pushable.Push(controller.InputForward);
+                pushable.Push(controller.Forward);
             }
         }
 
