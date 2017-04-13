@@ -9,14 +9,17 @@ public class Controller3D : MonoBehaviour
 {
     public Transform CameraTransform;
     public Material Material;
+    public AbilityGUI AbilityUI;
 
     private CharacterController characterController;
     private ICharacterState3D characterState;
     private bool invincible;
     private float invincibleTime;
-    private int selectedAbility;
+    private int latestUsedAbility;
     private Vector3 spawnPosition;
     private bool visible;
+    private bool abilityColorActive;
+    private Timer abilityColorTimer;
 
     public PlayerAttributes Attributes { get; private set; }
     public Vector2 Velocity { get; set; }
@@ -34,25 +37,30 @@ public class Controller3D : MonoBehaviour
     {
         Animator = GetComponent<Animator>();
         Forward = transform.forward;
+        abilityColorActive = false;
     }
 
     private void Awake()
     {
-        selectedAbility = 0;
+        abilityColorTimer = new Timer(2f);
+        latestUsedAbility = 0;
         CacheComponents();
         SetInitialCharacterState();
         MovementInput = Vector2.zero;
         spawnPosition = transform.position;
-        if (Attributes.Abilities.Count <= 0)
-        {
-            var abilityColor = Resources.Load("AbilityColors", typeof(AbilityColors)) as AbilityColors;
-            Material.SetColor("_Color", abilityColor.DefaultColor);
-        }
+
+        ResetColor();
+
         invincible = false;
         invincibleTime = 0f;
     }
 
     private void OnApplicationQuit()
+    {
+        ResetColor();
+    }
+
+    private void ResetColor()
     {
         var abilityColor = Resources.Load("AbilityColors", typeof(AbilityColors)) as AbilityColors;
         Material.SetColor("_Color", abilityColor.DefaultColor);
@@ -79,29 +87,53 @@ public class Controller3D : MonoBehaviour
                     r.enabled = true;
             }
         }
+
+        if (abilityColorActive)
+        {
+            if (abilityColorTimer.Update(Time.deltaTime))
+            {
+                var abilityColor = Resources.Load("AbilityColors", typeof(AbilityColors)) as AbilityColors;
+                Material.SetColor("_Color", abilityColor.DefaultColor);
+                abilityColorActive = false;
+            }
+            else
+            {
+                var abilityColor = Resources.Load("AbilityColors", typeof(AbilityColors)) as AbilityColors;
+                Material.SetColor("_Color", Color.Lerp(Attributes.Abilities[latestUsedAbility].Color, abilityColor.DefaultColor, abilityColorTimer.PercentDone));
+            }
+        }
+
         UpdateAnimator();
     }
 
-    public void RefreshMaterial()
-    {
-        Material.SetColor("_Color", Attributes.Abilities[selectedAbility].Color);
-    }
-
-    public void HandleMovement(bool useAbility, Vector2 input)
+    public void HandleMovement(bool[] useAbility, Vector2 input)
     {
         MovementInput = input;
-        foreach (var ability in Attributes.Abilities)
+        var usedAbilities = new bool[4];
+        for (var i = 0; i < Attributes.Abilities.Count; ++i)
         {
-            ability.UpdateTime();
-        }
-        if (useAbility && Attributes.Abilities.Count > selectedAbility && Attributes.Abilities[selectedAbility].CanUse)
-        {
-            var state = Attributes.Abilities[selectedAbility].Use(this);
-            if (state.NewState != null)
-                characterState.AttemptStateSwitch(state);
+            Attributes.Abilities[i].UpdateTime();
+            if (Attributes.Abilities[i].CanUse && useAbility[i])
+            {
+                var state = Attributes.Abilities[i].Use(this);
+                if (state.NewState != null)
+                {
+                    if (characterState.AttemptStateSwitch(state))
+                    {
+                        usedAbilities[i] = true;
+                        SetAbilityActivated(i);
+                    }
+                }
+                else
+                {
+                    usedAbilities[i] = true;
+                    SetAbilityActivated(i);
+                }
+            }
         }
 
-        var deltaTime = Time.deltaTime;
+        AbilityUI.ShowAbilitiesUsed(usedAbilities);
+
         characterState.Update(input);
         HandleCollisions(Move());
         DrawAxes();
@@ -109,42 +141,18 @@ public class Controller3D : MonoBehaviour
         GetComponentInChildren<Rigidbody>().rotation = transform.rotation;
     }
 
+    private void SetAbilityActivated(int index)
+    {
+        latestUsedAbility = index;
+        Material.SetColor("_Color", Attributes.Abilities[index].Color);
+        abilityColorActive = true;
+        abilityColorTimer.Reset();
+    }
+
     private void UpdateAnimator()
     {
         Animator.SetFloat("VelocityX", transform.InverseTransformDirection(Velocity).x);
         Animator.SetFloat("VelocityY", transform.InverseTransformDirection(Velocity).z);
-    }
-
-    public void NextAbility()
-    {
-        if (selectedAbility + 1 < Attributes.Abilities.Count)
-        {
-            var material = GetComponent<Renderer>().sharedMaterial;
-            material.color = Attributes.Abilities[++selectedAbility].Color;
-            Material.color = Attributes.Abilities[++selectedAbility].Color;
-            Material.SetColor("_Color", Attributes.Abilities[++selectedAbility].Color);
-        }
-    }
-
-    public void PreviousAbility()
-    {
-        if (selectedAbility - 1 >= 0 && Attributes.Abilities.Count > 0)
-        {
-            var material = GetComponent<Renderer>().sharedMaterial;
-            material.color = Attributes.Abilities[--selectedAbility].Color;
-            Material.SetColor("_Color", Attributes.Abilities[--selectedAbility].Color);
-        }
-    }
-
-    public void SetAbility(int index)
-    {
-        if (index < Attributes.Abilities.Count)
-        {
-            selectedAbility = index;
-            //var material = GetComponent<Renderer>().sharedMaterial;
-            //material.color = Attributes.Abilities[selectedAbility].Color;
-            Material.SetColor("_Color", Attributes.Abilities[selectedAbility].Color);
-        }
     }
 
     public void ChangeCharacterState(CharacterStateSwitch3D stateSwitch)

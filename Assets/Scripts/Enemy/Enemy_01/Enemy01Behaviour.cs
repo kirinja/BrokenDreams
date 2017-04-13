@@ -130,7 +130,7 @@ public class Enemy01Behaviour : Enemy
 
         var g = Drop;
         if (g != null)
-            GameObject.Instantiate(g, transform.position + new Vector3(0, 0.0f, 0), Quaternion.identity);
+            GameObject.Instantiate(g, transform.position + new Vector3(0, 0.1f, 0), Quaternion.identity);
         src.PlayOneShot(deathClip);
         GetComponent<Collider>().enabled = false;
         GetComponent<MeshRenderer>().enabled = false;
