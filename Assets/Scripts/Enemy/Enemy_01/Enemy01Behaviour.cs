@@ -133,6 +133,7 @@ public class Enemy01Behaviour : Enemy
             GameObject.Instantiate(g, transform.position + new Vector3(0, 0.0f, 0), Quaternion.identity);
         src.PlayOneShot(deathClip);
         GetComponent<Collider>().enabled = false;
+        GetComponent<MeshRenderer>().enabled = false;
     }
 
     private IEnumerator deathTime()
