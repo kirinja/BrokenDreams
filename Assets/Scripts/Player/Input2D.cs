@@ -22,7 +22,7 @@ public class Input2D : MonoBehaviour
     {
         for (var i = 0; i < abilityInputs.Length; ++i)
         {
-            abilityInputs[i] = Input.GetButtonDown("Use Ability " + (i + 1).ToString());
+            abilityInputs[i] = Input.GetButtonDown("Use Ability " + (i + 1).ToString()) || abilityInputs[i];
         }
     }
 
