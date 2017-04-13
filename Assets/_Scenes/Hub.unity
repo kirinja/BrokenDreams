@@ -12733,7 +12733,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 005c5f5908e24194f9266908b8e7fb5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Scene: Level_02
+  Scene: Level_02_2D
   RequiresInput: 1
 --- !u!23 &1733032505
 MeshRenderer:

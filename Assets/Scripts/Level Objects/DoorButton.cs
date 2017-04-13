@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class DoorButton : MonoBehaviour
 {
-    public GameObject Door;
+    public GameObject[] Doors;
 
     private int count;
 
 	// Use this for initialization
 	void Start ()
 	{
-        Door.SetActive(true);
+	    foreach (var door in Doors)
+	    {
+	        door.SetActive(true);
+        }
+        
 	    count = 0;
 	}
 	
@@ -26,7 +30,11 @@ public class DoorButton : MonoBehaviour
         {
             if (++count > 0)
             {
-                Door.SetActive(false);
+                foreach (var door in Doors)
+                {
+                    door.SetActive(false);
+                }
+                
             }
         }
     }
@@ -37,7 +45,10 @@ public class DoorButton : MonoBehaviour
         {
             if (--count <= 0)
             {
-                Door.SetActive(true);
+                foreach (var door in Doors)
+                {
+                    door.SetActive(true);
+                }
             }
         }
     }
