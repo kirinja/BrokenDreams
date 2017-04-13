@@ -7,21 +7,22 @@ using System.IO;
 
 public class DialogueMaster : MonoBehaviour {
 
-    private Dialogue dialogue;
+    public GameObject dialoguePreFab;
+    public int maxInteractionCount;
 
+    private int currentInteractionCount;
+    private Dialogue dialogue;
     private GameObject window;
     private int selectedOption;
-
     private GameObject nodeText;
     private GameObject option01;
     private GameObject option02;
     private GameObject option03;
-
     private int option01ID, option02ID, option03ID;
 
     //public string pathToDialogueXML;
 
-    public GameObject dialoguePreFab;
+    
 
     private void Start()
     {
@@ -76,7 +77,9 @@ public class DialogueMaster : MonoBehaviour {
 
     public void runDialogue()
     {
-
+        if (currentInteractionCount >= maxInteractionCount)
+            return;
+        GameObject.FindGameObjectWithTag("Player").GetComponent<Input2D>().enabled = false;
         StartCoroutine("run");
     }
 
@@ -104,6 +107,8 @@ public class DialogueMaster : MonoBehaviour {
             if (nodeID == 2)
                 GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().Heal(2);
         }
+        currentInteractionCount++;
+        GameObject.FindGameObjectWithTag("Player").GetComponent<Input2D>().enabled = true;
         Time.timeScale = 1;
         window.SetActive(false);
     }
