@@ -6,8 +6,12 @@ public class Input2D : MonoBehaviour
     public float LockedZPosition = -1;
 
     private Controller3D controller;
-    private bool useAbility;
-    private float previousAbilityAxis;
+    private bool[] abilityInputs;
+
+    private void Awake()
+    {
+        abilityInputs = new bool[4];
+    }
 
     private void Start()
     {
@@ -16,21 +20,22 @@ public class Input2D : MonoBehaviour
 
     private void Update()
     {
-        if (useAbility) return;
-
-        if (previousAbilityAxis <= float.Epsilon)
+        for (var i = 0; i < abilityInputs.Length; ++i)
         {
-            useAbility = Input.GetAxisRaw("Use Ability") > float.Epsilon;
+            abilityInputs[i] = Input.GetButtonDown("Use Ability " + (i + 1).ToString());
         }
-        previousAbilityAxis = Input.GetAxisRaw("Use Ability");
     }
 
     private void FixedUpdate()
     {
         var input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        controller.HandleMovement(useAbility, input);
+        controller.HandleMovement(abilityInputs, input);
         controller.SetPosition(new Vector3(controller.transform.position.x, controller.transform.position.y,
             LockedZPosition));
-        useAbility = false;
+
+        for (var i = 0; i < abilityInputs.Length; ++i)
+        {
+            abilityInputs[i] = false;
+        }
     }
 }

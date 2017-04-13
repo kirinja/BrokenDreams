@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
     {
         DontDestroyOnLoad(this); ;
         _saveDirectory = Path.Combine(Application.dataPath, SaveDirectory);
-        //Inventory = GameObject.Find("Player").GetComponent<Inventory>();
+        //AbilityGUI = GameObject.Find("Player").GetComponent<AbilityGUI>();
 
         if (!Directory.Exists(_saveDirectory))
         {

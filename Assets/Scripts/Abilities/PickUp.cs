@@ -8,7 +8,7 @@ public class PickUp : MonoBehaviour {
 	void Start ()
 	{
 	    var g = GameObject.FindGameObjectWithTag("Player");
-	    foreach (Ability a in g.GetComponent<PlayerAttributes>().Abilities)
+	    foreach (var a in g.GetComponent<PlayerAttributes>().Abilities)
 	    {
 	        if (a.name.Equals(this.name))
                 Destroy(gameObject);
@@ -28,8 +28,7 @@ public class PickUp : MonoBehaviour {
             var abb = Resources.Load<Ability>("Abilities\\" + this.name); // Unsafe
             other.gameObject.GetComponent<PlayerAttributes>().Abilities.Add(abb);
             Destroy(gameObject, 0.0f);
-            other.GetComponent<Controller3D>().RefreshMaterial();
-			GameObject.Find ("HUDCanvas").GetComponent<Inventory>().addAbility();
+			GameObject.Find("HUDCanvas").GetComponent<AbilityGUI>().addAbility();
         }
     }
 }

@@ -193,7 +193,7 @@ public struct AirState3D : ICharacterState3D
     private void HandleJumpEnded()
     {
         var minJumpVelocity = controller.MinJumpVelocity;
-        if (Input.GetButtonUp("Use Ability") && jumping && controller.Velocity.y > minJumpVelocity)
+        if (Input.GetButtonUp("Use Ability 2") && jumping && controller.Velocity.y > minJumpVelocity)
         {
             controller.Velocity = new Vector2(controller.Velocity.x, minJumpVelocity);
             jumping = false;
@@ -205,11 +205,13 @@ public struct AirState3D : ICharacterState3D
         }
     }
 
-    public void AttemptStateSwitch(CharacterStateSwitch3D state)
+    public bool AttemptStateSwitch(CharacterStateSwitch3D state)
     {
         if (state.NewState is GroundState3D || state.NewState is DashState3D)
         {
             controller.ChangeCharacterState(state);
+            return true;
         }
+        return false;
     }
 }

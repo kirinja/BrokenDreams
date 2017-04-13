@@ -18,6 +18,7 @@ class DashState3D : ICharacterState3D
         var speed = attributes.DashLength / attributes.DashTime;
 
         controller.Velocity = controller.Forward * speed;
+        Debug.Log(controller.Velocity);
     }
 
     private void UpdateRotation()
@@ -26,8 +27,9 @@ class DashState3D : ICharacterState3D
         controller.transform.eulerAngles = new Vector3(0f, desiredAngle, 0f);
     }
 
-    public void AttemptStateSwitch(CharacterStateSwitch3D state)
+    public bool AttemptStateSwitch(CharacterStateSwitch3D state)
     {
+        return false;
     }
 
     public void Enter()
@@ -40,14 +42,7 @@ class DashState3D : ICharacterState3D
 
     public void Exit()
     {
-        if (Mathf.Abs(previousVelocity.x) <= controller.Attributes.MaxSpeed)
-        {
-            controller.Velocity = new Vector2(previousVelocity.x, 0f);
-        }
-        else
-        {
-            controller.Velocity = new Vector2(Mathf.Sign(previousVelocity.x) * controller.GetComponent<PlayerAttributes>().MaxSpeed, 0f);
-        }
+        controller.Velocity = Mathf.Abs(previousVelocity.x) <= controller.Attributes.MaxSpeed ? new Vector2(previousVelocity.x, 0f) : new Vector2(Mathf.Sign(previousVelocity.x) * controller.GetComponent<PlayerAttributes>().MaxSpeed, 0f);
 
 		controller.transform.Find("Dash").Find("DashTrail").GetComponent<ParticleSystem>().Stop();
 		controller.transform.Find("Dash").Find("Sparkle").GetComponent<ParticleSystem>().Stop();
@@ -66,7 +61,7 @@ class DashState3D : ICharacterState3D
 
     public void Update(Vector2 input)
     {
-        if (dashTimer.Update(Time.deltaTime) || Input.GetButtonUp("Use Ability"))
+        if (dashTimer.Update(Time.deltaTime) || Input.GetButtonUp("Use Ability 4"))
         {
             controller.ChangeCharacterState(new CharacterStateSwitch3D(new AirState3D(controller)));
         }

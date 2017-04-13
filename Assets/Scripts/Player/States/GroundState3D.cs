@@ -195,16 +195,18 @@ public struct GroundState3D : ICharacterState3D
         return null;
     }
 
-    public void AttemptStateSwitch(CharacterStateSwitch3D state)
+    public bool AttemptStateSwitch(CharacterStateSwitch3D state)
     {
         if (state.NewState == null)
         {
-            return;
+            return false;
         }
 
         if (state.NewState is AirState3D || state.NewState is DashState3D)
         {
             controller.ChangeCharacterState(state);
+            return true;
         }
+        return false;
     }
 }

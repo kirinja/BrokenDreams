@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class Timer
+﻿public class Timer
 {
     private float timePassed;
     private readonly float targetTime;
@@ -30,5 +26,10 @@ public class Timer
     public void Reset()
     {
         timePassed = 0f;
+    }
+
+    public float PercentDone
+    {
+        get { return timePassed / targetTime; }
     }
 }
