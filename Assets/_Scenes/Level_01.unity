@@ -4142,9 +4142,20 @@ Prefab:
       propertyPath: controller3D
       value: 
       objectReference: {fileID: 509232263}
+    - target: {fileID: 114327399516649382, guid: 403946d394364944e8f517ea508880b7,
+        type: 2}
+      propertyPath: PlayerAttributes
+      value: 
+      objectReference: {fileID: 290397213}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 403946d394364944e8f517ea508880b7, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &245374254 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114327399516649382, guid: 403946d394364944e8f517ea508880b7,
+    type: 2}
+  m_PrefabInternal: {fileID: 245374253}
+  m_Script: {fileID: 11500000, guid: 02319d9710ebf654c8e51fd21d42a23e, type: 3}
 --- !u!1 &247035988
 GameObject:
   m_ObjectHideFlags: 0
@@ -7246,10 +7257,21 @@ Prefab:
       propertyPath: m_Volume
       value: 0.48
       objectReference: {fileID: 0}
+    - target: {fileID: 114096058426615598, guid: de333fd6865a1924abd6495a01270364,
+        type: 2}
+      propertyPath: AbilityUI
+      value: 
+      objectReference: {fileID: 245374254}
     m_RemovedComponents:
     - {fileID: 114471618969616452, guid: de333fd6865a1924abd6495a01270364, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: de333fd6865a1924abd6495a01270364, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &290397213 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114215857018685574, guid: de333fd6865a1924abd6495a01270364,
+    type: 2}
+  m_PrefabInternal: {fileID: 290397212}
+  m_Script: {fileID: 11500000, guid: a115265077a114c4f8827884da12a518, type: 3}
 --- !u!1 &328764105
 GameObject:
   m_ObjectHideFlags: 0

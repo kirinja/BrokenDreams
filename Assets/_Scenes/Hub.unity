@@ -6176,9 +6176,20 @@ Prefab:
       propertyPath: controller3D
       value: 
       objectReference: {fileID: 1094861340}
+    - target: {fileID: 114327399516649382, guid: 403946d394364944e8f517ea508880b7,
+        type: 2}
+      propertyPath: PlayerAttributes
+      value: 
+      objectReference: {fileID: 1472186300}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 403946d394364944e8f517ea508880b7, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &542376406 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114327399516649382, guid: 403946d394364944e8f517ea508880b7,
+    type: 2}
+  m_PrefabInternal: {fileID: 542376405}
+  m_Script: {fileID: 11500000, guid: 02319d9710ebf654c8e51fd21d42a23e, type: 3}
 --- !u!1 &582425139
 GameObject:
   m_ObjectHideFlags: 0
@@ -12287,6 +12298,11 @@ Prefab:
       propertyPath: healthSlider
       value: 
       objectReference: {fileID: 487527503}
+    - target: {fileID: 114096058426615598, guid: de333fd6865a1924abd6495a01270364,
+        type: 2}
+      propertyPath: AbilityUI
+      value: 
+      objectReference: {fileID: 542376406}
     m_RemovedComponents:
     - {fileID: 114686585740528660, guid: de333fd6865a1924abd6495a01270364, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: de333fd6865a1924abd6495a01270364, type: 2}
@@ -12311,6 +12327,12 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5017482d737023c4fb86ccf53fbd435d, type: 3}
   - {fileID: 8300000, guid: 725c80baaa402314ba80a038f261ef9c, type: 3}
   - {fileID: 8300000, guid: 725c80baaa402314ba80a038f261ef9c, type: 3}
+--- !u!114 &1472186300 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114215857018685574, guid: de333fd6865a1924abd6495a01270364,
+    type: 2}
+  m_PrefabInternal: {fileID: 1472186297}
+  m_Script: {fileID: 11500000, guid: a115265077a114c4f8827884da12a518, type: 3}
 --- !u!1 &1482871340
 GameObject:
   m_ObjectHideFlags: 0
