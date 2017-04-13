@@ -5,7 +5,7 @@ public struct GroundState3D : ICharacterState3D
 {
     private readonly Controller3D controller;
     private Transform platform;
-    private Vector2 previousPlatformPosition;
+    private Vector3 previousPlatformPosition;
 
     public GroundState3D(Controller3D controller)
     {
@@ -16,12 +16,12 @@ public struct GroundState3D : ICharacterState3D
 
         this.controller = controller;
         platform = null;
-        previousPlatformPosition = Vector2.zero;
+        previousPlatformPosition = Vector3.zero;
     }
 
     public void Enter()
     {
-        controller.Velocity = new Vector3(controller.Velocity.x, 0f);
+        controller.Velocity = new Vector2(controller.Velocity.x, 0f);
     }
 
     public void Exit()
@@ -46,7 +46,7 @@ public struct GroundState3D : ICharacterState3D
         {
             if (gameObject.transform == platform)
             {
-                controller.transform.position += platform.position - new Vector3(previousPlatformPosition.x, previousPlatformPosition.y);
+                controller.transform.position += platform.position - previousPlatformPosition;
                 previousPlatformPosition = platform.position;
             }
             else
@@ -66,7 +66,7 @@ public struct GroundState3D : ICharacterState3D
         CharacterStateSwitch3D stateSwitch;
         if ((collisionFlags & CollisionFlags.Below) == CollisionFlags.Below)
         {
-            controller.Velocity = new Vector3(controller.Velocity.x, 0f);
+            controller.Velocity = new Vector2(controller.Velocity.x, 0f);
             stateSwitch = new CharacterStateSwitch3D();
         }
         else
@@ -75,11 +75,11 @@ public struct GroundState3D : ICharacterState3D
         }
         if ((collisionFlags & CollisionFlags.Sides) == CollisionFlags.Sides)
         {
-            controller.Velocity = new Vector3(0f, controller.Velocity.y, 0f);
+            controller.Velocity = new Vector2(0f, controller.Velocity.y);
         }
         if ((collisionFlags & CollisionFlags.Above) == CollisionFlags.Above)
         {
-            controller.Velocity = new Vector3(controller.Velocity.x, 0f);
+            controller.Velocity = new Vector2(controller.Velocity.x, 0f);
         }
 
         return stateSwitch;

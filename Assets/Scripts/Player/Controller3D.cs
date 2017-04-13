@@ -138,7 +138,7 @@ public class Controller3D : MonoBehaviour
         HandleCollisions(Move());
         DrawAxes();
         GetComponentInChildren<Rigidbody>().position = transform.position;
-        GetComponentInChildren<Rigidbody>().rotation = transform.rotation;
+        //GetComponentInChildren<Rigidbody>().rotation = transform.rotation;
     }
 
     private void SetAbilityActivated(int index)
@@ -243,7 +243,8 @@ public class Controller3D : MonoBehaviour
 
     private CollisionFlags Move()
     {
-        return characterController.Move(Velocity * Time.deltaTime);
+        var timedMove = Velocity * Time.deltaTime;
+        return characterController.Move(new Vector3(timedMove.x, timedMove.y, 0f));
     }
 
     private void HandleCollisions(CollisionFlags collisionFlags)
