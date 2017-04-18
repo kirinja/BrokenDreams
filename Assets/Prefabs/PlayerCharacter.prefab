@@ -246,7 +246,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1289997779439302
 GameObject:
   m_ObjectHideFlags: 0
@@ -1532,8 +1532,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CameraTransform: {fileID: 0}
-  animator: {fileID: 0}
   Material: {fileID: 2100000, guid: 0a30316fcf65e0144863a6dd1c357e3c, type: 2}
+  AbilityUI: {fileID: 0}
+  GroundMask:
+    serializedVersion: 2
+    m_Bits: 768
 --- !u!114 &114134480092361830
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1563,13 +1566,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxSpeed: 11
   GroundAccelerationTime: 0.17
+  GroundDeaccelerationTime: 0.05
   AirAccelerationTime: 0.45
+  AirDeaccelerationTime: 0.05
   MaxJumpLength: 12
   MaxJumpHeight: 6
   MinJumpHeight: 1
   DashTime: 0.6
   DashLength: 12
-  GroundDeaccelerationTime: 0.05
   MaxRotationTime: 0.2
   KnockbackVelocity: 10
   InvincibleTimeOnDamage: 1

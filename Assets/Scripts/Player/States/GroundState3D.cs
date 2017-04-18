@@ -64,7 +64,7 @@ public struct GroundState3D : ICharacterState3D
     public CharacterStateSwitch3D HandleCollisions(CollisionFlags collisionFlags)
     {
         CharacterStateSwitch3D stateSwitch;
-        if ((collisionFlags & CollisionFlags.Below) == CollisionFlags.Below)
+        if ((collisionFlags & CollisionFlags.Below) == CollisionFlags.Below || IsGrounded())
         {
             controller.Velocity = new Vector2(controller.Velocity.x, 0f);
             stateSwitch = new CharacterStateSwitch3D();
@@ -83,6 +83,18 @@ public struct GroundState3D : ICharacterState3D
         }
 
         return stateSwitch;
+    }
+
+    private bool IsGrounded()
+    {
+        return Physics.Raycast(
+                   new Vector3(controller.transform.position.x - controller.ColliderWidth / 2,
+                       controller.transform.position.y, controller.transform.position.z), Vector3.down,
+                   controller.ColliderHeight / 2, controller.GroundMask) ||
+               Physics.Raycast(
+                   new Vector3(controller.transform.position.x + controller.ColliderWidth / 2,
+                       controller.transform.position.y, controller.transform.position.z), Vector3.down,
+                   controller.ColliderHeight / 2, controller.GroundMask);
     }
 
     private void UpdateVelocity(Vector2 input)
