@@ -116,6 +116,7 @@ public class BossBehaviour : MonoBehaviour
         if (Invincible)
         {
             _invincibleTimer += Time.deltaTime;
+
             // add flashing possibly
             if (_invincibleTime % 0.2f < 0.1f)
             {

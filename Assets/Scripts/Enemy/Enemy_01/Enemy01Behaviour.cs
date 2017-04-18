@@ -162,6 +162,13 @@ public class Enemy01Behaviour : Enemy
 
         GetComponent<Collider>().enabled = false;
         GetComponent<MeshRenderer>().enabled = false;
+
+        // disable movable object children only
+        for (var i = 0; i < transform.childCount; i++)
+        {
+            if (transform.GetChild(i).CompareTag("Movable Object"))
+                transform.GetChild(i).gameObject.SetActive(false);
+        }
     }
 
     private IEnumerator deathTime()
