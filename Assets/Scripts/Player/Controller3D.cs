@@ -10,6 +10,7 @@ public class Controller3D : MonoBehaviour
     public Transform CameraTransform;
     public Material Material;
     public AbilityGUI AbilityUI;
+    public LayerMask GroundMask;
 
     private CharacterController characterController;
     private ICharacterState3D characterState;
@@ -28,6 +29,7 @@ public class Controller3D : MonoBehaviour
     public Animator Animator { get; private set; }
 
     public float ColliderHeight { get { return characterController.height; } }
+    public float ColliderWidth { get { return characterController.radius * 2; } }
     public float MaxTraversableSlopeAngle { get { return characterController.slopeLimit; } }
     public Vector2 Gravity { get { return Vector2.up * (-2 * GetComponent<PlayerAttributes>().MaxJumpHeight * Mathf.Pow(GetComponent<PlayerAttributes>().MaxSpeed, 2)) / Mathf.Pow(GetComponent<PlayerAttributes>().MaxJumpLength / 2, 2); } }
     public float MaxJumpVelocity { get { return 2 * GetComponent<PlayerAttributes>().MaxJumpHeight * GetComponent<PlayerAttributes>().MaxSpeed / (GetComponent<PlayerAttributes>().MaxJumpLength / 2); } }
