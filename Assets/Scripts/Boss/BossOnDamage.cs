@@ -24,6 +24,8 @@ public class BossOnDamage : Attackable {
 
         bossData.Invincible = true;
         bossData.BossState.TakeDamage(1);
+
+        transform.Find("Damage").GetComponent<ParticleSystem>().Play();
         // TODO maybe play particle system here. Definitly need to play particle system anyway
 
         //GetComponentInParent<BossBehaviour>().BossState.TakeDamage(1);

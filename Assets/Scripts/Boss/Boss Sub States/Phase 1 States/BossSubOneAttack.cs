@@ -21,7 +21,10 @@ public class BossSubOneAttack : IBossSubState
         _bossData = data;
         _timer = new System.Random().Next((int)_bossData.MinStateSwitch, (int)_bossData.MaxStateSwitch); // HACK
         _spawned = false;
-        _spawnedBox = false;
+        //_spawnedBox = false;
+
+        _spawnedBox = GameObject.FindGameObjectWithTag("Movable Object") != null;
+
 
         _spawnCounter = 0;
         _spawnTimer = TimeBetweenSpawns;
@@ -91,6 +94,7 @@ public class BossSubOneAttack : IBossSubState
             b.GetComponent<Renderer>().sharedMaterial =
                 _bossData.PushableBox.GetComponent<Renderer>().sharedMaterial;
             b.GetComponent<Collider>().enabled = false;
+            b.tag = "Movable Object";
             b.transform.position = _arcs[pId].transform.position + new Vector3(0, 0.5f, 0);
             b.transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
             b.transform.SetParent(_arcs[pId].transform);

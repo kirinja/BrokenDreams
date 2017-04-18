@@ -101,66 +101,85 @@ public class BossBehaviour : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
             if (BossState != null)
                 BossState.TakeDamage(1);
-	    if (Invincible)
-	    {
-	        _invincibleTimer += Time.deltaTime;
+	    
+        BossInvincible();
+
+	    if (BossDefeated()) return;
+	    if (BossState == null) return;
+
+        NextState();
+	}
+
+    private void BossInvincible()
+    {
+        MeshRenderer[] renders;
+        if (Invincible)
+        {
+            _invincibleTimer += Time.deltaTime;
             // add flashing possibly
             if (_invincibleTime % 0.2f < 0.1f)
             {
                 // doesnt flash, have to look over
                 _visible = !_visible;
-                var renders = GetComponentsInChildren<MeshRenderer>();
+                renders = GetComponentsInChildren<MeshRenderer>();
                 foreach (var r in renders)
                     r.enabled = _visible;
             }
 
         }
-	    if (_invincibleTimer >= _invincibleTime)
-	    {
-	        Invincible = false;
-	        _invincibleTimer = 0.0f;
-
-            var renders = GetComponentsInChildren<MeshRenderer>();
-            foreach (var r in renders)
-                r.enabled = true;
-        }
-
-	    if (HP <= 0 && BossState != null)
-	    {
-            BossState.Exit();
-	        BossState = null;
-
-            var gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-            gameManager.BeatLevel(SceneManager.GetActiveScene().name);
-            gameManager.SaveToMemory();
-            gameManager.SaveToFiles();
-            
-
-            var fishEye = new FishEyeTransition()
-            {
-                nextScene = "Hub",
-                duration = 5.0f,
-                size = 0.2f,
-                zoom = 100.0f,
-                colorSeparation = 0.1f
-            };
-            TransitionKit.instance.transitionWithDelegate(fishEye);
-        }
-
-	    if (BossState == null) return;
-
-	    var newState = BossState.Execute();
-
-        // change phase
-	    if (newState == null) return;
+        if (!(_invincibleTimer >= _invincibleTime)) return;
         
+        Invincible = false;
+        _invincibleTimer = 0.0f;
+
+        renders = GetComponentsInChildren<MeshRenderer>();
+        foreach (var r in renders)
+            r.enabled = true;
+        
+    }
+
+    private void NextState()
+    {
+        var newState = BossState.Execute();
+        // change phase
+        if (newState == null) return;
+
         PlayBossDeathSound();
 
-	    BossState.Exit();
-	    BossState = newState;
-	    newState.Enter(this);
-        
-	}
+        // heal player between boss phases
+        var player = GameObject.FindGameObjectWithTag("Player");
+        var hpToHeal = player.GetComponent<PlayerAttributes>().MaxHP - player.GetComponent<PlayerAttributes>().currentHealth;
+        player.GetComponent<PlayerHealth>().Heal(hpToHeal);
+
+        BossState.Exit();
+        BossState = newState;
+        newState.Enter(this);
+    }
+
+    private bool BossDefeated()
+    {
+        if (HP > 0 || BossState == null) return false;
+
+        BossState.Exit();
+        BossState = null;
+
+        var gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager.BeatLevel(SceneManager.GetActiveScene().name);
+        gameManager.SaveToMemory();
+        gameManager.SaveToFiles();
+
+
+        var fishEye = new FishEyeTransition()
+        {
+            nextScene = "Hub",
+            duration = 5.0f,
+            size = 0.2f,
+            zoom = 100.0f,
+            colorSeparation = 0.1f
+        };
+        TransitionKit.instance.transitionWithDelegate(fishEye);
+        return true;
+    }
 
     public void PlayBossIdleSound()
     {
