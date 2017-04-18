@@ -11,24 +11,9 @@ public class EnemiesOnPlatform : MonoBehaviour
             return objects.Count;
         }
     }
-
-    public int amountTemp;
-
-    //public int PlatformId;
-
-    // On trigger exit doesnt fire if we destroy the enemy, since we destroy the collider before it moves out of the trigger zone
-    // we should check every frame if a gameobject is in the trigger zone and if it isnt then we decrease the counter
     private List<GameObject> objects = new List<GameObject>();
 
-	// Use this for initialization
-	void Start ()
-	{
-        //objects = new List<GameObject>();
-	    //Amount = 0;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    void Update () {
 
         // every frame we check if any of the gameobjects has died, this might work since it's all references?
 	    foreach (GameObject g in objects)
@@ -36,8 +21,6 @@ public class EnemiesOnPlatform : MonoBehaviour
             // remove and count down
 	        if (g != null) continue;
 	        objects.Remove(g);
-	        amountTemp--;
-	        //Amount--;
 	        break;
 	    }
 	}
@@ -51,8 +34,6 @@ public class EnemiesOnPlatform : MonoBehaviour
             if (!objects.Contains(other.gameObject))
             {
                 objects.Add(other.gameObject);
-                //Amount++;
-                amountTemp++;
             }
         }
     }
