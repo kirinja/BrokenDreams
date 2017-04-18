@@ -22,7 +22,6 @@ public class BossSubTwoDefend: IBossSubState
     private GameObject[] _arcs;
 
     private int _trySpawnCounter;
-    private bool canSpawn = true;
 
     public void Enter(BossBehaviour data)
     {
@@ -40,10 +39,13 @@ public class BossSubTwoDefend: IBossSubState
         _platformIds = new int[_spawnPoints.Length];
         for (int i = 0; i < _spawnPoints.Length; i++)
         {
-            _platformIds[i] = i;
+            _platformIds[i] = _spawnPoints[i].GetComponent<PlatformID>().PlatformId;
         }
 
-        //_arcs = _bossData.Phase2Launch;
+        foreach (var id in _platformIds)
+        {
+            CheckPlatform(id);
+        }
 
         _arcs = new GameObject[_bossData.Phase2Launch.transform.childCount];
         for (int i = 0; i < _bossData.Phase2Launch.transform.childCount; i++)
@@ -56,19 +58,15 @@ public class BossSubTwoDefend: IBossSubState
     {
         HideHead();
 
-        if (_trySpawnCounter >= _bossData.MaxTrySpawnCycles)
-            _spawned = true;
-
         // here we need to add so we cant flood the scene
-        if (!_spawned)
-            Spawn();
+        Spawn();
 
         // give up on trying to spawn (possibly move out)
-        if (_spawnCounter >= _bossData.Phase2Spawn)
-            _spawned = true;
+        
 
         if (CanPlayIdleSound())
             PlayIdleSound();
+
         UpdateTimers();
 
         if (!(_timer <= 0.0f)) return null;
@@ -106,54 +104,66 @@ public class BossSubTwoDefend: IBossSubState
 
     private void Spawn()
     {
+        
+        if (_trySpawnCounter >= _bossData.MaxTrySpawnCycles)
+            _spawned = true;
+        if (_spawnCounter >= _bossData.Phase2Spawn)
+            _spawned = true;
+        
+
+        if (!CanSpawn()) return;
+
+        // check how many enemies are on the selected platforms trigger area
+        // if it is higher than a certain value then dont spawn at that platform
+        // count up the try to spawn counter, if it is higher than X then set _spawned to true (we cant spawn)
+
         var rand = new System.Random();
+        var index = rand.Next(0, _platformIds.Length);
+        var pId = _platformIds[index];
 
-        if (_spawnCounter < _bossData.Phase2Spawn && _spawnTimer <= 0.0f)
+        if (!CheckPlatform(pId))
         {
-            // check how many enemies are on the selected platforms trigger area
-            // if it is higher than a certain value then dont spawn at that platform
-            // count up the try to spawn counter, if it is higher than X then set _spawned to true (we cant spawn)
-            var index = rand.Next(0, _platformIds.Length);
-            var v = _platformIds[index];
-
-            if (_spawnPoints[v].GetComponentInChildren<EnemiesOnPlatform>().Amount >= _bossData.MaxEnemiesPerPlatfor)
-            {
-                _trySpawnCounter++;
-                if (_trySpawnCounter >= _bossData.MaxTrySpawnCycles)
-                    _spawned = true;
-                // might get stuck in a loop here
-
-                //Debug.Log("cant spawn since platform is full " + _trySpawnCounter + " - " + _spawned);
-                canSpawn = false;
-                //return null;
-            }
-
-            if (canSpawn)
-            {
-                var childCount = _bossData.NavmeshTargets.transform.childCount;
-                Transform[] childs = new Transform[childCount];
-                for (int i = 0; i < childCount; i++)
-                {
-                    childs[i] = _bossData.NavmeshTargets.transform.GetChild(i);
-                }
-
-                _arcs[v].GetComponent<MeshFilter>().sharedMesh =
-                    _bossData.Enemy2.GetComponent<MeshFilter>().sharedMesh;
-
-                _bossData.Enemy2.GetComponent<Enemy02behaviour3D>().retreatPoints = childs;
-                _arcs[v].GetComponent<EnemySpawn>().Enemy = _bossData.Enemy2;
-
-                _arcs[v].GetComponent<MeshRenderer>().enabled = true;
-                _arcs[v].GetComponent<SplineController>().FollowSpline();
-
-                ++_spawnCounter;
-                _spawnTimer = TimeBetweenSpawns;
-
-                _bossData.PlayBossSpawnSound();
-
-                _platformIds = _platformIds.Where(val => val != v).ToArray();
-            }
+            return;
         }
+
+        /*
+        if (_spawnPoints[pId].GetComponentInChildren<EnemiesOnPlatform>().Amount >= _bossData.MaxEnemiesPerPlatfor)
+        {
+            _trySpawnCounter++;
+            if (_trySpawnCounter >= _bossData.MaxTrySpawnCycles)
+                _spawned = true;
+            // might get stuck in a loop here
+
+            //Debug.Log("cant spawn since platform is full " + _trySpawnCounter + " - " + _spawned);
+            canSpawn = false;
+            //return null;
+        }
+
+        if (canSpawn)
+        {*/
+            var childCount = _bossData.NavmeshTargets.transform.childCount;
+            var childs = new Transform[childCount];
+            for (var i = 0; i < childCount; i++)
+            {
+                childs[i] = _bossData.NavmeshTargets.transform.GetChild(i);
+            }
+
+            _arcs[pId].GetComponent<MeshFilter>().sharedMesh =
+                _bossData.Enemy2.GetComponent<MeshFilter>().sharedMesh;
+
+            _bossData.Enemy2.GetComponent<Enemy02behaviour3D>().retreatPoints = childs;
+            _arcs[pId].GetComponent<EnemySpawn>().Enemy = _bossData.Enemy2;
+
+            _arcs[pId].GetComponent<MeshRenderer>().enabled = true;
+            _arcs[pId].GetComponent<SplineController>().FollowSpline();
+
+            ++_spawnCounter;
+            _spawnTimer = TimeBetweenSpawns;
+
+            _bossData.PlayBossSpawnSound();
+
+            _platformIds = _platformIds.Where(val => val != pId).ToArray();
+        //}
     }
 
     private void UpdateTimers()
@@ -171,5 +181,30 @@ public class BossSubTwoDefend: IBossSubState
     private bool CanPlayIdleSound()
     {
         return Random.value <= 0.01f && !_playing;
+    }
+
+    private int EnemiesOnPlatform(int id)
+    {
+        // this is the one that is wrong, we need to use index and not platform id?
+        // we need to find the platform with the input id and then check how many enemies are on the platform
+        foreach (var g in _spawnPoints)
+        {
+            if (g.GetComponent<PlatformID>().PlatformId == id)
+                return g.GetComponentInChildren<EnemiesOnPlatform>().Amount;
+        }
+        return -1; // can mess up, might have to be a really high value instead of low value
+    }
+
+    private bool CheckPlatform(int pId)
+    {
+        if (EnemiesOnPlatform(pId) < _bossData.MaxEnemiesPerPlatfor) return true;
+
+        _platformIds = _platformIds.Where(val => val != pId).ToArray();
+        return false;
+    }
+
+    private bool CanSpawn()
+    {
+        return _spawnCounter < _bossData.Phase2Spawn && _spawnTimer <= 0.0f && !_spawned;
     }
 }

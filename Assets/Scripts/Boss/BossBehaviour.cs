@@ -11,12 +11,9 @@ public class BossBehaviour : MonoBehaviour
     public IBossPhaseState BossState;
 
     public int HitsPhaseOne = 1;
-    public int HitsPhaseTwo = 3;
+    public int HitsPhaseTwo = 2;
     public int HitsPhaseThree = 3;
-
-    //public float SwitchPhaseOne = 0.3f;
-    //public float SwitchPhaseTwo = 0.3f;
-    //public float SwitchPhaseThree = 0.3f;
+    
     
     // enemy to spawn
     public GameObject Enemy1;
@@ -25,12 +22,9 @@ public class BossBehaviour : MonoBehaviour
     public GameObject Acid;
 
     public GameObject[] PhasePlatforms;
-    //public GameObject[] Phase1Launch;
-    //public GameObject[] Phase2Launch;
 
     public GameObject Phase1Launch;
     public GameObject Phase2Launch;
-    //private int phaseIndex = 0;
 
     public GameObject PushableBox;
 
@@ -79,17 +73,17 @@ public class BossBehaviour : MonoBehaviour
     public AudioClip[] BossDamageSounds;
     public AudioClip[] BossDeathSounds;
 
+    [HideInInspector] public bool Invincible;
+    [HideInInspector] private float _invincibleTimer = 0.0f;
+    [HideInInspector] private float _invincibleTime = 1.0f;
+    private bool _visible;
+
 	// Use this for initialization
 	void Start () {
 		BossState = new BossPhaseOne();
         BossState.Enter(this);
-        /*
-	    damageSwitchPhase1 = HP - HP * SwitchPhaseOne;
-	    damageSwitchPhase2 = HP - HP * (SwitchPhaseOne + SwitchPhaseTwo);
-	    damageSwitchPhase3 = HP - HP;
-        */
 
-	    _audioSources = GetComponents<AudioSource>();
+        _audioSources = GetComponents<AudioSource>();
 	    _bossDirectSounds = _audioSources[0];
 	    _bossProjSounds = _audioSources[1];
 
@@ -97,6 +91,8 @@ public class BossBehaviour : MonoBehaviour
 	    damageSwitchPhase1 = HP - HitsPhaseOne;
 	    damageSwitchPhase2 = damageSwitchPhase1 - HitsPhaseTwo;
 	    damageSwitchPhase3 = damageSwitchPhase2 - HitsPhaseThree;
+
+	    _visible = true;
 	}
 	
 	// Update is called once per frame
@@ -105,6 +101,29 @@ public class BossBehaviour : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
             if (BossState != null)
                 BossState.TakeDamage(1);
+	    if (Invincible)
+	    {
+	        _invincibleTimer += Time.deltaTime;
+            // add flashing possibly
+            if (_invincibleTime % 0.2f < 0.1f)
+            {
+                // doesnt flash, have to look over
+                _visible = !_visible;
+                var renders = GetComponentsInChildren<MeshRenderer>();
+                foreach (var r in renders)
+                    r.enabled = _visible;
+            }
+
+        }
+	    if (_invincibleTimer >= _invincibleTime)
+	    {
+	        Invincible = false;
+	        _invincibleTimer = 0.0f;
+
+            var renders = GetComponentsInChildren<MeshRenderer>();
+            foreach (var r in renders)
+                r.enabled = true;
+        }
 
 	    if (HP <= 0 && BossState != null)
 	    {
@@ -136,18 +155,11 @@ public class BossBehaviour : MonoBehaviour
 	    if (newState == null) return;
         
         PlayBossDeathSound();
-        //PhasePlatforms[phaseIndex].SetActive(false);
+
 	    BossState.Exit();
 	    BossState = newState;
 	    newState.Enter(this);
-	    //++phaseIndex;
-	    //if (phaseIndex >= PhasePlatforms.Length)
-	    //    phaseIndex = PhasePlatforms.Length;
-
-        //PhasePlatforms[phaseIndex].SetActive(true);
-	    // here we also need to control the boss arena?
-	    // or maybe that should be seperate
-	    // is this controlling only the boss behaviour or the boss arena as well?
+        
 	}
 
     public void PlayBossIdleSound()
