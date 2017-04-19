@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Name: Attack
   m_EditorClassIdentifier: 
   Cooldown: 0.5
+  AttackRadius: 1.5
