@@ -20,6 +20,8 @@ public class Input2D : MonoBehaviour
 
     private void Update()
     {
+        var gm = GameManager.Get();
+        if (gm && gm.Paused) return;
         for (var i = 0; i < abilityInputs.Length; ++i)
         {
             abilityInputs[i] = Input.GetButtonDown("Use Ability " + (i + 1).ToString()) || abilityInputs[i];
@@ -28,6 +30,8 @@ public class Input2D : MonoBehaviour
 
     private void FixedUpdate()
     {
+        var gm = GameManager.Get();
+        if (gm && gm.Paused) return;
         var input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         controller.HandleMovement(abilityInputs, input);
         controller.SetPosition(new Vector3(controller.transform.position.x, controller.transform.position.y,

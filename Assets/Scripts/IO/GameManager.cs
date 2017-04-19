@@ -24,11 +24,32 @@ public class GameManager : MonoBehaviour
     #region Constants
     private const string SaveFile = "Save.sav";
     private const string SaveDirectory = "Save";
+    private const float RegularTimeScale = 1f;
     #endregion
+
+    public bool Paused
+    {
+        get { return _paused;  }
+        private set
+        {
+            _paused = value;
+            if (value)
+            {
+                GetComponent<MenuHandler>().ShowPauseMenu();
+                Time.timeScale = 0f;
+            }
+            else
+            {
+                GetComponent<MenuHandler>().HideMenus();
+                Time.timeScale = RegularTimeScale;
+            }
+        }
+    }
 
     private string _saveDirectory;
     private static readonly List<string[]> InMemory = new List<string[]>();
     private string _savePath;
+    private bool _paused;
 
     // the two values we're interested in are current HP and which abilities the player have
     private PlayerAttributes _playerAttributes;
@@ -51,6 +72,31 @@ public class GameManager : MonoBehaviour
 
         // we can do this since this script is only in the bootstrap scene
         SceneManager.LoadScene("Hub");
+    }
+
+    private void Update()
+    {
+        if (Input.GetButtonDown("Pause"))
+        {
+            if (Paused)
+            {
+                Resume();
+            }
+            else
+            {
+                Pause();
+            }
+        }
+    }
+
+    public void Pause()
+    {
+        Paused = true;
+    }
+
+    public void Resume()
+    {
+        Paused = false;
     }
 
     public void BeatLevel(string levelName)
@@ -214,10 +260,22 @@ public class GameManager : MonoBehaviour
 
         if (!LoadFromMemory())
             LoadFromFile();
+
+        Resume();
         // Every time a level is loaded we can do the init stuff here, like reading from file/memory
 
         // we need to do some logic stuff here, like depending on which level we need check certain things
         // if we load level 1 then we need to check which abilities we have and delete those from the level
         // if we load hub then we need to check if the boss level is open
+    }
+
+    public static GameManager Get()
+    {
+        var gameObject = GameObject.FindGameObjectWithTag("Game Manager");
+        if (gameObject)
+        {
+            return gameObject.GetComponent<GameManager>();
+        }
+        return null;
     }
 }

@@ -1567,7 +1567,7 @@ MonoBehaviour:
   MaxSpeed: 11
   GroundAccelerationTime: 0.17
   GroundDeaccelerationTime: 0.05
-  AirAccelerationTime: 0.45
+  AirAccelerationTime: 0.2
   AirDeaccelerationTime: 0.05
   MaxJumpLength: 12
   MaxJumpHeight: 6

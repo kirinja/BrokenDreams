@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
+using UnityEngine.EventSystems;
 
 
 public class DialogueMaster : MonoBehaviour {
@@ -55,6 +56,8 @@ public class DialogueMaster : MonoBehaviour {
         option01 = GameObject.Find("Option01");
         option02 = GameObject.Find("Option02");
         option03 = GameObject.Find("Option03");
+        //EventSystem.current.SetSelectedGameObject(option01, new BaseEventData(EventSystem.current));
+        
 
         window.SetActive(false);
     }
@@ -151,6 +154,7 @@ public class DialogueMaster : MonoBehaviour {
                     break;
             }
         }
+        EventSystem.current.SetSelectedGameObject(option01);
     }
 
     private void setOptionButton(GameObject button, DialogueOption opt)
