@@ -9,7 +9,6 @@ public class BossPhaseTwo : IBossPhaseState
 
     public void Enter(BossBehaviour data)
     {
-        //throw new System.NotImplementedException();
         _bossData = data;
         _bossData.PhasePlatforms[1].SetActive(true);
         _bossData.BossPhase2.SetActive(true);
@@ -20,7 +19,6 @@ public class BossPhaseTwo : IBossPhaseState
 
     public IBossPhaseState Execute()
     {
-        //throw new System.NotImplementedException();
         var state = _internalState.Execute();
         // switch internal state if needed
         if (state != null)
@@ -30,25 +28,10 @@ public class BossPhaseTwo : IBossPhaseState
             _internalState.Enter(_bossData);
         }
         return !Alive() ? null : new BossPhaseThree();
-        /*if (!Alive())
-            return null;
-        else
-        {
-            return new BossPhaseOne();
-        }
-        Debug.Log(Alive());
-        if (Alive())
-            return null;
-        else
-        {
-            return new BossPhaseOne();
-        }*/
     }
 
     public void Exit()
     {
-        //throw new System.NotImplementedException();
-
         var enemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (GameObject g in enemies)
         {
@@ -62,7 +45,6 @@ public class BossPhaseTwo : IBossPhaseState
 
     public bool Alive()
     {
-        //throw new System.NotImplementedException();
         return _internalState.Alive();
     }
 

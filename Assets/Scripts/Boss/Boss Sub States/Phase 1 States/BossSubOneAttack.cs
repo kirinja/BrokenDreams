@@ -21,22 +21,22 @@ public class BossSubOneAttack : IBossSubState
         _bossData = data;
         _timer = new System.Random().Next((int)_bossData.MinStateSwitch, (int)_bossData.MaxStateSwitch); // HACK
         _spawned = false;
-        _spawnedBox = false;
+        //_spawnedBox = false;
+
+        _spawnedBox = GameObject.FindGameObjectWithTag("Movable Object") != null;
+
 
         _spawnCounter = 0;
         _spawnTimer = TimeBetweenSpawns;
         _trySpawnCounter = 0;
 
         _spawnPoints = GameObject.FindGameObjectsWithTag("Platform");
-        // this can fix itself if we remove the platforms that have MaxAmount of enemies on them already
-        // we're gonna create the platformIds and then iterate over the platforms and check if they have more than 2 enemies, if so then remove that platform
+
         _platformIds = new int[_spawnPoints.Length];
         for (var i = 0; i < _spawnPoints.Length; i++)
-            _platformIds[i] = i;
+            _platformIds[i] = _spawnPoints[i].GetComponent<PlatformID>().PlatformId;
 
         // this should clear up the platform ids at the start
-        // TODO how do we know which ID corresponds to which Platform. Need to think over this part of the code
-
         foreach (var id in _platformIds)
         {
             CheckPlatform(id);
@@ -52,15 +52,8 @@ public class BossSubOneAttack : IBossSubState
     {
         if (_platformIds.Length <= 0)
             return new BossSubOneIdle();
-        //if (_trySpawnCounter >= _bossData.MaxTrySpawnCycles)
-        //    _spawned = true;
-
-        //if (!_spawned)
-        //{
-            Spawn();
-        //}
         
-        // behaviour for spawning enemies
+        Spawn();
         UpdateTimers();
         return _timer <= 0.0f ? new BossSubOneIdle() : null;
     }
@@ -101,6 +94,7 @@ public class BossSubOneAttack : IBossSubState
             b.GetComponent<Renderer>().sharedMaterial =
                 _bossData.PushableBox.GetComponent<Renderer>().sharedMaterial;
             b.GetComponent<Collider>().enabled = false;
+            b.tag = "Movable Object";
             b.transform.position = _arcs[pId].transform.position + new Vector3(0, 0.5f, 0);
             b.transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
             b.transform.SetParent(_arcs[pId].transform);
@@ -147,20 +141,21 @@ public class BossSubOneAttack : IBossSubState
 
     private int EnemiesOnPlatform(int id)
     {
-        return _spawnPoints[id].GetComponentInChildren<EnemiesOnPlatform>().Amount;
+        // this is the one that is wrong, we need to use index and not platform id?
+        // we need to find the platform with the input id and then check how many enemies are on the platform
+        foreach (var g in _spawnPoints)
+        {
+            if (g.GetComponent<PlatformID>().PlatformId == id)
+                return g.GetComponentInChildren<EnemiesOnPlatform>().Amount;
+        }
+        return -1; // can mess up, might have to be a really high value instead of low value
     }
 
     private bool CheckPlatform(int pId)
     {
         if (EnemiesOnPlatform(pId) < _bossData.MaxEnemiesPerPlatfor) return true;
-        //_trySpawnCounter++;
-        // remove the ID from the list
-        _platformIds = _platformIds.Where(val => val != pId).ToArray();
-        foreach (var i in _platformIds)
-            Debug.Log(i + " - " + _spawnPoints[i].name);
 
+        _platformIds = _platformIds.Where(val => val != pId).ToArray();
         return false;
-        // restart Execute command
-        //Execute();
     }
 }

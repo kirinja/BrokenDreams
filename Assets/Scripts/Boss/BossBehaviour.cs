@@ -11,12 +11,9 @@ public class BossBehaviour : MonoBehaviour
     public IBossPhaseState BossState;
 
     public int HitsPhaseOne = 1;
-    public int HitsPhaseTwo = 3;
+    public int HitsPhaseTwo = 2;
     public int HitsPhaseThree = 3;
-
-    //public float SwitchPhaseOne = 0.3f;
-    //public float SwitchPhaseTwo = 0.3f;
-    //public float SwitchPhaseThree = 0.3f;
+    
     
     // enemy to spawn
     public GameObject Enemy1;
@@ -25,12 +22,9 @@ public class BossBehaviour : MonoBehaviour
     public GameObject Acid;
 
     public GameObject[] PhasePlatforms;
-    //public GameObject[] Phase1Launch;
-    //public GameObject[] Phase2Launch;
 
     public GameObject Phase1Launch;
     public GameObject Phase2Launch;
-    //private int phaseIndex = 0;
 
     public GameObject PushableBox;
 
@@ -79,17 +73,17 @@ public class BossBehaviour : MonoBehaviour
     public AudioClip[] BossDamageSounds;
     public AudioClip[] BossDeathSounds;
 
+    [HideInInspector] public bool Invincible;
+    [HideInInspector] private float _invincibleTimer = 0.0f;
+    [HideInInspector] private float _invincibleTime = 1.0f;
+    private bool _visible;
+
 	// Use this for initialization
 	void Start () {
 		BossState = new BossPhaseOne();
         BossState.Enter(this);
-        /*
-	    damageSwitchPhase1 = HP - HP * SwitchPhaseOne;
-	    damageSwitchPhase2 = HP - HP * (SwitchPhaseOne + SwitchPhaseTwo);
-	    damageSwitchPhase3 = HP - HP;
-        */
 
-	    _audioSources = GetComponents<AudioSource>();
+        _audioSources = GetComponents<AudioSource>();
 	    _bossDirectSounds = _audioSources[0];
 	    _bossProjSounds = _audioSources[1];
 
@@ -97,6 +91,8 @@ public class BossBehaviour : MonoBehaviour
 	    damageSwitchPhase1 = HP - HitsPhaseOne;
 	    damageSwitchPhase2 = damageSwitchPhase1 - HitsPhaseTwo;
 	    damageSwitchPhase3 = damageSwitchPhase2 - HitsPhaseThree;
+
+	    _visible = true;
 	}
 	
 	// Update is called once per frame
@@ -105,50 +101,86 @@ public class BossBehaviour : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
             if (BossState != null)
                 BossState.TakeDamage(1);
+	    
+        BossInvincible();
 
-	    if (HP <= 0 && BossState != null)
-	    {
-            BossState.Exit();
-	        BossState = null;
-
-            var gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-            gameManager.BeatLevel(SceneManager.GetActiveScene().name);
-            gameManager.SaveToMemory();
-            gameManager.SaveToFiles();
-            
-
-            var fishEye = new FishEyeTransition()
-            {
-                nextScene = "Hub",
-                duration = 5.0f,
-                size = 0.2f,
-                zoom = 100.0f,
-                colorSeparation = 0.1f
-            };
-            TransitionKit.instance.transitionWithDelegate(fishEye);
-        }
-
+	    if (BossDefeated()) return;
 	    if (BossState == null) return;
 
-	    var newState = BossState.Execute();
-
-        // change phase
-	    if (newState == null) return;
-        
-        PlayBossDeathSound();
-        //PhasePlatforms[phaseIndex].SetActive(false);
-	    BossState.Exit();
-	    BossState = newState;
-	    newState.Enter(this);
-	    //++phaseIndex;
-	    //if (phaseIndex >= PhasePlatforms.Length)
-	    //    phaseIndex = PhasePlatforms.Length;
-
-        //PhasePlatforms[phaseIndex].SetActive(true);
-	    // here we also need to control the boss arena?
-	    // or maybe that should be seperate
-	    // is this controlling only the boss behaviour or the boss arena as well?
+        NextState();
 	}
+
+    private void BossInvincible()
+    {
+        MeshRenderer[] renders;
+        if (Invincible)
+        {
+            _invincibleTimer += Time.deltaTime;
+
+            // add flashing possibly
+            if (_invincibleTime % 0.2f < 0.1f)
+            {
+                // doesnt flash, have to look over
+                _visible = !_visible;
+                renders = GetComponentsInChildren<MeshRenderer>();
+                foreach (var r in renders)
+                    r.enabled = _visible;
+            }
+
+        }
+        if (!(_invincibleTimer >= _invincibleTime)) return;
+        
+        Invincible = false;
+        _invincibleTimer = 0.0f;
+
+        renders = GetComponentsInChildren<MeshRenderer>();
+        foreach (var r in renders)
+            r.enabled = true;
+        
+    }
+
+    private void NextState()
+    {
+        var newState = BossState.Execute();
+        // change phase
+        if (newState == null) return;
+
+        PlayBossDeathSound();
+
+        // heal player between boss phases
+        var player = GameObject.FindGameObjectWithTag("Player");
+        var hpToHeal = player.GetComponent<PlayerAttributes>().MaxHP - player.GetComponent<PlayerAttributes>().currentHealth;
+        player.GetComponent<PlayerHealth>().Heal(hpToHeal);
+
+        BossState.Exit();
+        BossState = newState;
+        newState.Enter(this);
+    }
+
+    private bool BossDefeated()
+    {
+        if (HP > 0 || BossState == null) return false;
+
+        BossState.Exit();
+        BossState = null;
+
+        var gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager.BeatLevel(SceneManager.GetActiveScene().name);
+        gameManager.SaveToMemory();
+        gameManager.SaveToFiles();
+
+
+        var fishEye = new FishEyeTransition()
+        {
+            nextScene = "Hub",
+            duration = 5.0f,
+            size = 0.2f,
+            zoom = 100.0f,
+            colorSeparation = 0.1f
+        };
+        TransitionKit.instance.transitionWithDelegate(fishEye);
+        return true;
+    }
 
     public void PlayBossIdleSound()
     {

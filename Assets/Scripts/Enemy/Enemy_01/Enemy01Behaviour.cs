@@ -12,6 +12,7 @@ public class Enemy01Behaviour : Enemy
     public LayerMask CollisionMask;
     public float HealthDropChance = 0.2f;
     public GameObject HealthDrop;
+    
 
     
     public AudioClip deathClip;
@@ -24,6 +25,25 @@ public class Enemy01Behaviour : Enemy
     private Transform platform;
     private Vector3 previousPlatformPosition;
     private bool dead;
+    private Bounds skinnedBounds
+    {
+        get
+        {
+            var bounds = GetComponent<BoxCollider>().bounds;
+            bounds.Expand(-0.03f);
+            return bounds;
+        }
+    }
+    
+
+    public raycastOrigins getUpdatedRaycastOrigins()
+    {
+        var SkinnedBounds = skinnedBounds;
+        var raycastOrigins = new raycastOrigins();
+        raycastOrigins.bottomBack = (new Vector3(SkinnedBounds.min.x, SkinnedBounds.min.y, SkinnedBounds.min.z) + new Vector3(SkinnedBounds.min.x, SkinnedBounds.min.y, SkinnedBounds.max.z)) / 2f;
+        raycastOrigins.bottomFront = (new Vector3(SkinnedBounds.max.x, SkinnedBounds.min.y, SkinnedBounds.min.z) + new Vector3(SkinnedBounds.max.x, SkinnedBounds.min.y, SkinnedBounds.max.z)) / 2f;
+        return raycastOrigins;
+    }
 
     public override GameObject Drop
     {
@@ -72,6 +92,14 @@ public class Enemy01Behaviour : Enemy
             other.gameObject.GetComponent<Controller3D>().AttackPlayer(transform.position, 1);
             
         }
+    }
+
+    public bool getDirection()
+    {
+        if (StartVelocity.x > 0)
+            return true;
+        else
+            return false;
     }
 
     private GameObject GetGround()
@@ -131,9 +159,16 @@ public class Enemy01Behaviour : Enemy
         var g = Drop;
         if (g != null)
             GameObject.Instantiate(g, transform.position + new Vector3(0, 0.1f, 0), Quaternion.identity);
-        src.PlayOneShot(deathClip);
+
         GetComponent<Collider>().enabled = false;
         GetComponent<MeshRenderer>().enabled = false;
+
+        // disable movable object children only
+        for (var i = 0; i < transform.childCount; i++)
+        {
+            if (transform.GetChild(i).CompareTag("Movable Object"))
+                transform.GetChild(i).gameObject.SetActive(false);
+        }
     }
 
     private IEnumerator deathTime()
@@ -159,4 +194,10 @@ public class Enemy01Behaviour : Enemy
     {
         throw new NotImplementedException();
     }
+}
+
+public struct raycastOrigins
+{
+    public Vector3 bottomBack;
+    public Vector3 bottomFront;
 }
