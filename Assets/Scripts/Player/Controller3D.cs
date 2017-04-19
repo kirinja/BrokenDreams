@@ -140,7 +140,6 @@ public class Controller3D : MonoBehaviour
         HandleCollisions(Move());
         DrawAxes();
         GetComponentInChildren<Rigidbody>().position = transform.position;
-        //GetComponentInChildren<Rigidbody>().rotation = transform.rotation;
     }
 
     private void SetAbilityActivated(int index)
