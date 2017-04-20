@@ -194,6 +194,11 @@ public class Enemy01Behaviour : Enemy
     {
         throw new NotImplementedException();
     }
+
+    public void setVec(Vector3 vec)
+    {
+        StartVelocity = vec;
+    }
 }
 
 public struct raycastOrigins
