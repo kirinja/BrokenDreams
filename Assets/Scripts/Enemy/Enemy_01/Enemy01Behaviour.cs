@@ -57,7 +57,7 @@ public class Enemy01Behaviour : Enemy
         dead = false;
 	}
 	
-	// UpdateTime is called once per frame
+	// UpdateAbility is called once per frame
 	void Update () {
         if (!dead)
         {

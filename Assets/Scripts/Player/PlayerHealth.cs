@@ -4,7 +4,9 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public Slider healthSlider;
+    //public Slider healthSlider;
+
+	public Heart[] hearts;
 
     private Controller3D controller3D;
     private PlayerAttributes playerAttributes;
@@ -18,7 +20,13 @@ public class PlayerHealth : MonoBehaviour
 
     private void Update()
     {
-
+		for (var i = 0; i < hearts.Length; ++i) {
+			if (playerAttributes.currentHealth > i) {
+				hearts [i].SetFilled (true);
+			} else {
+				hearts [i].SetFilled (false);
+			}
+		}
     }
 
     private void Awake()
@@ -38,7 +46,7 @@ public class PlayerHealth : MonoBehaviour
 
         playerAttributes.currentHealth -= amount;
 
-        healthSlider.value = playerAttributes.currentHealth;
+       // healthSlider.value = playerAttributes.currentHealth;
 
         if (playerAttributes.currentHealth <= 0 && !isDead)
         {
@@ -54,7 +62,7 @@ public class PlayerHealth : MonoBehaviour
             health = playerAttributes.MaxHP;
         }
         playerAttributes.currentHealth = health;
-        healthSlider.value = health;
+        //healthSlider.value = health;
     }
 
     void Death()
@@ -69,6 +77,6 @@ public class PlayerHealth : MonoBehaviour
     {
         isDead = false;
         playerAttributes.currentHealth = playerAttributes.MaxHP;
-        healthSlider.value = playerAttributes.currentHealth;
+        //healthSlider.value = playerAttributes.currentHealth;
     }
 }
