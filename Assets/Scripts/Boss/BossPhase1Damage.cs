@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossPhase1Damage : MonoBehaviour {
+public class BossPhase1Damage : MonoBehaviour
+{
+    public GameObject LeftButton;
+    public GameObject RightButton;
+    
 
 	// Use this for initialization
 	void Start () {
@@ -10,10 +14,14 @@ public class BossPhase1Damage : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		
+	void Update ()
+	{
+
+	    if (LeftButton.GetComponent<BossButton>().Active && RightButton.GetComponent<BossButton>().Active)
+	        StartCoroutine(Delay(1, null));
 	}
 
+    /*
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Movable Object"))
@@ -24,12 +32,12 @@ public class BossPhase1Damage : MonoBehaviour {
             //Destroy(other.transform);
             //GetComponentInParent<BossBehaviour>().BossState.TakeDamage(1);
         }
-    }
+    }*/
 
     IEnumerator Delay(float seconds, GameObject other)
     {
         yield return new WaitForSeconds(seconds);
-        Destroy(other);
+        //Destroy(other);
         GetComponentInParent<BossBehaviour>().BossState.TakeDamage(1);
     }
 
