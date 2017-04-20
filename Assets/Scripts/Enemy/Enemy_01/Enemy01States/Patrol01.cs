@@ -17,18 +17,18 @@ public class Patrol01 : Enemy01State {
 
     public void Update()
     {
-        RaycastHit hitInfo;
+        //RaycastHit hitInfo;
         var origins = enemy.getUpdatedRaycastOrigins();
         /*if (!(Physics.Raycast(enemy.transform.position, Vector3.down, out hitInfo, enemy.GroundCheckDistance, enemy.CollisionMask)))
         {
             enemy.invertVec();
         }*/
-        if (!(Physics.Raycast(origins.bottomBack, Vector3.down, enemy.GroundCheckDistance, enemy.CollisionMask)) && !enemy.getDirection())
+        if (!(Physics.Raycast(origins.bottomBack + enemy.getVec() * Time.deltaTime, Vector3.down, enemy.GroundCheckDistance, enemy.CollisionMask)) && !enemy.getDirection())
         {
             enemy.invertVec();
             Debug.Log("Direction: Should be false, is " + enemy.getDirection());
         }
-        if (!(Physics.Raycast(origins.bottomFront, Vector3.down, enemy.GroundCheckDistance, enemy.CollisionMask)) && enemy.getDirection())
+        if (!(Physics.Raycast(origins.bottomFront + enemy.getVec() * Time.deltaTime, Vector3.down, enemy.GroundCheckDistance, enemy.CollisionMask)) && enemy.getDirection())
         {
             enemy.invertVec();
             Debug.Log("Direction: Should be True, is " + enemy.getDirection());
