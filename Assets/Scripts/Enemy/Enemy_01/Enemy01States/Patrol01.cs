@@ -23,15 +23,15 @@ public class Patrol01 : Enemy01State {
         {
             enemy.invertVec();
         }*/
-        if (!(Physics.Raycast(origins.bottomBack + enemy.getVec() * Time.deltaTime, Vector3.down, enemy.GroundCheckDistance, enemy.CollisionMask)) && !enemy.getDirection())
+        if (!(Physics.Raycast(origins.bottomBack + enemy.getVec() * Time.deltaTime, Vector3.down, enemy.GroundCheckDistance, enemy.CollisionMask)))
         {
-            enemy.invertVec();
-            Debug.Log("Direction: Should be false, is " + enemy.getDirection());
+            enemy.setVec(new Vector3(3,0,0));
+            
         }
-        if (!(Physics.Raycast(origins.bottomFront + enemy.getVec() * Time.deltaTime, Vector3.down, enemy.GroundCheckDistance, enemy.CollisionMask)) && enemy.getDirection())
+        if (!(Physics.Raycast(origins.bottomFront + enemy.getVec() * Time.deltaTime, Vector3.down, enemy.GroundCheckDistance, enemy.CollisionMask)))
         {
-            enemy.invertVec();
-            Debug.Log("Direction: Should be True, is " + enemy.getDirection());
+            enemy.setVec(new Vector3(-3, 0,0 ));
+            
         }
 
         enemy.transform.localPosition += enemy.getVec() * Time.deltaTime;
