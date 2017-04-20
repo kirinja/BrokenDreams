@@ -158,6 +158,23 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 84382dbb7dc5aed46be220931dd9379c, type: 3}
   m_PrefabInternal: {fileID: 9162468}
+--- !u!1 &9162470 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100000, guid: 84382dbb7dc5aed46be220931dd9379c, type: 3}
+  m_PrefabInternal: {fileID: 9162468}
+--- !u!114 &9162471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 9162470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67450bbb3885f144aafc8d1e0b84df26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Inverted: 0
+  Scene: Level_02_2D
 --- !u!1 &140799602
 GameObject:
   m_ObjectHideFlags: 0
@@ -585,7 +602,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: -1889073732
+  randomSeed: 1939698453
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3306,7 +3323,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: -727540837
+  randomSeed: 1929312476
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -6190,6 +6207,36 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 542376405}
   m_Script: {fileID: 11500000, guid: 02319d9710ebf654c8e51fd21d42a23e, type: 3}
+--- !u!114 &542376407 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114208619124135468, guid: 403946d394364944e8f517ea508880b7,
+    type: 2}
+  m_PrefabInternal: {fileID: 542376405}
+  m_Script: {fileID: 11500000, guid: 5350ffb57bbe642438b59fb50ee3e103, type: 3}
+--- !u!114 &542376408 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114222942225234632, guid: 403946d394364944e8f517ea508880b7,
+    type: 2}
+  m_PrefabInternal: {fileID: 542376405}
+  m_Script: {fileID: 11500000, guid: 5350ffb57bbe642438b59fb50ee3e103, type: 3}
+--- !u!114 &542376409 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114846463572028226, guid: 403946d394364944e8f517ea508880b7,
+    type: 2}
+  m_PrefabInternal: {fileID: 542376405}
+  m_Script: {fileID: 11500000, guid: 5350ffb57bbe642438b59fb50ee3e103, type: 3}
+--- !u!114 &542376410 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114605316167549546, guid: 403946d394364944e8f517ea508880b7,
+    type: 2}
+  m_PrefabInternal: {fileID: 542376405}
+  m_Script: {fileID: 11500000, guid: 5350ffb57bbe642438b59fb50ee3e103, type: 3}
+--- !u!114 &542376411 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114736630029471724, guid: 403946d394364944e8f517ea508880b7,
+    type: 2}
+  m_PrefabInternal: {fileID: 542376405}
+  m_Script: {fileID: 11500000, guid: 5350ffb57bbe642438b59fb50ee3e103, type: 3}
 --- !u!1 &582425139
 GameObject:
   m_ObjectHideFlags: 0
@@ -6329,7 +6376,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: -1132964177
+  randomSeed: -1894707022
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -6502,7 +6549,7 @@ ParticleSystem:
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 1}
+      maxColor: {r: 1, g: 0.47843137, b: 0.47843137, a: 1}
       minMaxState: 0
     startSize:
       scalar: 3.3
@@ -9019,7 +9066,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Target: {fileID: 984642963}
   Size: {x: 1, y: 1}
-  Offset: {x: 0, y: 0, z: 10}
+  Offset: {x: 0, y: 0, z: 13}
   SmoothFactor: 7
 --- !u!114 &610559896
 MonoBehaviour:
@@ -9528,7 +9575,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: -690757751
+  randomSeed: 1317702105
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -12225,6 +12272,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114973150886939512, guid: de333fd6865a1924abd6495a01270364,
+        type: 2}
+      propertyPath: hearts.Array.size
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 114215857018685574, guid: de333fd6865a1924abd6495a01270364,
         type: 2}
       propertyPath: Abilities.Array.size
@@ -12365,6 +12417,31 @@ Prefab:
       propertyPath: AbilityUI
       value: 
       objectReference: {fileID: 542376406}
+    - target: {fileID: 114973150886939512, guid: de333fd6865a1924abd6495a01270364,
+        type: 2}
+      propertyPath: hearts.Array.data[0]
+      value: 
+      objectReference: {fileID: 542376411}
+    - target: {fileID: 114973150886939512, guid: de333fd6865a1924abd6495a01270364,
+        type: 2}
+      propertyPath: hearts.Array.data[1]
+      value: 
+      objectReference: {fileID: 542376410}
+    - target: {fileID: 114973150886939512, guid: de333fd6865a1924abd6495a01270364,
+        type: 2}
+      propertyPath: hearts.Array.data[2]
+      value: 
+      objectReference: {fileID: 542376409}
+    - target: {fileID: 114973150886939512, guid: de333fd6865a1924abd6495a01270364,
+        type: 2}
+      propertyPath: hearts.Array.data[3]
+      value: 
+      objectReference: {fileID: 542376408}
+    - target: {fileID: 114973150886939512, guid: de333fd6865a1924abd6495a01270364,
+        type: 2}
+      propertyPath: hearts.Array.data[4]
+      value: 
+      objectReference: {fileID: 542376407}
     m_RemovedComponents:
     - {fileID: 114686585740528660, guid: de333fd6865a1924abd6495a01270364, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: de333fd6865a1924abd6495a01270364, type: 2}
@@ -12558,7 +12635,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
+  orthographic: 1
   orthographic size: 1
   m_Depth: 0
   m_CullingMask:
@@ -12654,6 +12731,23 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 84382dbb7dc5aed46be220931dd9379c, type: 3}
   m_PrefabInternal: {fileID: 1604330185}
+--- !u!1 &1604330187 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100000, guid: 84382dbb7dc5aed46be220931dd9379c, type: 3}
+  m_PrefabInternal: {fileID: 1604330185}
+--- !u!114 &1604330188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1604330187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67450bbb3885f144aafc8d1e0b84df26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Inverted: 0
+  Scene: Level_01
 --- !u!1 &1689987028
 GameObject:
   m_ObjectHideFlags: 0

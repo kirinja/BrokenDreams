@@ -18,7 +18,7 @@ public abstract class Ability : ScriptableObject
         timeLeft = 0f;
     }
 
-    public void UpdateTime()
+    public virtual void UpdateAbility()
     {
         if (timeLeft > 0)
         {
