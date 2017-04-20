@@ -14,7 +14,7 @@ public class AttackableMaterialChanger : MonoBehaviour
         material.color = abilityColor.AttackColor;
 	}
 	
-	// UpdateTime is called once per frame
+	// UpdateAbility is called once per frame
 	void Update ()
     {
         // this snippet only run when in the editor

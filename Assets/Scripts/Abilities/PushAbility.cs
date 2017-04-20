@@ -4,6 +4,11 @@
 class PushAbility : Ability
 {
     public float PushRange = 0.5f;
+    public float PushLength = 5f;
+
+    private float pushSpeed;
+    private Controller3D controller;
+    private bool active;
 
     private void OnEnable()
     {
@@ -12,12 +17,19 @@ class PushAbility : Ability
 
     public override CharacterStateSwitch3D Use(Controller3D controller)
     {
+        active = true;
+        this.controller = controller;
+        pushSpeed = controller.Attributes.MaxSpeed;
         timeLeft = Cooldown;
 
-		controller.Animator.SetTrigger ("Push");
+
+
+		controller.Animator.SetTrigger("Push");
 
 		controller.transform.Find("Push").Find("SpeedLines").GetComponent<ParticleSystem>().Play();
 		controller.transform.Find("Push").Find("Magic").GetComponent<ParticleSystem>().Play();
+
+
 
         RaycastHit hitInfo;
         if (Physics.Raycast(controller.transform.position,
@@ -26,10 +38,15 @@ class PushAbility : Ability
             var pushable = hitInfo.transform.GetComponent<Pushable>();
             if (pushable)
             {
-                pushable.Push(controller.Forward);
+                pushable.Push(controller.Forward, PushLength);
             }
         }
 
         return new CharacterStateSwitch3D();
+    }
+
+    public override void UpdateAbility()
+    {
+        base.UpdateAbility();
     }
 }

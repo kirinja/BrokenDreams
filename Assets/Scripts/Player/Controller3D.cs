@@ -114,7 +114,7 @@ public class Controller3D : MonoBehaviour
         var usedAbilities = new bool[4];
         for (var i = 0; i < Attributes.Abilities.Count; ++i)
         {
-            Attributes.Abilities[i].UpdateTime();
+            Attributes.Abilities[i].UpdateAbility();
             if (Attributes.Abilities[i].CanUse && useAbility[i])
             {
                 var state = Attributes.Abilities[i].Use(this);

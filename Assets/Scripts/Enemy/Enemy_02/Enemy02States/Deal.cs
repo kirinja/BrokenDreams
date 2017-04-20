@@ -13,7 +13,7 @@ public class Deal : EnemyState {
     private bool visible;
     private MeshRenderer[] render;
 
-	// UpdateTime is called once per frame
+	// UpdateAbility is called once per frame
 	public void Update () {
         timeActive += Time.deltaTime;
         if(timeActive % 0.2f < 0.1f)
