@@ -661,7 +661,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: -481827782
+  randomSeed: 1203408042
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3435,7 +3435,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: -1995052939
+  randomSeed: 725492507
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -6568,6 +6568,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &188245580 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114605316167549546, guid: 403946d394364944e8f517ea508880b7,
+    type: 2}
+  m_PrefabInternal: {fileID: 1729973154}
+  m_Script: {fileID: 11500000, guid: 5350ffb57bbe642438b59fb50ee3e103, type: 3}
 --- !u!1 &199522041
 GameObject:
   m_ObjectHideFlags: 0
@@ -6847,6 +6853,12 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 241154320}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &248982495 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114736630029471724, guid: 403946d394364944e8f517ea508880b7,
+    type: 2}
+  m_PrefabInternal: {fileID: 1729973154}
+  m_Script: {fileID: 11500000, guid: 5350ffb57bbe642438b59fb50ee3e103, type: 3}
 --- !u!1 &264250129
 GameObject:
   m_ObjectHideFlags: 0
@@ -7428,6 +7440,12 @@ Transform:
   m_PrefabParentObject: {fileID: 4025832465845708, guid: 3703d86a4bf64e446b39f5bff64ef683,
     type: 2}
   m_PrefabInternal: {fileID: 2068577523}
+--- !u!114 &466587812 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114222942225234632, guid: 403946d394364944e8f517ea508880b7,
+    type: 2}
+  m_PrefabInternal: {fileID: 1729973154}
+  m_Script: {fileID: 11500000, guid: 5350ffb57bbe642438b59fb50ee3e103, type: 3}
 --- !u!1 &468864128
 GameObject:
   m_ObjectHideFlags: 0
@@ -9187,7 +9205,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: 1985825964
+  randomSeed: 1847495942
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -9360,7 +9378,7 @@ ParticleSystem:
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 1}
+      maxColor: {r: 1, g: 0.44705883, b: 0.44705883, a: 1}
       minMaxState: 0
     startSize:
       scalar: 3.3
@@ -14410,8 +14428,8 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
-  orthographic size: 5
+  orthographic: 1
+  orthographic size: 1
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -14447,6 +14465,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114973150886939512, guid: de333fd6865a1924abd6495a01270364,
+        type: 2}
+      propertyPath: hearts.Array.size
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 114215857018685574, guid: de333fd6865a1924abd6495a01270364,
         type: 2}
       propertyPath: Abilities.Array.size
@@ -14604,6 +14627,31 @@ Prefab:
       propertyPath: AbilityUI
       value: 
       objectReference: {fileID: 1729973155}
+    - target: {fileID: 114973150886939512, guid: de333fd6865a1924abd6495a01270364,
+        type: 2}
+      propertyPath: hearts.Array.data[0]
+      value: 
+      objectReference: {fileID: 248982495}
+    - target: {fileID: 114973150886939512, guid: de333fd6865a1924abd6495a01270364,
+        type: 2}
+      propertyPath: hearts.Array.data[1]
+      value: 
+      objectReference: {fileID: 188245580}
+    - target: {fileID: 114973150886939512, guid: de333fd6865a1924abd6495a01270364,
+        type: 2}
+      propertyPath: hearts.Array.data[2]
+      value: 
+      objectReference: {fileID: 1947683016}
+    - target: {fileID: 114973150886939512, guid: de333fd6865a1924abd6495a01270364,
+        type: 2}
+      propertyPath: hearts.Array.data[3]
+      value: 
+      objectReference: {fileID: 466587812}
+    - target: {fileID: 114973150886939512, guid: de333fd6865a1924abd6495a01270364,
+        type: 2}
+      propertyPath: hearts.Array.data[4]
+      value: 
+      objectReference: {fileID: 1708922565}
     m_RemovedComponents:
     - {fileID: 114471618969616452, guid: de333fd6865a1924abd6495a01270364, type: 2}
     - {fileID: 114686585740528660, guid: de333fd6865a1924abd6495a01270364, type: 2}
@@ -15122,7 +15170,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: -455209950
+  randomSeed: 722092846
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -18131,6 +18179,12 @@ Transform:
   m_Father: {fileID: 2002304576}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1708922565 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114208619124135468, guid: 403946d394364944e8f517ea508880b7,
+    type: 2}
+  m_PrefabInternal: {fileID: 1729973154}
+  m_Script: {fileID: 11500000, guid: 5350ffb57bbe642438b59fb50ee3e103, type: 3}
 --- !u!1 &1718906216
 GameObject:
   m_ObjectHideFlags: 0
@@ -19326,6 +19380,12 @@ Transform:
   m_Father: {fileID: 448695315}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1947683016 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114846463572028226, guid: 403946d394364944e8f517ea508880b7,
+    type: 2}
+  m_PrefabInternal: {fileID: 1729973154}
+  m_Script: {fileID: 11500000, guid: 5350ffb57bbe642438b59fb50ee3e103, type: 3}
 --- !u!1 &1986189899
 GameObject:
   m_ObjectHideFlags: 0
