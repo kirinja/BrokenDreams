@@ -115,7 +115,9 @@ public class GameManager : MonoBehaviour
             case "Level_02":
                 return CompletedLevels.ContainsKey("Level_01") && CompletedLevels["Level_01"];
             case "Boss_01":
-                return CompletedLevels.ContainsKey("Level_01") && CompletedLevels["Level_01"] && CompletedLevels.ContainsKey("Level_02") && CompletedLevels["Level_02"];
+                //return CompletedLevels.ContainsKey("Level_01") && CompletedLevels["Level_01"] && CompletedLevels.ContainsKey("Level_02") && CompletedLevels["Level_02"];
+                return CompletedLevels.ContainsKey("Level_01") && CompletedLevels["Level_01"] &&
+                       CompletedLevels.ContainsKey("Level_02_2D") && CompletedLevels["Level_02_2D"];
             default:
                 return false;
         }
