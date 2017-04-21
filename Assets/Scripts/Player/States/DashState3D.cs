@@ -9,7 +9,7 @@ class DashState3D : ICharacterState3D
     public DashState3D(Controller3D controller)
     {
         this.controller = controller;
-        previousVelocity = controller.transform.InverseTransformDirection(controller.Velocity);
+        previousVelocity = controller.Velocity;
 
         dashTimer = new Timer(controller.GetComponent<PlayerAttributes>().DashTime);
         UpdateRotation();
@@ -17,7 +17,7 @@ class DashState3D : ICharacterState3D
         var attributes = controller.GetComponent<PlayerAttributes>();
         var speed = attributes.DashLength / attributes.DashTime;
 
-        controller.Velocity = controller.Forward * speed;
+        controller.Velocity = Mathf.Sign(controller.Forward.x) * speed * Vector2.right;
         Debug.Log(controller.Velocity);
     }
 
