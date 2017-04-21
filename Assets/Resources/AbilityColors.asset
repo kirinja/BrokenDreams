@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: AbilityColors
   m_EditorClassIdentifier: 
   DefaultColor: {r: 0, g: 0, b: 0, a: 0}
-  PushColor: {r: 0.027450982, g: 0.454902, b: 0.81568635, a: 0}
+  PushColor: {r: 0.8156863, g: 0.69803923, b: 0.05882353, a: 0}
   AttackColor: {r: 0.9176471, g: 0.098039225, b: 0.098039225, a: 0}
-  DashColor: {r: 0.81568635, g: 0.69803923, b: 0.058823533, a: 0}
+  DashColor: {r: 0.02745098, g: 0.45490196, b: 0.8156863, a: 0}
   JumpColor: {r: 0.08627451, g: 0.6862745, b: 0.2627451, a: 0}
