@@ -20,13 +20,22 @@ public class PlayerHealth : MonoBehaviour
 
     private void Update()
     {
+        /*
 		for (var i = 0; i < hearts.Length; ++i) {
 			if (playerAttributes.currentHealth > i) {
 				hearts [i].SetFilled (true);
 			} else {
 				hearts [i].SetFilled (false);
 			}
-		}
+		}*/
+    }
+
+    void UpdateHearts()
+    {
+        for (var i = 0; i < hearts.Length; ++i)
+        {
+            hearts[i].SetFilled(playerAttributes.currentHealth > i);
+        }
     }
 
     private void Awake()
@@ -46,6 +55,9 @@ public class PlayerHealth : MonoBehaviour
 
         playerAttributes.currentHealth -= amount;
 
+        UpdateHearts();
+
+
        // healthSlider.value = playerAttributes.currentHealth;
 
         if (playerAttributes.currentHealth <= 0 && !isDead)
@@ -62,6 +74,7 @@ public class PlayerHealth : MonoBehaviour
             health = playerAttributes.MaxHP;
         }
         playerAttributes.currentHealth = health;
+        UpdateHearts();
         //healthSlider.value = health;
     }
 

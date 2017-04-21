@@ -17,18 +17,9 @@ public class Heart : MonoBehaviour {
 		
 	}
 
-	public void SetFilled(bool isFilled){
-		if (isFilled) {
-			image.color = new Color (image.color.r, image.color.g, image.color.b, 1f);
-
-
-		} else {
-			
-			image.color = new Color (image.color.r, image.color.g, image.color.b, 0.1f);
-
-		}
- 
-
+	public void SetFilled(bool isFilled)
+	{
+	    image.color = isFilled ? new Color (image.color.r, image.color.g, image.color.b, 1f) : new Color (image.color.r, image.color.g, image.color.b, 0.1f);
 	}
 		
 }
