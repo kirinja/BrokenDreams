@@ -28,6 +28,7 @@ public class BossButton : MonoBehaviour
 
     void OnDisable()
     {
+        if (!Feedback) return;
         foreach (MeshRenderer r in Feedback.GetComponentsInChildren<MeshRenderer>())
         {
             r.sharedMaterial.color = Color.blue;
