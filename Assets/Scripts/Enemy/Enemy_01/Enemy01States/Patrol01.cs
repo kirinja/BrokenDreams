@@ -23,12 +23,12 @@ public class Patrol01 : Enemy01State {
         {
             enemy.invertVec();
         }*/
-        if (!(Physics.Raycast(origins.bottomBack + enemy.getVec() * Time.deltaTime, Vector3.down, enemy.GroundCheckDistance, enemy.CollisionMask)))
+        if (!(Physics.Raycast(origins.bottomBack + enemy.getVec() * Time.deltaTime, Vector3.down, enemy.GroundCheckDistance, enemy.CollisionMask)) && enemy.getVec() == new Vector3(-3, 0, 0))
         {
             enemy.setVec(new Vector3(3,0,0));
             
         }
-        if (!(Physics.Raycast(origins.bottomFront + enemy.getVec() * Time.deltaTime, Vector3.down, enemy.GroundCheckDistance, enemy.CollisionMask)))
+        if (!(Physics.Raycast(origins.bottomFront + enemy.getVec() * Time.deltaTime, Vector3.down, enemy.GroundCheckDistance, enemy.CollisionMask)) && enemy.getVec() == new Vector3(3,0,0))
         {
             enemy.setVec(new Vector3(-3, 0,0 ));
             
