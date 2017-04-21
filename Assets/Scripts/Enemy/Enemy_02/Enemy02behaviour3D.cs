@@ -5,7 +5,9 @@ using UnityEngine.AI;
 
 public class Enemy02behaviour3D : Enemy
 {
-    private int health = 3;
+    public int MaxHealth = 2;
+    
+    private int health;
     public float projSpeed;
 
     //private float moveSpeed = 2f;
@@ -47,6 +49,7 @@ public class Enemy02behaviour3D : Enemy
     // Use this for initialization
     void Start()
     {
+        health = MaxHealth;
         state = new Idle(this); //Base state for Enemy is idle, idle contains method for player detection
         var p = Instantiate<GameObject>(projectilePreFab);
         projectile = p.GetComponent<Projectile>();
