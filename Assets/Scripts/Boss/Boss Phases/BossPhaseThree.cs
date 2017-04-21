@@ -13,7 +13,7 @@ public class BossPhaseThree : IBossPhaseState
         _bossData = data;
         _bossData.PhasePlatforms[2].SetActive(true);
         _bossData.BossPhase3.SetActive(true);
-        _internalState = new BossSubThreePatrol();
+        _internalState = new BossSubThreeAttack();
         _internalState.Enter(_bossData);
     }
 
@@ -37,6 +37,12 @@ public class BossPhaseThree : IBossPhaseState
 
         _bossData.PhasePlatforms[2].SetActive(false);
         _bossData.BossPhase3.SetActive(false);
+        
+        var enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (var g in enemies)
+        {
+            Object.Destroy(g);
+        }
     }
 
     public bool Alive()

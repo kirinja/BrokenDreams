@@ -27,6 +27,7 @@ public class BossBehaviour : MonoBehaviour
     public GameObject Phase2Launch;
 
     public GameObject PushableBox;
+    public GameObject HealthPickUp;
 
     public GameObject NavmeshTargets;
 
@@ -148,9 +149,13 @@ public class BossBehaviour : MonoBehaviour
         PlayBossDeathSound();
 
         // heal player between boss phases
-        var player = GameObject.FindGameObjectWithTag("Player");
-        var hpToHeal = player.GetComponent<PlayerAttributes>().MaxHP - player.GetComponent<PlayerAttributes>().currentHealth;
-        player.GetComponent<PlayerHealth>().Heal(hpToHeal);
+        //var player = GameObject.FindGameObjectWithTag("Player");
+        //var hpToHeal = player.GetComponent<PlayerAttributes>().MaxHP - player.GetComponent<PlayerAttributes>().currentHealth;
+        //player.GetComponent<PlayerHealth>().Heal(hpToHeal);
+
+        // TODO Make this neater
+        Object.Instantiate(HealthPickUp, new Vector3(-6.25f, 1.5f, -1f), Quaternion.identity);
+        Object.Instantiate(HealthPickUp, new Vector3(-2.25f, 1.5f, -1f), Quaternion.identity);
 
         BossState.Exit();
         BossState = newState;
