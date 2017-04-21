@@ -15,7 +15,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void Start()
     {
-
+        UpdateHearts();
     }
 
     private void Update()
@@ -90,6 +90,7 @@ public class PlayerHealth : MonoBehaviour
     {
         isDead = false;
         playerAttributes.currentHealth = playerAttributes.MaxHP;
+        UpdateHearts();
         //healthSlider.value = playerAttributes.currentHealth;
     }
 }

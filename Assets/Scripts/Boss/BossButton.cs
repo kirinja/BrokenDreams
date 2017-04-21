@@ -18,6 +18,22 @@ public class BossButton : MonoBehaviour
         }
     }
 
+    void OnEnable()
+    {
+        foreach (MeshRenderer r in Feedback.GetComponentsInChildren<MeshRenderer>())
+        {
+            r.sharedMaterial.color = Color.blue;
+        }
+    }
+
+    void OnDisable()
+    {
+        foreach (MeshRenderer r in Feedback.GetComponentsInChildren<MeshRenderer>())
+        {
+            r.sharedMaterial.color = Color.blue;
+        }
+    }
+
     void OnApplicationQuit()
     {
         foreach (MeshRenderer r in Feedback.GetComponentsInChildren<MeshRenderer>())
