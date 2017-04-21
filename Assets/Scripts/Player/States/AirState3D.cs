@@ -4,7 +4,8 @@ using UnityEngine;
 public struct AirState3D : ICharacterState3D
 {
     private readonly Controller3D controller;
-    private bool willJump, jumping;
+    private bool willJump, jumping, jumpButtonUp;
+
 
     public AirState3D(Controller3D controller, bool willJump = false)
     {
@@ -13,26 +14,41 @@ public struct AirState3D : ICharacterState3D
             throw new ArgumentNullException("controller");
         }
 
+        jumpButtonUp = false;
         jumping = false;
         this.willJump = willJump;
         this.controller = controller;
     }
+
 
     public void Enter()
     {
 		controller.Animator.SetBool("InAir", true);
     }
 
+    public void Update()
+    {
+        jumpButtonUp = Input.GetButtonUp("Use Ability 2");
+    }
+
+
     public void Exit()
     {
 		controller.Animator.SetBool("InAir", false);
     }
+    
 
-    public void Update(Vector2 input)
+    public void LateUpdate()
+    {
+    }
+
+
+    public void PhysicsUpdate(Vector2 input)
     {
         UpdateVelocity(input);
     }
 
+    
     public CharacterStateSwitch3D HandleCollisions(CollisionFlags collisionFlags)
     {
         CharacterStateSwitch3D stateSwitch;
@@ -63,6 +79,7 @@ public struct AirState3D : ICharacterState3D
         return stateSwitch;
     }
 
+
     private void UpdateVelocity(Vector2 input)
     {
         var desiredVelocity = new Vector2(input.x * controller.GetComponent<PlayerAttributes>().MaxSpeed, 0f);
@@ -75,6 +92,7 @@ public struct AirState3D : ICharacterState3D
         HandleJumpEnded();
 		HandleJumpParticles();
     }
+
 
     private void UpdateRotation(Vector2 input)
     {
@@ -111,6 +129,7 @@ public struct AirState3D : ICharacterState3D
         controller.transform.eulerAngles = new Vector3(0f, currentAngle, 0f);
     }
 
+
     private void ApplyAcceleration(Vector2 desiredVelocity)
     {
         if (Mathf.Abs(desiredVelocity.x) <= 0) return;
@@ -124,6 +143,7 @@ public struct AirState3D : ICharacterState3D
         }
         controller.Velocity += Vector2.right * acceleration;
     }
+
 
     private void ApplyFriction(Vector2 desiredVelocity)
     {
@@ -161,10 +181,12 @@ public struct AirState3D : ICharacterState3D
         }
     }
 
+
     private void ApplyGravity()
     {
         controller.Velocity += controller.Gravity * Time.deltaTime;
     }
+
 
     private void HandleJumpParticles()
     {
@@ -175,6 +197,7 @@ public struct AirState3D : ICharacterState3D
             controller.transform.Find("Jump").Find("JumpTrail03").GetComponent<ParticleSystem>().Stop();
         }
     }
+
 
     private void CheckJump()
     {
@@ -190,10 +213,11 @@ public struct AirState3D : ICharacterState3D
         }
     }
 
+
     private void HandleJumpEnded()
     {
         var minJumpVelocity = controller.MinJumpVelocity;
-        if (Input.GetButtonUp("Use Ability 2") && jumping && controller.Velocity.y > minJumpVelocity)
+        if (jumpButtonUp && jumping && controller.Velocity.y > minJumpVelocity)
         {
             controller.Velocity = new Vector2(controller.Velocity.x, minJumpVelocity);
             jumping = false;
@@ -204,6 +228,7 @@ public struct AirState3D : ICharacterState3D
             jumping = false;
         }
     }
+
 
     public bool AttemptStateSwitch(CharacterStateSwitch3D state)
     {

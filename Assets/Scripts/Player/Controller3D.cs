@@ -7,7 +7,6 @@ using Debug = UnityEngine.Debug;
 [RequireComponent(typeof(Animator))]
 public class Controller3D : MonoBehaviour
 {
-    public Transform CameraTransform;
     public Material Material;
     public AbilityGUI AbilityUI;
     public LayerMask GroundMask;
@@ -35,12 +34,6 @@ public class Controller3D : MonoBehaviour
     public float MaxJumpVelocity { get { return 2 * GetComponent<PlayerAttributes>().MaxJumpHeight * GetComponent<PlayerAttributes>().MaxSpeed / (GetComponent<PlayerAttributes>().MaxJumpLength / 2); } }
     public float MinJumpVelocity { get { return Mathf.Sqrt(2 * Gravity.magnitude * GetComponent<PlayerAttributes>().MinJumpHeight); } }
 
-    private void Start()
-    {
-        Animator = GetComponent<Animator>();
-        Forward = transform.forward;
-        abilityColorActive = false;
-    }
 
     private void Awake()
     {
@@ -57,16 +50,14 @@ public class Controller3D : MonoBehaviour
         invincibleTime = 0f;
     }
 
-    private void OnApplicationQuit()
+
+    private void Start()
     {
-        ResetColor();
+        Animator = GetComponent<Animator>();
+        Forward = transform.forward;
+        abilityColorActive = false;
     }
 
-    private void ResetColor()
-    {
-        var abilityColor = Resources.Load("AbilityColors", typeof(AbilityColors)) as AbilityColors;
-        Material.SetColor("_Color", abilityColor.DefaultColor);
-    }
 
     private void Update()
     {
@@ -105,8 +96,31 @@ public class Controller3D : MonoBehaviour
             }
         }
 
+        characterState.Update();
+
         UpdateAnimator();
     }
+
+
+    private void LateUpdate()
+    {
+        characterState.LateUpdate();
+    }
+
+
+    private void OnApplicationQuit()
+    {
+        ResetColor();
+    }
+
+
+    private void ResetColor()
+    {
+        var abilityColor = Resources.Load("AbilityColors", typeof(AbilityColors)) as AbilityColors;
+        Material.SetColor("_Color", abilityColor.DefaultColor);
+    }
+
+    
 
     public void HandleMovement(bool[] useAbility, Vector2 input)
     {
@@ -136,7 +150,7 @@ public class Controller3D : MonoBehaviour
 
         AbilityUI.ShowAbilitiesUsed(usedAbilities);
 
-        characterState.Update(input);
+        characterState.PhysicsUpdate(input);
         HandleCollisions(Move());
         DrawAxes();
         GetComponentInChildren<Rigidbody>().position = transform.position;

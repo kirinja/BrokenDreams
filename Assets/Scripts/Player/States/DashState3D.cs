@@ -5,6 +5,8 @@ class DashState3D : ICharacterState3D
     private readonly Controller3D controller;
     private readonly Vector2 previousVelocity;
     private Timer dashTimer;
+    private bool dashButtonUp;
+
 
     public DashState3D(Controller3D controller)
     {
@@ -18,7 +20,8 @@ class DashState3D : ICharacterState3D
         var speed = attributes.DashLength / attributes.DashTime;
 
         controller.Velocity = Mathf.Sign(controller.Forward.x) * speed * Vector2.right;
-        Debug.Log(controller.Velocity);
+
+        dashButtonUp = false;
     }
 
     private void UpdateRotation()
@@ -40,12 +43,21 @@ class DashState3D : ICharacterState3D
 		controller.transform.Find("Dash").Find("Sparkle").GetComponent<ParticleSystem>().Play();
     }
 
+    public void Update()
+    {
+        dashButtonUp = Input.GetButtonUp("Use Ability 4");
+    }
+
     public void Exit()
     {
         controller.Velocity = Mathf.Abs(previousVelocity.x) <= controller.Attributes.MaxSpeed ? new Vector2(previousVelocity.x, 0f) : new Vector2(Mathf.Sign(previousVelocity.x) * controller.GetComponent<PlayerAttributes>().MaxSpeed, 0f);
 
 		controller.transform.Find("Dash").Find("DashTrail").GetComponent<ParticleSystem>().Stop();
 		controller.transform.Find("Dash").Find("Sparkle").GetComponent<ParticleSystem>().Stop();
+    }
+
+    public void LateUpdate()
+    {
     }
 
     public CharacterStateSwitch3D HandleCollisions(CollisionFlags collisionFlags)
@@ -59,9 +71,9 @@ class DashState3D : ICharacterState3D
         return new CharacterStateSwitch3D();
     }
 
-    public void Update(Vector2 input)
+    public void PhysicsUpdate(Vector2 input)
     {
-        if (dashTimer.Update(Time.deltaTime) || Input.GetButtonUp("Use Ability 4"))
+        if (dashTimer.Update(Time.deltaTime) || dashButtonUp)
         {
             controller.ChangeCharacterState(new CharacterStateSwitch3D(new AirState3D(controller)));
         }

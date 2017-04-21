@@ -24,20 +24,29 @@ public struct GroundState3D : ICharacterState3D
         controller.Velocity = new Vector2(controller.Velocity.x, 0f);
     }
 
+    public void Update()
+    {
+    }
+
     public void Exit()
     {
     }
 
-    public void Update(Vector2 input)
+    public void PhysicsUpdate(Vector2 input)
     {
         UpdateVelocity(input);
-        ClampToPlatform();
 
         if (Input.GetButtonDown("Taunt"))
         {
             controller.Animator.SetTrigger("Wave");
         }
     }
+
+    public void LateUpdate()
+    {
+        ClampToPlatform();
+    }
+
 
     private void ClampToPlatform()
     {
