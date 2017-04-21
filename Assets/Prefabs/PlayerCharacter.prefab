@@ -123,6 +123,8 @@ GameObject:
   - component: {fileID: 114215857018685574}
   - component: {fileID: 114973150886939512}
   - component: {fileID: 114303329055001562}
+  - component: {fileID: 114047789860700584}
+  - component: {fileID: 114207972078266408}
   m_Layer: 10
   m_Name: PlayerCharacter
   m_TagString: Player
@@ -831,7 +833,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1113272165826444}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 2.1, y: 0.91, z: -1}
+  m_LocalPosition: {x: 2.3, y: 1.4, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4766498613024338}
@@ -1274,7 +1276,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.48
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1520,6 +1522,18 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114047789860700584
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1113272165826444}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 150c91118e3dcad44ad672f6feacf5db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LockedZPosition: -1
 --- !u!114 &114096058426615598
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1553,6 +1567,21 @@ MonoBehaviour:
   checkpoints: {fileID: 8300000, guid: 20b7fc023f09d5b4b85b230f5d5728fb, type: 3}
   deadzones: {fileID: 8300000, guid: 7f6c801fb8eae9e4091fbfec57460ead, type: 3}
   room3: {fileID: 8300000, guid: dcfc578212442bb46b35617bfffd1814, type: 3}
+--- !u!114 &114207972078266408
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1113272165826444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a0cfe82a1f821c48919dbb91be7ec34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip:
+  - {fileID: 8300000, guid: 5017482d737023c4fb86ccf53fbd435d, type: 3}
+  - {fileID: 8300000, guid: 725c80baaa402314ba80a038f261ef9c, type: 3}
+  - {fileID: 8300000, guid: 725c80baaa402314ba80a038f261ef9c, type: 3}
 --- !u!114 &114215857018685574
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1567,7 +1596,7 @@ MonoBehaviour:
   MaxSpeed: 11
   GroundAccelerationTime: 0.17
   GroundDeaccelerationTime: 0.05
-  AirAccelerationTime: 0.2
+  AirAccelerationTime: 0.45
   AirDeaccelerationTime: 0.05
   MaxJumpLength: 12
   MaxJumpHeight: 6
@@ -1579,11 +1608,7 @@ MonoBehaviour:
   InvincibleTimeOnDamage: 1
   MaxHP: 5
   currentHealth: 0
-  Abilities:
-  - {fileID: 11400000, guid: e801c40a41e118e46b766f9d36d2b544, type: 2}
-  - {fileID: 11400000, guid: 5faafb6b41012314d965b51bd49994a4, type: 2}
-  - {fileID: 11400000, guid: bc3e782ac3259c04b8e3c31cf1206b7c, type: 2}
-  - {fileID: 11400000, guid: a2c0237ccb792e544871f99d68e023d2, type: 2}
+  Abilities: []
 --- !u!114 &114303329055001562
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1602,15 +1627,15 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1241654465295370}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0a0cfe82a1f821c48919dbb91be7ec34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   clip:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 8300000, guid: 20b7fc023f09d5b4b85b230f5d5728fb, type: 3}
+  - {fileID: 8300000, guid: 8964610cd721863428f7257859d8eda7, type: 3}
+  - {fileID: 8300000, guid: b12c6a8b5b95f974d8457f4947cd75db, type: 3}
 --- !u!114 &114973150886939512
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1622,7 +1647,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3748e6713b3e5914c93e5ab5e3202745, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthSlider: {fileID: 0}
+  hearts:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!119 &119322609043618046
 Projector:
   m_ObjectHideFlags: 1
@@ -2010,7 +2040,7 @@ ParticleSystem:
   speed: 1
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   autoRandomSeed: 1
   startDelay:
     scalar: 0
@@ -4647,7 +4677,7 @@ ParticleSystem:
   speed: 1
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   autoRandomSeed: 1
   startDelay:
     scalar: 0
@@ -4691,7 +4721,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1439117802
+  randomSeed: -1594363908
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -4852,7 +4882,7 @@ ParticleSystem:
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.101960786, g: 0.33333334, b: 1, a: 1}
+      maxColor: {r: 1, g: 1, b: 0.49411765, a: 1}
       minMaxState: 0
     startSize:
       scalar: 0.2
@@ -7272,7 +7302,7 @@ ParticleSystem:
   speed: 1
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   autoRandomSeed: 1
   startDelay:
     scalar: 0
@@ -9909,7 +9939,7 @@ ParticleSystem:
   speed: 1
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   autoRandomSeed: 1
   startDelay:
     scalar: 0
@@ -12546,7 +12576,7 @@ ParticleSystem:
   speed: 1
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   autoRandomSeed: 1
   startDelay:
     scalar: 0
@@ -15227,7 +15257,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 683521140
+  randomSeed: -1737391738
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -15400,8 +15430,8 @@ ParticleSystem:
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 0.5058824, a: 1}
-      minMaxState: 1
+      maxColor: {r: 0.38039216, g: 0.6431373, b: 0.7294118, a: 1}
+      minMaxState: 0
     startSize:
       scalar: 0.15
       maxCurve:
@@ -17870,7 +17900,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1114223976
+  randomSeed: 2003775561
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -18043,8 +18073,8 @@ ParticleSystem:
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 0.007843138, a: 1}
-      minMaxState: 1
+      maxColor: {r: 0.015686275, g: 0.0627451, b: 0.3764706, a: 1}
+      minMaxState: 0
     startSize:
       scalar: 1
       maxCurve:
@@ -20463,7 +20493,7 @@ ParticleSystem:
   speed: 1
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   autoRandomSeed: 1
   startDelay:
     scalar: 0
@@ -20507,7 +20537,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -2038828448
+  randomSeed: -637888263
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -20668,7 +20698,7 @@ ParticleSystem:
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.43529412, g: 0.5803922, b: 1, a: 1}
+      maxColor: {r: 0.9490196, g: 1, b: 0.61960787, a: 1}
       minMaxState: 0
     startSize:
       scalar: 0.1
