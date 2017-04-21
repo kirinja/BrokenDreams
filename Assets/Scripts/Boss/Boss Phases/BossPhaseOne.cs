@@ -48,6 +48,10 @@ public class BossPhaseOne : IBossPhaseState
         {
             Object.Destroy(g);
         }
+
+        // TODO Make this neater
+        //Object.Instantiate(_bossData.HealthPickUp, new Vector3(-6.25f, 1.5f, -1f), Quaternion.identity);
+        //Object.Instantiate(_bossData.HealthPickUp, new Vector3(-2.25f, 1.5f, -1f), Quaternion.identity);
     }
 
     public bool Alive()

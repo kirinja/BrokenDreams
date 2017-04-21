@@ -38,12 +38,14 @@ public class Camera2D : MonoBehaviour
     {
         if (!Target) return;
         
-        CalculateDirection();
-        CalculateOffset();
+        
         CalculateTargetArea();
         CalculateCameraArea();
 
         if (_cameraFocusArea.Contains(_targetFocusArea)) return;
+
+        CalculateDirection();
+        CalculateOffset();
         FollowTarget();
         
     }
