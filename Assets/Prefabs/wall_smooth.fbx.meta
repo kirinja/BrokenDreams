@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 4e5549c06d672a343b3e9a30ee4cc04a
-timeCreated: 1492702442
+guid: eef0d151e79f5584cac229eac256c196
+timeCreated: 1492782901
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -9,7 +9,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: pCube47
+    4300000: pCube48
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -52,7 +52,7 @@ ModelImporter:
     useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
-    normalImportMode: 1
+    normalImportMode: 0
     tangentImportMode: 3
   importAnimation: 1
   copyAvatar: 0
