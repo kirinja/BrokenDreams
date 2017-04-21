@@ -112,7 +112,7 @@ public class GameManager : MonoBehaviour
         {
             case "Level_01":
                 return true;
-            case "Level_02":
+            case "Level_02_2D":
                 return CompletedLevels.ContainsKey("Level_01") && CompletedLevels["Level_01"];
             case "Boss_01":
                 //return CompletedLevels.ContainsKey("Level_01") && CompletedLevels["Level_01"] && CompletedLevels.ContainsKey("Level_02") && CompletedLevels["Level_02"];
@@ -140,7 +140,7 @@ public class GameManager : MonoBehaviour
 
         var beatenLevels = CompletedLevels.Keys.ToArray();
         playerSaveData.Abilities = abilityNames;
-        playerSaveData.HP = _playerAttributes.currentHealth;
+        //playerSaveData.HP = _playerAttributes.currentHealth;
         playerSaveData.BeatenLevels = beatenLevels;
         var stringifiedPlayer = new string[1];
 
@@ -156,7 +156,7 @@ public class GameManager : MonoBehaviour
         var stringifiedData = InMemory[0]; // TODO POSSIBLY SCARY
 
         var playerSaveData = JsonUtility.FromJson<PlayerSaveData>(stringifiedData[0]);
-        _playerAttributes.currentHealth = playerSaveData.HP;
+        //_playerAttributes.currentHealth = playerSaveData.HP;
 
         foreach (var i in playerSaveData.BeatenLevels)
             BeatLevel(i);
@@ -206,7 +206,7 @@ public class GameManager : MonoBehaviour
 
         var beatenLevels = CompletedLevels.Keys.ToArray();
         playerSaveData.Abilities = abilityNames;
-        playerSaveData.HP = _playerAttributes.currentHealth;
+        //playerSaveData.HP = _playerAttributes.currentHealth;
         playerSaveData.BeatenLevels = beatenLevels;
         var stringifiedPlayer = new string[1];
 
@@ -225,7 +225,7 @@ public class GameManager : MonoBehaviour
         var stringifiedData = File.ReadAllLines(_savePath);
 
         var playerSaveData = JsonUtility.FromJson<PlayerSaveData>(stringifiedData[0]);
-        _playerAttributes.currentHealth = playerSaveData.HP;
+        //_playerAttributes.currentHealth = playerSaveData.HP;
 
         foreach (var i in playerSaveData.BeatenLevels)
             BeatLevel(i);
