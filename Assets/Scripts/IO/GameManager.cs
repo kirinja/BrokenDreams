@@ -27,9 +27,28 @@ public class GameManager : MonoBehaviour
     private const float RegularTimeScale = 1f;
     #endregion
 
+    
+
+    private string _saveDirectory;
+    private static readonly List<string[]> InMemory = new List<string[]>();
+    private string _savePath;
+    private bool _paused;
+
+    // the two values we're interested in are current HP and which abilities the player have
+    private PlayerAttributes _playerAttributes;
+
+    // the game manager keeps track of which levels the player have beaten, and save them to file/memory
+    private static readonly Dictionary<string, bool> CompletedLevels = new Dictionary<string, bool>();
+
+    public static bool IsPaused()
+    {
+        var gm = Get();
+        return gm && gm.Paused;
+    }
+
     public bool Paused
     {
-        get { return _paused;  }
+        get { return _paused; }
         private set
         {
             _paused = value;
@@ -45,17 +64,6 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
-    private string _saveDirectory;
-    private static readonly List<string[]> InMemory = new List<string[]>();
-    private string _savePath;
-    private bool _paused;
-
-    // the two values we're interested in are current HP and which abilities the player have
-    private PlayerAttributes _playerAttributes;
-
-    // the game manager keeps track of which levels the player have beaten, and save them to file/memory
-    private static readonly Dictionary<string, bool> CompletedLevels = new Dictionary<string, bool>();
 
     private void Awake()
     {
