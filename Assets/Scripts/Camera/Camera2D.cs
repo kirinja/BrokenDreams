@@ -42,11 +42,17 @@ public class Camera2D : MonoBehaviour
         CalculateTargetArea();
         CalculateCameraArea();
 
-        if (_cameraFocusArea.Contains(_targetFocusArea)) return;
+        //if (_cameraFocusArea.Contains(_targetFocusArea)) return;
 
-        CalculateDirection();
-        CalculateOffset();
-        FollowTarget();
+        if (!_cameraFocusArea.ContainsX(_targetFocusArea))
+        {
+            FollowTargetX();
+
+            CalculateDirection();
+            CalculateOffset();
+        }
+        if (!_cameraFocusArea.ContainsY(_targetFocusArea))
+            FollowTargetY();
         
     }
 
@@ -95,13 +101,16 @@ public class Camera2D : MonoBehaviour
             Offset.x = _newOffsetX;
     }
 
-    void FollowTarget()
+    void FollowTargetX()
     {
         if (_targetFocusArea.Left <= _cameraFocusArea.Left) // LEFT
             transform.position = new Vector3(_targetFocusArea.Left - Offset.x + _cameraFocusArea.Width / 2, transform.position.y, -Offset.z);
         else if (_targetFocusArea.Right >= _cameraFocusArea.Right) // RIGHT
             transform.position = new Vector3(_targetFocusArea.Right - Offset.x - _cameraFocusArea.Width / 2, transform.position.y, -Offset.z);
+    }
 
+    void FollowTargetY()
+    {
         if (_targetFocusArea.Top >= _cameraFocusArea.Top) // UP
             transform.position = new Vector3(transform.position.x, _targetFocusArea.Top - Offset.y - _cameraFocusArea.Height / 2, -Offset.z);
         else if (_targetFocusArea.Bot <= _cameraFocusArea.Bot) // BOT
@@ -142,6 +151,16 @@ struct FocusArea
     public bool Contains(FocusArea other)
     {
         return (Left <= other.Left && Right >= other.Right) && (Top >= other.Top && Bot <= other.Bot);
+    }
+
+    public bool ContainsX(FocusArea other)
+    {
+        return Left <= other.Left && Right >= other.Right;
+    }
+
+    public bool ContainsY(FocusArea other)
+    {
+        return Top >= other.Top && Bot <= other.Bot;
     }
 
     public override string ToString()
