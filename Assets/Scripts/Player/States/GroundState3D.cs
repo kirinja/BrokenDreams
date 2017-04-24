@@ -8,6 +8,7 @@ public struct GroundState3D : ICharacterState3D
     private readonly Controller3D _controller;
     private Transform _platform;
     private Vector3 _previousPlatformPosition;
+    //private Vector3 _scale;
 
 
     public GroundState3D(Controller3D controller)
@@ -15,6 +16,7 @@ public struct GroundState3D : ICharacterState3D
         if (controller == null)
             throw new ArgumentNullException("controller");
 
+        
         _controller = controller;
         _platform = null;
         _previousPlatformPosition = Vector3.zero;
@@ -29,7 +31,8 @@ public struct GroundState3D : ICharacterState3D
 
     public void Update()
     {
-        var desiredVelocity = new Vector2(_controller.MovementInput.x * _controller.GetComponent<PlayerAttributes>().MaxSpeed, 0f);
+        var desiredVelocity = new Vector2(
+            _controller.MovementInput.x * _controller.GetComponent<PlayerAttributes>().MaxSpeed, 0f);
 
         UpdateRotation();
         ApplyAcceleration(desiredVelocity);
@@ -38,22 +41,26 @@ public struct GroundState3D : ICharacterState3D
 
         if (Input.GetButtonDown("Taunt"))
             _controller.Animator.SetTrigger("Wave");
+
+        
     }
 
 
     public void Exit()
     {
+        _controller.transform.SetParent(null);
     }
 
 
     public void LateUpdate()
     {
-        ClampToPlatform();
+        
     }
 
 
     public void FixedUpdate()
     {
+        ClampAsChild();
     }
 
 
@@ -61,6 +68,7 @@ public struct GroundState3D : ICharacterState3D
     {
         var gameObject = GetGround();
         if (gameObject)
+        {
             if (gameObject.transform == _platform)
             {
                 _controller.transform.position += _platform.position - _previousPlatformPosition;
@@ -71,8 +79,27 @@ public struct GroundState3D : ICharacterState3D
                 _platform = gameObject.transform;
                 _previousPlatformPosition = _platform.position;
             }
+        }
         else
+        {
             _platform = null;
+            // TODO: delet dis
+            Debug.Log("NO PLARTFROM");
+        }
+    }
+
+
+    private void ClampAsChild()
+    {
+        var gameObject = GetGround();
+        if (gameObject && gameObject.CompareTag("Moving"))
+        {
+            _controller.transform.SetParent(gameObject.transform.parent);
+        }
+        else
+        {
+            _controller.transform.SetParent(null);
+        }
     }
 
 
@@ -194,8 +221,11 @@ public struct GroundState3D : ICharacterState3D
     private GameObject GetGround()
     {
         RaycastHit hitInfo;
-        if (Physics.Raycast(_controller.transform.position, Vector3.down, out hitInfo))
+        if (Physics.Raycast(_controller.transform.position /*+ Vector3.down * (_controller.ColliderHeight / 2 - 0.1f)/**/,
+            Vector3.down, out hitInfo, 50, _controller.GroundMask))
+        {
             return hitInfo.transform.gameObject;
+        }
 
         return null;
     }
