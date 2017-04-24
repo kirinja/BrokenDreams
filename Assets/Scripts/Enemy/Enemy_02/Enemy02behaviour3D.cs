@@ -24,6 +24,8 @@ public class Enemy02behaviour3D : Enemy
 
     public bool Fired;
 
+    public float ArbitarySpeedMultiplier = 4.0f;
+
     private EnemyState state;
 
     public float projLifeTime;
@@ -215,6 +217,11 @@ public class Enemy02behaviour3D : Enemy
     public AudioSource getSource()
     {
         return src;
+    }
+
+    public void Move(Vector3 vec3)
+    {
+        transform.position += vec3 * Time.deltaTime;
     }
 
     public override GameObject Drop { get; set; }
