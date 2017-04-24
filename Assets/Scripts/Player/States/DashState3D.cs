@@ -44,6 +44,8 @@ internal class DashState3D : ICharacterState3D
     public void Update()
     {
         _dashButtonUp = Input.GetButtonUp("Use Ability 4");
+        if (_dashTimer.Update(Time.deltaTime) || _dashButtonUp)
+            _controller.ChangeCharacterState(new CharacterStateSwitch3D(new AirState3D(_controller)));
     }
 
 
@@ -85,12 +87,5 @@ internal class DashState3D : ICharacterState3D
     {
         var desiredAngle = Mathf.Sign(_controller.Forward.x) > 0f ? 90f : -90f;
         _controller.transform.eulerAngles = new Vector3(0f, desiredAngle, 0f);
-    }
-
-
-    public void FixedUpdate(Vector2 input)
-    {
-        if (_dashTimer.Update(Time.deltaTime) || _dashButtonUp)
-            _controller.ChangeCharacterState(new CharacterStateSwitch3D(new AirState3D(_controller)));
     }
 }
