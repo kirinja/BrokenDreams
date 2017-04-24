@@ -1,132 +1,109 @@
 ﻿using System;
 using UnityEngine;
 
+// ReSharper disable BitwiseOperatorOnEnumWithoutFlags
+
 public struct AirState3D : ICharacterState3D
 {
-    private readonly Controller3D controller;
-    private bool willJump, jumping, jumpButtonUp;
+    private readonly Controller3D _controller;
+    private bool _willJump, _jumping, _jumpButtonUp;
 
 
     public AirState3D(Controller3D controller, bool willJump = false)
     {
         if (controller == null)
-        {
             throw new ArgumentNullException("controller");
-        }
 
-        jumpButtonUp = false;
-        jumping = false;
-        this.willJump = willJump;
-        this.controller = controller;
+        _jumpButtonUp = false;
+        _jumping = false;
+        _willJump = willJump;
+        _controller = controller;
     }
 
 
     public void Enter()
     {
-		controller.Animator.SetBool("InAir", true);
+        _controller.Animator.SetBool("InAir", true);
     }
+
 
     public void Update()
     {
-        jumpButtonUp = Input.GetButtonUp("Use Ability 2");
+        _jumpButtonUp = Input.GetButtonUp("Use Ability 2");
+
+        var desiredVelocity = new Vector2(
+            _controller.MovementInput.x * _controller.GetComponent<PlayerAttributes>().MaxSpeed, 0f);
+
+        UpdateRotation();
+        ApplyAcceleration(desiredVelocity);
+        ApplyFriction(desiredVelocity);
+        ApplyGravity();
+        CheckJump();
+        HandleJumpEnded();
+        HandleJumpParticles();
     }
 
 
     public void Exit()
     {
-		controller.Animator.SetBool("InAir", false);
+        _controller.Animator.SetBool("InAir", false);
     }
-    
+
 
     public void LateUpdate()
     {
     }
 
 
-    public void PhysicsUpdate(Vector2 input)
+    public void FixedUpdate()
     {
-        UpdateVelocity(input);
     }
 
-    
+
     public CharacterStateSwitch3D HandleCollisions(CollisionFlags collisionFlags)
     {
         CharacterStateSwitch3D stateSwitch;
         if ((collisionFlags & CollisionFlags.Below) == CollisionFlags.Below)
-        {
-            if (controller.IsTraversableSlope(controller.ColliderHeight * 10.0f))
-            {
-                stateSwitch = new CharacterStateSwitch3D(new GroundState3D(controller));
-            }
-            else
-            {
-                stateSwitch = new CharacterStateSwitch3D();
-            }
-        }
+            stateSwitch = _controller.IsTraversableSlope(_controller.ColliderHeight * 10.0f)
+                ? new CharacterStateSwitch3D(new GroundState3D(_controller))
+                : new CharacterStateSwitch3D();
         else
-        {
             stateSwitch = new CharacterStateSwitch3D();
-        }
         if ((collisionFlags & CollisionFlags.Sides) == CollisionFlags.Sides)
-        {
-            controller.Velocity = new Vector2(0f, controller.Velocity.y);
-        }
-        if ((collisionFlags & CollisionFlags.Above) == CollisionFlags.Above && controller.Velocity.y > 0f)
-        {
-            controller.Velocity = new Vector2(controller.Velocity.x, 0f);
-        }
+            _controller.Velocity = new Vector2(0f, _controller.Velocity.y);
+        if ((collisionFlags & CollisionFlags.Above) == CollisionFlags.Above && _controller.Velocity.y > 0f)
+            _controller.Velocity = new Vector2(_controller.Velocity.x, 0f);
 
         return stateSwitch;
     }
 
 
-    private void UpdateVelocity(Vector2 input)
+    private void UpdateRotation()
     {
-        var desiredVelocity = new Vector2(input.x * controller.GetComponent<PlayerAttributes>().MaxSpeed, 0f);
-
-        UpdateRotation(input);
-        ApplyAcceleration(desiredVelocity);
-        ApplyFriction(desiredVelocity);
-        ApplyGravity();
-        CheckJump();
-        HandleJumpEnded();
-		HandleJumpParticles();
-    }
-
-
-    private void UpdateRotation(Vector2 input)
-    {
-        var currentAngle = controller.transform.eulerAngles.y;
-        var desiredAngle = Mathf.Sign(controller.Forward.x) > 0f ? 90f : -90f;
-        if (Mathf.Abs(input.x) > 0)
+        var currentAngle = _controller.transform.eulerAngles.y;
+        var desiredAngle = Mathf.Sign(_controller.Forward.x) > 0f ? 90f : -90f;
+        if (Mathf.Abs(_controller.MovementInput.x) > 0)
         {
-            desiredAngle = Mathf.Sign(input.x) > 0f ? 90f : -90f;
-            controller.Forward = new Vector2(input.x, 0f);
+            desiredAngle = Mathf.Sign(_controller.MovementInput.x) > 0f ? 90f : -90f;
+            _controller.Forward = new Vector2(_controller.MovementInput.x, 0f).normalized;
         }
 
         var rotationAngle = desiredAngle - currentAngle;
         if (rotationAngle > 180f)
-        {
             rotationAngle = rotationAngle - 360f;
-        }
         else if (rotationAngle < -180f)
-        {
             rotationAngle = rotationAngle + 360;
-        }
-        var rotationSpeed = (180f / controller.GetComponent<PlayerAttributes>().MaxRotationTime) * Mathf.Sign(rotationAngle) * Time.deltaTime;
+        var rotationSpeed = 180f / _controller.GetComponent<PlayerAttributes>().MaxRotationTime *
+                            Mathf.Sign(rotationAngle) * Time.deltaTime;
 
         if (Mathf.Abs(rotationSpeed) > Mathf.Abs(rotationAngle))
-        {
             rotationSpeed = rotationAngle;
-        }
 
         currentAngle += rotationSpeed;
         if (currentAngle > 360f)
-        {
             currentAngle -= 360f;
-        }
 
-        controller.transform.eulerAngles = new Vector3(0f, currentAngle, 0f);
+        _controller.transform.eulerAngles = new Vector3(0f, currentAngle, 0f);
     }
 
 
@@ -134,99 +111,94 @@ public struct AirState3D : ICharacterState3D
     {
         if (Mathf.Abs(desiredVelocity.x) <= 0) return;
 
-        var attributes = controller.GetComponent<PlayerAttributes>();
-        var acceleration = Mathf.Sign(controller.Forward.x) * Time.deltaTime * (attributes.MaxSpeed / attributes.AirAccelerationTime);
+        var attributes = _controller.GetComponent<PlayerAttributes>();
+        var acceleration = Mathf.Sign(_controller.Forward.x) * Time.deltaTime *
+                           (attributes.MaxSpeed / attributes.AirAccelerationTime);
 
-        if (desiredVelocity.x > 0f && controller.Velocity.x + acceleration > desiredVelocity.x || desiredVelocity.x < 0f && controller.Velocity.x + acceleration < desiredVelocity.x)
-        {
-            acceleration = desiredVelocity.x - controller.Velocity.x;
-        }
-        controller.Velocity += Vector2.right * acceleration;
+        if (desiredVelocity.x > 0f && _controller.Velocity.x + acceleration > desiredVelocity.x ||
+            desiredVelocity.x < 0f && _controller.Velocity.x + acceleration < desiredVelocity.x)
+            acceleration = desiredVelocity.x - _controller.Velocity.x;
+        _controller.Velocity += Vector2.right * acceleration;
     }
 
 
     private void ApplyFriction(Vector2 desiredVelocity)
     {
-        var attributes = controller.GetComponent<PlayerAttributes>();
+        var attributes = _controller.GetComponent<PlayerAttributes>();
         var deacceleration = attributes.MaxSpeed / attributes.AirDeaccelerationTime;
-        var frictionDirection = -Mathf.Sign(controller.Velocity.x);
+        var frictionDirection = -Mathf.Sign(_controller.Velocity.x);
         var friction = frictionDirection * deacceleration * Time.deltaTime;
 
-        if ((int)Mathf.Sign(controller.Velocity.x) == (int)Mathf.Sign(desiredVelocity.x))
+        if ((int) Mathf.Sign(_controller.Velocity.x) == (int) Mathf.Sign(desiredVelocity.x))
         {
-            if (Mathf.Abs(controller.Velocity.x) > Mathf.Abs(desiredVelocity.x))
+            if (Mathf.Abs(_controller.Velocity.x) > Mathf.Abs(desiredVelocity.x))
             {
-                var newVelocity = controller.Velocity + Vector2.right * friction;
+                var newVelocity = _controller.Velocity + Vector2.right * friction;
 
                 if (Mathf.Abs(newVelocity.x) < Mathf.Abs(desiredVelocity.x))
-                {
                     newVelocity = new Vector2(desiredVelocity.x, newVelocity.y);
-                }
-                if ((int)Mathf.Sign(newVelocity.x) != (int)Mathf.Sign(controller.Velocity.x))
-                {
+                if ((int) Mathf.Sign(newVelocity.x) != (int) Mathf.Sign(_controller.Velocity.x))
                     newVelocity = new Vector2(0f, newVelocity.y);
-                }
-                controller.Velocity = newVelocity;
+                _controller.Velocity = newVelocity;
             }
         }
         else
         {
-            var newVelocity = controller.Velocity + Vector2.right * friction;
+            var newVelocity = _controller.Velocity + Vector2.right * friction;
 
-            if ((int)Mathf.Sign(newVelocity.x) != (int)Mathf.Sign(controller.Velocity.x))
-            {
+            if ((int) Mathf.Sign(newVelocity.x) != (int) Mathf.Sign(_controller.Velocity.x))
                 newVelocity = new Vector2(0f, newVelocity.y);
-            }
-            controller.Velocity = newVelocity;
+            _controller.Velocity = newVelocity;
         }
     }
 
 
     private void ApplyGravity()
     {
-        controller.Velocity += controller.Gravity * Time.deltaTime;
+        _controller.Velocity += _controller.Gravity * Time.deltaTime;
     }
 
 
     private void HandleJumpParticles()
     {
-        if (!jumping && controller.transform.Find("Jump").Find("JumpTrail01").GetComponent<ParticleSystem>().isPlaying)
+        if (!_jumping && _controller.transform.Find("Jump")
+                .Find("JumpTrail01")
+                .GetComponent<ParticleSystem>()
+                .isPlaying)
         {
-            controller.transform.Find("Jump").Find("JumpTrail01").GetComponent<ParticleSystem>().Stop();
-            controller.transform.Find("Jump").Find("JumpTrail02").GetComponent<ParticleSystem>().Stop();
-            controller.transform.Find("Jump").Find("JumpTrail03").GetComponent<ParticleSystem>().Stop();
+            _controller.transform.Find("Jump").Find("JumpTrail01").GetComponent<ParticleSystem>().Stop();
+            _controller.transform.Find("Jump").Find("JumpTrail02").GetComponent<ParticleSystem>().Stop();
+            _controller.transform.Find("Jump").Find("JumpTrail03").GetComponent<ParticleSystem>().Stop();
         }
     }
 
 
     private void CheckJump()
     {
-        if (willJump)
+        if (_willJump)
         {
-            controller.Velocity = new Vector2(controller.Velocity.x, controller.MaxJumpVelocity);
-            willJump = false;
-            jumping = true;
+            _controller.Velocity = new Vector2(_controller.Velocity.x, _controller.MaxJumpVelocity);
+            _willJump = false;
+            _jumping = true;
 
-            controller.transform.Find("Jump").Find("JumpTrail01").GetComponent<ParticleSystem>().Play();
-            controller.transform.Find("Jump").Find("JumpTrail02").GetComponent<ParticleSystem>().Play();
-            controller.transform.Find("Jump").Find("JumpTrail03").GetComponent<ParticleSystem>().Play();
+            _controller.transform.Find("Jump").Find("JumpTrail01").GetComponent<ParticleSystem>().Play();
+            _controller.transform.Find("Jump").Find("JumpTrail02").GetComponent<ParticleSystem>().Play();
+            _controller.transform.Find("Jump").Find("JumpTrail03").GetComponent<ParticleSystem>().Play();
         }
     }
 
 
     private void HandleJumpEnded()
     {
-        var minJumpVelocity = controller.MinJumpVelocity;
-        if (jumpButtonUp && jumping && controller.Velocity.y > minJumpVelocity)
+        var minJumpVelocity = _controller.MinJumpVelocity;
+        if (_jumpButtonUp && _jumping && _controller.Velocity.y > minJumpVelocity)
         {
-            controller.Velocity = new Vector2(controller.Velocity.x, minJumpVelocity);
-            jumping = false;
+            _controller.Velocity = new Vector2(_controller.Velocity.x, minJumpVelocity);
+            _jumping = false;
         }
 
-        if (controller.Velocity.y <= 0f)
-        {
-            jumping = false;
-        }
+        if (_controller.Velocity.y <= 0f)
+            _jumping = false;
     }
 
 
@@ -234,9 +206,10 @@ public struct AirState3D : ICharacterState3D
     {
         if (state.NewState is GroundState3D || state.NewState is DashState3D)
         {
-            controller.ChangeCharacterState(state);
+            _controller.ChangeCharacterState(state);
             return true;
         }
+
         return false;
     }
 }
