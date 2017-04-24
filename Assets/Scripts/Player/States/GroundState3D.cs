@@ -92,6 +92,7 @@ public struct GroundState3D : ICharacterState3D
     private void ClampAsChild()
     {
         var gameObject = GetGround();
+        Debug.Log(gameObject.tag);
         if (gameObject && gameObject.CompareTag("Moving"))
         {
             _controller.transform.SetParent(gameObject.transform.parent);
