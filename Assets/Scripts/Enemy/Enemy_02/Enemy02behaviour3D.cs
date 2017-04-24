@@ -60,6 +60,7 @@ public class Enemy02behaviour3D : Enemy
         rpIndex = 0;
         src = GetComponent<AudioSource>();
         dead = false;
+        Alive = true;
     }
 
     // Update is called once per frame
@@ -165,6 +166,7 @@ public class Enemy02behaviour3D : Enemy
             }
         }
         dead = true;
+        Alive = false;
 
         var g = Drop;
         if (g != null)
@@ -216,4 +218,5 @@ public class Enemy02behaviour3D : Enemy
     }
 
     public override GameObject Drop { get; set; }
+    public override bool Alive { get; set; }
 }

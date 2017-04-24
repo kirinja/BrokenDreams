@@ -25,25 +25,11 @@ public class Elevator : MonoBehaviour
 	    FeedbackList[2] = Feedback3;
 	    FeedbackList[3] = Feedback4;
 
-        foreach (MeshRenderer r in Feedback1.GetComponentsInChildren<MeshRenderer>())
-        {
-            r.sharedMaterial.color = Color.blue;
-        }
+	    for (int i = 0; i < FeedbackList.Length; i++)
+	    {
+	        FeedbackColor(i, Color.blue);
+	    }
 
-        foreach (MeshRenderer r in Feedback2.GetComponentsInChildren<MeshRenderer>())
-        {
-            r.sharedMaterial.color = Color.blue;
-        }
-
-        foreach (MeshRenderer r in Feedback3.GetComponentsInChildren<MeshRenderer>())
-        {
-            r.sharedMaterial.color = Color.blue;
-        }
-
-        foreach (MeshRenderer r in Feedback4.GetComponentsInChildren<MeshRenderer>())
-        {
-            r.sharedMaterial.color = Color.blue;
-        }
     }
 	
 	// Update is called once per frame
@@ -51,19 +37,11 @@ public class Elevator : MonoBehaviour
 	{
         if (active) return;
         var activate = true;
-	    /*foreach (var enemy in enemies)
-	    {
-	        if (enemy)
-	        {
-	            activate = false;
-	            break;
-	        }
-	    }*/
 
         // HACK pretty badly done but it will do for now
 	    for (int i = 0; i < enemies.Length; ++i)
 	    {
-	        if (enemies[i])
+	        if (enemies[i] && enemies[i].GetComponent<Enemy>().Alive)
 	        {
 	            activate = false;
                 FeedbackColor(i, Color.blue);
@@ -93,24 +71,36 @@ public class Elevator : MonoBehaviour
 
     void OnEnable()
     {
-        foreach (MeshRenderer r in Feedback1.GetComponentsInChildren<MeshRenderer>())
+        if (Feedback1)
         {
-            r.sharedMaterial.color = Color.blue;
+            foreach (MeshRenderer r in Feedback1.GetComponentsInChildren<MeshRenderer>())
+            {
+                r.sharedMaterial.color = Color.blue;
+            }
         }
 
-        foreach (MeshRenderer r in Feedback2.GetComponentsInChildren<MeshRenderer>())
+        if (Feedback2)
         {
-            r.sharedMaterial.color = Color.blue;
+            foreach (MeshRenderer r in Feedback2.GetComponentsInChildren<MeshRenderer>())
+            {
+                r.sharedMaterial.color = Color.blue;
+            }
         }
 
-        foreach (MeshRenderer r in Feedback3.GetComponentsInChildren<MeshRenderer>())
+        if (Feedback3)
         {
-            r.sharedMaterial.color = Color.blue;
+            foreach (MeshRenderer r in Feedback3.GetComponentsInChildren<MeshRenderer>())
+            {
+                r.sharedMaterial.color = Color.blue;
+            }
         }
 
-        foreach (MeshRenderer r in Feedback4.GetComponentsInChildren<MeshRenderer>())
+        if (Feedback4)
         {
-            r.sharedMaterial.color = Color.blue;
+            foreach (MeshRenderer r in Feedback4.GetComponentsInChildren<MeshRenderer>())
+            {
+                r.sharedMaterial.color = Color.blue;
+            }
         }
     }
 
@@ -151,24 +141,9 @@ public class Elevator : MonoBehaviour
 
     void OnApplicationQuit()
     {
-        foreach (MeshRenderer r in Feedback1.GetComponentsInChildren<MeshRenderer>())
+        for (int i = 0; i < FeedbackList.Length; i++)
         {
-            r.sharedMaterial.color = Color.blue;
-        }
-
-        foreach (MeshRenderer r in Feedback2.GetComponentsInChildren<MeshRenderer>())
-        {
-            r.sharedMaterial.color = Color.blue;
-        }
-
-        foreach (MeshRenderer r in Feedback3.GetComponentsInChildren<MeshRenderer>())
-        {
-            r.sharedMaterial.color = Color.blue;
-        }
-
-        foreach (MeshRenderer r in Feedback4.GetComponentsInChildren<MeshRenderer>())
-        {
-            r.sharedMaterial.color = Color.blue;
+            FeedbackColor(i, Color.blue);
         }
     }
 }
