@@ -32,6 +32,8 @@ public class Camera2D : MonoBehaviour
         CalculateDirection();
 	    _newOffsetX = Offset.x;
 	    _origOffsetX = Offset.x;
+
+	    Offset.z = transform.position.z;
 	}
 
     void LateUpdate()
@@ -41,6 +43,8 @@ public class Camera2D : MonoBehaviour
         
         CalculateTargetArea();
         CalculateCameraArea();
+        Offset.z = transform.position.z;
+        transform.position = new Vector3(transform.position.x, transform.position.y, Offset.z);
 
         //if (_cameraFocusArea.Contains(_targetFocusArea)) return;
 
@@ -104,17 +108,17 @@ public class Camera2D : MonoBehaviour
     void FollowTargetX()
     {
         if (_targetFocusArea.Left <= _cameraFocusArea.Left) // LEFT
-            transform.position = new Vector3(_targetFocusArea.Left - Offset.x + _cameraFocusArea.Width / 2, transform.position.y, -Offset.z);
+            transform.position = new Vector3(_targetFocusArea.Left - Offset.x + _cameraFocusArea.Width / 2, transform.position.y, Offset.z);
         else if (_targetFocusArea.Right >= _cameraFocusArea.Right) // RIGHT
-            transform.position = new Vector3(_targetFocusArea.Right - Offset.x - _cameraFocusArea.Width / 2, transform.position.y, -Offset.z);
+            transform.position = new Vector3(_targetFocusArea.Right - Offset.x - _cameraFocusArea.Width / 2, transform.position.y, Offset.z);
     }
 
     void FollowTargetY()
     {
         if (_targetFocusArea.Top >= _cameraFocusArea.Top) // UP
-            transform.position = new Vector3(transform.position.x, _targetFocusArea.Top - Offset.y - _cameraFocusArea.Height / 2, -Offset.z);
+            transform.position = new Vector3(transform.position.x, _targetFocusArea.Top - Offset.y - _cameraFocusArea.Height / 2, Offset.z);
         else if (_targetFocusArea.Bot <= _cameraFocusArea.Bot) // BOT
-            transform.position = new Vector3(transform.position.x, _targetFocusArea.Bot - Offset.y + _cameraFocusArea.Height / 2, -Offset.z);
+            transform.position = new Vector3(transform.position.x, _targetFocusArea.Bot - Offset.y + _cameraFocusArea.Height / 2, Offset.z);
     }
 
 }
