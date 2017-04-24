@@ -17,24 +17,49 @@ public class BossButton : MonoBehaviour
             r.sharedMaterial.color = Color.blue;
         }
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    void OnEnable()
+    {
+        foreach (MeshRenderer r in Feedback.GetComponentsInChildren<MeshRenderer>())
+        {
+            r.sharedMaterial.color = Color.blue;
+        }
+    }
+
+    void OnDisable()
+    {
+        if (!Feedback) return;
+        foreach (MeshRenderer r in Feedback.GetComponentsInChildren<MeshRenderer>())
+        {
+            r.sharedMaterial.color = Color.blue;
+        }
+    }
+
+    void OnApplicationQuit()
+    {
+        foreach (MeshRenderer r in Feedback.GetComponentsInChildren<MeshRenderer>())
+        {
+            r.sharedMaterial.color = Color.blue;
+        }
+    }
+
+    // Update is called once per frame
+    void Update () {
 		
 	}
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player") || other.CompareTag("Movable Object"))
-        {
-            Active = true;
+    //void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.CompareTag("Player") || other.CompareTag("Movable Object"))
+    //    {
+    //        Active = true;
 
-            foreach (MeshRenderer r in Feedback.GetComponentsInChildren<MeshRenderer>())
-            {
-                r.sharedMaterial.color = Color.green;
-            }
-        }
-    }
+    //        foreach (MeshRenderer r in Feedback.GetComponentsInChildren<MeshRenderer>())
+    //        {
+    //            r.sharedMaterial.color = Color.green;
+    //        }
+    //    }
+    //}
 
     void OnTriggerExit(Collider other)
     {
@@ -45,6 +70,19 @@ public class BossButton : MonoBehaviour
             foreach (MeshRenderer r in Feedback.GetComponentsInChildren<MeshRenderer>())
             {
                 r.sharedMaterial.color = Color.blue;
+            }
+        }
+    }
+
+    void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player") || other.CompareTag("Movable Object"))
+        {
+            Active = true;
+
+            foreach (MeshRenderer r in Feedback.GetComponentsInChildren<MeshRenderer>())
+            {
+                r.sharedMaterial.color = Color.green;
             }
         }
     }

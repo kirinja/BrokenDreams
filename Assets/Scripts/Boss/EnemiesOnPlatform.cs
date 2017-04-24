@@ -13,6 +13,10 @@ public class EnemiesOnPlatform : MonoBehaviour
     }
     private List<GameObject> objects = new List<GameObject>();
 
+    void Start()
+    {
+    }
+
     void Update () {
 
         // every frame we check if any of the gameobjects has died, this might work since it's all references?

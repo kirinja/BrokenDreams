@@ -199,6 +199,8 @@ public class Enemy01Behaviour : Enemy
     {
         StartVelocity = vec;
     }
+
+    public override bool Alive { get; set; }
 }
 
 public struct raycastOrigins

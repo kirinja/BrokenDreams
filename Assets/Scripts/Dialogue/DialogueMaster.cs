@@ -49,7 +49,7 @@ public class DialogueMaster : MonoBehaviour {
 
         var canvas = GameObject.Find("DialogueCanvas");
         window = Instantiate<GameObject>(dialoguePreFab);
-        window.transform.parent = canvas.transform;
+        window.transform.SetParent(canvas.transform);
         window.transform.localPosition = new Vector3(0, 0, 0);
 
         nodeText = GameObject.Find("NodeText");
