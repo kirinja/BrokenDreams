@@ -79,7 +79,7 @@ public class Enemy02behaviour3D : Enemy
                     //laserFocus.enabled = true;
                     // if we have a target then do stuff
                     laserFocus.SetPosition(0, transform.position);
-                    laserFocus.SetPosition(1, target.transform.position); // thi position is slightly too low. will have to update
+                    laserFocus.SetPosition(1, target.transform.position + new Vector3(0, target.transform.localScale.y / 2, 0)); // thi position is slightly too low. will have to update
                 }
                 timeSinceAttack += Time.deltaTime;
             }

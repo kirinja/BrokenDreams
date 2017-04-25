@@ -274,7 +274,7 @@ LineRenderer:
   - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 2
-    widthMultiplier: 0.1
+    widthMultiplier: 0.2
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -284,16 +284,22 @@ LineRenderer:
         inSlope: 0
         outSlope: 0
         tangentMode: 0
+      - serializedVersion: 2
+        time: 0.9142857
+        value: 0.2708333
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 0
     colorGradient:
       key0:
         serializedVersion: 2
-        rgba: 4294901843
+        rgba: 2298413139
       key1:
         serializedVersion: 2
-        rgba: 4278190335
+        rgba: 2281701631
       key2:
         serializedVersion: 2
         rgba: 16777215
