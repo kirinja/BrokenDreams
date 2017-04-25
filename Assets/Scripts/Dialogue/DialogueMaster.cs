@@ -30,6 +30,8 @@ public class DialogueMaster : MonoBehaviour {
         //dialogue = Dialogue.loadDialogueFromXML(pathToDialogueXML/*Path.Combine(Application.dataPath, pathToDialogueXML)*/);
         //Debug.Log(Directory.GetCurrentDirectory() + pathToDialogueXML);
         //Debug.Log(dialogue.DialogueNodeList[0].getText());
+
+        // TODO add external loading of dialog text
         dialogue = new Dialogue();
         var n1 = new DialogueNode(0, "hello");
         n1.Add(new DialogueOption(-1, "I need to go"));
@@ -102,6 +104,9 @@ public class DialogueMaster : MonoBehaviour {
         Debug.Log(nodeID);
         window.SetActive(true);
 
+        // have to rescale the size of the window accordin to the number of options available on the node ID
+        // TODO look over the dialog window prefab and determine how to rescale it accordingly
+
         while(nodeID != -1)
         {
             displayNode(dialogue.DialogueNodeList[nodeID]);
@@ -112,7 +117,7 @@ public class DialogueMaster : MonoBehaviour {
             }
             nodeID = selectedOption;
             if (nodeID == 2)
-                GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().Heal(2);
+                GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().Heal(2); // TODO spawn health potions instead
         }
         currentInteractionCount++;
         

@@ -57,6 +57,9 @@ public class Enemy02behaviour3D : Enemy
         Alive = true;
 
         _laserFocus = GetComponent<LineRenderer>();
+
+        // child this object to the ground it's standing on (this so with moving platforms the object moves consitently on it)
+        SetGrund();
     }
 
     // Update is called once per frame
@@ -90,24 +93,24 @@ public class Enemy02behaviour3D : Enemy
             }
             state.Update();
 
-            var platformObject = GetGround();
-            if (platformObject)
-            {
-                if (platformObject.transform == platform)
-                {
-                    transform.position += platform.position - previousPlatformPosition;
-                    //foreach (var point in retreatPoints)
-                    //{
-                    //    point.position += platform.position - previousPlatformPosition;
-                    //}
-                    previousPlatformPosition = platform.position;
-                }
-                else
-                {
-                    platform = platformObject.transform;
-                    previousPlatformPosition = platform.position;
-                }
-            }
+            //var platformObject = GetGround();
+            //if (platformObject)
+            //{
+            //    if (platformObject.transform == platform)
+            //    {
+            //        transform.position += platform.position - previousPlatformPosition;
+            //        //foreach (var point in retreatPoints)
+            //        //{
+            //        //    point.position += platform.position - previousPlatformPosition;
+            //        //}
+            //        previousPlatformPosition = platform.position;
+            //    }
+            //    else
+            //    {
+            //        platform = platformObject.transform;
+            //        previousPlatformPosition = platform.position;
+            //    }
+            //}
         } else if(dead && !src.isPlaying)
         {
             Destroy(gameObject);
@@ -124,6 +127,17 @@ public class Enemy02behaviour3D : Enemy
             return hitInfo.transform.gameObject;
         }
         return null;
+    }
+
+    private void SetGrund()
+    {
+        // HACK this could break down, but should be enough for the current problems
+        RaycastHit hitInfo;
+        //if (Physics.Raycast(transform.position, Vector3.down, out hitInfo, 1.5f))
+        if (Physics.Raycast(transform.position, Vector3.down, out hitInfo, 1.5f, AggroCollisionMask))
+        {
+            transform.SetParent(hitInfo.transform);
+        }
     }
 
     /*private void Aggro() {
