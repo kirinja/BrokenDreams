@@ -18,14 +18,13 @@ public class Patrol : EnemyState {
     {
 
         // ignore z (&& enemy.transform.position.z == enemy.retreatPoints[enemy.rpIndex].transform.position.z)
-        if (Math.Abs(enemy.transform.position.x - enemy.retreatPoints[enemy.rpIndex].transform.position.x) < 1.5f)
+        if (Math.Abs(enemy.transform.position.x - enemy.TargetPosition().x) < 1.0f)
         {
-            enemy.rpIndex++;
-            enemy.rpIndex = enemy.rpIndex > enemy.rpThreshold ? 0 : enemy.rpIndex--; //Chooses next goal when current goal is reached.
+            enemy.NextTarget();
         }
 
         //agent.destination = enemy.retreatPoints[enemy.rpIndex].position; //Sets destination
-        destination = enemy.retreatPoints[enemy.rpIndex].position;
+        destination = enemy.TargetPosition();
     }
 
     public void Update()

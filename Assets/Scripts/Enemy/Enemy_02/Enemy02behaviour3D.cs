@@ -25,8 +25,8 @@ public class Enemy02behaviour3D : Enemy
 
     public GameObject projectilePreFab;
     public Transform[] retreatPoints;
-    [HideInInspector] public int rpIndex;
-    [HideInInspector] public int rpThreshold;
+    [HideInInspector] private int rpIndex;
+    [HideInInspector] private int rpThreshold;
     public float AggroRange = 10.0f;
     public LayerMask AggroMask;
     public LayerMask AggroCollisionMask;
@@ -38,7 +38,7 @@ public class Enemy02behaviour3D : Enemy
     private Transform platform;
     private Vector3 previousPlatformPosition;
 
-    private LineRenderer laserFocus;
+    private LineRenderer _laserFocus;
 
     // Use this for initialization
     void Start()
@@ -56,7 +56,7 @@ public class Enemy02behaviour3D : Enemy
         dead = false;
         Alive = true;
 
-        laserFocus = GetComponent<LineRenderer>();
+        _laserFocus = GetComponent<LineRenderer>();
     }
 
     // Update is called once per frame
@@ -70,21 +70,21 @@ public class Enemy02behaviour3D : Enemy
                 resetTime();
                 src.PlayOneShot(attackClip);
                 Attack();
-                //laserFocus.enabled = false;
+                //_laserFocus.enabled = false;
             }
             else
             {
                 // here we do the line render stuff (tracking player)
                 if (target)
                 {
-                    laserFocus.enabled = true;
+                    _laserFocus.enabled = true;
                     // if we have a target then do stuff
-                    laserFocus.SetPosition(0, transform.position);
-                    laserFocus.SetPosition(1, target.transform.position + new Vector3(0, target.transform.localScale.y / 2, 0));
+                    _laserFocus.SetPosition(0, transform.position);
+                    _laserFocus.SetPosition(1, target.transform.position + new Vector3(0, target.transform.localScale.y / 2, 0));
                 }
                 else
                 {
-                    laserFocus.enabled = false;
+                    _laserFocus.enabled = false;
                 }
                 timeSinceAttack += Time.deltaTime;
             }
@@ -116,6 +116,7 @@ public class Enemy02behaviour3D : Enemy
 
     private GameObject GetGround()
     {
+        // TODO add childing mechanic here (this should only be called in certain cituations and we want the movement on moving platforms to be consitent)
         RaycastHit hitInfo;
         //if (Physics.Raycast(transform.position, Vector3.down, out hitInfo, 1.5f))
         if (Physics.Raycast(transform.position, Vector3.down, out hitInfo, 1.5f, AggroCollisionMask))
@@ -209,7 +210,7 @@ public class Enemy02behaviour3D : Enemy
         src.PlayOneShot(deathClip);
         GetComponent<Collider>().enabled = false;
         GetComponent<MeshRenderer>().enabled = false;
-        laserFocus.enabled = false;
+        _laserFocus.enabled = false;
     }
 
     public void resetTime() //Timer to shoot again starts when projectile hits something
@@ -246,10 +247,9 @@ public class Enemy02behaviour3D : Enemy
         {
             other.gameObject.GetComponent<Controller3D>().AttackPlayer(transform.position, 1);
         }
-        if (other.CompareTag("Movable Object"))
+        if (other.CompareTag("Movable Object") || other.CompareTag("Wall"))
         {
-            rpIndex++;
-            rpIndex = rpIndex > rpThreshold ? 0 : rpIndex--; //Chooses next goal when current goal is reached.
+            NextTarget();
         }
     }
 
@@ -261,6 +261,17 @@ public class Enemy02behaviour3D : Enemy
     public void Move(Vector3 vec3)
     {
         transform.position += vec3 * Time.deltaTime;
+    }
+
+    public void NextTarget()
+    {
+        rpIndex++;
+        rpIndex = rpIndex > rpThreshold ? 0 : rpIndex--; //Chooses next goal when current goal is reached.
+    }
+
+    public Vector3 TargetPosition()
+    {
+        return retreatPoints[rpIndex].position;
     }
 
     public override GameObject Drop { get; set; }
