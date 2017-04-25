@@ -224,7 +224,7 @@ MonoBehaviour:
   projLifeTime: 2
   HealthDropChance: 0.3
   HealthDrop: {fileID: 1958238337431084, guid: 7bc5bfbcda9a48e4782a0019183c90bd, type: 2}
-  projectilePreFab: {fileID: 1738751761851474, guid: ba4265d501b6f8c42a61385c1f2015b1,
+  projectilePreFab: {fileID: 1191082914418746, guid: cba9953463c055a44ace64e03954af8b,
     type: 2}
   retreatPoints:
   - {fileID: 0}

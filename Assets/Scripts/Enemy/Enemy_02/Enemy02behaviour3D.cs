@@ -54,10 +54,10 @@ public class Enemy02behaviour3D : Enemy
         health = MaxHealth;
         state = new Idle(this); //Base state for Enemy is idle, idle contains method for player detection
         var p = Instantiate<GameObject>(projectilePreFab);
-        projectile = p.GetComponent<Projectile>();
-        projectile.setShooter(this);
-        projectile.setLifeTime(projLifeTime);
-        projectile.projSpeed = this.projSpeed;
+        //projectile = p.GetComponent<Projectile>();
+        //projectile.setShooter(this);
+        //projectile.setLifeTime(projLifeTime);
+        //projectile.projSpeed = this.projSpeed;
         rpThreshold = retreatPoints.Length - 1;
         rpIndex = 0;
         src = GetComponent<AudioSource>();
@@ -73,11 +73,10 @@ public class Enemy02behaviour3D : Enemy
             if (target && timeSinceAttack >= AttackCoolDown && state.getCanShoot()) //Checks if you can shoot
             {
                 resetTime();
-                Fired = true;
                 src.PlayOneShot(attackClip);
                 Attack();
             }
-            if (!Fired)
+            else
             {
                 timeSinceAttack += Time.deltaTime;
             }
@@ -138,7 +137,10 @@ public class Enemy02behaviour3D : Enemy
 
     public void Attack() //Tells associated projectile to fire
     {
-        projectile.Fire();
+        //projectile.Fire();
+
+        var g = Object.Instantiate(projectilePreFab, transform.position, Quaternion.identity);
+        g.transform.position = new Vector3(g.transform.position.x, g.transform.position.y, -1);
     }
 
     public override void Damage(int damage = 1) //Method to call when player hits an enemy
@@ -199,7 +201,7 @@ public class Enemy02behaviour3D : Enemy
     public void setTarget(Controller3D target) //Called by Idle when an enemy is found
     {
         this.target = target;
-        projectile.setTarget(target);
+        //projectile.setTarget(target);
     }
 
     private IEnumerator deathTime()
