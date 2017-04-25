@@ -28,6 +28,7 @@ public class CheckPoint : MonoBehaviour
             if (!gm) return;
             gm.SaveToMemory();
             gm.SaveToFiles();
+            gm.UseCheckPoint = true;
         }
     }
 }

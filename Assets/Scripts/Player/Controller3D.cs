@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Debug = UnityEngine.Debug;
 
 
@@ -28,6 +29,12 @@ public class Controller3D : MonoBehaviour
     public Vector2 Forward { get; set; }
     public Vector2 MovementInput { get; private set; }
     public Animator Animator { get; private set; }
+
+
+    public Vector3 SpawnPoint
+    {
+        get { return _spawnPosition; }
+    }
 
 
     public float ColliderHeight
@@ -94,9 +101,16 @@ public class Controller3D : MonoBehaviour
 
     private void Start()
     {
+        transform.position = _spawnPosition;
         Animator = GetComponent<Animator>();
         Forward = transform.forward;
         _abilityColorActive = false;
+    }
+
+
+    public void Spawn()
+    {
+        transform.position = _spawnPosition;
     }
 
 
@@ -296,12 +310,15 @@ public class Controller3D : MonoBehaviour
 
     public void Kill()
     {
-        ChangeCharacterState(new CharacterStateSwitch3D(new GroundState3D(this)));
+        /*ChangeCharacterState(new CharacterStateSwitch3D(new GroundState3D(this)));
         transform.position = _spawnPosition;
         Velocity = Vector3.zero;
 
         // TODO: Respawn from somewhere else?
         GetComponent<PlayerHealth>().Respawn();
+        /**/
+        
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
 

@@ -65,6 +65,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public bool UseCheckPoint { get; set; }
+
     private void Awake()
     {
         DontDestroyOnLoad(this); ;
@@ -141,7 +143,7 @@ public class GameManager : MonoBehaviour
 
         var playerSaveData = new PlayerSaveData();
         var abilityNames = new string[_playerAttributes.Abilities.Count];
-        for (int i = 0; i < _playerAttributes.Abilities.Count; i++)
+        for (var i = 0; i < _playerAttributes.Abilities.Count; i++)
         {
             abilityNames[i] = _playerAttributes.Abilities[i].name;
         }
@@ -150,6 +152,7 @@ public class GameManager : MonoBehaviour
         playerSaveData.Abilities = abilityNames;
         //playerSaveData.HP = _playerAttributes.currentHealth;
         playerSaveData.BeatenLevels = beatenLevels;
+        playerSaveData.SpawnPoint = _playerAttributes.GetComponent<Controller3D>().SpawnPoint;
         var stringifiedPlayer = new string[1];
 
         stringifiedPlayer[0] = JsonUtility.ToJson(playerSaveData);
@@ -165,6 +168,7 @@ public class GameManager : MonoBehaviour
 
         var playerSaveData = JsonUtility.FromJson<PlayerSaveData>(stringifiedData[0]);
         //_playerAttributes.currentHealth = playerSaveData.HP;
+        //_playerAttributes.GetComponent<Controller3D>().SetSpawn(playerSaveData.SpawnPoint);
 
         foreach (var i in playerSaveData.BeatenLevels)
             BeatLevel(i);
@@ -178,6 +182,16 @@ public class GameManager : MonoBehaviour
         }
 
         return true;
+    }
+
+
+    public void LoadCheckPointData()
+    {
+        if (!HasMemoryData) return;
+        
+        var stringifiedData = InMemory[0]; // TODO POSSIBLY SCARY
+        var playerSaveData = JsonUtility.FromJson<PlayerSaveData>(stringifiedData[0]);
+        _playerAttributes.GetComponent<Controller3D>().SetSpawn(playerSaveData.SpawnPoint);
     }
 
     public void DeleteSaveFile()

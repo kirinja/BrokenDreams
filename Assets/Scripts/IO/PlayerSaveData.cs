@@ -6,4 +6,5 @@ public struct PlayerSaveData
     public string[] Abilities;
     public int HP;
     public string[] BeatenLevels;
+    public Vector3 SpawnPoint;
 }
