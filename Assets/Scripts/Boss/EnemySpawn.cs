@@ -39,7 +39,6 @@ public class EnemySpawn : MonoBehaviour
             {
                 g.GetComponent<Enemy02behaviour3D>().retreatPoints = GetPlatformTargetPoints(other.gameObject); 
             }
-            
 
             if (transform.childCount > 0)
             {

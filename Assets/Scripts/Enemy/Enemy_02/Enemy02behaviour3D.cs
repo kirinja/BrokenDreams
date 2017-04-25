@@ -8,36 +8,26 @@ public class Enemy02behaviour3D : Enemy
     public int MaxHealth = 2;
     
     private int health;
-    public float projSpeed;
-
-    //private float moveSpeed = 2f;
-
+    
     public float AttackCoolDown = 2f;
-
-    private float projectileSpeed;
-
+    
     private Controller3D target;
 
-    private float timeSinceAttack = 4f;
-
-    private Projectile projectile;
-
-    public bool Fired;
+    private float timeSinceAttack;
 
     public float ArbitarySpeedMultiplier = 4.0f;
 
     private EnemyState state;
-
-    public float projLifeTime;
+    
     public float HealthDropChance = 0.3f;
     public GameObject HealthDrop;
     private bool dead;
 
     public GameObject projectilePreFab;
     public Transform[] retreatPoints;
-    public int rpIndex;
-    public int rpThreshold;
-    public Vector3 AggroRange;
+    [HideInInspector] public int rpIndex;
+    [HideInInspector] public int rpThreshold;
+    public float AggroRange = 10.0f;
     public LayerMask AggroMask;
     public LayerMask AggroCollisionMask;
     private AudioSource src;
@@ -47,6 +37,8 @@ public class Enemy02behaviour3D : Enemy
     public AudioClip damageClip;
     private Transform platform;
     private Vector3 previousPlatformPosition;
+
+    private LineRenderer laserFocus;
 
     // Use this for initialization
     void Start()
@@ -63,6 +55,8 @@ public class Enemy02behaviour3D : Enemy
         src = GetComponent<AudioSource>();
         dead = false;
         Alive = true;
+
+        laserFocus = GetComponent<LineRenderer>();
     }
 
     // Update is called once per frame
@@ -75,9 +69,18 @@ public class Enemy02behaviour3D : Enemy
                 resetTime();
                 src.PlayOneShot(attackClip);
                 Attack();
+                //laserFocus.enabled = false;
             }
             else
             {
+                // here we do the line render stuff (tracking player)
+                if (target)
+                {
+                    //laserFocus.enabled = true;
+                    // if we have a target then do stuff
+                    laserFocus.SetPosition(0, transform.position);
+                    laserFocus.SetPosition(1, target.transform.position); // thi position is slightly too low. will have to update
+                }
                 timeSinceAttack += Time.deltaTime;
             }
             state.Update();
@@ -88,10 +91,10 @@ public class Enemy02behaviour3D : Enemy
                 if (platformObject.transform == platform)
                 {
                     transform.position += platform.position - previousPlatformPosition;
-                    foreach (var point in retreatPoints)
-                    {
-                        point.position += platform.position - previousPlatformPosition;
-                    }
+                    //foreach (var point in retreatPoints)
+                    //{
+                    //    point.position += platform.position - previousPlatformPosition;
+                    //}
                     previousPlatformPosition = platform.position;
                 }
                 else
@@ -179,6 +182,7 @@ public class Enemy02behaviour3D : Enemy
         src.PlayOneShot(deathClip);
         GetComponent<Collider>().enabled = false;
         GetComponent<MeshRenderer>().enabled = false;
+        laserFocus.enabled = false;
     }
 
     public void resetTime() //Timer to shoot again starts when projectile hits something
