@@ -1,43 +1,49 @@
-﻿using UnityEditor;
+﻿using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+
 
 public class Pushable : MonoBehaviour
 {
+    private const float GroundCheckDistance = 0.2f;
+    private const float PushSpeed = 15f;
+
+    private AbilityColors _abilityColor;
+    private bool _isPushed;
+    private Material _material;
+    private Vector3 _startPosition;
+    private float _totalPushLength;
+    private Vector3 _velocity;
+
     public LayerMask CollisionMask;
 
-    private AbilityColors abilityColor;
-    private bool isPushed;
-    private Material material;
-    private Vector3 startPosition;
-    private float totalPushLength;
-    private Vector3 velocity;
-    private const float GroundCheckDistance = 0.1f;
-    private const float PushSpeed = 15f;
 
     // Use this for initialization
     private void Start()
     {
-        material = GetComponent<Renderer>().sharedMaterial;
-        abilityColor = Resources.Load("AbilityColors", typeof(AbilityColors)) as AbilityColors;
-        material.color = abilityColor.PushColor;
-        velocity = Vector3.zero;
-        totalPushLength = 0f;
-        isPushed = false;
+        _material = GetComponent<Renderer>().sharedMaterial;
+        _abilityColor = Resources.Load("AbilityColors", typeof(AbilityColors)) as AbilityColors;
+        _material.color = _abilityColor.PushColor;
+        _velocity = Vector3.zero;
+        _totalPushLength = 0f;
+        _isPushed = false;
     }
 
+
     // UpdateAbility is called once per frame
-    private void Update()
+    private void FixedUpdate()
     {
-        if (isPushed)
+        if (_isPushed)
         {
             var previousPosition = transform.position;
 
-            transform.position += velocity * Time.deltaTime;
+            transform.position += _velocity * Time.deltaTime;
 
             var pushedLength = CalculateDistancePushed();
 
             var didHit = false;
-            var hits = Physics.OverlapBox(transform.position, GetComponent<Collider>().bounds.extents, transform.rotation, CollisionMask);
+            var hits = Physics.OverlapBox(transform.position, GetComponent<Collider>().bounds.extents,
+                transform.rotation, CollisionMask);
 
             foreach (var collider in hits)
             {
@@ -45,73 +51,88 @@ public class Pushable : MonoBehaviour
 
                 if (collider.CompareTag("Movable Object"))
                 {
-                    collider.transform.Translate(0.1f * velocity.normalized);
-                    collider.GetComponent<Pushable>().Push(velocity.normalized, totalPushLength - pushedLength);
-                    isPushed = false;
+                    collider.transform.Translate(0.1f * _velocity.normalized);
+                    collider.GetComponent<Pushable>().Push(_velocity.normalized, _totalPushLength - pushedLength);
+                    _isPushed = false;
                 }
                 else if (collider.CompareTag("Enemy"))
                 {
-                    var damageable = collider.GetComponent<Attackable>();
+                    var damageable = collider.GetComponent<Enemy>();
                     if (damageable)
-                    {
-                        damageable.Damage();
-                    }
+                        damageable.Damage(9999);
                 }
                 else
                 {
                     didHit = true;
                 }
             }
+
             if (didHit)
             {
                 transform.position = previousPosition;
-                isPushed = false;
+                _isPushed = false;
             }
-            else if (pushedLength >= totalPushLength)
+            else if (pushedLength >= _totalPushLength)
             {
-                transform.position = new Vector3(startPosition.x + totalPushLength * Mathf.Sign(velocity.x),
+                transform.position = new Vector3(_startPosition.x + _totalPushLength * Mathf.Sign(_velocity.x),
                     transform.position.y, transform.position.z);
-                isPushed = false;
+                _isPushed = false;
             }
-            
         }
 
         if (!CheckGround())
         {
-            isPushed = false;
+            _isPushed = false;
         }
         HandleGravity();
 
         GetComponent<Rigidbody>().position = transform.position;
     }
 
+
     private bool CheckGround()
     {
-        var collider = GetComponent<Collider>();
+        var col = GetComponent<Collider>();
         var isGrounded = false;
-        RaycastHit hitData;
-        isGrounded = (Physics.Raycast(
-                         new Vector3(transform.position.x - collider.bounds.extents.x,
-                             transform.position.y - collider.bounds.extents.y, transform.position.z), Vector3.down, out hitData,
-                         GroundCheckDistance, CollisionMask) && hitData.transform.gameObject != gameObject);
-        isGrounded = (Physics.Raycast(
-                         new Vector3(transform.position.x + collider.bounds.extents.x,
-                             transform.position.y - collider.bounds.extents.y, transform.position.z), Vector3.down, out hitData,
-                         GroundCheckDistance, CollisionMask) && hitData.transform.gameObject != gameObject) || isGrounded;
+
+        var collisions = Physics.RaycastAll(
+            new Vector3(transform.position.x - col.bounds.extents.x,
+                transform.position.y - col.bounds.extents.y, transform.position.z), Vector3.down,
+            GroundCheckDistance, CollisionMask);
+        foreach (var rayHit in collisions)
+        {
+            if (rayHit.transform.gameObject == gameObject || rayHit.transform.CompareTag("Enemy")) continue;
+
+            isGrounded = true;
+        }
+
+        collisions = Physics.RaycastAll(
+            new Vector3(transform.position.x + col.bounds.extents.x,
+                transform.position.y - col.bounds.extents.y, transform.position.z), Vector3.down,
+            GroundCheckDistance, CollisionMask);
+        foreach (var rayHit in collisions)
+        {
+            if (rayHit.transform.gameObject == gameObject || rayHit.transform.CompareTag("Enemy")) continue;
+
+            isGrounded = true;
+        }
 
         return isGrounded;
     }
 
+
     private void HandleGravity()
     {
         var gravity = Physics.gravity;
-        velocity += gravity * Time.deltaTime;
+        _velocity += gravity * Time.deltaTime;
         var previousPosition = transform.position;
 
-        transform.position += new Vector3(0f, velocity.y * Time.deltaTime, 0f);
+        transform.position += new Vector3(0f, _velocity.y * Time.deltaTime, 0f);
 
         var didHit = false;
-        var hits = Physics.OverlapBox(transform.position, GetComponent<Collider>().bounds.extents, transform.rotation, CollisionMask);
+        var hits = Physics.OverlapBox(transform.position, GetComponent<Collider>().bounds.extents, transform.rotation,
+            CollisionMask);
+        var enemies = new List<Enemy>();
 
         foreach (var collider in hits)
         {
@@ -119,66 +140,68 @@ public class Pushable : MonoBehaviour
 
             if (collider.CompareTag("Enemy"))
             {
-                var damageable = collider.GetComponent<Attackable>();
+                var damageable = collider.GetComponent<Enemy>();
                 if (damageable)
-                {
-                    damageable.Damage();
-                }
+                    enemies.Add(damageable);
             }
             else
             {
                 didHit = true;
             }
-            
-            break;
         }
+
         if (didHit)
         {
             transform.position = previousPosition;
-            velocity = new Vector3(velocity.x, 0f, velocity.z);
+            _velocity = new Vector3(_velocity.x, 0f, _velocity.z);
         }
-        /*else
+        else
         {
-            transform.position = previousPosition;
-            isPushed = false;
-        }*/
+            foreach (var enemy in enemies)
+            {
+                enemy.Damage(9999);
+            }
+        }
     }
+
 
     private float CalculateDistancePushed()
     {
-        if (velocity.x > 0f)
-        {
-            return transform.position.x - startPosition.x;
-        }
-        return startPosition.x - transform.position.x;
+        if (_velocity.x > 0f)
+            return transform.position.x - _startPosition.x;
+
+        return _startPosition.x - transform.position.x;
     }
+
 
     private void UpdateColor()
     {
         // this snippet only run when in the editor
 #if UNITY_EDITOR
         if (Application.isEditor && !Application.isPlaying)
-            material.color = abilityColor.PushColor;
+            _material.color = _abilityColor.PushColor;
 #endif
     }
+
 
     private void OnEnable()
     {
         EditorApplication.update += UpdateColor;
     }
 
+
     public void Push(Vector3 direction, float length)
     {
-        if (isPushed) return;
+        if (_isPushed) return;
 
         var localVel = direction;
 
-        totalPushLength = length;
+        _totalPushLength = length;
 
         var pushDirection = new Vector3(localVel.x, 0f, 0f).normalized;
         var horizontalVvelocity = pushDirection * PushSpeed;
-        velocity = new Vector3(horizontalVvelocity.x, velocity.y, 0f);
-        isPushed = true;
-        startPosition = transform.position;
+        _velocity = new Vector3(horizontalVvelocity.x, _velocity.y, 0f);
+        _isPushed = true;
+        _startPosition = transform.position;
     }
 }
