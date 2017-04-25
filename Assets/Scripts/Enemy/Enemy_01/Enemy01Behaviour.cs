@@ -128,10 +128,10 @@ public class Enemy01Behaviour : Enemy
         StartVelocity *= -1;
     }
 
-    public override void Damage()
+    public override void Damage(int damage = 1)
     {
         transform.Find("Damage").GetComponent<ParticleSystem>().Play();
-        health--;
+        health -= damage;
         if (health <= 0)
         {
             Defeat();

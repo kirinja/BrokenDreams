@@ -17,7 +17,7 @@ public class FallingWall : Attackable {
 		
 	}
 
-    public override void Damage()
+    public override void Damage(int damage = 1)
     {
         gameObject.SetActive(false);
         StandingWall.SetActive(false);

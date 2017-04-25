@@ -143,11 +143,12 @@ public class Enemy02behaviour3D : Enemy
         g.transform.position = new Vector3(g.transform.position.x, g.transform.position.y, -1);
     }
 
-    public override void Damage() //Method to call when player hits an enemy
+    public override void Damage(int damage = 1) //Method to call when player hits an enemy
     {
 
         transform.Find("Damage").GetComponent<ParticleSystem>().Play();
-        if (--health <= 0)
+        health -= damage;
+        if (health <= 0)
         {
             Defeat();
         }
