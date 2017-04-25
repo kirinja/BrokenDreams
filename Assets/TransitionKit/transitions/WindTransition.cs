@@ -55,11 +55,12 @@ namespace Prime31.TransitionKit
 			// we dont transition back to the new scene unless it is loaded
 			if( !nextScene.Equals("") )
 			{
-				SceneManager.LoadSceneAsync( nextScene );
+				//SceneManager.LoadSceneAsync( nextScene );
+                SceneManager.LoadScene(nextScene);
 				yield return transitionKit.StartCoroutine( transitionKit.waitForLevelToLoad( nextScene ) );
-			}
+            }
 
-			yield return transitionKit.StartCoroutine( transitionKit.tickProgressPropertyInMaterial( duration ) );
+            yield return transitionKit.StartCoroutine( transitionKit.tickProgressPropertyInMaterial( duration ) );
 		}
 
 		#endregion

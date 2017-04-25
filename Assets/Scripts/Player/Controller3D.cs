@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using Prime31.TransitionKit;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Debug = UnityEngine.Debug;
@@ -318,7 +319,16 @@ public class Controller3D : MonoBehaviour
         GetComponent<PlayerHealth>().Respawn();
         /**/
         
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+        // problem since we can still move during the transition
+        var wind = new WindTransition()
+        {
+            nextScene = SceneManager.GetActiveScene().name,
+            duration = 0.5f,
+            size = 0.3f
+        };
+        TransitionKit.instance.transitionWithDelegate(wind);
     }
 
 

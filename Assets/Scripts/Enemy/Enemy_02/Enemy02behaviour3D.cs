@@ -64,6 +64,7 @@ public class Enemy02behaviour3D : Enemy
     {
         if (!dead)
         {
+            Aggro();
             if (target && timeSinceAttack >= AttackCoolDown && state.getCanShoot()) //Checks if you can shoot
             {
                 resetTime();
@@ -76,10 +77,14 @@ public class Enemy02behaviour3D : Enemy
                 // here we do the line render stuff (tracking player)
                 if (target)
                 {
-                    //laserFocus.enabled = true;
+                    laserFocus.enabled = true;
                     // if we have a target then do stuff
                     laserFocus.SetPosition(0, transform.position);
-                    laserFocus.SetPosition(1, target.transform.position + new Vector3(0, target.transform.localScale.y / 2, 0)); // thi position is slightly too low. will have to update
+                    laserFocus.SetPosition(1, target.transform.position + new Vector3(0, target.transform.localScale.y / 2, 0));
+                }
+                else
+                {
+                    laserFocus.enabled = false;
                 }
                 timeSinceAttack += Time.deltaTime;
             }
@@ -138,10 +143,32 @@ public class Enemy02behaviour3D : Enemy
         }
     }*/
 
-    public void Attack() //Tells associated projectile to fire
+    private void Aggro()
     {
-        //projectile.Fire();
+        Collider[] col = Physics.OverlapSphere(transform.position, AggroRange, AggroMask);
+        int i = 0;
+        RaycastHit hit;
+        bool foundPlayer = false;
+        for (int v = 0; v < col.Length; v++)
+        {
+            if (col[v].CompareTag("Player") && !Physics.Linecast(transform.position, col[i].transform.position, out hit, AggroCollisionMask))
+            {
+                setTarget(col[v].GetComponent<Controller3D>());
+                getSource().PlayOneShot(aggroClip);
+                foundPlayer = true;
+                break;
+            }
+        }
 
+        if (!foundPlayer)
+        {
+            setTarget(null);
+            //changeState(new Idle(this)); //If not defeated spasm
+        }
+    }
+
+    public void Attack()
+    {
         var g = Object.Instantiate(projectilePreFab, transform.position, Quaternion.identity);
         g.transform.position = new Vector3(g.transform.position.x, g.transform.position.y, -1);
     }
@@ -218,6 +245,11 @@ public class Enemy02behaviour3D : Enemy
         if (other.gameObject.CompareTag("Player"))
         {
             other.gameObject.GetComponent<Controller3D>().AttackPlayer(transform.position, 1);
+        }
+        if (other.CompareTag("Movable Object"))
+        {
+            rpIndex++;
+            rpIndex = rpIndex > rpThreshold ? 0 : rpIndex--; //Chooses next goal when current goal is reached.
         }
     }
 
