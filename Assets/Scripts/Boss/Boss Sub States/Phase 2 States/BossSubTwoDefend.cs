@@ -125,45 +125,22 @@ public class BossSubTwoDefend: IBossSubState
         {
             return;
         }
+        
+        _arcs[pId].GetComponent<MeshFilter>().sharedMesh =
+            _bossData.Enemy2.GetComponent<MeshFilter>().sharedMesh;
 
-        /*
-        if (_spawnPoints[pId].GetComponentInChildren<EnemiesOnPlatform>().Amount >= _bossData.MaxEnemiesPerPlatfor)
-        {
-            _trySpawnCounter++;
-            if (_trySpawnCounter >= _bossData.MaxTrySpawnCycles)
-                _spawned = true;
-            // might get stuck in a loop here
+        _arcs[pId].GetComponent<EnemySpawn>().Enemy = _bossData.Enemy2;
 
-            //Debug.Log("cant spawn since platform is full " + _trySpawnCounter + " - " + _spawned);
-            canSpawn = false;
-            //return null;
-        }
+        _arcs[pId].GetComponent<MeshRenderer>().enabled = true;
+        _arcs[pId].GetComponent<SplineController>().FollowSpline();
 
-        if (canSpawn)
-        {*/
-            var childCount = _bossData.NavmeshTargets.transform.childCount;
-            var childs = new Transform[childCount];
-            for (var i = 0; i < childCount; i++)
-            {
-                childs[i] = _bossData.NavmeshTargets.transform.GetChild(i);
-            }
+        ++_spawnCounter;
+        _spawnTimer = TimeBetweenSpawns;
 
-            _arcs[pId].GetComponent<MeshFilter>().sharedMesh =
-                _bossData.Enemy2.GetComponent<MeshFilter>().sharedMesh;
+        _bossData.PlayBossSpawnSound();
 
-            _bossData.Enemy2.GetComponent<Enemy02behaviour3D>().retreatPoints = childs;
-            _arcs[pId].GetComponent<EnemySpawn>().Enemy = _bossData.Enemy2;
+        _platformIds = _platformIds.Where(val => val != pId).ToArray();
 
-            _arcs[pId].GetComponent<MeshRenderer>().enabled = true;
-            _arcs[pId].GetComponent<SplineController>().FollowSpline();
-
-            ++_spawnCounter;
-            _spawnTimer = TimeBetweenSpawns;
-
-            _bossData.PlayBossSpawnSound();
-
-            _platformIds = _platformIds.Where(val => val != pId).ToArray();
-        //}
     }
 
     private void UpdateTimers()
