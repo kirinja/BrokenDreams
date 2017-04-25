@@ -1,67 +1,74 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class TriggerSound : MonoBehaviour {
 
-	private AudioSource[] sources;
-	private AudioSource source1;
-	private AudioSource source2;
+public class TriggerSound : MonoBehaviour
+{
+    public float CollisionVolume = 1f;
+    public AudioClip abilitySound;
+    //public AudioClip checkpoints;
+    public AudioClip deadzones;
 
-	public AudioClip wallSound;	
-	public AudioClip abilitySound;
-	public AudioClip checkpoints;
-	public AudioClip deadzones;
+    public AudioClip room3;
+    private AudioSource source1;
+    private AudioSource source2;
 
-	public AudioClip room3;
+    private AudioSource[] sources;
 
-	private float targetAudio = 0; 
-	// Use this for initialization
-	void Start () {
+    private float targetAudio;
 
-		sources = GetComponents<AudioSource> ();
-		source1 = sources[0];
-		source2 = sources[1];
+    public AudioClip wallSound;
 
-		source2.loop = true;
 
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    // Use this for initialization
+    private void Start()
+    {
+        sources = GetComponents<AudioSource>();
+        source1 = sources[0];
+        source2 = sources[1];
 
-	}
-		
-	void OnTriggerEnter(Collider col){
+        source2.loop = true;
+    }
 
-		if (col.gameObject.CompareTag("Wall")){
-			source1.PlayOneShot (wallSound);
-		}
 
-		if (col.gameObject.CompareTag("Particle system")){
-			source1.PlayOneShot (abilitySound);
-		}
+    // Update is called once per frame
+    private void Update()
+    {
+    }
 
-		if (col.gameObject.CompareTag("Checkpoint")){
-			source1.PlayOneShot (checkpoints);
-		}
 
-		if (col.gameObject.CompareTag("Deadzones sound")){
-			source1.PlayOneShot (deadzones);
-		}
+    private void OnTriggerEnter(Collider col)
+    {
+        //if (col.gameObject.CompareTag("Wall")){
+        //	source1.PlayOneShot (wallSound);
+        //}
 
-		if (col.gameObject.CompareTag("Room3")){
-			targetAudio = 1;
-			source2.clip = room3;
-			source2.Play ();
-		}
-	}
+        if (col.gameObject.CompareTag("Particle system")) source1.PlayOneShot(abilitySound);
 
-	void OnTriggerExit(Collider col){
-		targetAudio = 0;
+        //if (col.gameObject.CompareTag("Checkpoint")){
+        //	source1.PlayOneShot (checkpoints);
+        //}
 
-		if (col.gameObject.tag == "Room3" && source1.isPlaying){
-			source2.Stop ();
-		}
-	}
+        if (col.gameObject.CompareTag("Deadzones sound")) source1.PlayOneShot(deadzones);
+
+        if (col.gameObject.CompareTag("Room3"))
+        {
+            targetAudio = 1;
+            source2.clip = room3;
+            source2.Play();
+        }
+    }
+
+
+    private void OnTriggerExit(Collider col)
+    {
+        targetAudio = 0;
+
+        if (col.gameObject.CompareTag("Room3") && source1.isPlaying) source2.Stop();
+    }
+
+
+    public void PlayCollisionSound(float volume)
+    {
+        source1.PlayOneShot(wallSound, volume * CollisionVolume);
+    }
 }

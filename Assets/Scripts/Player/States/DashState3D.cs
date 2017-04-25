@@ -72,14 +72,28 @@ internal class DashState3D : ICharacterState3D
 
     public CharacterStateSwitch3D HandleCollisions(CollisionFlags collisionFlags)
     {
+        var stateSwitch = new CharacterStateSwitch3D();
         if (collisionFlags == CollisionFlags.Sides)
         {
+            // Collision sounds
+            if (!_controller.CollideSide)
+            {
+                _controller.GetComponentInChildren<TriggerSound>()
+                    .PlayCollisionSound(Mathf.Min(1f,
+                        Mathf.Abs(_controller.Velocity.x / _controller.Attributes.MaxSpeed)));
+            }
+            _controller.CollideSide = true;
+
             _controller.Velocity = new Vector2(_controller.GetComponent<PlayerAttributes>().MaxSpeed, 0f);
 
-            return new CharacterStateSwitch3D(new AirState3D(_controller));
+            stateSwitch = new CharacterStateSwitch3D(new AirState3D(_controller));
+        }
+        else
+        {
+            _controller.CollideSide = false;
         }
 
-        return new CharacterStateSwitch3D();
+        return stateSwitch;
     }
 
 

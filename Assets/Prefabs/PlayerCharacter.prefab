@@ -1533,7 +1533,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 150c91118e3dcad44ad672f6feacf5db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LockedZPosition: -1
 --- !u!114 &114096058426615598
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1545,12 +1544,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d12760bdc8d465d418e0b664605cf7bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CameraTransform: {fileID: 0}
-  Material: {fileID: 2100000, guid: 0a30316fcf65e0144863a6dd1c357e3c, type: 2}
   AbilityUI: {fileID: 0}
   GroundMask:
     serializedVersion: 2
     m_Bits: 768
+  LockedZPosition: -1
+  Material: {fileID: 2100000, guid: 0a30316fcf65e0144863a6dd1c357e3c, type: 2}
 --- !u!114 &114134480092361830
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1562,11 +1561,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48bbcac2d92929f479794a975269be29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallSound: {fileID: 8300000, guid: 16e81111e2f50b244a6273d30e99222f, type: 3}
+  CollisionVolume: 0.5
   abilitySound: {fileID: 8300000, guid: 09aa8f8b09e6c044b9ed43c903de4c6d, type: 3}
-  checkpoints: {fileID: 8300000, guid: 20b7fc023f09d5b4b85b230f5d5728fb, type: 3}
   deadzones: {fileID: 8300000, guid: 7f6c801fb8eae9e4091fbfec57460ead, type: 3}
   room3: {fileID: 8300000, guid: dcfc578212442bb46b35617bfffd1814, type: 3}
+  wallSound: {fileID: 8300000, guid: 16e81111e2f50b244a6273d30e99222f, type: 3}
 --- !u!114 &114207972078266408
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1620,7 +1619,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 150c91118e3dcad44ad672f6feacf5db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LockedZPosition: -1
 --- !u!114 &114686585740528660
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -29,6 +29,9 @@ public class Controller3D : MonoBehaviour
     public Vector2 Forward { get; set; }
     public Vector2 MovementInput { get; private set; }
     public Animator Animator { get; private set; }
+    public bool CollideSide { get; set; } // Ugly
+    public bool CollideDown { get; set; }
+    public bool CollideUp { get; set; }
 
 
     public Vector3 SpawnPoint

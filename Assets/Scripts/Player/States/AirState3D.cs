@@ -62,17 +62,63 @@ public struct AirState3D : ICharacterState3D
 
     public CharacterStateSwitch3D HandleCollisions(CollisionFlags collisionFlags)
     {
-        CharacterStateSwitch3D stateSwitch;
+        var stateSwitch = new CharacterStateSwitch3D();
         if ((collisionFlags & CollisionFlags.Below) == CollisionFlags.Below)
-            stateSwitch = _controller.IsTraversableSlope(_controller.ColliderHeight * 10.0f)
-                ? new CharacterStateSwitch3D(new GroundState3D(_controller))
-                : new CharacterStateSwitch3D();
-        else
-            stateSwitch = new CharacterStateSwitch3D();
+        {
+            if (_controller.IsTraversableSlope(_controller.ColliderHeight * 10.0f))
+            {
+                // Collision sounds
+                if (!_controller.CollideDown)
+                {
+                    _controller.GetComponentInChildren<TriggerSound>()
+                        .PlayCollisionSound(Mathf.Min(1f,
+                            Mathf.Abs(_controller.Velocity.y / _controller.Attributes.MaxSpeed)));
+                }
+                _controller.CollideDown = true;
+
+                stateSwitch = new CharacterStateSwitch3D(new GroundState3D(_controller));
+            }
+            else
+            {
+                _controller.CollideDown = false;
+            }
+        }
+
         if ((collisionFlags & CollisionFlags.Sides) == CollisionFlags.Sides)
+        {
+            // Collision sounds
+            if (!_controller.CollideSide)
+            {
+                _controller.GetComponentInChildren<TriggerSound>()
+                    .PlayCollisionSound(Mathf.Min(1f,
+                        Mathf.Abs(_controller.Velocity.x / _controller.Attributes.MaxSpeed)));
+            }
+            _controller.CollideSide = true;
+
             _controller.Velocity = new Vector2(0f, _controller.Velocity.y);
+        }
+        else
+        {
+            _controller.CollideSide = false;
+        }
+
         if ((collisionFlags & CollisionFlags.Above) == CollisionFlags.Above && _controller.Velocity.y > 0f)
+        {
+            // Collision sounds
+            if (!_controller.CollideDown)
+            {
+                _controller.GetComponentInChildren<TriggerSound>()
+                    .PlayCollisionSound(Mathf.Min(1f,
+                        Mathf.Abs(_controller.Velocity.y / _controller.Attributes.MaxSpeed)));
+            }
+            _controller.CollideDown = true;
+
             _controller.Velocity = new Vector2(_controller.Velocity.x, 0f);
+        }
+        else
+        {
+            _controller.CollideDown = false;
+        }
 
         return stateSwitch;
     }

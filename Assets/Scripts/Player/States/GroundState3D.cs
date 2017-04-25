@@ -41,8 +41,6 @@ public struct GroundState3D : ICharacterState3D
 
         if (Input.GetButtonDown("Taunt"))
             _controller.Animator.SetTrigger("Wave");
-
-        
     }
 
 
@@ -106,17 +104,57 @@ public struct GroundState3D : ICharacterState3D
         CharacterStateSwitch3D stateSwitch;
         if ((collisionFlags & CollisionFlags.Below) == CollisionFlags.Below || IsGrounded())
         {
+            // Collision sounds
+            if (!_controller.CollideDown)
+            {
+                _controller.GetComponentInChildren<TriggerSound>().PlayCollisionSound(Mathf.Min(1f, Mathf.Abs(_controller.Velocity.y / _controller.Attributes.MaxSpeed)));
+            }
+            _controller.CollideDown = true;
+
             _controller.Velocity = new Vector2(_controller.Velocity.x, 0f);
             stateSwitch = new CharacterStateSwitch3D();
         }
         else
         {
+            _controller.CollideDown = false;
             stateSwitch = new CharacterStateSwitch3D(new AirState3D(_controller));
         }
+
         if ((collisionFlags & CollisionFlags.Sides) == CollisionFlags.Sides)
+        {
+            // Collision sounds
+            if (!_controller.CollideSide)
+            {
+                _controller.GetComponentInChildren<TriggerSound>()
+                    .PlayCollisionSound(Mathf.Min(1f,
+                        Mathf.Abs(_controller.Velocity.x / _controller.Attributes.MaxSpeed)));
+            }
+            _controller.CollideSide = true;
+
             _controller.Velocity = new Vector2(0f, _controller.Velocity.y);
+        }
+        else
+        {
+            _controller.CollideSide = false;
+        }
+
         if ((collisionFlags & CollisionFlags.Above) == CollisionFlags.Above)
+        {
+            // Collision sounds
+            if (!_controller.CollideDown)
+            {
+                _controller.GetComponentInChildren<TriggerSound>()
+                    .PlayCollisionSound(Mathf.Min(1f,
+                        Mathf.Abs(_controller.Velocity.y / _controller.Attributes.MaxSpeed)));
+            }
+            _controller.CollideDown = true;
+
             _controller.Velocity = new Vector2(_controller.Velocity.x, 0f);
+        }
+        else
+        {
+            _controller.CollideUp = false;
+        }
 
         return stateSwitch;
     }

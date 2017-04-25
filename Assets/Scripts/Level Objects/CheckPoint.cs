@@ -1,15 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CheckPoint : MonoBehaviour
 {
-    private bool activated;
+    private bool _activated;
 
 	// Use this for initialization
 	void Start ()
 	{
-	    activated = false;
+	    _activated = false;
         transform.Find("Checkpoint_circle").GetComponent<ParticleSystem>().Stop();
 	}
 	
@@ -20,10 +18,13 @@ public class CheckPoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && !activated)
+        if (other.CompareTag("Player") && !_activated)
         {
+            _activated = true;
             other.GetComponent<Controller3D>().SetSpawn(transform.position);
             transform.Find("Checkpoint_circle").GetComponent<ParticleSystem>().Play();
+            GetComponent<AudioSource>().Play();
+
             var gm = GameManager.Get();
             if (!gm) return;
             gm.SaveToMemory();
