@@ -10,12 +10,14 @@ public class LevelGoal : MonoBehaviour {
     {
         if (other.CompareTag("Player"))
         {
-            var gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-            gameManager.BeatLevel(SceneManager.GetActiveScene().name);
-            gameManager.SaveToMemory();
-            gameManager.SaveToFiles();
-            //SceneManager.LoadScene("Hub");
-            
+            var gameManager = GameManager.Get();
+            if (gameManager)
+            {
+                gameManager.BeatLevel(SceneManager.GetActiveScene().name);
+                gameManager.SaveToMemory();
+                gameManager.SaveToFiles();
+                gameManager.UseCheckPoint = false;
+            }
 
             var fishEye = new FishEyeTransition()
             {
