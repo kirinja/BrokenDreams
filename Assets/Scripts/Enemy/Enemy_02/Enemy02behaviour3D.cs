@@ -53,7 +53,7 @@ public class Enemy02behaviour3D : Enemy
     {
         health = MaxHealth;
         state = new Idle(this); //Base state for Enemy is idle, idle contains method for player detection
-        var p = Instantiate<GameObject>(projectilePreFab);
+        //var p = Instantiate<GameObject>(projectilePreFab);
         //projectile = p.GetComponent<Projectile>();
         //projectile.setShooter(this);
         //projectile.setLifeTime(projLifeTime);

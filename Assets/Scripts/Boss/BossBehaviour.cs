@@ -29,8 +29,6 @@ public class BossBehaviour : MonoBehaviour
     public GameObject PushableBox;
     public GameObject HealthPickUp;
 
-    public GameObject NavmeshTargets;
-
     [Tooltip("Amount of enemies boss should spawn during phase 1")]
     public int Phase1Spawn = 3;
     [Tooltip("Amount of enemies boss should spawn during phase 2")]
