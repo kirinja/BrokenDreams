@@ -83,8 +83,6 @@ public struct GroundState3D : ICharacterState3D
         else
         {
             _platform = null;
-            // TODO: delet dis
-            Debug.Log("NO PLARTFROM");
         }
     }
 
