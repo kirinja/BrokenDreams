@@ -8,36 +8,26 @@ public class Enemy02behaviour3D : Enemy
     public int MaxHealth = 2;
     
     private int health;
-    public float projSpeed;
-
-    //private float moveSpeed = 2f;
-
+    
     public float AttackCoolDown = 2f;
-
-    private float projectileSpeed;
-
+    
     private Controller3D target;
 
-    private float timeSinceAttack = 4f;
-
-    private Projectile projectile;
-
-    public bool Fired;
+    private float timeSinceAttack;
 
     public float ArbitarySpeedMultiplier = 4.0f;
 
     private EnemyState state;
-
-    public float projLifeTime;
+    
     public float HealthDropChance = 0.3f;
     public GameObject HealthDrop;
     private bool dead;
 
     public GameObject projectilePreFab;
     public Transform[] retreatPoints;
-    public int rpIndex;
-    public int rpThreshold;
-    public Vector3 AggroRange;
+    [HideInInspector] public int rpIndex;
+    [HideInInspector] public int rpThreshold;
+    public float AggroRange = 10.0f;
     public LayerMask AggroMask;
     public LayerMask AggroCollisionMask;
     private AudioSource src;
@@ -48,21 +38,25 @@ public class Enemy02behaviour3D : Enemy
     private Transform platform;
     private Vector3 previousPlatformPosition;
 
+    private LineRenderer laserFocus;
+
     // Use this for initialization
     void Start()
     {
         health = MaxHealth;
         state = new Idle(this); //Base state for Enemy is idle, idle contains method for player detection
-        var p = Instantiate<GameObject>(projectilePreFab);
-        projectile = p.GetComponent<Projectile>();
-        projectile.setShooter(this);
-        projectile.setLifeTime(projLifeTime);
-        projectile.projSpeed = this.projSpeed;
+        //var p = Instantiate<GameObject>(projectilePreFab);
+        //projectile = p.GetComponent<Projectile>();
+        //projectile.setShooter(this);
+        //projectile.setLifeTime(projLifeTime);
+        //projectile.projSpeed = this.projSpeed;
         rpThreshold = retreatPoints.Length - 1;
         rpIndex = 0;
         src = GetComponent<AudioSource>();
         dead = false;
         Alive = true;
+
+        laserFocus = GetComponent<LineRenderer>();
     }
 
     // Update is called once per frame
@@ -73,12 +67,20 @@ public class Enemy02behaviour3D : Enemy
             if (target && timeSinceAttack >= AttackCoolDown && state.getCanShoot()) //Checks if you can shoot
             {
                 resetTime();
-                Fired = true;
                 src.PlayOneShot(attackClip);
                 Attack();
+                //laserFocus.enabled = false;
             }
-            if (!Fired)
+            else
             {
+                // here we do the line render stuff (tracking player)
+                if (target)
+                {
+                    //laserFocus.enabled = true;
+                    // if we have a target then do stuff
+                    laserFocus.SetPosition(0, transform.position);
+                    laserFocus.SetPosition(1, target.transform.position + new Vector3(0, target.transform.localScale.y / 2, 0)); // thi position is slightly too low. will have to update
+                }
                 timeSinceAttack += Time.deltaTime;
             }
             state.Update();
@@ -89,10 +91,10 @@ public class Enemy02behaviour3D : Enemy
                 if (platformObject.transform == platform)
                 {
                     transform.position += platform.position - previousPlatformPosition;
-                    foreach (var point in retreatPoints)
-                    {
-                        point.position += platform.position - previousPlatformPosition;
-                    }
+                    //foreach (var point in retreatPoints)
+                    //{
+                    //    point.position += platform.position - previousPlatformPosition;
+                    //}
                     previousPlatformPosition = platform.position;
                 }
                 else
@@ -138,14 +140,18 @@ public class Enemy02behaviour3D : Enemy
 
     public void Attack() //Tells associated projectile to fire
     {
-        projectile.Fire();
+        //projectile.Fire();
+
+        var g = Object.Instantiate(projectilePreFab, transform.position, Quaternion.identity);
+        g.transform.position = new Vector3(g.transform.position.x, g.transform.position.y, -1);
     }
 
-    public override void Damage() //Method to call when player hits an enemy
+    public override void Damage(int damage = 1) //Method to call when player hits an enemy
     {
 
         transform.Find("Damage").GetComponent<ParticleSystem>().Play();
-        if (--health <= 0)
+        health -= damage;
+        if (health <= 0)
         {
             Defeat();
         }
@@ -176,6 +182,7 @@ public class Enemy02behaviour3D : Enemy
         src.PlayOneShot(deathClip);
         GetComponent<Collider>().enabled = false;
         GetComponent<MeshRenderer>().enabled = false;
+        laserFocus.enabled = false;
     }
 
     public void resetTime() //Timer to shoot again starts when projectile hits something
@@ -198,7 +205,7 @@ public class Enemy02behaviour3D : Enemy
     public void setTarget(Controller3D target) //Called by Idle when an enemy is found
     {
         this.target = target;
-        projectile.setTarget(target);
+        //projectile.setTarget(target);
     }
 
     private IEnumerator deathTime()

@@ -14,7 +14,7 @@ public class BossOnDamage : Attackable {
 		
 	}
     
-    public override void Damage()
+    public override void Damage(int damage = 1)
     {
         //throw new System.NotImplementedException();
         // need to add a check so we cant do damage every frame, basically invincible timer
@@ -23,7 +23,7 @@ public class BossOnDamage : Attackable {
 
 
         bossData.Invincible = true;
-        bossData.BossState.TakeDamage(1);
+        bossData.BossState.TakeDamage(damage);
 
         transform.Find("Damage").GetComponent<ParticleSystem>().Play();
         // TODO maybe play particle system here. Definitly need to play particle system anyway

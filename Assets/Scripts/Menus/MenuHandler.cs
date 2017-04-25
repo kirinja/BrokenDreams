@@ -2,32 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class MenuHandler : MonoBehaviour
 {
     public GameObject PauseMenu;
 
-    private GameObject pauseMenu;
+    private GameObject _pauseMenu;
+
 
     private void Awake()
     {
-        pauseMenu = Instantiate(PauseMenu);
-        DontDestroyOnLoad(pauseMenu);
+        _pauseMenu = Instantiate(PauseMenu);
+        DontDestroyOnLoad(_pauseMenu);
     }
 
-	// Use this for initialization
-	private void Start ()
-	{
-        pauseMenu.SetActive(false);
+
+    // Use this for initialization
+    private void Start()
+    {
+        _pauseMenu.SetActive(false);
     }
-    
+
+
     public void ShowPauseMenu()
     {
-        pauseMenu.SetActive(true);
-        pauseMenu.GetComponent<PauseMenu>().RequestFocus();
+        GetComponent<GameManager>().Paused = true;
+        _pauseMenu.SetActive(true);
+        _pauseMenu.GetComponent<PauseMenu>().RequestFocus();
     }
+
 
     public void HideMenus()
     {
-        pauseMenu.SetActive(false);
+        GetComponent<GameManager>().Paused = false;
+        _pauseMenu.SetActive(false);
     }
 }

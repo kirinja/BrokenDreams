@@ -66,16 +66,16 @@ public class Projectile : MonoBehaviour {
                 shooter.resetTime();
             }*/
 
-        if (shooter.Fired)
-        {
-            currentLifeTime += Time.deltaTime;
-            if (currentLifeTime >= maxLifeTime)
-            {
-                GetComponent<MeshRenderer>().enabled = false;
-                GetComponent<Collider>().enabled = false;
-                shooter.Fired = false;
-            }
-        }
+        //if (shooter.Fired)
+        //{
+        //    currentLifeTime += Time.deltaTime;
+        //    if (currentLifeTime >= maxLifeTime)
+        //    {
+        //        GetComponent<MeshRenderer>().enabled = false;
+        //        GetComponent<Collider>().enabled = false;
+        //        shooter.Fired = false;
+        //    }
+        //}
     }
     
 
@@ -85,7 +85,7 @@ public class Projectile : MonoBehaviour {
         src.PlayOneShot(hitClip);
         GetComponent<MeshRenderer>().enabled = false;
         GetComponent<Collider>().enabled = false;
-        shooter.Fired = false;
+        //shooter.Fired = false;
 
         if (cola.gameObject.CompareTag("Player"))
         {

@@ -34,7 +34,11 @@ public class EnemySpawn : MonoBehaviour
             var g = Instantiate(Enemy, 
                 pos + new Vector3(0, other.transform.lossyScale.y / 2 + (box == null ? caps.height / 2 : box.size.y / 2), 0),
                 Quaternion.identity);
-            
+
+            if (caps)
+            {
+                g.GetComponent<Enemy02behaviour3D>().retreatPoints = GetPlatformTargetPoints(other.gameObject); 
+            }
 
             if (transform.childCount > 0)
             {
@@ -48,5 +52,17 @@ public class EnemySpawn : MonoBehaviour
             
             GetComponent<MeshRenderer>().enabled = false;
         }
+    }
+
+    private Transform[] GetPlatformTargetPoints(GameObject gb)
+    {
+        // HACK
+        var a = gb.transform.Find("TargetA");
+        var b = gb.transform.Find("TargetB");
+        Transform[] targets = new Transform[2];
+        targets[0] = a;
+        targets[1] = b;
+
+        return targets;
     }
 }
