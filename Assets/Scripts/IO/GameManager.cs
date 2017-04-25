@@ -16,29 +16,43 @@ using UnityEngine.SceneManagement;
 
 
 /// <summary>
-/// This is for saving/loading data but also for keeping track of certain game elements
-/// Might need to break this up because saving/loading and keeping track of progress are not the same thing 
+///     This is for saving/loading data but also for keeping track of certain game elements
+///     Might need to break this up because saving/loading and keeping track of progress are not the same thing
 /// </summary>
 public class GameManager : MonoBehaviour
 {
-    #region Constants
-    private const string SaveFile = "Save.sav";
-    private const string SaveDirectory = "Save";
-    private const float RegularTimeScale = 1f;
-    #endregion
-
-    
-
-    private string _saveDirectory;
     private static readonly List<string[]> InMemory = new List<string[]>();
-    private string _savePath;
+
+    // the game manager keeps track of which levels the player have beaten, and save them to file/memory
+    private static readonly Dictionary<string, bool> CompletedLevels = new Dictionary<string, bool>();
     private bool _paused;
 
     // the two values we're interested in are current HP and which abilities the player have
     private PlayerAttributes _playerAttributes;
 
-    // the game manager keeps track of which levels the player have beaten, and save them to file/memory
-    private static readonly Dictionary<string, bool> CompletedLevels = new Dictionary<string, bool>();
+    private string _saveDirectory;
+    private string _savePath;
+
+
+    public bool Paused
+    {
+        get { return _paused; }
+        set
+        {
+            _paused = value;
+            Time.timeScale = value ? 0f : RegularTimeScale;
+        }
+    }
+
+
+    public bool UseCheckPoint { get; set; }
+
+
+    private bool HasMemoryData
+    {
+        get { return InMemory.Count > 0; }
+    }
+
 
     public static bool IsPaused()
     {
@@ -46,37 +60,16 @@ public class GameManager : MonoBehaviour
         return gm && gm.Paused;
     }
 
-    public bool Paused
-    {
-        get { return _paused; }
-        private set
-        {
-            _paused = value;
-            if (value)
-            {
-                GetComponent<MenuHandler>().ShowPauseMenu();
-                Time.timeScale = 0f;
-            }
-            else
-            {
-                GetComponent<MenuHandler>().HideMenus();
-                Time.timeScale = RegularTimeScale;
-            }
-        }
-    }
-
-    public bool UseCheckPoint { get; set; }
 
     private void Awake()
     {
-        DontDestroyOnLoad(this); ;
+        DontDestroyOnLoad(this);
+        ;
         _saveDirectory = Path.Combine(Application.dataPath, SaveDirectory);
         //AbilityGUI = GameObject.Find("Player").GetComponent<AbilityGUI>();
 
         if (!Directory.Exists(_saveDirectory))
-        {
             Directory.CreateDirectory(_saveDirectory);
-        }
 
         _savePath = Path.Combine(_saveDirectory, SaveFile);
 
@@ -84,36 +77,27 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Hub");
     }
 
+
     private void Update()
     {
         if (Input.GetButtonDown("Pause"))
-        {
-            if (Paused)
+            if (!Paused)
             {
-                Resume();
+                GetComponent<MenuHandler>().ShowPauseMenu();
             }
             else
             {
-                Pause();
+                GetComponent<MenuHandler>().HideMenus();
             }
-        }
     }
 
-    public void Pause()
-    {
-        Paused = true;
-    }
-
-    public void Resume()
-    {
-        Paused = false;
-    }
 
     public void BeatLevel(string levelName)
     {
         // add the level to _completedLevels
         CompletedLevels[levelName] = true;
     }
+
 
     public bool LevelAvailable(string levelName)
     {
@@ -133,9 +117,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
     public void SaveToMemory()
     {
-
         InMemory.Clear();
 
         // this all works currently, at least saving to memory. next we need to clean it up and split it into seperate parts
@@ -144,9 +128,7 @@ public class GameManager : MonoBehaviour
         var playerSaveData = new PlayerSaveData();
         var abilityNames = new string[_playerAttributes.Abilities.Count];
         for (var i = 0; i < _playerAttributes.Abilities.Count; i++)
-        {
             abilityNames[i] = _playerAttributes.Abilities[i].name;
-        }
 
         var beatenLevels = CompletedLevels.Keys.ToArray();
         playerSaveData.Abilities = abilityNames;
@@ -158,6 +140,7 @@ public class GameManager : MonoBehaviour
         stringifiedPlayer[0] = JsonUtility.ToJson(playerSaveData);
         InMemory.Add(stringifiedPlayer);
     }
+
 
     public bool LoadFromMemory()
     {
@@ -175,7 +158,7 @@ public class GameManager : MonoBehaviour
 
         // here we need to create abilities depending on the ones we currently have in the save data
         _playerAttributes.Abilities.Clear();
-        foreach (string s in playerSaveData.Abilities)
+        foreach (var s in playerSaveData.Abilities)
         {
             var abb = Resources.Load<Ability>("Abilities\\" + s);
             _playerAttributes.Abilities.Add(abb);
@@ -188,11 +171,12 @@ public class GameManager : MonoBehaviour
     public void LoadCheckPointData()
     {
         if (!HasMemoryData) return;
-        
+
         var stringifiedData = InMemory[0]; // TODO POSSIBLY SCARY
         var playerSaveData = JsonUtility.FromJson<PlayerSaveData>(stringifiedData[0]);
         _playerAttributes.GetComponent<Controller3D>().SetSpawn(playerSaveData.SpawnPoint);
     }
+
 
     public void DeleteSaveFile()
     {
@@ -200,11 +184,13 @@ public class GameManager : MonoBehaviour
             File.Delete(SaveFile);
     }
 
+
     public void SaveToFiles()
     {
         SaveToFile();
         GC.Collect();
     }
+
 
     public void LoadFromFiles()
     {
@@ -212,19 +198,13 @@ public class GameManager : MonoBehaviour
         GC.Collect();
     }
 
-    private bool HasMemoryData
-    {
-        get { return InMemory.Count > 0; }
-    }
 
     private void SaveToFile()
     {
         var playerSaveData = new PlayerSaveData();
         var abilityNames = new string[_playerAttributes.Abilities.Count];
         for (var i = 0; i < _playerAttributes.Abilities.Count; i++)
-        {
             abilityNames[i] = _playerAttributes.Abilities[i].name;
-        }
 
         var beatenLevels = CompletedLevels.Keys.ToArray();
         playerSaveData.Abilities = abilityNames;
@@ -235,6 +215,7 @@ public class GameManager : MonoBehaviour
         stringifiedPlayer[0] = JsonUtility.ToJson(playerSaveData);
         File.WriteAllLines(_savePath, stringifiedPlayer);
     }
+
 
     private bool LoadFromFile()
     {
@@ -263,17 +244,20 @@ public class GameManager : MonoBehaviour
         return true;
     }
 
-    void OnEnable()
+
+    private void OnEnable()
     {
         SceneManager.sceneLoaded += OnLevelFinishedLoading;
     }
 
-    void OnDisable()
+
+    private void OnDisable()
     {
         SceneManager.sceneLoaded -= OnLevelFinishedLoading;
     }
 
-    void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
+
+    private void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
     {
         //_playerAttributes = GameObject.Find("Player").GetComponent<PlayerAttributes>();
         var g = GameObject.FindGameObjectWithTag("Player");
@@ -285,7 +269,7 @@ public class GameManager : MonoBehaviour
         if (!LoadFromMemory())
             LoadFromFile();
 
-        Resume();
+        GetComponent<MenuHandler>().HideMenus();
         // Every time a level is loaded we can do the init stuff here, like reading from file/memory
 
         // we need to do some logic stuff here, like depending on which level we need check certain things
@@ -293,13 +277,22 @@ public class GameManager : MonoBehaviour
         // if we load hub then we need to check if the boss level is open
     }
 
+
     public static GameManager Get()
     {
         var gameObject = GameObject.FindGameObjectWithTag("Game Manager");
         if (gameObject)
-        {
             return gameObject.GetComponent<GameManager>();
-        }
+
         return null;
     }
+
+
+    #region Constants
+
+    private const string SaveFile = "Save.sav";
+    private const string SaveDirectory = "Save";
+    private const float RegularTimeScale = 1f;
+
+    #endregion
 }

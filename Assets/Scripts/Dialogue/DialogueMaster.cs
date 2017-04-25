@@ -82,7 +82,7 @@ public class DialogueMaster : MonoBehaviour {
     {
         if (currentInteractionCount >= maxInteractionCount)
             return;
-        GameObject.FindGameObjectWithTag("Player").GetComponent<Input2D>().enabled = false;
+        //GameObject.FindGameObjectWithTag("Player").GetComponent<Input2D>().enabled = false;
         StartCoroutine("run");
     }
 
@@ -93,7 +93,11 @@ public class DialogueMaster : MonoBehaviour {
 
     public IEnumerator run()
     {
-        Time.timeScale = 0;
+        var gm = GameManager.Get();
+        if (gm)
+        {
+            gm.Paused = true;
+        }
         int nodeID = 0;
         Debug.Log(nodeID);
         window.SetActive(true);
@@ -111,8 +115,11 @@ public class DialogueMaster : MonoBehaviour {
                 GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().Heal(2);
         }
         currentInteractionCount++;
-        GameObject.FindGameObjectWithTag("Player").GetComponent<Input2D>().enabled = true;
-        Time.timeScale = 1;
+        
+        if (gm)
+        {
+            gm.Paused = false;
+        }
         window.SetActive(false);
     }
 
