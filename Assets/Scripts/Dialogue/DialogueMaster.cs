@@ -101,11 +101,8 @@ public class DialogueMaster : MonoBehaviour {
             gm.Paused = true;
         }
         int nodeID = 0;
-        Debug.Log(nodeID);
         window.SetActive(true);
-
-        // have to rescale the size of the window accordin to the number of options available on the node ID
-        // TODO look over the dialog window prefab and determine how to rescale it accordingly
+        
 
         while(nodeID != -1)
         {
@@ -140,7 +137,9 @@ public class DialogueMaster : MonoBehaviour {
     private void displayNode(DialogueNode node)
     {
         nodeText.GetComponent<Text>().text = node.getText();
-
+        // rescale the window depending on how many options we have (also reposition text correctly)
+        window.GetComponent<RectTransform>().sizeDelta = new Vector2(window.GetComponent<RectTransform>().sizeDelta.x, node.Options.Count * 100);
+        nodeText.GetComponent<RectTransform>().anchoredPosition = new Vector2(nodeText.GetComponent<RectTransform>().anchoredPosition.x, -(nodeText.GetComponent<RectTransform>().rect.height / 2 + 25));
 
         option01.SetActive(false);
         option02.SetActive(false);
@@ -151,17 +150,14 @@ public class DialogueMaster : MonoBehaviour {
             {
                 case 0:
                     setOptionButton(option01, node.Options[i]);
-                    Debug.Log(i);
                     option01ID = node.Options[i].getID();
                     break;
                 case 1:
                     setOptionButton(option02, node.Options[i]);
-                    Debug.Log(i);
                     option02ID = node.Options[i].getID();
                     break;
                 case 2:
                     setOptionButton(option03, node.Options[i]);
-                    Debug.Log(i);
                     option03ID = node.Options[i].getID();
                     break;
             }
