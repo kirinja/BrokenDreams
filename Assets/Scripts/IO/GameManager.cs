@@ -80,6 +80,7 @@ public class GameManager : MonoBehaviour
         _savePath = Path.Combine(_saveDirectory, SaveFile);
 
         // we can do this since this script is only in the bootstrap scene
+        // we have to change this if we're gonna use a start menu, stil play from bootstrap
         SceneManager.LoadScene("Hub");
 
     }
@@ -98,6 +99,17 @@ public class GameManager : MonoBehaviour
             }
     }
 
+    public void NewGame()
+    {
+        // delete save game
+        // go to hub
+    }
+
+    public void LoadGame()
+    {
+        // load data, if there is any
+        // go to hub
+    }
 
     public void BeatLevel(string levelName)
     {
