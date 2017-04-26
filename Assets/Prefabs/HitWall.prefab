@@ -3398,13 +3398,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37b08cab31c827a44bb3423bad4b9354, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FadeTime: 2
 --- !u!114 &114359148059746210
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1058626657059628}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a61370b3a1c51b46b91fe323101bf58, type: 3}
   m_Name: 
