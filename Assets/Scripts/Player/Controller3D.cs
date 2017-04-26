@@ -251,6 +251,9 @@ public class Controller3D : MonoBehaviour
         Material.SetColor("_Color", Attributes.Abilities[index].Color);
         _abilityColorActive = true;
         _abilityColorTimer.Reset();
+
+        // Play sound
+        GetComponentInChildren<PlayerAudio>().PlayAbilitySound();
     }
 
 
@@ -314,15 +317,7 @@ public class Controller3D : MonoBehaviour
 
     public void Kill()
     {
-        /*ChangeCharacterState(new CharacterStateSwitch3D(new GroundState3D(this)));
-        transform.position = _spawnPosition;
-        Velocity = Vector3.zero;
-
-        // TODO: Respawn from somewhere else?
-        GetComponent<PlayerHealth>().Respawn();
-        /**/
-        
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        //GetComponentInChildren<PlayerAudio>().PlayDeathSound();
 
         // problem since we can still move during the transition
         var wind = new WindTransition()

@@ -1,5 +1,5 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
+
 
 [CreateAssetMenu(menuName = "Abilities/Jump")]
 public class JumpAbility : Ability
@@ -9,11 +9,10 @@ public class JumpAbility : Ability
         Color = (Resources.Load("AbilityColors", typeof(AbilityColors)) as AbilityColors).JumpColor;
     }
 
+
     public override CharacterStateSwitch3D Use(Controller3D controller)
     {
         timeLeft = Cooldown;
-
-
 
         return new CharacterStateSwitch3D(new AirState3D(controller, true));
     }

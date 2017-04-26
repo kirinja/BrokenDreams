@@ -70,7 +70,7 @@ public struct AirState3D : ICharacterState3D
                 // Collision sounds
                 if (!_controller.CollideDown)
                 {
-                    _controller.GetComponentInChildren<TriggerSound>()
+                    _controller.GetComponentInChildren<PlayerAudio>()
                         .PlayCollisionSound(Mathf.Min(1f,
                             Mathf.Abs(_controller.Velocity.y / _controller.Attributes.MaxSpeed)));
                 }
@@ -89,7 +89,7 @@ public struct AirState3D : ICharacterState3D
             // Collision sounds
             if (!_controller.CollideSide)
             {
-                _controller.GetComponentInChildren<TriggerSound>()
+                _controller.GetComponentInChildren<PlayerAudio>()
                     .PlayCollisionSound(Mathf.Min(1f,
                         Mathf.Abs(_controller.Velocity.x / _controller.Attributes.MaxSpeed)));
             }
@@ -107,7 +107,7 @@ public struct AirState3D : ICharacterState3D
             // Collision sounds
             if (!_controller.CollideDown)
             {
-                _controller.GetComponentInChildren<TriggerSound>()
+                _controller.GetComponentInChildren<PlayerAudio>()
                     .PlayCollisionSound(Mathf.Min(1f,
                         Mathf.Abs(_controller.Velocity.y / _controller.Attributes.MaxSpeed)));
             }

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PickUp : MonoBehaviour {
 
@@ -26,6 +24,7 @@ public class PickUp : MonoBehaviour {
         {
             GetComponent<Collider>().enabled = false;
             var abb = Resources.Load<Ability>("Abilities\\" + this.name); // Unsafe
+            other.GetComponentInChildren<PlayerAudio>().PlayPickupSound();
             other.gameObject.GetComponent<PlayerAttributes>().Abilities.Add(abb);
             Destroy(gameObject, 0.0f);
 			GameObject.Find("HUDCanvas").GetComponent<AbilityGUI>().addAbility();

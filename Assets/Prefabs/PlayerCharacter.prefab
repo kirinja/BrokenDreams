@@ -192,7 +192,6 @@ GameObject:
   - component: {fileID: 114134480092361830}
   - component: {fileID: 54941427953152864}
   - component: {fileID: 65140873783422804}
-  - component: {fileID: 114686585740528660}
   m_Layer: 10
   m_Name: TriggerSoundThePlayerCollidesWithAndItself (2)
   m_TagString: Player Trigger
@@ -1251,7 +1250,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 14
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!65 &65140873783422804
 BoxCollider:
@@ -1562,10 +1561,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CollisionVolume: 0.5
-  abilitySound: {fileID: 8300000, guid: 09aa8f8b09e6c044b9ed43c903de4c6d, type: 3}
-  deadzones: {fileID: 8300000, guid: 7f6c801fb8eae9e4091fbfec57460ead, type: 3}
-  room3: {fileID: 8300000, guid: dcfc578212442bb46b35617bfffd1814, type: 3}
-  wallSound: {fileID: 8300000, guid: 16e81111e2f50b244a6273d30e99222f, type: 3}
+  AbilityVolume: 1
+  PickupVolume: 1
+  DeathZoneVolume: 1
+  DeathVolume: 1
+  WallSound: {fileID: 8300000, guid: 16e81111e2f50b244a6273d30e99222f, type: 3}
+  AbilityUseSounds:
+  - {fileID: 8300000, guid: 5017482d737023c4fb86ccf53fbd435d, type: 3}
+  - {fileID: 8300000, guid: 0d9dc7e81adf8d040b87841621b9c55a, type: 3}
+  - {fileID: 8300000, guid: 725c80baaa402314ba80a038f261ef9c, type: 3}
+  PickupSound: {fileID: 8300000, guid: 09aa8f8b09e6c044b9ed43c903de4c6d, type: 3}
+  DeathZoneSound: {fileID: 8300000, guid: 7f6c801fb8eae9e4091fbfec57460ead, type: 3}
+  DeathSound: {fileID: 8300000, guid: f04ec46ccdf36d246bcab90bbdd319b9, type: 3}
 --- !u!114 &114207972078266408
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1577,6 +1584,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a0cfe82a1f821c48919dbb91be7ec34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  source: {fileID: 0}
   clip:
   - {fileID: 8300000, guid: 5017482d737023c4fb86ccf53fbd435d, type: 3}
   - {fileID: 8300000, guid: 725c80baaa402314ba80a038f261ef9c, type: 3}
@@ -1619,21 +1627,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 150c91118e3dcad44ad672f6feacf5db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114686585740528660
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1241654465295370}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a0cfe82a1f821c48919dbb91be7ec34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  clip:
-  - {fileID: 8300000, guid: 20b7fc023f09d5b4b85b230f5d5728fb, type: 3}
-  - {fileID: 8300000, guid: 8964610cd721863428f7257859d8eda7, type: 3}
-  - {fileID: 8300000, guid: b12c6a8b5b95f974d8457f4947cd75db, type: 3}
 --- !u!114 &114973150886939512
 MonoBehaviour:
   m_ObjectHideFlags: 1
