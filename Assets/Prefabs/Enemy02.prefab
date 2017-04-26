@@ -306,11 +306,11 @@ MonoBehaviour:
   projectilePreFab: {fileID: 1191082914418746, guid: cba9953463c055a44ace64e03954af8b,
     type: 2}
   retreatPoints: []
-  AggroRange: 10
+  AggroRange: 15
   AggroMask:
     serializedVersion: 2
     m_Bits: 1024
-  AggroCollisionMask:
+  LineOfSightMask:
     serializedVersion: 2
     m_Bits: 768
   attackClip: {fileID: 8300000, guid: d5e161b62b9fc254190d269eba9ff569, type: 3}

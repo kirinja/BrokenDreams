@@ -32,7 +32,7 @@ public class Enemy02behaviour3D : Enemy
     [HideInInspector] private int rpThreshold;
     public float AggroRange = 10.0f;
     public LayerMask AggroMask;
-    public LayerMask AggroCollisionMask;
+    public LayerMask LineOfSightMask;
     private AudioSource src;
     private AudioSource _source2;
     public AudioClip attackClip;
@@ -148,7 +148,7 @@ public class Enemy02behaviour3D : Enemy
         // TODO add childing mechanic here (this should only be called in certain cituations and we want the movement on moving platforms to be consitent)
         RaycastHit hitInfo;
         //if (Physics.Raycast(transform.position, Vector3.down, out hitInfo, 1.5f))
-        if (Physics.Raycast(transform.position, Vector3.down, out hitInfo, 1.5f, AggroCollisionMask))
+        if (Physics.Raycast(transform.position, Vector3.down, out hitInfo, 1.5f, LineOfSightMask))
         {
             return hitInfo.transform.gameObject;
         }
@@ -160,7 +160,7 @@ public class Enemy02behaviour3D : Enemy
         // HACK this could break down, but should be enough for the current problems
         RaycastHit hitInfo;
         //if (Physics.Raycast(transform.position, Vector3.down, out hitInfo, 1.5f))
-        if (Physics.Raycast(transform.position, Vector3.down, out hitInfo, 1.5f, AggroCollisionMask))
+        if (Physics.Raycast(transform.position, Vector3.down, out hitInfo, 1.5f, LineOfSightMask))
         {
             transform.SetParent(hitInfo.transform);
         }
@@ -192,7 +192,7 @@ public class Enemy02behaviour3D : Enemy
         bool foundPlayer = false;
         for (int v = 0; v < col.Length; v++)
         {
-            if (col[v].CompareTag("Player") && !Physics.Linecast(transform.position, col[i].transform.position, out hit, AggroCollisionMask))
+            if (col[v].CompareTag("Player") && !Physics.Linecast(transform.position, col[i].transform.position, out hit, LineOfSightMask))
             {
                 setTarget(col[v].GetComponent<Controller3D>());
                 if (!src.isPlaying)

@@ -34,7 +34,7 @@ public class Idle : EnemyState {
         RaycastHit hit;
         for (int v = 0; v< col.Length; v++)
         {
-            if (col[v].CompareTag("Player") && !Physics.Linecast(enemy.transform.position, col[i].transform.position, out hit, enemy.AggroCollisionMask))
+            if (col[v].CompareTag("Player") && !Physics.Linecast(enemy.transform.position, col[i].transform.position, out hit, enemy.LineOfSightMask))
             {
                 //if (hit.collider.gameObject.CompareTag("Player"))
                 //{
