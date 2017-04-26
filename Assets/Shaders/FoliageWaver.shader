@@ -16,10 +16,11 @@ Shader "Sprites/Waver"
 		{
 			Tags
 			{
-				"Queue" = "AlphaTest"
-				"IgnoreProjector" = "True"
-				"PreviewType" = "Plane"
-				"CanUseSpriteAtlas" = "True"
+				"Queue"="Transparent" 
+				"IgnoreProjector"="True" 
+				"RenderType"="Transparent" 
+				"PreviewType"="Plane"
+				"CanUseSpriteAtlas"="True"
 			}
 
 			Cull Off

@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         DontDestroyOnLoad(this);
-        ;
+
         _saveDirectory = Path.Combine(Application.dataPath, SaveDirectory);
         //AbilityGUI = GameObject.Find("Player").GetComponent<AbilityGUI>();
 
@@ -75,6 +75,7 @@ public class GameManager : MonoBehaviour
 
         // we can do this since this script is only in the bootstrap scene
         SceneManager.LoadScene("Hub");
+
     }
 
 
@@ -283,6 +284,11 @@ public class GameManager : MonoBehaviour
         var gameObject = GameObject.FindGameObjectWithTag("Game Manager");
         if (gameObject)
             return gameObject.GetComponent<GameManager>();
+
+        // create infinte amount of game manager, which is not what we want
+        //var gm = Instantiate(new GameObject("GameManager"));
+        //gm.AddComponent<GameManager>();
+        //return gm.GetComponent<GameManager>();
 
         return null;
     }
