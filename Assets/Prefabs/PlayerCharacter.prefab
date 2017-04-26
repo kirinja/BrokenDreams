@@ -122,9 +122,6 @@ GameObject:
   - component: {fileID: 114096058426615598}
   - component: {fileID: 114215857018685574}
   - component: {fileID: 114973150886939512}
-  - component: {fileID: 114303329055001562}
-  - component: {fileID: 114047789860700584}
-  - component: {fileID: 114207972078266408}
   m_Layer: 10
   m_Name: PlayerCharacter
   m_TagString: Player
@@ -1521,17 +1518,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114047789860700584
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1113272165826444}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 150c91118e3dcad44ad672f6feacf5db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114096058426615598
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1575,22 +1561,6 @@ MonoBehaviour:
   DeathZoneSound: {fileID: 8300000, guid: 7f6c801fb8eae9e4091fbfec57460ead, type: 3}
   DeathSound: {fileID: 8300000, guid: a25a3d70cf548f649b9441447157923d, type: 3}
   AttackedSound: {fileID: 8300000, guid: 4543fd8c38752bc498d1b38c1aeacb21, type: 3}
---- !u!114 &114207972078266408
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1113272165826444}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a0cfe82a1f821c48919dbb91be7ec34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  source: {fileID: 0}
-  clip:
-  - {fileID: 8300000, guid: 5017482d737023c4fb86ccf53fbd435d, type: 3}
-  - {fileID: 8300000, guid: 725c80baaa402314ba80a038f261ef9c, type: 3}
-  - {fileID: 8300000, guid: 725c80baaa402314ba80a038f261ef9c, type: 3}
 --- !u!114 &114215857018685574
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1618,17 +1588,6 @@ MonoBehaviour:
   MaxHP: 5
   currentHealth: 0
   Abilities: []
---- !u!114 &114303329055001562
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1113272165826444}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 150c91118e3dcad44ad672f6feacf5db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114973150886939512
 MonoBehaviour:
   m_ObjectHideFlags: 1
