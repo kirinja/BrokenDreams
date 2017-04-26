@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class DoorButton : MonoBehaviour
 {
     public GameObject[] Doors;
+    public AudioClip ActivateSound, DeactivateSound;
 
     private int count;
 
@@ -30,6 +32,9 @@ public class DoorButton : MonoBehaviour
         {
             if (++count > 0)
             {
+                var source = GetComponent<AudioSource>();
+                source.clip = ActivateSound;
+                source.Play();
                 foreach (var door in Doors)
                 {
                     door.SetActive(false);
@@ -45,6 +50,9 @@ public class DoorButton : MonoBehaviour
         {
             if (--count <= 0)
             {
+                var source = GetComponent<AudioSource>();
+                source.clip = DeactivateSound;
+                source.Play();
                 foreach (var door in Doors)
                 {
                     door.SetActive(true);
