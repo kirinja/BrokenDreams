@@ -55,9 +55,9 @@ public class Elevator : MonoBehaviour
 
 	    if (activate)
 	    {
+            // TODO add a slight delay possibly
 	        active = true;
             GetComponent<Animator>().enabled = true;
-            Debug.Log("Activating elevator");
 	    }
 	}
 
