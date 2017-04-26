@@ -169,7 +169,8 @@ public class Enemy02behaviour3D : Enemy
             if (col[v].CompareTag("Player") && !Physics.Linecast(transform.position, col[i].transform.position, out hit, AggroCollisionMask))
             {
                 setTarget(col[v].GetComponent<Controller3D>());
-                getSource().PlayOneShot(aggroClip);
+                if (!src.isPlaying)
+                    getSource().PlayOneShot(aggroClip);
                 foundPlayer = true;
                 break;
             }

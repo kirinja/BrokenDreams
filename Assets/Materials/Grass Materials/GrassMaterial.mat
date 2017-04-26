@@ -6,8 +6,8 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: GreenBackground
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_Name: GrassMaterial
+  m_Shader: {fileID: 4800000, guid: abfed4b61d8c01649ae0bf58d2b2a6bc, type: 3}
   m_ShaderKeywords: _EMISSION
   m_LightmapFlags: 1
   m_CustomRenderQueue: -1
@@ -71,11 +71,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - first:
+        name: PixelSnap
+      second: 0
+    - first:
         name: _BumpScale
       second: 1
     - first:
         name: _Cutoff
-      second: 0.5
+      second: 0
     - first:
         name: _DetailNormalMapScale
       second: 1
@@ -87,13 +90,13 @@ Material:
       second: 1
     - first:
         name: _Glossiness
-      second: 0.949
+      second: 0.5
     - first:
         name: _GlossyReflections
       second: 1
     - first:
         name: _Metallic
-      second: 0.686
+      second: 0
     - first:
         name: _Mode
       second: 0
@@ -116,12 +119,15 @@ Material:
         name: _UVSec
       second: 0
     - first:
+        name: _ZOffset
+      second: 0.0235
+    - first:
         name: _ZWrite
       second: 1
     m_Colors:
     - first:
         name: _Color
-      second: {r: 0, g: 0, b: 0, a: 0}
+      second: {r: 1, g: 1, b: 1, a: 1}
     - first:
         name: _EmissionColor
-      second: {r: 0.051470578, g: 0.043849174, b: 0.02384299, a: 1}
+      second: {r: 0, g: 0, b: 0, a: 1}

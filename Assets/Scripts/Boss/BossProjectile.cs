@@ -18,7 +18,11 @@ public class BossProjectile : MonoBehaviour
 	    var direction = _target - transform.position;
 	    _target = direction.normalized;
 	    _rbody = GetComponent<Rigidbody>();
-	}
+        // need to set the rotation so we face the target (gonna cheat by setting forward to direction)
+        transform.right = direction;
+        //transform.Find("Particles").Find("Lightning").GetComponent<ParticleSystem>().Play();
+        //transform.Find("Particles").Find("Bullet").GetComponent<ParticleSystem>().Play();
+    }
 	
 	// Update is called once per frame
 	void Update ()
