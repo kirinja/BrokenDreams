@@ -9,22 +9,23 @@ Shader "Sprites/Waver"
 		_Color("Tint", Color) = (1, 1, 1, 1)
 
 		_Cutoff("Alpha Cutoff", Range(0,1)) = 0.5
-		_ZOffset("Z Offset", Range(0, 0.1)) = 0.05
+		//_ZOffset("Z Offset", Range(0, 0.1)) = 0.05
 	}
 
 		SubShader
 		{
 			Tags
 			{
-				"Queue"="Transparent" 
-				"IgnoreProjector"="True" 
-				"RenderType"="Transparent" 
-				"PreviewType"="Plane"
-				"CanUseSpriteAtlas"="True"
+				"Queue" = "Transparent"
+				"IgnoreProjector" = "True"
+				"RenderType"="Transparent"
+				"PreviewType" = "Plane"
+				"CanUseSpriteAtlas" = "True"
 			}
 
 			Cull Off
 			Lighting Off
+			ZWrite Off
 			Blend One OneMinusSrcAlpha
 			CGPROGRAM
 
@@ -52,7 +53,7 @@ Shader "Sprites/Waver"
 			float3 _FoliageRotation;
 			float3 _FoliageTransformRotation;
 
-			float _ZOffset;
+			//float _ZOffset;
 
 			float4 _FastSin(float4 val)
 			{
@@ -156,7 +157,7 @@ Shader "Sprites/Waver"
 
 				//Plant waving
 				v.vertex.xy = wave( v.vertex.xy, v.texcoord, o.worldPos );
-				v.vertex.z = ( uint)( v.texcoord.x * 1000 ) % 2 == 0 ? -_ZOffset : _ZOffset;
+				//v.vertex.z = ( uint)( v.texcoord.x * 1000 ) % 2 == 0 ? -_ZOffset : _ZOffset;
 			}
 
 			void surf( Input i, inout SurfaceOutput o )
