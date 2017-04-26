@@ -61,6 +61,12 @@ public class GameManager : MonoBehaviour
     }
 
 
+    public void SoftPause()
+    {
+        _paused = true;
+    }
+
+
     private void Awake()
     {
         DontDestroyOnLoad(this);
