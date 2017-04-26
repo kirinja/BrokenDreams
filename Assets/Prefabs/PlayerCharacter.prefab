@@ -1565,6 +1565,7 @@ MonoBehaviour:
   PickupVolume: 1
   DeathZoneVolume: 1
   DeathVolume: 1
+  AttackedVolume: 1
   WallSound: {fileID: 8300000, guid: 16e81111e2f50b244a6273d30e99222f, type: 3}
   AbilityUseSounds:
   - {fileID: 8300000, guid: 5017482d737023c4fb86ccf53fbd435d, type: 3}
@@ -1572,7 +1573,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 725c80baaa402314ba80a038f261ef9c, type: 3}
   PickupSound: {fileID: 8300000, guid: 09aa8f8b09e6c044b9ed43c903de4c6d, type: 3}
   DeathZoneSound: {fileID: 8300000, guid: 7f6c801fb8eae9e4091fbfec57460ead, type: 3}
-  DeathSound: {fileID: 8300000, guid: f04ec46ccdf36d246bcab90bbdd319b9, type: 3}
+  DeathSound: {fileID: 8300000, guid: a25a3d70cf548f649b9441447157923d, type: 3}
+  AttackedSound: {fileID: 8300000, guid: 4543fd8c38752bc498d1b38c1aeacb21, type: 3}
 --- !u!114 &114207972078266408
 MonoBehaviour:
   m_ObjectHideFlags: 1

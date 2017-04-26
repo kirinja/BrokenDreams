@@ -8,11 +8,13 @@ public class PlayerAudio : MonoBehaviour
     public float PickupVolume = 1f;
     public float DeathZoneVolume = 1f;
     public float DeathVolume = 1f;
+    public float AttackedVolume = 1;
     public AudioClip WallSound;
     public AudioClip[] AbilityUseSounds;
     public AudioClip PickupSound;
     public AudioClip DeathZoneSound;
     public AudioClip DeathSound;
+    public AudioClip AttackedSound;
 
     //public AudioClip Room3;
 
@@ -84,5 +86,11 @@ public class PlayerAudio : MonoBehaviour
     public void PlayDeathSound()
     {
         _effectSource.PlayOneShot(DeathSound, DeathVolume);
+    }
+
+
+    public void PlayAttackedSound()
+    {
+        _effectSource.PlayOneShot(AttackedSound, AttackedVolume);
     }
 }

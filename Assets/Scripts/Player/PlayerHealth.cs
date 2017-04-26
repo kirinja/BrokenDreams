@@ -49,7 +49,8 @@ public class PlayerHealth : MonoBehaviour
 
     }
 
-    public void TakeDamage(int amount)
+    // Returns true if player dies
+    public bool TakeDamage(int amount)
     {
         //damaged = true;
 
@@ -63,7 +64,10 @@ public class PlayerHealth : MonoBehaviour
         if (playerAttributes.currentHealth <= 0 && !isDead)
         {
             Death();
+            return true;
         }
+
+        return false;
     }
 
     public void Heal(int amount)
