@@ -14,6 +14,9 @@ public class Enemy02behaviour3D : Enemy
     private Controller3D target;
 
     private float timeSinceAttack;
+    private float _shootCooldown;
+    private float _cooldownTimer;
+    private float _internalAttackCd;
 
     public float ArbitarySpeedMultiplier = 4.0f;
 
@@ -31,12 +34,15 @@ public class Enemy02behaviour3D : Enemy
     public LayerMask AggroMask;
     public LayerMask AggroCollisionMask;
     private AudioSource src;
+    private AudioSource _source2;
     public AudioClip attackClip;
     public AudioClip aggroClip;
     public AudioClip deathClip;
     public AudioClip damageClip;
+    public AudioClip _chargeClip;
     private Transform platform;
     private Vector3 previousPlatformPosition;
+    
 
     private LineRenderer _laserFocus;
 
@@ -52,11 +58,18 @@ public class Enemy02behaviour3D : Enemy
         //projectile.projSpeed = this.projSpeed;
         rpThreshold = retreatPoints.Length - 1;
         rpIndex = 0;
-        src = GetComponent<AudioSource>();
+        src = GetComponents<AudioSource>()[0];
+        _source2 = GetComponents<AudioSource>()[1];
+        _source2.clip = _chargeClip;
+
         dead = false;
         Alive = true;
 
         _laserFocus = GetComponent<LineRenderer>();
+
+        // we're doing this to split the cooldown between "recharge" and "targeting"
+        _shootCooldown = AttackCoolDown / 2;
+        _internalAttackCd = AttackCoolDown / 2;
 
         // child this object to the ground it's standing on (this so with moving platforms the object moves consitently on it)
         SetGrund();
@@ -68,28 +81,41 @@ public class Enemy02behaviour3D : Enemy
         if (!dead)
         {
             Aggro();
-            if (target && timeSinceAttack >= AttackCoolDown && state.getCanShoot()) //Checks if you can shoot
+            // if there is a target and the time since last attack is higher than the CD between attacks and we are in a state where we can shoot
+            // then disable the laser sight, attack and reset the timers
+            if (target && timeSinceAttack >= _internalAttackCd && state.getCanShoot()) //Checks if you can shoot
             {
-                resetTime();
-                src.PlayOneShot(attackClip);
+                _source2.Stop();
                 Attack();
-                //_laserFocus.enabled = false;
+                resetTime();
             }
             else
             {
-                // here we do the line render stuff (tracking player)
-                if (target)
+                // if we cant fire then enable the laser focus and count up the cooldowns
+                if (target && _cooldownTimer >= _shootCooldown)
                 {
                     _laserFocus.enabled = true;
                     // if we have a target then do stuff
                     _laserFocus.SetPosition(0, transform.position);
                     _laserFocus.SetPosition(1, target.transform.position + new Vector3(0, target.transform.localScale.y / 2, 0));
+                    // here we can probaly use a charge up sound
+                    if (!_source2.isPlaying)
+                    {
+                        _source2.Play();
+                    }
+                    timeSinceAttack += Time.deltaTime;
                 }
                 else
                 {
                     _laserFocus.enabled = false;
+                    _source2.Stop();
                 }
-                timeSinceAttack += Time.deltaTime;
+                
+            }
+
+            if (target)
+            {
+                _cooldownTimer += Time.deltaTime;
             }
             state.Update();
 
@@ -170,7 +196,9 @@ public class Enemy02behaviour3D : Enemy
             {
                 setTarget(col[v].GetComponent<Controller3D>());
                 if (!src.isPlaying)
-                    getSource().PlayOneShot(aggroClip);
+                {
+                    src.PlayOneShot(aggroClip);
+                }
                 foundPlayer = true;
                 break;
             }
@@ -187,6 +215,8 @@ public class Enemy02behaviour3D : Enemy
     {
         var g = Object.Instantiate(projectilePreFab, transform.position, Quaternion.identity);
         g.transform.position = new Vector3(g.transform.position.x, g.transform.position.y, -1);
+        src.pitch = 1;
+        src.PlayOneShot(attackClip);
     }
 
     public override void Damage(int damage = 1) //Method to call when player hits an enemy
@@ -232,6 +262,7 @@ public class Enemy02behaviour3D : Enemy
     {
         
         timeSinceAttack = 0;
+        _cooldownTimer = 0;
     }
 
     /*public void startCoolDown()
