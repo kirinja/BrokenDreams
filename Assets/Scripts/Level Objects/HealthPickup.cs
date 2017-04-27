@@ -10,6 +10,7 @@ public class HealthPickup : MonoBehaviour {
         if (other.CompareTag("Player"))
         {
             other.GetComponent<PlayerHealth>().Heal(1);
+            other.GetComponentInChildren<PlayerAudio>().PlayPickupSound();
             Destroy(this.gameObject);
         }
     }
