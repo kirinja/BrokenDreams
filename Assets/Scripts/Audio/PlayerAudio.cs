@@ -83,9 +83,10 @@ public class PlayerAudio : MonoBehaviour
     }
 
 
-    public void PlayDeathSound()
+    public float PlayDeathSound()
     {
         _effectSource.PlayOneShot(DeathSound, DeathVolume);
+        return DeathSound.length;
     }
 
 

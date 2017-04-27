@@ -170,7 +170,7 @@ public class BossBehaviour : MonoBehaviour
         BossState.Exit();
         BossState = null;
 
-        var gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        var gameManager = GameManager.Instance;
         gameManager.BeatLevel(SceneManager.GetActiveScene().name);
         gameManager.SaveToMemory();
         gameManager.SaveToFiles();

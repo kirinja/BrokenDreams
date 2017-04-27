@@ -8683,7 +8683,7 @@ GameObject:
   - component: {fileID: 685836721}
   - component: {fileID: 685836720}
   - component: {fileID: 685836719}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Floor_10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10942,7 +10942,7 @@ GameObject:
   - component: {fileID: 927065284}
   - component: {fileID: 927065283}
   - component: {fileID: 927065282}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Wall_06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
