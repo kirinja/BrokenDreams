@@ -316,17 +316,16 @@ public class Controller3D : MonoBehaviour
 
     public void Kill()
     {
-        GetComponentInChildren<PlayerAudio>().PlayDeathSound();
-
         StartCoroutine(Die());
     }
 
 
-    private static IEnumerator Die()
+    private IEnumerator Die()
     {
         var gm = GameManager.Instance;
         gm.SoftPause();
-        yield return new WaitForSeconds(2f);
+        var waitTime = GetComponentInChildren<PlayerAudio>().PlayDeathSound();
+        yield return new WaitForSeconds(waitTime);
 
         gm.Paused = false;
 
