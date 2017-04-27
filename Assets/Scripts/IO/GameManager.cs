@@ -101,17 +101,13 @@ public class GameManager : MonoBehaviour
 
     public void NewGame()
     {
-        // delete save game
-        // go to hub
+        // maybe use transition kit here as well?
         DeleteSaveFile();
         SceneManager.LoadScene("Hub");
     }
 
     public void LoadGame()
     {
-        // load data, if there is any
-        // go to hub
-
         // belive we can just move to hub right away and the manager will try to load data if there is any
         SceneManager.LoadScene("Hub");
     }
