@@ -233,18 +233,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ee53961dfc728b43b0442d6d209db8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartVelocity: {x: 3, y: 0, z: 0}
-  IdleTime: 2
-  PatrolTime: 5
-  GroundCheckDistance: 1
+  attackClip: {fileID: 8300000, guid: 70451933a64fdbe4e8688667994c4f03, type: 3}
   CollisionMask:
     serializedVersion: 2
-    m_Bits: 768
-  HealthDropChance: 0.2
-  HealthDrop: {fileID: 1958238337431084, guid: 7bc5bfbcda9a48e4782a0019183c90bd, type: 2}
-  deathClip: {fileID: 8300000, guid: 70f822fa4e2346a48b596a375a64a773, type: 3}
-  attackClip: {fileID: 8300000, guid: 70451933a64fdbe4e8688667994c4f03, type: 3}
+    m_Bits: 256
   damageClip: {fileID: 8300000, guid: f50ad7e2c30b68e4c93a100610481c0d, type: 3}
+  deathClip: {fileID: 8300000, guid: 70f822fa4e2346a48b596a375a64a773, type: 3}
+  GroundCheckDistance: 1
+  HealthDrop: {fileID: 1958238337431084, guid: 7bc5bfbcda9a48e4782a0019183c90bd, type: 2}
+  HealthDropChance: 0.2
+  IdleTime: 2
+  PatrolTime: 5
+  StartVelocity: {x: 3, y: 0, z: 0}
 --- !u!114 &114520279263905954
 MonoBehaviour:
   m_ObjectHideFlags: 1

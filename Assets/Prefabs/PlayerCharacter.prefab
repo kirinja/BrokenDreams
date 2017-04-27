@@ -1532,7 +1532,7 @@ MonoBehaviour:
   AbilityUI: {fileID: 0}
   GroundMask:
     serializedVersion: 2
-    m_Bits: 768
+    m_Bits: 256
   LockedZPosition: -1
   Material: {fileID: 2100000, guid: 0a30316fcf65e0144863a6dd1c357e3c, type: 2}
 --- !u!114 &114134480092361830
