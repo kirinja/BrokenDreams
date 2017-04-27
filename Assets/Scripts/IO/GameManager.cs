@@ -61,6 +61,12 @@ public class GameManager : MonoBehaviour
     }
 
 
+    public void SoftPause()
+    {
+        _paused = true;
+    }
+
+
     private void Awake()
     {
         DontDestroyOnLoad(this);
@@ -74,7 +80,8 @@ public class GameManager : MonoBehaviour
         _savePath = Path.Combine(_saveDirectory, SaveFile);
 
         // we can do this since this script is only in the bootstrap scene
-        SceneManager.LoadScene("Hub");
+        // we have to change this if we're gonna use a start menu, stil play from bootstrap
+        SceneManager.LoadScene("Start");
 
     }
 
@@ -92,6 +99,22 @@ public class GameManager : MonoBehaviour
             }
     }
 
+    public void NewGame()
+    {
+        // delete save game
+        // go to hub
+        DeleteSaveFile();
+        SceneManager.LoadScene("Hub");
+    }
+
+    public void LoadGame()
+    {
+        // load data, if there is any
+        // go to hub
+
+        // belive we can just move to hub right away and the manager will try to load data if there is any
+        SceneManager.LoadScene("Hub");
+    }
 
     public void BeatLevel(string levelName)
     {
@@ -181,8 +204,8 @@ public class GameManager : MonoBehaviour
 
     public void DeleteSaveFile()
     {
-        if (File.Exists(SaveFile))
-            File.Delete(SaveFile);
+        if (File.Exists(_savePath))
+            File.Delete(_savePath);
     }
 
 

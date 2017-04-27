@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 114020100387511002}
   - component: {fileID: 82456050249633266}
   - component: {fileID: 120802925858942938}
+  - component: {fileID: 82498332439115788}
   m_Layer: 11
   m_Name: Enemy02
   m_TagString: Enemy
@@ -195,6 +196,86 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!82 &82498332439115788
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1793933580056596}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &114020100387511002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -225,19 +306,18 @@ MonoBehaviour:
   projectilePreFab: {fileID: 1191082914418746, guid: cba9953463c055a44ace64e03954af8b,
     type: 2}
   retreatPoints: []
-  rpIndex: 0
-  rpThreshold: 2
-  AggroRange: 10
+  AggroRange: 15
   AggroMask:
     serializedVersion: 2
     m_Bits: 1024
-  AggroCollisionMask:
+  LineOfSightMask:
     serializedVersion: 2
-    m_Bits: 768
+    m_Bits: 256
   attackClip: {fileID: 8300000, guid: d5e161b62b9fc254190d269eba9ff569, type: 3}
   aggroClip: {fileID: 8300000, guid: 804b98e3d722da143a54f37d838dda56, type: 3}
   deathClip: {fileID: 8300000, guid: 70f822fa4e2346a48b596a375a64a773, type: 3}
   damageClip: {fileID: 8300000, guid: f50ad7e2c30b68e4c93a100610481c0d, type: 3}
+  _chargeClip: {fileID: 8300000, guid: 9431c3354dcd17844ac5a8cd3b5fc82f, type: 3}
 --- !u!120 &120802925858942938
 LineRenderer:
   m_ObjectHideFlags: 1

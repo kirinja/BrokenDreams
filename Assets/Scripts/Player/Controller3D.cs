@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections;
+using System.Diagnostics;
 using Prime31.TransitionKit;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -291,13 +292,18 @@ public class Controller3D : MonoBehaviour
     }
 
 
-    public void AttackPlayer(Vector3 hitboxCenter, int damage)
+    // Returns true if player takes damage
+    public bool AttackPlayer(Vector3 hitboxCenter, int damage)
     {
-        if (_invincible) return;
+        if (_invincible) return false;
 
         _invincible = true;
         KnockAway(hitboxCenter);
-        Damage(damage);
+        if (!Damage(damage))
+        {
+            GetComponentInChildren<PlayerAudio>().PlayAttackedSound();
+        }
+        return true;
     }
 
 
@@ -309,15 +315,29 @@ public class Controller3D : MonoBehaviour
     }
 
 
-    public void Damage(int damage = 1)
+    public bool Damage(int damage = 1)
     {
-        GetComponent<PlayerHealth>().TakeDamage(damage);
+        return GetComponent<PlayerHealth>().TakeDamage(damage);
     }
 
 
     public void Kill()
     {
-        //GetComponentInChildren<PlayerAudio>().PlayDeathSound();
+        GetComponentInChildren<PlayerAudio>().PlayDeathSound();
+
+        StartCoroutine(Die());
+    }
+
+
+    private static IEnumerator Die()
+    {
+        var gm = GameManager.Get();
+        if (gm)
+        {
+            GameManager.Get().SoftPause();
+            yield return new WaitForSeconds(2f);
+            GameManager.Get().Paused = false;
+        }
 
         // problem since we can still move during the transition
         var wind = new WindTransition()

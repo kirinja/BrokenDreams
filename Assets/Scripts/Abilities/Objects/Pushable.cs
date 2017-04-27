@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-
+[RequireComponent(typeof(AudioSource))]
 public class Pushable : MonoBehaviour
 {
     private const float GroundCheckDistance = 0.2f;
@@ -14,6 +14,8 @@ public class Pushable : MonoBehaviour
     private Vector3 _startPosition;
     private float _totalPushLength;
     private Vector3 _velocity;
+    private AudioSource _slideSource, _collideSource;
+    private bool _inAir, _initiated;
 
     public LayerMask CollisionMask;
 
@@ -27,6 +29,9 @@ public class Pushable : MonoBehaviour
         _velocity = Vector3.zero;
         _totalPushLength = 0f;
         _isPushed = false;
+        var sources = GetComponents<AudioSource>();
+        _slideSource = sources[0];
+        _collideSource = sources[1];
     }
 
 
@@ -54,6 +59,7 @@ public class Pushable : MonoBehaviour
                     collider.transform.Translate(0.1f * _velocity.normalized);
                     collider.GetComponent<Pushable>().Push(_velocity.normalized, _totalPushLength - pushedLength);
                     _isPushed = false;
+                    _collideSource.Play();
                 }
                 else if (collider.CompareTag("Enemy"))
                 {
@@ -64,6 +70,7 @@ public class Pushable : MonoBehaviour
                 else
                 {
                     didHit = true;
+                    _collideSource.Play();
                 }
             }
 
@@ -78,6 +85,8 @@ public class Pushable : MonoBehaviour
                     transform.position.y, transform.position.z);
                 _isPushed = false;
             }
+
+            
         }
 
         if (!CheckGround())
@@ -85,6 +94,11 @@ public class Pushable : MonoBehaviour
             _isPushed = false;
         }
         HandleGravity();
+
+        if (!_isPushed)
+        {
+            _slideSource.Stop();
+        }
 
         GetComponent<Rigidbody>().position = transform.position;
     }
@@ -115,6 +129,21 @@ public class Pushable : MonoBehaviour
             if (rayHit.transform.gameObject == gameObject || rayHit.transform.CompareTag("Enemy")) continue;
 
             isGrounded = true;
+        }
+
+        if (isGrounded)
+        {
+            if (_inAir && !_collideSource.isPlaying && _initiated)
+            {
+                _collideSource.Play();
+            }
+
+            _initiated = true;
+            _inAir = false;
+        }
+        else
+        {
+            _inAir = true;
         }
 
         return isGrounded;
@@ -152,11 +181,13 @@ public class Pushable : MonoBehaviour
 
         if (didHit)
         {
+            
             transform.position = previousPosition;
             _velocity = new Vector3(_velocity.x, 0f, _velocity.z);
         }
         else
         {
+            
             foreach (var enemy in enemies)
             {
                 enemy.Damage(9999);
@@ -192,7 +223,7 @@ public class Pushable : MonoBehaviour
 
     public void Push(Vector3 direction, float length)
     {
-        if (_isPushed) return;
+        if (_isPushed || _inAir) return;
 
         var localVel = direction;
 
@@ -203,5 +234,7 @@ public class Pushable : MonoBehaviour
         _velocity = new Vector3(horizontalVvelocity.x, _velocity.y, 0f);
         _isPushed = true;
         _startPosition = transform.position;
+
+        _slideSource.Play();
     }
 }

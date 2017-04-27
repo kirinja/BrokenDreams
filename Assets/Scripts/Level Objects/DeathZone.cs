@@ -19,7 +19,7 @@ public class DeathZone : MonoBehaviour {
         if (other.CompareTag("Player"))
         {
             other.GetComponent<Controller3D>().Damage(9999);
-            other.GetComponentInChildren<PlayerAudio>().PlayDeathZoneSound();
+            //other.GetComponentInChildren<PlayerAudio>().PlayDeathZoneSound(); // Kinda ugly and unnecessary since we already have a death sound
         }
     }
 }
