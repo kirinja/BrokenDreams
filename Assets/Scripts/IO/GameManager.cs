@@ -29,9 +29,10 @@ public class GameManager : MonoBehaviour
 
     // the two values we're interested in are current HP and which abilities the player have
     private PlayerAttributes _playerAttributes;
-
     private string _saveDirectory;
     private string _savePath;
+
+    public static GameManager Instance { get; private set; }
 
 
     public bool Paused
@@ -54,13 +55,6 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public static bool IsPaused()
-    {
-        var gm = Get();
-        return gm && gm.Paused;
-    }
-
-
     public void SoftPause()
     {
         _paused = true;
@@ -69,10 +63,14 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance == null)
+            Instance = this;
+        else if (Instance != this)
+            Destroy(gameObject);
+
         DontDestroyOnLoad(this);
 
         _saveDirectory = Path.Combine(Application.dataPath, SaveDirectory);
-        //AbilityGUI = GameObject.Find("Player").GetComponent<AbilityGUI>();
 
         if (!Directory.Exists(_saveDirectory))
             Directory.CreateDirectory(_saveDirectory);
@@ -81,8 +79,7 @@ public class GameManager : MonoBehaviour
 
         // we can do this since this script is only in the bootstrap scene
         // we have to change this if we're gonna use a start menu, stil play from bootstrap
-        SceneManager.LoadScene("Start");
-
+        //SceneManager.LoadScene("Start");
     }
 
 
@@ -90,31 +87,26 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetButtonDown("Pause"))
             if (!Paused)
-            {
                 GetComponent<MenuHandler>().ShowPauseMenu();
-            }
             else
-            {
                 GetComponent<MenuHandler>().HideMenus();
-            }
     }
+
 
     public void NewGame()
     {
-        // delete save game
-        // go to hub
+        // maybe use transition kit here as well?
         DeleteSaveFile();
         SceneManager.LoadScene("Hub");
     }
 
+
     public void LoadGame()
     {
-        // load data, if there is any
-        // go to hub
-
         // belive we can just move to hub right away and the manager will try to load data if there is any
         SceneManager.LoadScene("Hub");
     }
+
 
     public void BeatLevel(string levelName)
     {
@@ -299,21 +291,6 @@ public class GameManager : MonoBehaviour
         // we need to do some logic stuff here, like depending on which level we need check certain things
         // if we load level 1 then we need to check which abilities we have and delete those from the level
         // if we load hub then we need to check if the boss level is open
-    }
-
-
-    public static GameManager Get()
-    {
-        var gameObject = GameObject.FindGameObjectWithTag("Game Manager");
-        if (gameObject)
-            return gameObject.GetComponent<GameManager>();
-
-        // create infinte amount of game manager, which is not what we want
-        //var gm = Instantiate(new GameObject("GameManager"));
-        //gm.AddComponent<GameManager>();
-        //return gm.GetComponent<GameManager>();
-
-        return null;
     }
 
 

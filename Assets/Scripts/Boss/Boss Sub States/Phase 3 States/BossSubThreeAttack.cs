@@ -9,7 +9,6 @@ public class BossSubThreeAttack : IBossSubState
     private BossBehaviour _bossData;
     private float _timer;
     private int _projCounter = 0;
-    private const float TimeBetweenShots = 0.5f;
     private float _attackTimer;
 
     private float _acidTimer;
@@ -20,7 +19,7 @@ public class BossSubThreeAttack : IBossSubState
         //_timer = _bossData.StateSwitchTimer;
         _timer = new System.Random().Next((int)_bossData.MinStateSwitch, (int)_bossData.MaxStateSwitch); // HACK
 
-        _attackTimer = TimeBetweenShots;
+        _attackTimer = _bossData.TimeBetweenShots;
         _projCounter = 0;
         _acidTimer = _bossData.AcidTimer;
     }
@@ -41,7 +40,7 @@ public class BossSubThreeAttack : IBossSubState
             //Debug.Log(g);
 
             _projCounter++;
-            _attackTimer = TimeBetweenShots;
+            _attackTimer = _bossData.TimeBetweenShots;
 
             _bossData.PlayBossProjSound();
         }

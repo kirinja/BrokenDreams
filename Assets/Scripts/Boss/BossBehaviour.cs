@@ -38,6 +38,9 @@ public class BossBehaviour : MonoBehaviour
     [Tooltip("Amount of projectiles the boss should spawn during phase 3")]
     public int Phase3Projectiles = 3;
 
+    [Tooltip("Time between boss projectiles (in seconds)")]
+    public float TimeBetweenShots = 0.5f;
+
     [Tooltip("Interval between acid droppings")]
     public float AcidTimer;
 
@@ -167,7 +170,7 @@ public class BossBehaviour : MonoBehaviour
         BossState.Exit();
         BossState = null;
 
-        var gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        var gameManager = GameManager.Instance;
         gameManager.BeatLevel(SceneManager.GetActiveScene().name);
         gameManager.SaveToMemory();
         gameManager.SaveToFiles();

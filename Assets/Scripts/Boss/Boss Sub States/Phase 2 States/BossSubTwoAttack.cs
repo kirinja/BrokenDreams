@@ -10,7 +10,6 @@ public class BossSubTwoAttack : IBossSubState
     private float _timer;
 
     private int _projCounter = 0;
-    private const float TimeBetweenShots = 0.5f;
     private float _projTimer;
 
     
@@ -19,7 +18,7 @@ public class BossSubTwoAttack : IBossSubState
         _bossData = data;
         _timer = new System.Random().Next((int)_bossData.MinStateSwitch, (int)_bossData.MaxStateSwitch); // HACK
 
-        _projTimer = TimeBetweenShots;
+        _projTimer = _bossData.TimeBetweenShots;
 
         _head = GameObject.Find("Head");
     }
@@ -43,7 +42,7 @@ public class BossSubTwoAttack : IBossSubState
 
     private bool CanShoot()
     {
-        return _projCounter < _bossData.Phase3Projectiles && _projTimer <= 0.0f;
+        return _projCounter < _bossData.Phase2Projectiles && _projTimer <= 0.0f;
     }
 
     private void UpdateTimers()
@@ -59,7 +58,7 @@ public class BossSubTwoAttack : IBossSubState
         g.transform.position = new Vector3(g.transform.position.x, g.transform.position.y, -1);
 
         _projCounter++;
-        _projTimer = TimeBetweenShots;
+        _projTimer = _bossData.TimeBetweenShots;
 
         _bossData.PlayBossProjSound();
     }

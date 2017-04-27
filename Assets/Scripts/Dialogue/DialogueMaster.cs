@@ -95,11 +95,8 @@ public class DialogueMaster : MonoBehaviour {
 
     public IEnumerator run()
     {
-        var gm = GameManager.Get();
-        if (gm)
-        {
-            gm.Paused = true;
-        }
+        var gm = GameManager.Instance;
+        gm.Paused = true;
         int nodeID = 0;
         window.SetActive(true);
         
@@ -118,10 +115,7 @@ public class DialogueMaster : MonoBehaviour {
         }
         currentInteractionCount++;
         
-        if (gm)
-        {
-            gm.Paused = false;
-        }
+        gm.Paused = false;
         window.SetActive(false);
     }
 
