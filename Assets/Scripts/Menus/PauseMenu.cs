@@ -35,8 +35,7 @@ public class PauseMenu : MonoBehaviour
 
     private void Hide()
     {
-        var gameManager = GameManager.Get();
-        if (gameManager)
-            gameManager.GetComponent<MenuHandler>().HideMenus();
+        var gameManager = GameManager.Instance;
+        gameManager.GetComponent<MenuHandler>().HideMenus();
     }
 }

@@ -18,7 +18,6 @@ public class Controller3D : MonoBehaviour
     private bool _invincible;
     private float _invincibleTime;
     private int _latestUsedAbility;
-    private Vector3 _spawnPosition;
     private bool _visible;
 
     public AbilityGUI AbilityUI;
@@ -35,11 +34,7 @@ public class Controller3D : MonoBehaviour
     public bool CollideDown { get; set; }
     public bool CollideUp { get; set; }
 
-
-    public Vector3 SpawnPoint
-    {
-        get { return _spawnPosition; }
-    }
+    public Vector3 SpawnPoint { get; private set; }
 
 
     public float ColliderHeight
@@ -95,7 +90,7 @@ public class Controller3D : MonoBehaviour
         CacheComponents();
         SetInitialCharacterState();
         MovementInput = Vector2.zero;
-        _spawnPosition = transform.position;
+        SpawnPoint = transform.position;
 
         ResetColor();
 
@@ -106,7 +101,7 @@ public class Controller3D : MonoBehaviour
 
     private void Start()
     {
-        transform.position = _spawnPosition;
+        transform.position = SpawnPoint;
         Animator = GetComponent<Animator>();
         Forward = transform.forward;
         _abilityColorActive = false;
@@ -115,19 +110,19 @@ public class Controller3D : MonoBehaviour
 
     public void Spawn()
     {
-        transform.position = _spawnPosition;
+        transform.position = SpawnPoint;
     }
 
 
     private void Update()
     {
-        if (GameManager.IsPaused()) return;
+        if (GameManager.Instance.Paused) return;
 
         MovementInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
         UseAbilities();
         _characterState.Update();
-        
+
         UpdateInvincibility();
         UpdateAbilityColor();
         UpdateAnimator();
@@ -137,7 +132,7 @@ public class Controller3D : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (GameManager.IsPaused()) return;
+        if (GameManager.Instance.Paused) return;
 
         _characterState.LateUpdate();
     }
@@ -145,7 +140,7 @@ public class Controller3D : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (GameManager.IsPaused()) return;
+        if (GameManager.Instance.Paused) return;
 
         _characterState.FixedUpdate();
         HandleCollisions(Move());
@@ -288,7 +283,7 @@ public class Controller3D : MonoBehaviour
 
     public void SetSpawn(Vector3 position)
     {
-        _spawnPosition = position;
+        SpawnPoint = position;
     }
 
 
@@ -300,9 +295,7 @@ public class Controller3D : MonoBehaviour
         _invincible = true;
         KnockAway(hitboxCenter);
         if (!Damage(damage))
-        {
             GetComponentInChildren<PlayerAudio>().PlayAttackedSound();
-        }
         return true;
     }
 
@@ -331,16 +324,14 @@ public class Controller3D : MonoBehaviour
 
     private static IEnumerator Die()
     {
-        var gm = GameManager.Get();
-        if (gm)
-        {
-            GameManager.Get().SoftPause();
-            yield return new WaitForSeconds(2f);
-            GameManager.Get().Paused = false;
-        }
+        var gm = GameManager.Instance;
+        gm.SoftPause();
+        yield return new WaitForSeconds(2f);
+
+        gm.Paused = false;
 
         // problem since we can still move during the transition
-        var wind = new WindTransition()
+        var wind = new WindTransition
         {
             nextScene = SceneManager.GetActiveScene().name,
             duration = 0.5f,

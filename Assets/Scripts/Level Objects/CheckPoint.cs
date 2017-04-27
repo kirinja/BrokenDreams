@@ -31,8 +31,7 @@ public class CheckPoint : MonoBehaviour
             
             GetComponent<AudioSource>().Play();
 
-            var gm = GameManager.Get();
-            if (!gm) return;
+            var gm = GameManager.Instance;
             gm.SaveToMemory();
             gm.SaveToFiles();
             gm.UseCheckPoint = true;

@@ -15,7 +15,7 @@ public class StartMenu : MonoBehaviour
 
     private void Awake()
     {
-        _gm = GameManager.Get();
+        _gm = GameManager.Instance;
         //RequestFocus();
     }
 
@@ -45,7 +45,6 @@ public class StartMenu : MonoBehaviour
 
     private void Hide()
     {
-        if (_gm)
-            _gm.GetComponent<MenuHandler>().HideMenus();
+        _gm.GetComponent<MenuHandler>().HideMenus();
     }
 }
