@@ -6224,8 +6224,8 @@ MonoBehaviour:
   AcidTimer: 2
   MaxEnemiesPerPlatfor: 1
   MaxTrySpawnCycles: 10
-  MinStateSwitch: 7
-  MaxStateSwitch: 14
+  MinStateSwitch: 3
+  MaxStateSwitch: 6
   Phase2DefendPos: {fileID: 1682816686}
   Phase2AttackPos: {fileID: 13359483}
   BossPhase1: {fileID: 502045059}
