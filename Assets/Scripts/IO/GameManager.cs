@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Prime31.TransitionKit;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -31,6 +33,10 @@ public class GameManager : MonoBehaviour
     private PlayerAttributes _playerAttributes;
     private string _saveDirectory;
     private string _savePath;
+
+    // Values are only used when going back to hub from other levels
+    private string _previousLevelName;
+    private bool _clearedLevelFirstTime;
 
     public static GameManager Instance { get; private set; }
 
@@ -108,10 +114,18 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public void BeatLevel(string levelName)
+    // Returns true if this is the first time the level is cleared
+    public bool BeatLevel(string levelName)
     {
-        // add the level to _completedLevels
+        var cleared = LevelCleared(levelName);
         CompletedLevels[levelName] = true;
+        return !cleared;
+    }
+
+
+    public bool LevelCleared(string levelName)
+    {
+        return CompletedLevels.ContainsKey(levelName) && CompletedLevels[levelName];
     }
 
 
@@ -123,11 +137,10 @@ public class GameManager : MonoBehaviour
             case "Level_01":
                 return true;
             case "Level_02_2D":
-                return CompletedLevels.ContainsKey("Level_01") && CompletedLevels["Level_01"];
+                return LevelCleared("Level_01");
             case "Boss_01":
-                //return CompletedLevels.ContainsKey("Level_01") && CompletedLevels["Level_01"] && CompletedLevels.ContainsKey("Level_02") && CompletedLevels["Level_02"];
-                return CompletedLevels.ContainsKey("Level_01") && CompletedLevels["Level_01"] &&
-                       CompletedLevels.ContainsKey("Level_02_2D") && CompletedLevels["Level_02_2D"];
+                return LevelCleared("Level_01") &&
+                       LevelCleared("Level_01_2D");
             default:
                 return false;
         }
@@ -291,6 +304,107 @@ public class GameManager : MonoBehaviour
         // we need to do some logic stuff here, like depending on which level we need check certain things
         // if we load level 1 then we need to check which abilities we have and delete those from the level
         // if we load hub then we need to check if the boss level is open
+
+
+    }
+
+    // HACK: Pretty much all of this is super hacky
+    public void ReturnToHub(string name, bool firstTime)
+    {
+        SceneManager.sceneLoaded += HubLoaded;
+        _previousLevelName = name;
+        _clearedLevelFirstTime = firstTime;
+
+        var fishEye = new FishEyeTransition
+        {
+            nextScene = "Hub",
+            duration = 2.0f,
+            size = 0.2f,
+            zoom = 100.0f,
+            colorSeparation = 0.1f
+        };
+        TransitionKit.instance.transitionWithDelegate(fishEye);
+
+
+        //GameObject.FindGameObjectWithTag("Player").transform.position = Vector3.zero;
+    }
+
+
+    private void HubLoaded(Scene scene, LoadSceneMode mode)
+    {
+        SceneManager.sceneLoaded -= HubLoaded;
+
+        if (_clearedLevelFirstTime)
+        {
+            StartCoroutine(RunHubAnimations());
+        }
+
+        switch (_previousLevelName)
+        {
+            case "Level_01":
+            {
+                var player = GameObject.FindGameObjectWithTag("Player");
+                player.transform.position = GameObject.Find("Hub Door 1").transform.position;
+                player.GetComponent<Controller3D>().SetSpawn(player.transform.position);
+                
+                break;
+            }
+            case "Level_02_2D":
+            {
+                var player = GameObject.FindGameObjectWithTag("Player");
+                player.transform.position = GameObject.Find("Hub Door 2").transform.position;
+                player.GetComponent<Controller3D>().SetSpawn(player.transform.position);
+
+                break;
+            }
+        }
+    }
+
+
+    private IEnumerator RunHubAnimations()
+    {
+        switch (_previousLevelName)
+        {
+            case "Level_01":
+            {
+                GameObject.Find("Hub Door 1").transform.Find("Portal").GetComponent<HubPortal>().ShouldInitialize =
+                    false;
+                GameObject.Find("Hub Door 1").transform.Find("Portal").GetComponent<HubPortal>().Done =
+                    false;
+                //GameObject.Find("Hub Door 2").transform.Find("Portal").GetComponent<HubPortal>().PlayOpenAnimation();
+
+                SoftPause();
+
+                yield return new WaitForSeconds(1f);
+
+                Paused = false;
+
+                GameObject.Find("Hub Door 1").transform.Find("Portal").GetComponent<HubPortal>().Done =
+                    true;
+
+                break;
+            }
+            case "Level_02_2D":
+            {
+                GameObject.Find("Hub Door 2").transform.Find("Portal").GetComponent<HubPortal>().ShouldInitialize =
+                    false;
+                GameObject.Find("Hub Door 2").transform.Find("Portal").GetComponent<HubPortal>().Done =
+                    false;
+
+                SoftPause();
+
+                yield return new WaitForSeconds(1f);
+
+                Paused = false;
+
+                GameObject.Find("Hub Door 2").transform.Find("Portal").GetComponent<HubPortal>().Done =
+                    true;
+
+                break;
+            }
+        }
+
+        yield return null;
     }
 
 
