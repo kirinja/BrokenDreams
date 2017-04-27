@@ -16,6 +16,7 @@ public class StartMenu : MonoBehaviour
     private void Awake()
     {
         _gm = GameManager.Get();
+        //RequestFocus();
     }
 
     public void RequestFocus()
