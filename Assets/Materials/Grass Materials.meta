@@ -1,7 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Materials/Grass Materials.meta
+guid: c3eda6901a3f1db44be015c0adeff623
+folderAsset: yes
+timeCreated: 1493204102
+=======
 guid: 2da93131f598b9d42ab66b2e38ba24b3
 folderAsset: yes
 timeCreated: 1493200912
+>>>>>>> 21721f78ec0e851b07bc378b0d310d25c3321ebf:Assets/Materials/Grass Materials.meta
 licenseType: Free
 DefaultImporter:
   userData: 
