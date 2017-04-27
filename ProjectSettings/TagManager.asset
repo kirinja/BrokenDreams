@@ -29,8 +29,8 @@ TagManager:
   - UI
   - 
   - 
-  - Objects
-  - ColliderObjects
+  - Solid Objects
+  - Wall Shatter
   - Player
   - Enemies
   - 
