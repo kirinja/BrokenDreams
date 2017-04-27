@@ -8,7 +8,7 @@ public class CheckPoint : MonoBehaviour
 	void Start ()
 	{
 	    _activated = false;
-        transform.Find("Checkpoint_circle").GetComponent<ParticleSystem>().Stop();
+	    GetComponent<Animator>().enabled = false;
 	}
 	
 	// Update is called once per frame
@@ -22,7 +22,13 @@ public class CheckPoint : MonoBehaviour
         {
             _activated = true;
             other.GetComponent<Controller3D>().SetSpawn(transform.position);
-            transform.Find("Checkpoint_circle").GetComponent<ParticleSystem>().Play();
+
+            GetComponent<Animator>().enabled = true;
+            foreach (var particle in GetComponentsInChildren<ParticleSystem>())
+            {
+                particle.Play();
+            }
+            
             GetComponent<AudioSource>().Play();
 
             var gm = GameManager.Get();
