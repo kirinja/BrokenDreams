@@ -372,16 +372,23 @@ public class GameManager : MonoBehaviour
                     false;
                 GameObject.Find("Hub Door 1").transform.Find("Portal").GetComponent<HubPortal>().Done =
                     false;
-                //GameObject.Find("Hub Door 2").transform.Find("Portal").GetComponent<HubPortal>().PlayOpenAnimation();
+                GameObject.Find("Hub Door 2").transform.Find("Portal").GetComponent<HubPortal>().ShouldInitialize =
+                    false;
+                GameObject.Find("Hub Door 2").transform.Find("Portal").GetComponent<HubPortal>().Hide();
 
                 SoftPause();
 
                 yield return new WaitForSeconds(1f);
 
-                Paused = false;
-
                 GameObject.Find("Hub Door 1").transform.Find("Portal").GetComponent<HubPortal>().Done =
                     true;
+
+                    yield return new WaitForSeconds(0.2f);
+
+                GameObject.Find("Hub Door 2").transform.Find("Portal").gameObject.SetActive(true);
+                    GameObject.Find("Hub Door 2").transform.Find("Portal").GetComponent<HubPortal>().ShouldAppear = true;
+
+                Paused = false;
 
                 break;
             }
