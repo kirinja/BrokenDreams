@@ -107,7 +107,7 @@ public struct GroundState3D : ICharacterState3D
             // Collision sounds
             if (!_controller.CollideDown)
             {
-                _controller.GetComponentInChildren<PlayerAudio>().PlayCollisionSound(Mathf.Min(1f, Mathf.Abs(_controller.Velocity.y / _controller.Attributes.MaxSpeed)));
+                //_controller.GetComponentInChildren<PlayerAudio>().PlayCollisionSound(Mathf.Min(1f, Mathf.Abs(_controller.Velocity.y / _controller.Attributes.MaxSpeed)));
             }
             _controller.CollideDown = true;
 
