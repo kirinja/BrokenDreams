@@ -140,7 +140,7 @@ public class GameManager : MonoBehaviour
                 return LevelCleared("Level_01");
             case "Boss_01":
                 return LevelCleared("Level_01") &&
-                       LevelCleared("Level_01_2D");
+                       LevelCleared("Level_02_2D");
             default:
                 return false;
         }
@@ -344,7 +344,7 @@ public class GameManager : MonoBehaviour
             case "Level_01":
             {
                 var player = GameObject.FindGameObjectWithTag("Player");
-                player.transform.position = GameObject.Find("Hub Door 1").transform.position;
+                player.transform.position = new Vector3(GameObject.Find("Hub Door 1").transform.position.x, player.transform.position.y, player.transform.position.z);
                 player.GetComponent<Controller3D>().SetSpawn(player.transform.position);
                 
                 break;
@@ -352,8 +352,9 @@ public class GameManager : MonoBehaviour
             case "Level_02_2D":
             {
                 var player = GameObject.FindGameObjectWithTag("Player");
-                player.transform.position = GameObject.Find("Hub Door 2").transform.position;
-                player.GetComponent<Controller3D>().SetSpawn(player.transform.position);
+                player.transform.position = new Vector3(GameObject.Find("Hub Door 2").transform.position.x,
+                    player.transform.position.y, player.transform.position.z);
+                    player.GetComponent<Controller3D>().SetSpawn(player.transform.position);
 
                 break;
             }
