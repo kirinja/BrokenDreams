@@ -46,13 +46,6 @@ public class DestroyableWall : Attackable
         }
         else
         {
-            /*
-            var renderers = GetComponentsInChildren<Renderer>();
-            foreach (var childRenderer in renderers)
-            {
-                childRenderer.material.color = new Color(childRenderer.material.color.r, childRenderer.material.color.g,
-                    childRenderer.material.color.b, 1 - _fadeTimer.PercentDone);
-            }/**/
 
             var renderers = GetComponentsInChildren<Transform>();
             foreach (var childRenderer in renderers)
