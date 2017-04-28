@@ -13,7 +13,7 @@ public class BossSubThreePatrol : IBossSubState
     {
         _bossData = data;
         //_timer = _bossData.StateSwitchTimer;
-        _timer = new System.Random().Next((int)_bossData.MinStateSwitch, (int)_bossData.MaxStateSwitch); // HACK
+        _timer = (_bossData.MinStateSwitch/2); //new System.Random().Next((int)_bossData.MinStateSwitch, (int)_bossData.MaxStateSwitch); // HACK
 
         _playing = false;
     }
