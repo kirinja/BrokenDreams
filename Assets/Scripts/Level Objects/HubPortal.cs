@@ -6,6 +6,7 @@ public class HubPortal : MonoBehaviour
     public Color DonePortalColor, DoneEmbersColor, DoneEmbers2Color, DoneGlowColor, DoneMiddleColor;
     public Color NotDonePortalColor, NotDoneEmbersColor, NotDoneEmbers2Color, NotDoneGlowColor, NotDoneMiddleColor;
     public bool Done = false;
+    public bool ShouldAppear = false;
     public bool ShouldInitialize = true;
     public float LerpTime = 2f;
     public string Scene;
@@ -39,7 +40,15 @@ public class HubPortal : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (_done != Done)
+        if (ShouldAppear && !_changing)
+        {
+            SetColors(false);
+            Done = false;
+            _changing = true;
+            _colorLerpTimer.Reset();
+        }
+
+        else if (_done != Done)
         {
             _done = Done;
             _changing = true;
@@ -51,10 +60,14 @@ public class HubPortal : MonoBehaviour
             if (_colorLerpTimer.Update(Time.deltaTime))
             {
                 _changing = false;
+                ShouldAppear = false;
             }
             else
             {
-                LerpColors(_done);
+                if (ShouldAppear)
+                    Appear();
+                else
+                    LerpColors(_done);
             }
         }
     }
@@ -111,6 +124,72 @@ public class HubPortal : MonoBehaviour
             var middleMain = transform.Find("Middle").GetComponent<ParticleSystem>().main;
             middleMain.startColor = Color.Lerp(DoneMiddleColor, NotDoneMiddleColor, _colorLerpTimer.PercentDone);
         }
+    }
+
+
+    public void Hide()
+    {
+        gameObject.SetActive(false);
+
+        GetComponent<ParticleSystem>().Clear();
+        transform.Find("Embers").GetComponent<ParticleSystem>().Clear();
+        transform.Find("Embers2").GetComponent<ParticleSystem>().Clear();
+        transform.Find("Glow").GetComponent<ParticleSystem>().Clear();
+        transform.Find("Middle").GetComponent<ParticleSystem>().Clear();
+
+        var portalMain = GetComponent<ParticleSystem>().main;
+        portalMain.startColor = new Color(NotDonePortalColor.r, NotDonePortalColor.r,
+            NotDonePortalColor.r, 0f);
+
+        var embersMain = transform.Find("Embers").GetComponent<ParticleSystem>().main;
+        embersMain.startColor = new Color(NotDoneEmbersColor.r, NotDoneEmbersColor.r,
+            NotDoneEmbersColor.r, 0f);
+
+        var embers2Main = transform.Find("Embers2").GetComponent<ParticleSystem>().main;
+        embers2Main.startColor = new Color(NotDoneEmbers2Color.r, NotDoneEmbers2Color.r,
+            NotDoneEmbers2Color.r, 0f);
+
+        var glowMain = transform.Find("Glow").GetComponent<ParticleSystem>().main;
+        glowMain.startColor = new Color(NotDoneGlowColor.r, NotDoneGlowColor.r,
+            NotDoneGlowColor.r, 0f);
+
+        var middleMain = transform.Find("Middle").GetComponent<ParticleSystem>().main;
+        middleMain.startColor = new Color(NotDoneMiddleColor.r, NotDoneMiddleColor.r,
+            NotDoneMiddleColor.r, 0f);
+    }
+
+
+    private void Appear()
+    {
+        var portalMain = GetComponent<ParticleSystem>().main;
+        portalMain.startColor = Color.Lerp(new Color(NotDonePortalColor.r, NotDonePortalColor.r,
+            NotDonePortalColor.r, 0f), NotDonePortalColor,
+           _colorLerpTimer.PercentDone);
+
+        var embersMain = transform.Find("Embers").GetComponent<ParticleSystem>().main;
+        embersMain.startColor = Color.Lerp(new Color(NotDoneEmbersColor.r, NotDoneEmbersColor.r,
+            NotDoneEmbersColor.r, 0f), NotDoneEmbersColor, _colorLerpTimer.PercentDone);
+
+        var embers2Main = transform.Find("Embers2").GetComponent<ParticleSystem>().main;
+        embers2Main.startColor = Color.Lerp(new Color(NotDoneEmbers2Color.r, NotDoneEmbers2Color.r,
+            NotDoneEmbers2Color.r, 0f), NotDoneEmbers2Color, _colorLerpTimer.PercentDone);
+
+        _glowTotalParticles = transform.Find("Glow").GetComponent<ParticleSystem>().GetParticles(_glowParticles);
+        for (var i = 0; i < _glowTotalParticles; ++i)
+        {
+            _glowParticles[i].startColor = Color.Lerp(
+                new Color(NotDoneGlowColor.r, NotDoneGlowColor.r,
+                    NotDoneGlowColor.r, 0f), NotDoneGlowColor, _colorLerpTimer.PercentDone);
+        }
+
+        transform.Find("Glow").GetComponent<ParticleSystem>().SetParticles(_glowParticles, _glowTotalParticles);
+        var glowMain = transform.Find("Glow").GetComponent<ParticleSystem>().main;
+        glowMain.startColor = Color.Lerp(new Color(NotDoneGlowColor.r, NotDoneGlowColor.r,
+            NotDoneGlowColor.r, 0f), NotDoneGlowColor, _colorLerpTimer.PercentDone);
+
+        var middleMain = transform.Find("Middle").GetComponent<ParticleSystem>().main;
+        middleMain.startColor = Color.Lerp(new Color(NotDoneMiddleColor.r, NotDoneMiddleColor.r,
+            NotDoneMiddleColor.r, 0f), NotDoneMiddleColor, _colorLerpTimer.PercentDone);
     }
     
 
