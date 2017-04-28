@@ -3,13 +3,14 @@
 [CreateAssetMenu(menuName = "Abilities/Attack")]
 class AttackAbility : Ability
 {
-    [SerializeField]
-    private float AttackRadius;
+    public float AttackRadius;
 
+    
     private void OnEnable()
     {
         Color = (Resources.Load("AbilityColors", typeof(AbilityColors)) as AbilityColors).AttackColor;
     }
+
 
     public override CharacterStateSwitch3D Use(Controller3D controller)
     {
@@ -17,7 +18,11 @@ class AttackAbility : Ability
 
         var upwards = controller.MovementInput.y > 0.5f;
         const float offsetLength = 0.5f;
-        var offset = upwards ? new Vector3(0f, offsetLength, 0f) : new Vector3(offsetLength, 0f, 0f);
+        var offset = upwards ? new Vector3(0f, offsetLength, 0f) : new Vector3(offsetLength * controller.Forward.x, 0f, 0f);
+
+        controller.AttackOffset = offset;
+        controller.AttackRange = AttackRadius;
+        controller.DrawAttackGizmo = true;
 
         var particle = controller.transform.Find("Hit");
         particle.localEulerAngles = new Vector3(upwards ? -45f : 0f, 0f, 0f);
@@ -27,6 +32,8 @@ class AttackAbility : Ability
         var hits =
             Physics.OverlapSphere(
                 controller.transform.position + offset, AttackRadius);
+
+        
 
         foreach (var gameObject in hits)
         {
