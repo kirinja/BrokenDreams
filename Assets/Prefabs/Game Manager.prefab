@@ -64,3 +64,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56d2348c1de30cf4cb608b6823462fd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaskTexture: {fileID: 2800000, guid: db3b3102049ab674dbafb1418b999ee1, type: 3}

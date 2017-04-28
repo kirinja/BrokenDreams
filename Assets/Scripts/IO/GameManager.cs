@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance { get; private set; }
 
+    public Texture2D MaskTexture;
 
     public bool Paused
     {
@@ -103,14 +104,28 @@ public class GameManager : MonoBehaviour
     {
         // maybe use transition kit here as well?
         DeleteSaveFile();
-        SceneManager.LoadScene("Hub");
+        //SceneManager.LoadScene("Hub");
+        var mask = new ImageMaskTransition()
+        {
+            maskTexture = MaskTexture,
+            backgroundColor = Color.black,
+            nextScene = "Hub"
+        };
+        TransitionKit.instance.transitionWithDelegate(mask);
     }
 
 
     public void LoadGame()
     {
         // belive we can just move to hub right away and the manager will try to load data if there is any
-        SceneManager.LoadScene("Hub");
+        //SceneManager.LoadScene("Hub");
+        var mask = new ImageMaskTransition()
+        {
+            maskTexture = MaskTexture,
+            backgroundColor = Color.black,
+            nextScene = "Hub"
+        };
+        TransitionKit.instance.transitionWithDelegate(mask);
     }
 
 
