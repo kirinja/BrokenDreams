@@ -8,12 +8,14 @@ public class DestroyableWall : Attackable
 
     private bool _destroyed;
     private Timer _fadeTimer;
+    private Vector3 _originalScale;
 
 
     private void Start()
     {
         _destroyed = false;
         _fadeTimer = new Timer(FadeTime);
+        _originalScale = GetComponentInChildren<Transform>().localScale;
     }
 
 
@@ -50,7 +52,7 @@ public class DestroyableWall : Attackable
             var renderers = GetComponentsInChildren<Transform>();
             foreach (var childRenderer in renderers)
             {
-                childRenderer.transform.localScale = Vector3.Lerp(Vector3.one, Vector3.zero, _fadeTimer.PercentDone);
+                childRenderer.transform.localScale = Vector3.Lerp(_originalScale, Vector3.zero, _fadeTimer.PercentDone);
             }
         }
     }
