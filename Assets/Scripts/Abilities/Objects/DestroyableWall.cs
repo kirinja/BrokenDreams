@@ -10,6 +10,7 @@ public class DestroyableWall : Attackable
     private Timer _fadeTimer;
     private Vector3 _originalScale;
 
+    public bool Destroyed { get { return _destroyed; } }
 
     private void Start()
     {
