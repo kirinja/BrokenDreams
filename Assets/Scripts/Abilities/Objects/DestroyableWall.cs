@@ -9,6 +9,7 @@ public class DestroyableWall : Attackable
     private bool _destroyed;
     private Timer _fadeTimer;
 
+    public bool Destroyed { get { return _destroyed; } }
 
     private void Start()
     {
