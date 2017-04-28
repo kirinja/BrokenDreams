@@ -109,6 +109,7 @@ public class GameManager : MonoBehaviour
         {
             maskTexture = MaskTexture,
             backgroundColor = Color.black,
+            duration = 1.5f,
             nextScene = "Hub"
         };
         TransitionKit.instance.transitionWithDelegate(mask);
@@ -123,6 +124,7 @@ public class GameManager : MonoBehaviour
         {
             maskTexture = MaskTexture,
             backgroundColor = Color.black,
+            duration = 1.5f,
             nextScene = "Hub"
         };
         TransitionKit.instance.transitionWithDelegate(mask);
