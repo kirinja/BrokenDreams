@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using Prime31.TransitionKit;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -245,6 +247,45 @@ public class GameManager : MonoBehaviour
     }
 
 
+    // the following encrypt and decrypt code is taken from http://tekeye.biz/2015/encrypt-decrypt-c-sharp-string
+    //Encrypt
+    public static string EncryptString(string plainText, string passPhrase)
+    {
+        byte[] initVectorBytes = Encoding.UTF8.GetBytes(InitVector);
+        byte[] plainTextBytes = Encoding.UTF8.GetBytes(plainText);
+        PasswordDeriveBytes password = new PasswordDeriveBytes(passPhrase, null);
+        byte[] keyBytes = password.GetBytes(KeySize / 8);
+        RijndaelManaged symmetricKey = new RijndaelManaged();
+        symmetricKey.Mode = CipherMode.CBC;
+        ICryptoTransform encryptor = symmetricKey.CreateEncryptor(keyBytes, initVectorBytes);
+        MemoryStream memoryStream = new MemoryStream();
+        CryptoStream cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write);
+        cryptoStream.Write(plainTextBytes, 0, plainTextBytes.Length);
+        cryptoStream.FlushFinalBlock();
+        byte[] cipherTextBytes = memoryStream.ToArray();
+        memoryStream.Close();
+        cryptoStream.Close();
+        return Convert.ToBase64String(cipherTextBytes);
+    }
+    //Decrypt
+    public static string DecryptString(string cipherText, string passPhrase)
+    {
+        byte[] initVectorBytes = Encoding.UTF8.GetBytes(InitVector);
+        byte[] cipherTextBytes = Convert.FromBase64String(cipherText);
+        PasswordDeriveBytes password = new PasswordDeriveBytes(passPhrase, null);
+        byte[] keyBytes = password.GetBytes(KeySize / 8);
+        RijndaelManaged symmetricKey = new RijndaelManaged();
+        symmetricKey.Mode = CipherMode.CBC;
+        ICryptoTransform decryptor = symmetricKey.CreateDecryptor(keyBytes, initVectorBytes);
+        MemoryStream memoryStream = new MemoryStream(cipherTextBytes);
+        CryptoStream cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read);
+        byte[] plainTextBytes = new byte[cipherTextBytes.Length];
+        int decryptedByteCount = cryptoStream.Read(plainTextBytes, 0, plainTextBytes.Length);
+        memoryStream.Close();
+        cryptoStream.Close();
+        return Encoding.UTF8.GetString(plainTextBytes, 0, decryptedByteCount);
+    }
+
     private void SaveToFile()
     {
         var playerSaveData = new PlayerSaveData();
@@ -256,10 +297,11 @@ public class GameManager : MonoBehaviour
         playerSaveData.Abilities = abilityNames;
         //playerSaveData.HP = _playerAttributes.currentHealth;
         playerSaveData.BeatenLevels = beatenLevels;
-        var stringifiedPlayer = new string[1];
 
-        stringifiedPlayer[0] = JsonUtility.ToJson(playerSaveData);
-        File.WriteAllLines(_savePath, stringifiedPlayer);
+        var stringifiedPlayer = JsonUtility.ToJson(playerSaveData);
+        var encrypted = EncryptString(stringifiedPlayer, KeyPhrase);
+        //File.WriteAllLines(_savePath, stringifiedPlayer);
+        File.WriteAllText(_savePath, encrypted);
     }
 
 
@@ -271,9 +313,13 @@ public class GameManager : MonoBehaviour
 
         if (!File.Exists(_savePath)) return false; // TODO SCARY SHIT
 
-        var stringifiedData = File.ReadAllLines(_savePath);
+        //var stringifiedData = File.ReadAllLines(_savePath);
+        var stringifiedData = File.ReadAllText(_savePath);
+        var decrypted = DecryptString(stringifiedData, KeyPhrase);
+        // there is no safety here, so if the save file has been edited there will be errors
 
-        var playerSaveData = JsonUtility.FromJson<PlayerSaveData>(stringifiedData[0]);
+        //var playerSaveData = JsonUtility.FromJson<PlayerSaveData>(stringifiedData[0]);
+        var playerSaveData = JsonUtility.FromJson<PlayerSaveData>(decrypted);
         //_playerAttributes.currentHealth = playerSaveData.HP;
 
         foreach (var i in playerSaveData.BeatenLevels)
@@ -438,6 +484,16 @@ public class GameManager : MonoBehaviour
     private const string SaveFile = "Save.sav";
     private const string SaveDirectory = "Save";
     private const float RegularTimeScale = 1f;
+
+    // This size of the IV (in bytes) must = (KeySize / 8).  Default KeySize is 256, so the IV must be
+    // 32 bytes long.  Using a 16 character string here gives us 32 bytes when converted to a byte array.
+    private const string InitVector = "pemgail9uzpgzl88";
+    // This constant is used to determine the KeySize of the encryption algorithm
+    private const int KeySize = 256;
+
+    // storing the encrypt/descrypt key inside the actual program is dangerous since you can read the memory and find the key
+    // it doesnt matter in this case however since all we want to do is change the output file from english to gibberish (so the player cant easily edit it)
+    private const string KeyPhrase = "Broken Dreams";
 
     #endregion
 }
