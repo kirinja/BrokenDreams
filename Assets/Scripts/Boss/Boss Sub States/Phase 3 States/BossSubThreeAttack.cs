@@ -42,7 +42,7 @@ public class BossSubThreeAttack : IBossSubState
             _projCounter++;
             _attackTimer = _bossData.TimeBetweenShots;
 
-            _bossData.PlayBossProjSound();
+            _bossData.PlayProjSound();
         }
 
         if (_acidTimer <= 0.0f)
@@ -52,7 +52,7 @@ public class BossSubThreeAttack : IBossSubState
 
             _acidTimer = _bossData.AcidTimer;
 
-            _bossData.PlayBossSpawnSound();
+            _bossData.PlaySpawnSound();
         }
 
         // use a _timer or something to determine when we should switch state

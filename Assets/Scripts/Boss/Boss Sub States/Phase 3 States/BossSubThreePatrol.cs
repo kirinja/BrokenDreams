@@ -29,7 +29,7 @@ public class BossSubThreePatrol : IBossSubState
         var r = Random.value;
         if (r <= 0.01f && !_playing)
         {
-            _bossData.PlayBossIdleSound();
+            _bossData.PlayIdleSound();
             _playing = true;
         }
 

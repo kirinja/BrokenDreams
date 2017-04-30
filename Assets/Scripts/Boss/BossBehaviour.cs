@@ -74,6 +74,9 @@ public class BossBehaviour : MonoBehaviour
     public AudioClip[] BossSpawnSounds;
     public AudioClip[] BossDamageSounds;
     public AudioClip[] BossDeathSounds;
+    public AudioClip Phase2Defend;
+    public AudioClip Phase2Attack;
+    public AudioClip Phase2Idle;
 
     [HideInInspector] public bool Invincible;
     [HideInInspector] private float _invincibleTimer = 0.0f;
@@ -147,7 +150,7 @@ public class BossBehaviour : MonoBehaviour
         // change phase
         if (newState == null) return;
 
-        PlayBossDeathSound();
+        PlayDeathSound();
 
         // heal player between boss phases
         //var player = GameObject.FindGameObjectWithTag("Player");
@@ -165,6 +168,7 @@ public class BossBehaviour : MonoBehaviour
 
     private bool BossDefeated()
     {
+        // TODO add some kind of cutscene or something, play sound etc
         if (HP > 0 || BossState == null) return false;
 
         BossState.Exit();
@@ -188,7 +192,7 @@ public class BossBehaviour : MonoBehaviour
         return true;
     }
 
-    public void PlayBossIdleSound()
+    public void PlayIdleSound()
     {
 
         int range = Random.Range(1, BossIdleSounds.Length);
@@ -198,7 +202,7 @@ public class BossBehaviour : MonoBehaviour
         BossIdleSounds[0] = _bossDirectSounds.clip;
     }
 
-    public void PlayBossProjSound()
+    public void PlayProjSound()
     {
 
         int range = Random.Range(1, BossProjSounds.Length);
@@ -208,7 +212,7 @@ public class BossBehaviour : MonoBehaviour
         BossProjSounds[0] = _bossProjSounds.clip;
     }
 
-    public void PlayBossSpawnSound()
+    public void PlaySpawnSound()
     {
 
         int range = Random.Range(1, BossSpawnSounds.Length);
@@ -218,7 +222,7 @@ public class BossBehaviour : MonoBehaviour
         BossSpawnSounds[0] = _bossDirectSounds.clip;
     }
 
-    public void PlayBossDamageSound()
+    public void PlayDamageSound()
     {
 
         int range = Random.Range(1, BossDamageSounds.Length);
@@ -228,7 +232,7 @@ public class BossBehaviour : MonoBehaviour
         BossDamageSounds[0] = _bossDirectSounds.clip;
     }
 
-    public void PlayBossDeathSound()
+    public void PlayDeathSound()
     {
 
         int range = Random.Range(1, BossDeathSounds.Length);
@@ -236,5 +240,20 @@ public class BossBehaviour : MonoBehaviour
         _bossDirectSounds.PlayOneShot(_bossDirectSounds.clip);
         BossDeathSounds[range] = BossDeathSounds[0];
         BossDeathSounds[0] = _bossDirectSounds.clip;
+    }
+
+    public void PlayPhaseTwoIdleSound()
+    {
+        _bossDirectSounds.PlayOneShot(Phase2Idle);
+    }
+
+    public void PlayPhaseTwoAttackSound()
+    {
+        _bossDirectSounds.PlayOneShot(Phase2Attack);
+    }
+
+    public void PlayPhaseTwoDefendSound()
+    {
+        _bossDirectSounds.PlayOneShot(Phase2Defend);
     }
 }

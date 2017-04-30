@@ -55,7 +55,7 @@ public class BossPhaseTwo : IBossPhaseState
     // this will be called via monobehaviour
     public void TakeDamage(int value)
     {
-        _bossData.PlayBossDamageSound();
+        _bossData.PlayDamageSound();
         _internalState.TakeDamage(value);
     }
 }

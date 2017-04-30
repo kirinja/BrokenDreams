@@ -21,6 +21,8 @@ public class BossSubTwoAttack : IBossSubState
         _projTimer = _bossData.TimeBetweenShots;
 
         _head = GameObject.Find("Head");
+
+        _bossData.PlayPhaseTwoAttackSound();
     }
 
     public IBossSubState Execute()
@@ -60,7 +62,7 @@ public class BossSubTwoAttack : IBossSubState
         _projCounter++;
         _projTimer = _bossData.TimeBetweenShots;
 
-        _bossData.PlayBossProjSound();
+        _bossData.PlayProjSound();
     }
 
     private void ShowHead()

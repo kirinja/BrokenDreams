@@ -6255,6 +6255,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f50ad7e2c30b68e4c93a100610481c0d, type: 3}
   - {fileID: 8300000, guid: b4819c292e6335b49b976b2450b3d39c, type: 3}
   - {fileID: 8300000, guid: eaedb3062b5a6b2468fd69a849d6071f, type: 3}
+  Phase2Defend: {fileID: 8300000, guid: a86398b7703b32b428707305a03aebc8, type: 3}
+  Phase2Attack: {fileID: 8300000, guid: 7b78ca37fbb58cb4f974f5e6c1dad913, type: 3}
+  Phase2Idle: {fileID: 8300000, guid: ecd114ecaeb261d4d8b478c85cbd23c4, type: 3}
   Invincible: 0
 --- !u!82 &1553723375
 AudioSource:
