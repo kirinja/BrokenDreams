@@ -478,6 +478,16 @@ public class GameManager : MonoBehaviour
         yield return null;
     }
 
+    public void PlayOneShot(AudioClip clip)
+    {
+        GetComponent<AudioSource>().PlayOneShot(clip);
+    }
+
+    public void Play(AudioClip clip)
+    {
+        GetComponent<AudioSource>().clip = clip;
+        GetComponent<AudioSource>().Play();
+    }
 
     #region Constants
 
