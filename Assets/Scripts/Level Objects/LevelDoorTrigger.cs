@@ -12,7 +12,7 @@ public class LevelDoorTrigger : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player") && (!RequiresInput || Input.GetAxisRaw("Vertical") >= 0.5f))
+        if (other.CompareTag("Player") && (!RequiresInput || Input.GetAxisRaw("Vertical") >= 0.5f) && GameManager.Instance.LevelAvailable(Scene))
         {
             //var fishEye = new FishEyeTransition()
             //{

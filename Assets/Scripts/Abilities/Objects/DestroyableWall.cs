@@ -8,12 +8,17 @@ public class DestroyableWall : Attackable
 
     private bool _destroyed;
     private Timer _fadeTimer;
+    private Vector3 _originalScale;
 
+    public bool Destroyed { get { return _destroyed; } }
 
     private void Start()
     {
         _destroyed = false;
         _fadeTimer = new Timer(FadeTime);
+        var childTranforms = GetComponentsInChildren<Transform>();
+        if (childTranforms.Length > 1)
+            _originalScale = childTranforms[1].localScale;
     }
 
 
@@ -22,17 +27,14 @@ public class DestroyableWall : Attackable
         if (_destroyed) return;
 
         _destroyed = true;
-        
         GetComponent<Collider>().enabled = false;
+        GetComponent<AudioSource>().Play();
 
         var rigidBodies = GetComponentsInChildren<Rigidbody>();
         foreach (var body in rigidBodies)
         {
             body.isKinematic = false;
         }
-
-        var source = GetComponent<AudioSource>();
-        source.Play();
     }
 
 
@@ -46,11 +48,11 @@ public class DestroyableWall : Attackable
         }
         else
         {
-            var renderers = GetComponentsInChildren<Renderer>();
-            foreach (var childRenderer in renderers)
+            var childTransforms = GetComponentsInChildren<Transform>();
+            foreach (var childTransform in childTransforms)
             {
-                childRenderer.material.color = new Color(childRenderer.material.color.r, childRenderer.material.color.g,
-                    childRenderer.material.color.b, 1 - _fadeTimer.PercentDone);
+                if (childTransform.gameObject != gameObject)
+                childTransform.transform.localScale = Vector3.Lerp(_originalScale, Vector3.zero, _fadeTimer.PercentDone);
             }
         }
     }

@@ -52,6 +52,8 @@ public class BossSubTwoDefend: IBossSubState
         {
             _arcs[i] = _bossData.Phase2Launch.transform.GetChild(i).gameObject;
         }
+
+        _bossData.PlayPhaseTwoDefendSound();
     }
 
     public IBossSubState Execute()
@@ -137,7 +139,7 @@ public class BossSubTwoDefend: IBossSubState
         ++_spawnCounter;
         _spawnTimer = TimeBetweenSpawns;
 
-        _bossData.PlayBossSpawnSound();
+        _bossData.PlaySpawnSound();
 
         _platformIds = _platformIds.Where(val => val != pId).ToArray();
 
@@ -151,7 +153,7 @@ public class BossSubTwoDefend: IBossSubState
 
     private void PlayIdleSound()
     {
-        _bossData.PlayBossIdleSound();
+        _bossData.PlayIdleSound();
         _playing = true;
     }
 

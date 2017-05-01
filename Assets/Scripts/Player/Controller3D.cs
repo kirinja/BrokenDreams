@@ -25,6 +25,11 @@ public class Controller3D : MonoBehaviour
     public float LockedZPosition = -1;
     public Material Material;
 
+    // Debug stuff
+    public bool DrawAttackGizmo;
+    public float AttackRange;
+    public Vector3 AttackOffset;
+
     public PlayerAttributes Attributes { get; private set; }
     public Vector2 Velocity { get; set; }
     public Vector2 Forward { get; set; }
@@ -80,6 +85,14 @@ public class Controller3D : MonoBehaviour
     public float MinJumpVelocity
     {
         get { return Mathf.Sqrt(2 * Gravity.magnitude * GetComponent<PlayerAttributes>().MinJumpHeight); }
+    }
+
+
+    private void OnDrawGizmos()
+    {
+        if (!DrawAttackGizmo) return;
+        Gizmos.color = new Color(1f, 0f, 0f, 0.5f);
+        Gizmos.DrawSphere(transform.position + AttackOffset, AttackRange);
     }
 
 
@@ -316,16 +329,18 @@ public class Controller3D : MonoBehaviour
 
     public void Kill()
     {
-        StartCoroutine(Die());
+        //StartCoroutine(Die());
+        Die();
     }
 
 
-    private IEnumerator Die()
+    private void Die()
     {
         var gm = GameManager.Instance;
         gm.SoftPause();
-        var waitTime = GetComponentInChildren<PlayerAudio>().PlayDeathSound();
-        yield return new WaitForSeconds(waitTime);
+        //var waitTime = GetComponentInChildren<PlayerAudio>().PlayDeathSound();
+        gm.PlayOneShot(GetComponentInChildren<PlayerAudio>().DeathSound);
+        //yield return new WaitForSeconds(waitTime);
 
         gm.Paused = false;
 

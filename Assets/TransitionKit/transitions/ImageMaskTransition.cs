@@ -47,7 +47,7 @@ namespace Prime31.TransitionKit
 			transitionKit.material.SetTexture( "_MaskTex", maskTexture );
 
 			if( !nextScene.Equals(""))
-				SceneManager.LoadSceneAsync( nextScene );
+				SceneManager.LoadScene( nextScene );
 
 			// this does the zoom/rotation
 			yield return transitionKit.StartCoroutine( transitionKit.tickProgressPropertyInMaterial( duration ) );

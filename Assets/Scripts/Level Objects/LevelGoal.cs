@@ -10,12 +10,12 @@ public class LevelGoal : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             var gameManager = GameManager.Instance;
-            gameManager.BeatLevel(SceneManager.GetActiveScene().name);
+            var firstTime = gameManager.BeatLevel(SceneManager.GetActiveScene().name);
             gameManager.SaveToMemory();
             gameManager.SaveToFiles();
             gameManager.UseCheckPoint = false;
 
-            var fishEye = new FishEyeTransition
+            /*var fishEye = new FishEyeTransition
             {
                 nextScene = "Hub",
                 duration = 2.0f,
@@ -23,7 +23,9 @@ public class LevelGoal : MonoBehaviour
                 zoom = 100.0f,
                 colorSeparation = 0.1f
             };
-            TransitionKit.instance.transitionWithDelegate(fishEye);
+            TransitionKit.instance.transitionWithDelegate(fishEye);/**/
+
+            gameManager.ReturnToHub(SceneManager.GetActiveScene().name, firstTime);
         }
     }
 }

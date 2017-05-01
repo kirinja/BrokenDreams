@@ -504,7 +504,7 @@ GameObject:
   - component: {fileID: 50660157}
   - component: {fileID: 50660159}
   - component: {fileID: 50660158}
-  m_Layer: 1
+  m_Layer: 12
   m_Name: CountEnemies
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -585,7 +585,7 @@ GameObject:
   - component: {fileID: 53420288}
   - component: {fileID: 53420290}
   - component: {fileID: 53420289}
-  m_Layer: 1
+  m_Layer: 12
   m_Name: CountEnemies
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -923,7 +923,7 @@ GameObject:
   - component: {fileID: 137018737}
   - component: {fileID: 137018738}
   - component: {fileID: 137018739}
-  m_Layer: 1
+  m_Layer: 12
   m_Name: GameObject (top)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1146,7 +1146,7 @@ GameObject:
   - component: {fileID: 170273930}
   - component: {fileID: 170273932}
   - component: {fileID: 170273931}
-  m_Layer: 1
+  m_Layer: 12
   m_Name: CountEnemies
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1957,7 +1957,7 @@ GameObject:
   - component: {fileID: 348663140}
   - component: {fileID: 348663141}
   - component: {fileID: 348663142}
-  m_Layer: 1
+  m_Layer: 12
   m_Name: GameObject (right)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2908,7 +2908,7 @@ AudioListener:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 610559889}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!124 &610559891
 Behaviour:
   m_ObjectHideFlags: 0
@@ -3332,7 +3332,7 @@ GameObject:
   - component: {fileID: 658567312}
   - component: {fileID: 658567314}
   - component: {fileID: 658567313}
-  m_Layer: 1
+  m_Layer: 12
   m_Name: CountEnemies (floor)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4147,7 +4147,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.062179785, y: 0.024345383, z: 0.062179785}
+  m_Size: {x: 0.12, y: 0.024345383, z: 0.062179785}
   m_Center: {x: 0, y: 0.00884614, z: 0}
 --- !u!1 &1010917336
 GameObject:
@@ -5695,7 +5695,7 @@ GameObject:
   - component: {fileID: 1470554589}
   - component: {fileID: 1470554590}
   - component: {fileID: 1470554591}
-  m_Layer: 1
+  m_Layer: 12
   m_Name: GameObject (bot)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6255,6 +6255,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f50ad7e2c30b68e4c93a100610481c0d, type: 3}
   - {fileID: 8300000, guid: b4819c292e6335b49b976b2450b3d39c, type: 3}
   - {fileID: 8300000, guid: eaedb3062b5a6b2468fd69a849d6071f, type: 3}
+  Phase2Defend: {fileID: 8300000, guid: a86398b7703b32b428707305a03aebc8, type: 3}
+  Phase2Attack: {fileID: 8300000, guid: 7b78ca37fbb58cb4f974f5e6c1dad913, type: 3}
+  Phase2Idle: {fileID: 8300000, guid: ecd114ecaeb261d4d8b478c85cbd23c4, type: 3}
   Invincible: 0
 --- !u!82 &1553723375
 AudioSource:
@@ -6383,7 +6386,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.062179785, y: 0.024345383, z: 0.062179785}
+  m_Size: {x: 0.12, y: 0.024345383, z: 0.062179785}
   m_Center: {x: 0.000000029802322, y: 0.00884614, z: 0}
 --- !u!1 &1578140642
 GameObject:
@@ -6895,7 +6898,7 @@ GameObject:
   - component: {fileID: 1644231914}
   - component: {fileID: 1644231915}
   - component: {fileID: 1644231916}
-  m_Layer: 1
+  m_Layer: 12
   m_Name: GameObject (left)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8554,7 +8557,7 @@ GameObject:
   - component: {fileID: 1986189900}
   - component: {fileID: 1986189902}
   - component: {fileID: 1986189901}
-  m_Layer: 1
+  m_Layer: 12
   m_Name: CountEnemies
   m_TagString: Untagged
   m_Icon: {fileID: 0}

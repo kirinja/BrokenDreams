@@ -110,7 +110,7 @@ public class BossSubOneAttack : IBossSubState
         _spawnCounter++;
         _spawnTimer = TimeBetweenSpawns;
 
-        _bossData.PlayBossSpawnSound();
+        _bossData.PlaySpawnSound();
         _platformIds = _platformIds.Where(val => val != pId).ToArray();
 
 
