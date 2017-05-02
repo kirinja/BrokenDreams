@@ -38440,7 +38440,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4389203155833234, guid: be7d20e1ff0c3e94db610d47d8077712, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 37.78
+      value: 38.3
       objectReference: {fileID: 0}
     - target: {fileID: 4389203155833234, guid: be7d20e1ff0c3e94db610d47d8077712, type: 2}
       propertyPath: m_LocalPosition.y
@@ -38503,6 +38503,26 @@ Prefab:
         type: 2}
       propertyPath: randomSeed
       value: -1032099851
+      objectReference: {fileID: 0}
+    - target: {fileID: 82822911375576568, guid: be7d20e1ff0c3e94db610d47d8077712,
+        type: 2}
+      propertyPath: spreadCustomCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 65959830201678546, guid: be7d20e1ff0c3e94db610d47d8077712,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 15.237419
+      objectReference: {fileID: 0}
+    - target: {fileID: 65959830201678546, guid: be7d20e1ff0c3e94db610d47d8077712,
+        type: 2}
+      propertyPath: m_Center.x
+      value: 0.533043
+      objectReference: {fileID: 0}
+    - target: {fileID: 65959830201678546, guid: be7d20e1ff0c3e94db610d47d8077712,
+        type: 2}
+      propertyPath: m_Center.y
+      value: -0.3830632
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: be7d20e1ff0c3e94db610d47d8077712, type: 2}
