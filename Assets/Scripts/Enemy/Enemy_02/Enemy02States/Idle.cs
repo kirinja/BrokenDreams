@@ -27,23 +27,19 @@ public class Idle : EnemyState {
             }
         }
     }*/
-    private void Aggro() {
-        
-        Collider[] col = Physics.OverlapSphere(enemy.transform.position, enemy.AggroRange, enemy.AggroMask);
+    private void Aggro()
+    {
+        Collider[] col = Physics.OverlapSphere(enemy.ProjectileFirePosition.transform.position, enemy.AggroRange, enemy.AggroMask);
         int i = 0;
-        RaycastHit hit;
-        for (int v = 0; v< col.Length; v++)
+        for (int v = 0; v < col.Length; v++)
         {
-            if (col[v].CompareTag("Player") && !Physics.Linecast(enemy.transform.position, col[i].transform.position, out hit, enemy.LineOfSightMask))
-            {
-                //if (hit.collider.gameObject.CompareTag("Player"))
-                //{
-                enemy.setTarget(col[v].GetComponent<Controller3D>());
-                enemy.changeState(new Patrol(this.enemy));
-                //enemy.getSource().PlayOneShot(enemy.aggroClip);
-                //Alert sound
-                //}
-            }
+            RaycastHit hit;
+            if (!col[v].CompareTag("Player") || Physics.Linecast(enemy.ProjectileFirePosition.transform.position,
+                    col[i].transform.position + new Vector3(0, col[i].transform.localScale.y / 2, 0),
+                    out hit,
+                    enemy.LineOfSightMask)) continue;
+            enemy.setTarget(col[v].GetComponent<Controller3D>());
+            enemy.changeState(new Patrol(enemy));
         }
     }
 
