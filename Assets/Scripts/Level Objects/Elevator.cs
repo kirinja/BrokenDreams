@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class Elevator : MonoBehaviour
 {
+    public float ElevatorWaitTime = 4.0f;
     public GameObject[] enemies;
 
     private bool active;
@@ -57,9 +58,16 @@ public class Elevator : MonoBehaviour
 	    {
             // TODO add a slight delay possibly
 	        active = true;
-            GetComponent<Animator>().enabled = true;
+	        StartCoroutine("StartElevator");
+            
 	    }
 	}
+
+    private IEnumerator StartElevator()
+    {
+        yield return new WaitForSeconds(ElevatorWaitTime);
+        GetComponent<Animator>().enabled = true;
+    }
 
     private void FeedbackColor(int i, Color color)
     {
