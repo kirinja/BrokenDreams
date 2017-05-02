@@ -79,8 +79,8 @@ public class BossBehaviour : MonoBehaviour
     public AudioClip Phase2Idle;
 
     [HideInInspector] public bool Invincible;
-    [HideInInspector] private float _invincibleTimer = 0.0f;
-    [HideInInspector] private float _invincibleTime = 1.0f;
+    private float _invincibleTimer = 0.0f;
+    public float InvincibleTime = 1.0f;
     private bool _visible;
 
 	// Use this for initialization
@@ -123,7 +123,7 @@ public class BossBehaviour : MonoBehaviour
             _invincibleTimer += Time.deltaTime;
 
             // add flashing possibly
-            if (_invincibleTime % 0.2f < 0.1f)
+            if (InvincibleTime % 0.2f < 0.1f)
             {
                 // doesnt flash, have to look over
                 _visible = !_visible;
@@ -133,7 +133,7 @@ public class BossBehaviour : MonoBehaviour
             }
 
         }
-        if (!(_invincibleTimer >= _invincibleTime)) return;
+        if (!(_invincibleTimer >= InvincibleTime)) return;
         
         Invincible = false;
         _invincibleTimer = 0.0f;
