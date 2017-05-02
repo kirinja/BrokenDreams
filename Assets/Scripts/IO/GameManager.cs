@@ -467,8 +467,9 @@ public class GameManager : MonoBehaviour
                     false;
                 GameObject.Find("Hub Door 2").transform.Find("Portal").GetComponent<HubPortal>().Done =
                     false;
+                GameObject.Find("Boss Trapdoor").GetComponent<BossDoor>().ShouldInitialize = false;
 
-                SoftPause();
+                    SoftPause();
 
                 yield return new WaitForSeconds(1f);
 
@@ -476,6 +477,9 @@ public class GameManager : MonoBehaviour
 
                 GameObject.Find("Hub Door 2").transform.Find("Portal").GetComponent<HubPortal>().Done =
                     true;
+
+                
+                    //GameObject.Find("Boss Trapdoor").GetComponent<BossDoor>().Play();
 
                 break;
             }
