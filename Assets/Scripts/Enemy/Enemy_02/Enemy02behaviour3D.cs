@@ -36,11 +36,13 @@ public class Enemy02behaviour3D : Enemy
     public LayerMask LineOfSightMask;
     private AudioSource src;
     private AudioSource _source2;
+    private AudioSource _source3;
     public AudioClip attackClip;
-    public AudioClip aggroClip;
     public AudioClip deathClip;
     public AudioClip damageClip;
     public AudioClip _chargeClip;
+    public AudioClip _FootstepClip;
+    public AudioClip[] aggroClips;
     private Transform platform;
     private Vector3 previousPlatformPosition;
     
@@ -63,6 +65,9 @@ public class Enemy02behaviour3D : Enemy
         src = GetComponents<AudioSource>()[0];
         _source2 = GetComponents<AudioSource>()[1];
         _source2.clip = _chargeClip;
+        _source3 = GetComponents<AudioSource>()[2];
+        _source3.clip = _FootstepClip;
+        _source3.loop = false;
 
         dead = false;
         Alive = true;
@@ -76,6 +81,11 @@ public class Enemy02behaviour3D : Enemy
         // child this object to the ground it's standing on (this so with moving platforms the object moves consitently on it)
         SetGround();
         Flip();
+    }
+
+    void playFootstep()
+    {
+        _source3.Play();
     }
 
     // Update is called once per frame
@@ -200,7 +210,8 @@ public class Enemy02behaviour3D : Enemy
                 setTarget(col[v].GetComponent<Controller3D>());
                 if (!src.isPlaying)
                 {
-                    src.PlayOneShot(aggroClip);
+                    int index = Random.Range(0, 2);
+                    src.PlayOneShot(aggroClips[index]);
                 }
                 foundPlayer = true;
                 break;
@@ -241,7 +252,7 @@ public class Enemy02behaviour3D : Enemy
     private void Defeat()
     {
         StartCoroutine("deathTime");
-
+        _source2.Stop();
         if (Drop == null)
         {
             if (UnityEngine.Random.value < HealthDropChance)

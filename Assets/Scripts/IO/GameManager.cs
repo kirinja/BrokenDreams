@@ -46,7 +46,10 @@ public class GameManager : MonoBehaviour
 
     public bool Paused
     {
-        get { return _paused; }
+        get
+        {
+            return _paused;
+        }
         set
         {
             _paused = value;
@@ -96,7 +99,10 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetButtonDown("Pause"))
             if (!Paused)
+            {
+                if (SceneManager.GetActiveScene().name.Equals("Start")) return;
                 GetComponent<MenuHandler>().ShowPauseMenu();
+            }
             else
                 GetComponent<MenuHandler>().HideMenus();
     }
