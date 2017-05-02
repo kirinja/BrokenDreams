@@ -146,8 +146,8 @@ public class Enemy01Behaviour : Enemy
         health -= damage;
         if (health <= 0)
             Defeat();
-        if (!dead)
-            src.PlayOneShot(damageClip);
+        /*if (!dead)
+            src.PlayOneShot(damageClip);*/
     }
 
 
@@ -155,7 +155,7 @@ public class Enemy01Behaviour : Enemy
     {
         dead = true;
         StartCoroutine("deathTime");
-        src.PlayOneShot(deathClip);
+        src.PlayOneShot(damageClip);
 
         if (Drop == null)
             if (Random.value < HealthDropChance)
