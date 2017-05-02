@@ -10,6 +10,7 @@ public class PauseMenu : MonoBehaviour
 
     public void RequestFocus()
     {
+        EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(FirstSelectedObject);
     }
 
