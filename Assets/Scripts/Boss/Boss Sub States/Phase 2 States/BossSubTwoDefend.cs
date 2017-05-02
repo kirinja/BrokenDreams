@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class BossSubTwoDefend: IBossSubState
 {
@@ -118,24 +120,37 @@ public class BossSubTwoDefend: IBossSubState
         // check how many enemies are on the selected platforms trigger area
         // if it is higher than a certain value then dont spawn at that platform
         // count up the try to spawn counter, if it is higher than X then set _spawned to true (we cant spawn)
-
-        var rand = new System.Random();
-        var index = rand.Next(0, _platformIds.Length);
-        var pId = _platformIds[index];
-
+        var pId = -1;
+        var index = -1;
+        try
+        {
+            var rand = new System.Random();
+            index = rand.Next(0, _platformIds.Length);
+            pId = _platformIds[index];
+        }
+        catch
+        {
+            Debug.LogError("Index out of range - index = "  + index);
+        }
         if (!CheckPlatform(pId))
         {
             return;
         }
-        
-        _arcs[pId].GetComponent<MeshFilter>().sharedMesh =
-            _bossData.Enemy2.GetComponent<MeshFilter>().sharedMesh;
+        try
+        {
+            //_arcs[pId].GetComponent<MeshFilter>().sharedMesh =
+                //_bossData.Enemy2.GetComponent<MeshFilter>().sharedMesh;
 
-        _arcs[pId].GetComponent<EnemySpawn>().Enemy = _bossData.Enemy2;
+            _arcs[pId].GetComponent<EnemySpawn>().Enemy = _bossData.Enemy2;
 
-        _arcs[pId].GetComponent<MeshRenderer>().enabled = true;
-        _arcs[pId].GetComponent<SplineController>().FollowSpline();
-
+            //_arcs[pId].GetComponent<MeshRenderer>().enabled = true;
+            _arcs[pId].GetComponentInChildren<SpriteRenderer>().enabled = true;
+            _arcs[pId].GetComponent<SplineController>().FollowSpline();
+        }
+        catch
+        {
+            Debug.LogError("ERROR IN BOSS DEFEND - pID = " + pId);
+        }
         ++_spawnCounter;
         _spawnTimer = TimeBetweenSpawns;
 
@@ -184,6 +199,6 @@ public class BossSubTwoDefend: IBossSubState
 
     private bool CanSpawn()
     {
-        return _spawnCounter < _bossData.Phase2Spawn && _spawnTimer <= 0.0f && !_spawned;
+        return _spawnCounter < _bossData.Phase2Spawn && _spawnTimer <= 0.0f && !_spawned && _platformIds.Length > 0;
     }
 }

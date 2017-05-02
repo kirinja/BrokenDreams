@@ -32,7 +32,7 @@ public class EnemySpawn : MonoBehaviour
             CapsuleCollider caps = Enemy.transform.GetComponent<CapsuleCollider>();
             var pos = new Vector3(other.gameObject.transform.position.x, other.transform.position.y, -1);
             var g = Instantiate(Enemy, 
-                pos + new Vector3(0, other.transform.lossyScale.y / 2 + (box == null ? caps.height / 2 : box.size.y / 2), 0),
+                pos + new Vector3(0, other.transform.lossyScale.y / 2 + (box == null ? 1.0f : box.size.y / 2), 0), // HACK HACK HACK HACK
                 Quaternion.identity);
 
             if (caps)
@@ -40,17 +40,20 @@ public class EnemySpawn : MonoBehaviour
                 g.GetComponent<Enemy02behaviour3D>().retreatPoints = GetPlatformTargetPoints(other.gameObject); 
             }
 
-            if (transform.childCount > 0)
+            // this needs to check if the child is a movable object
+            
+            if (transform.FindChild("Cube"))
             {
-                var c = transform.GetChild(0);
-                c.position = g.transform.position + new Vector3(0, 0.5f, 0);
-                c.localScale = new Vector3(0.75f, 0.75f, 0.75f);
-                c.SetParent(g.transform);
+                var cube = transform.GetChild(1);
+                cube.position = g.transform.position + new Vector3(0, 0.75f, 0.55f);
+                cube.localScale = new Vector3(0.75f, 0.75f, 0.75f);
+                cube.SetParent(g.transform);
                 g.GetComponent<Enemy>().Drop = PushableBox;
             }
 
             
-            GetComponent<MeshRenderer>().enabled = false;
+            //GetComponent<MeshRenderer>().enabled = false;
+            GetComponentInChildren<SpriteRenderer>().enabled = false;
         }
     }
 

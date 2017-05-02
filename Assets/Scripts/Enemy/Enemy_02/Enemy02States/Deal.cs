@@ -11,7 +11,7 @@ public class Deal : EnemyState {
     private float timeActive;
     private const float dealTime = 1f;
     private bool visible;
-    private MeshRenderer[] render;
+    private SpriteRenderer[] render;
 
 	// UpdateAbility is called once per frame
 	public void Update () {
@@ -38,7 +38,8 @@ public class Deal : EnemyState {
     public Deal(Enemy02behaviour3D enemy)
     {
         this.enemy = enemy;
-        render = enemy.GetComponents<MeshRenderer>();
+        //render = enemy.GetComponents<MeshRenderer>();
+        render = enemy.GetComponentsInChildren<SpriteRenderer>();
     }
 
     /*private IEnumerator spasmTime()

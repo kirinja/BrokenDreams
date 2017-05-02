@@ -9,7 +9,7 @@ public class Deal01 : Enemy01State
     private const float dealTime = 1f;
     private float activeTime;
     private bool visible;
-    private MeshRenderer[] render;
+    private SpriteRenderer[] render;
 
 
 
@@ -53,6 +53,6 @@ public class Deal01 : Enemy01State
     public Deal01(Enemy01Behaviour enemy)
     {
         this.enemy = enemy;
-        render = enemy.GetComponents<MeshRenderer>();
+        render = enemy.GetComponentsInChildren<SpriteRenderer>();
     }
 }
