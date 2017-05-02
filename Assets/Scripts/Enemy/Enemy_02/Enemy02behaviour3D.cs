@@ -1,7 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class Enemy02behaviour3D : Enemy
 {
@@ -29,8 +27,8 @@ public class Enemy02behaviour3D : Enemy
     public GameObject projectilePreFab;
     public GameObject ProjectileFirePosition;
     public Transform[] retreatPoints;
-    [HideInInspector] private int rpIndex;
-    [HideInInspector] private int rpThreshold;
+    private int rpIndex;
+    private int rpThreshold;
     public float AggroRange = 10.0f;
     public LayerMask AggroMask;
     public LayerMask LineOfSightMask;
@@ -49,17 +47,17 @@ public class Enemy02behaviour3D : Enemy
 
     private LineRenderer _laserFocus;
     private bool _facingLeft = false;
+    private float _projOrigX;
+
+    [HideInInspector] public bool Invincible;
+    private float _invincibleTimer = 0.0f;
+    private float InvincibleTime = 1.0f;
 
     // Use this for initialization
     void Start()
     {
         health = MaxHealth;
-        state = new Idle(this); //Base state for Enemy is idle, idle contains method for player detection
-        //var p = Instantiate<GameObject>(projectilePreFab);
-        //projectile = p.GetComponent<Projectile>();
-        //projectile.setShooter(this);
-        //projectile.setLifeTime(projLifeTime);
-        //projectile.projSpeed = this.projSpeed;
+        state = new Idle(this);
         rpThreshold = retreatPoints.Length - 1;
         rpIndex = 0;
         src = GetComponents<AudioSource>()[0];
@@ -78,6 +76,8 @@ public class Enemy02behaviour3D : Enemy
         _shootCooldown = AttackCoolDown / 2;
         _internalAttackCd = AttackCoolDown / 2;
 
+        _projOrigX = ProjectileFirePosition.transform.localPosition.x;
+
         // child this object to the ground it's standing on (this so with moving platforms the object moves consitently on it)
         SetGround();
         Flip();
@@ -93,6 +93,15 @@ public class Enemy02behaviour3D : Enemy
     {
         if (!dead)
         {
+            if (Invincible)
+            {
+                _invincibleTimer += Time.deltaTime;
+            }
+            if (_invincibleTimer >= InvincibleTime)
+            {
+                Invincible = false;
+                _invincibleTimer = 0.0f;
+            }
             Aggro();
             // if there is a target and the time since last attack is higher than the CD between attacks and we are in a state where we can shoot
             // then disable the laser sight, attack and reset the timers
@@ -131,25 +140,6 @@ public class Enemy02behaviour3D : Enemy
                 _cooldownTimer += Time.deltaTime;
             }
             state.Update();
-
-            //var platformObject = GetGround();
-            //if (platformObject)
-            //{
-            //    if (platformObject.transform == platform)
-            //    {
-            //        transform.position += platform.position - previousPlatformPosition;
-            //        //foreach (var point in retreatPoints)
-            //        //{
-            //        //    point.position += platform.position - previousPlatformPosition;
-            //        //}
-            //        previousPlatformPosition = platform.position;
-            //    }
-            //    else
-            //    {
-            //        platform = platformObject.transform;
-            //        previousPlatformPosition = platform.position;
-            //    }
-            //}
         } else if(dead && !src.isPlaying)
         {
             Destroy(gameObject);
@@ -160,7 +150,6 @@ public class Enemy02behaviour3D : Enemy
     {
         // TODO add childing mechanic here (this should only be called in certain cituations and we want the movement on moving platforms to be consitent)
         RaycastHit hitInfo;
-        //if (Physics.Raycast(transform.position, Vector3.down, out hitInfo, 1.5f))
         if (Physics.Raycast(transform.position, Vector3.down, out hitInfo, 1.5f, LineOfSightMask))
         {
             return hitInfo.transform.gameObject;
@@ -172,41 +161,36 @@ public class Enemy02behaviour3D : Enemy
     {
         // HACK this could break down, but should be enough for the current problems
         RaycastHit hitInfo;
-        //if (Physics.Raycast(transform.position, Vector3.down, out hitInfo, 1.5f))
         if (Physics.Raycast(transform.position, Vector3.down, out hitInfo, 1.5f, LineOfSightMask))
         {
             transform.SetParent(hitInfo.transform);
         }
     }
 
-    /*private void Aggro() {
-
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = new Color(Color.magenta.r, Color.magenta.g, Color.magenta.b, 0.25f);
+        Gizmos.DrawSphere(ProjectileFirePosition.transform.position, AggroRange);
         
-        Collider[] col = Physics.OverlapSphere(this.transform.position, 1f);
-        int i = 0;
-        RaycastHit hit;
-        while(i < col.Length && target ==null)
-        {
-            if (col[i].CompareTag("Player") && Physics.Linecast(this.transform.position, col[i].transform.position, out hit))
-            {
-                if (hit.collider.gameObject.CompareTag("Player"))
-                {
-                    target = col[i].GetComponent<Controller3D>();
-                }
-            }
-        }
-    }*/
+    }
 
     private void Aggro()
     {
-        Collider[] col = Physics.OverlapSphere(transform.position, AggroRange, AggroMask);
+        Collider[] col = Physics.OverlapSphere(ProjectileFirePosition.transform.position, AggroRange, AggroMask);
         int i = 0;
         RaycastHit hit;
         bool foundPlayer = false;
         for (int v = 0; v < col.Length; v++)
         {
-            if (col[v].CompareTag("Player") && !Physics.Linecast(transform.position, col[i].transform.position, out hit, LineOfSightMask))
+            Debug.DrawLine(ProjectileFirePosition.transform.position, col[i].transform.position, Color.green);
+            if (col[v].CompareTag("Player") && 
+                !Physics.Linecast(
+                    ProjectileFirePosition.transform.position,
+                col[i].transform.position + new Vector3(0, col[i].transform.localScale.y / 2, 0),
+                out hit,
+                LineOfSightMask)) // HACK
             {
+                Debug.DrawLine(ProjectileFirePosition.transform.position, col[i].transform.position + new Vector3(0, col[i].transform.localScale.y / 2, 0), Color.red);
                 setTarget(col[v].GetComponent<Controller3D>());
                 if (!src.isPlaying)
                 {
@@ -221,7 +205,6 @@ public class Enemy02behaviour3D : Enemy
         if (!foundPlayer)
         {
             setTarget(null);
-            //changeState(new Idle(this)); //If not defeated spasm
         }
     }
 
@@ -235,7 +218,9 @@ public class Enemy02behaviour3D : Enemy
 
     public override void Damage(int damage = 1) //Method to call when player hits an enemy
     {
+        if (Invincible) return;
 
+        Invincible = true;
         transform.Find("Damage").GetComponent<ParticleSystem>().Play();
         health -= damage;
         if (health <= 0)
@@ -279,12 +264,7 @@ public class Enemy02behaviour3D : Enemy
         timeSinceAttack = 0;
         _cooldownTimer = 0;
     }
-
-    /*public void startCoolDown()
-    {
-        Fired = !Fired;
-    }*/
-
+    
     public override void changeState(EnemyState state) //Called by state when a transition is in order
     {
         this.state.Exit();
@@ -294,7 +274,6 @@ public class Enemy02behaviour3D : Enemy
     public void setTarget(Controller3D target) //Called by Idle when an enemy is found
     {
         this.target = target;
-        //projectile.setTarget(target);
     }
 
     private IEnumerator deathTime()
@@ -328,8 +307,7 @@ public class Enemy02behaviour3D : Enemy
     {
         rpIndex++;
         rpIndex = rpIndex > rpThreshold ? 0 : rpIndex--; //Chooses next goal when current goal is reached.
-
-        // TODO we need to check if the target is is to the left or right of us and then flip accordingly
+        
         Flip();
     }
 
@@ -347,7 +325,7 @@ public class Enemy02behaviour3D : Enemy
         // this might break, since we just flip the fire position rather than check if it's left or right we're facing
         // this seems buggy
         ProjectileFirePosition.transform.localPosition =
-            new Vector3(_facingLeft ? ProjectileFirePosition.transform.localPosition.x : -ProjectileFirePosition.transform.localPosition.x,
+            new Vector3(_facingLeft ? -_projOrigX : _projOrigX,
                 ProjectileFirePosition.transform.localPosition.y, ProjectileFirePosition.transform.localPosition.z);
     }
 

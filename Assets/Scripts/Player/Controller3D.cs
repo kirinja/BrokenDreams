@@ -25,11 +25,6 @@ public class Controller3D : MonoBehaviour
     public float LockedZPosition = -1;
     public Material Material;
 
-    // Debug stuff
-    public bool DrawAttackGizmo;
-    public float AttackRange;
-    public Vector3 AttackOffset;
-
     public PlayerAttributes Attributes { get; private set; }
     public Vector2 Velocity { get; set; }
     public Vector2 Forward { get; set; }
@@ -86,15 +81,7 @@ public class Controller3D : MonoBehaviour
     {
         get { return Mathf.Sqrt(2 * Gravity.magnitude * GetComponent<PlayerAttributes>().MinJumpHeight); }
     }
-
-
-    private void OnDrawGizmos()
-    {
-        if (!DrawAttackGizmo) return;
-        Gizmos.color = new Color(1f, 0f, 0f, 0.5f);
-        Gizmos.DrawSphere(transform.position + AttackOffset, AttackRange);
-    }
-
+    
 
     private void Awake()
     {
@@ -275,7 +262,7 @@ public class Controller3D : MonoBehaviour
 
     public void ChangeCharacterState(CharacterStateSwitch3D stateSwitch)
     {
-        PrintStateSwitch(stateSwitch);
+        //PrintStateSwitch(stateSwitch);
 
         _characterState.Exit();
         _characterState = stateSwitch.NewState;
