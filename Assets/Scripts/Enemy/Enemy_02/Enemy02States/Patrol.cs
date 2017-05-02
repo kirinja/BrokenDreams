@@ -18,7 +18,7 @@ public class Patrol : EnemyState {
     {
 
         // ignore z (&& enemy.transform.position.z == enemy.retreatPoints[enemy.rpIndex].transform.position.z)
-        if (Math.Abs(enemy.transform.position.x - enemy.TargetPosition().x) < 1.0f)
+        if (Math.Abs(enemy.transform.position.x - enemy.TargetPosition().x) < 0.2f)
         {
             enemy.NextTarget();
         }

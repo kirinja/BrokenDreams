@@ -95,16 +95,17 @@ public class BossSubOneAttack : IBossSubState
                 _bossData.PushableBox.GetComponent<Renderer>().sharedMaterial;
             b.GetComponent<Collider>().enabled = false;
             b.tag = "Movable Object";
-            b.transform.position = _arcs[pId].transform.position + new Vector3(0, 0.5f, 0);
+            b.transform.position = _arcs[pId].transform.position + new Vector3(0, 0.75f, 0.55f);
             b.transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
             b.transform.SetParent(_arcs[pId].transform);
             _arcs[pId].GetComponent<EnemySpawn>().PushableBox = _bossData.PushableBox;
             _spawnedBox = true;
         }
 
-        _arcs[pId].GetComponent<MeshFilter>().sharedMesh = _bossData.Enemy1.GetComponent<MeshFilter>().sharedMesh;
+        //_arcs[pId].GetComponent<MeshFilter>().sharedMesh = _bossData.Enemy1.GetComponent<MeshFilter>().sharedMesh;
         _arcs[pId].GetComponent<EnemySpawn>().Enemy = _bossData.Enemy1;
-        _arcs[pId].GetComponent<MeshRenderer>().enabled = true;
+        //_arcs[pId].GetComponent<MeshRenderer>().enabled = true;
+        _arcs[pId].GetComponentInChildren<SpriteRenderer>().enabled = true;
         _arcs[pId].GetComponent<SplineController>().FollowSpline();
 
         _spawnCounter++;

@@ -27,6 +27,7 @@ public class Enemy02behaviour3D : Enemy
     private bool dead;
 
     public GameObject projectilePreFab;
+    public GameObject ProjectileFirePosition;
     public Transform[] retreatPoints;
     [HideInInspector] private int rpIndex;
     [HideInInspector] private int rpThreshold;
@@ -45,6 +46,7 @@ public class Enemy02behaviour3D : Enemy
     
 
     private LineRenderer _laserFocus;
+    private bool _facingLeft = false;
 
     // Use this for initialization
     void Start()
@@ -72,7 +74,8 @@ public class Enemy02behaviour3D : Enemy
         _internalAttackCd = AttackCoolDown / 2;
 
         // child this object to the ground it's standing on (this so with moving platforms the object moves consitently on it)
-        SetGrund();
+        SetGround();
+        Flip();
     }
 
     // Update is called once per frame
@@ -96,7 +99,7 @@ public class Enemy02behaviour3D : Enemy
                 {
                     _laserFocus.enabled = true;
                     // if we have a target then do stuff
-                    _laserFocus.SetPosition(0, transform.position);
+                    _laserFocus.SetPosition(0, ProjectileFirePosition.transform.position);
                     _laserFocus.SetPosition(1, target.transform.position + new Vector3(0, target.transform.localScale.y / 2, 0));
                     // here we can probaly use a charge up sound
                     if (!_source2.isPlaying)
@@ -155,7 +158,7 @@ public class Enemy02behaviour3D : Enemy
         return null;
     }
 
-    private void SetGrund()
+    private void SetGround()
     {
         // HACK this could break down, but should be enough for the current problems
         RaycastHit hitInfo;
@@ -213,7 +216,7 @@ public class Enemy02behaviour3D : Enemy
 
     public void Attack()
     {
-        var g = Object.Instantiate(projectilePreFab, transform.position, Quaternion.identity);
+        var g = Object.Instantiate(projectilePreFab, ProjectileFirePosition.transform.position, Quaternion.identity);
         g.transform.position = new Vector3(g.transform.position.x, g.transform.position.y, -1);
         src.pitch = 1;
         src.PlayOneShot(attackClip);
@@ -255,6 +258,7 @@ public class Enemy02behaviour3D : Enemy
         src.PlayOneShot(deathClip);
         GetComponent<Collider>().enabled = false;
         GetComponent<MeshRenderer>().enabled = false;
+        GetComponentInChildren<SpriteRenderer>().enabled = false;
         _laserFocus.enabled = false;
     }
 
@@ -289,10 +293,10 @@ public class Enemy02behaviour3D : Enemy
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            other.gameObject.GetComponent<Controller3D>().AttackPlayer(transform.position, 1);
-        }
+        //if (other.gameObject.CompareTag("Player"))
+        //{
+        //    other.gameObject.GetComponent<Controller3D>().AttackPlayer(transform.position, 1);
+        //}
         if (other.CompareTag("Movable Object") || other.CompareTag("Wall"))
         {
             NextTarget();
@@ -313,6 +317,27 @@ public class Enemy02behaviour3D : Enemy
     {
         rpIndex++;
         rpIndex = rpIndex > rpThreshold ? 0 : rpIndex--; //Chooses next goal when current goal is reached.
+
+        // TODO we need to check if the target is is to the left or right of us and then flip accordingly
+        Flip();
+    }
+
+    public void Flip()
+    {
+        // check if the target is to the right of us
+        // if the retreat point position is higher than our position then the retreat point is to the right of us
+        if (TargetPosition().x >= transform.position.x)
+            _facingLeft = false;
+        else if (TargetPosition().x < transform.position.x)
+            _facingLeft = true;
+
+        GetComponentInChildren<SpriteRenderer>().flipX = _facingLeft;
+
+        // this might break, since we just flip the fire position rather than check if it's left or right we're facing
+        // this seems buggy
+        ProjectileFirePosition.transform.localPosition =
+            new Vector3(_facingLeft ? ProjectileFirePosition.transform.localPosition.x : -ProjectileFirePosition.transform.localPosition.x,
+                ProjectileFirePosition.transform.localPosition.y, ProjectileFirePosition.transform.localPosition.z);
     }
 
     public Vector3 TargetPosition()

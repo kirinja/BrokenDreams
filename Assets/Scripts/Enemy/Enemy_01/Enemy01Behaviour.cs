@@ -166,7 +166,9 @@ public class Enemy01Behaviour : Enemy
             Instantiate(g, transform.position + new Vector3(0, 0.1f, 0), Quaternion.identity);
 
         GetComponent<Collider>().enabled = false;
-        GetComponent<MeshRenderer>().enabled = false;
+        var sprites = GetComponentsInChildren<SpriteRenderer>();
+        foreach (SpriteRenderer s in sprites)
+            s.enabled = false;
 
         // disable movable object children only
         for (var i = 0; i < transform.childCount; i++)
