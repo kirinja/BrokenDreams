@@ -364,7 +364,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.459
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -472,7 +472,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: deb854bca03e35a49a03a852b197ed69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 2
   AttackCoolDown: 2
   ArbitarySpeedMultiplier: 4
   HealthDropChance: 0.3
@@ -500,6 +499,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 7935183ccace48148897c7e5c4e0d122, type: 3}
   - {fileID: 8300000, guid: cbbe5e1d45da14a4eba20bf59e0800a7, type: 3}
   Invincible: 0
+  MaxHealth: 2
 --- !u!120 &120802925858942938
 LineRenderer:
   m_ObjectHideFlags: 1

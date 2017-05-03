@@ -7,6 +7,8 @@ public class DoorButton : MonoBehaviour
 {
     public GameObject[] Doors;
     public AudioClip ActivateSound, DeactivateSound;
+    public float ActivateVolume = 1f;
+    public float DeactivateVolume = 1f;
 
     private int count;
 
@@ -34,6 +36,7 @@ public class DoorButton : MonoBehaviour
             {
                 var source = GetComponent<AudioSource>();
                 source.clip = ActivateSound;
+                source.volume = ActivateVolume;
                 source.Play();
                 foreach (var door in Doors)
                 {
@@ -52,6 +55,7 @@ public class DoorButton : MonoBehaviour
             {
                 var source = GetComponent<AudioSource>();
                 source.clip = DeactivateSound;
+                source.volume = DeactivateVolume;
                 source.Play();
                 foreach (var door in Doors)
                 {
