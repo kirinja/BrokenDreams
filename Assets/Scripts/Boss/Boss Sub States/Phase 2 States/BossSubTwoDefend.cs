@@ -100,7 +100,7 @@ public class BossSubTwoDefend: IBossSubState
     private void HideHead()
     {
         _head.transform.position = _bossData.Phase2DefendPos.position;
-        _head.GetComponent<Renderer>().enabled = false;
+        //_head.GetComponent<Renderer>().enabled = false;
         var cols = _head.GetComponents<Collider>();
         foreach (var col in cols)
             col.enabled = false;

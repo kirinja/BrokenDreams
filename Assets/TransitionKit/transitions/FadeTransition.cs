@@ -44,7 +44,7 @@ namespace Prime31.TransitionKit
 			transitionKit.material.color = fadeToColor;
 
 			if( !nextScene.Equals("") )
-				SceneManager.LoadSceneAsync( nextScene );
+				SceneManager.LoadScene( nextScene );
 
 			yield return transitionKit.StartCoroutine( transitionKit.tickProgressPropertyInMaterial( duration ) );
 

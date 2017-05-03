@@ -75,7 +75,7 @@ public class BossSubTwoAttack : IBossSubState
     private void ShowHead()
     {
         _head.transform.position = _bossData.Phase2AttackPos.position;
-        _head.GetComponent<Renderer>().enabled = true;
+        //_head.GetComponent<Renderer>().enabled = true;
         var cols = _head.GetComponents<Collider>();
         foreach (var col in cols)
             col.enabled = true;
