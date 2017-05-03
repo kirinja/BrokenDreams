@@ -8761,25 +8761,21 @@ MonoBehaviour:
   damageSwitchPhase2: 0
   damageSwitchPhase3: 0
   BossIdleSounds:
-  - {fileID: 8300000, guid: 93f78f12998b83c40a9047b83912e648, type: 3}
-  - {fileID: 8300000, guid: 26bcf8a2291fb2c498fddd3cb61b6af7, type: 3}
-  - {fileID: 8300000, guid: 11cef1bc988dcdc4191888043e8cd6fd, type: 3}
+  - {fileID: 8300000, guid: bfea39c5ad4ca874da1f151b99a7b61a, type: 3}
+  - {fileID: 8300000, guid: f6f64d5d911cbf348a6ce2f80aacddd2, type: 3}
+  - {fileID: 8300000, guid: 25122a3baf745da4280353804a3936a7, type: 3}
   BossProjSounds:
   - {fileID: 8300000, guid: 930abf913c474f84fa89261f30e0d21c, type: 3}
   - {fileID: 8300000, guid: 177d699e55e110743baaf0fe049f639d, type: 3}
   - {fileID: 8300000, guid: 97ceee4218bd3ca489a0047c3835dd6b, type: 3}
   BossSpawnSounds:
-  - {fileID: 8300000, guid: 0b4896b331a104144a0bac2714d884b7, type: 3}
-  - {fileID: 8300000, guid: 7445459ae6b9a894481eb1a38f88c666, type: 3}
-  - {fileID: 8300000, guid: 34c0d4d78c800424a9dceb53ce60b059, type: 3}
+  - {fileID: 8300000, guid: 8aa1e8e17c2d2fb42b2239a53c969240, type: 3}
+  - {fileID: 8300000, guid: b93ba73204ba7be488ff92789251e733, type: 3}
   BossDamageSounds:
   - {fileID: 8300000, guid: 3989377fd60667d4cb4f517066cd78de, type: 3}
   - {fileID: 8300000, guid: 0a938946f4838fa4a96e165c4398fea1, type: 3}
   - {fileID: 8300000, guid: 69af79f93c25f0b419fe3a3ecc5cbee6, type: 3}
-  BossDeathSounds:
-  - {fileID: 8300000, guid: f50ad7e2c30b68e4c93a100610481c0d, type: 3}
-  - {fileID: 8300000, guid: b4819c292e6335b49b976b2450b3d39c, type: 3}
-  - {fileID: 8300000, guid: eaedb3062b5a6b2468fd69a849d6071f, type: 3}
+  BossDeathSound: {fileID: 8300000, guid: 442e0bc986750354c9b033d5405e6bd0, type: 3}
   Phase2Defend: {fileID: 8300000, guid: a86398b7703b32b428707305a03aebc8, type: 3}
   Phase2Attack: {fileID: 8300000, guid: 7b78ca37fbb58cb4f974f5e6c1dad913, type: 3}
   Invincible: 0
