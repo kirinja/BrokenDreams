@@ -17541,11 +17541,6 @@ Prefab:
       objectReference: {fileID: 245374255}
     - target: {fileID: 114096058426615598, guid: de333fd6865a1924abd6495a01270364,
         type: 2}
-      propertyPath: CameraTransform
-      value: 
-      objectReference: {fileID: 610559894}
-    - target: {fileID: 114096058426615598, guid: de333fd6865a1924abd6495a01270364,
-        type: 2}
       propertyPath: AbilityUI
       value: 
       objectReference: {fileID: 245374254}
