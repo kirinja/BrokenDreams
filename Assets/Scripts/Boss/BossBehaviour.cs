@@ -128,7 +128,7 @@ public class BossBehaviour : MonoBehaviour
 
     private void BossInvincible()
     {
-        MeshRenderer[] renders;
+        //MeshRenderer[] renders;
         if (Invincible)
         {
             _invincibleTimer += Time.deltaTime;
@@ -137,10 +137,10 @@ public class BossBehaviour : MonoBehaviour
             if (InvincibleTime % 0.2f < 0.1f)
             {
                 // doesnt flash, have to look over
-                _visible = !_visible;
-                renders = GetComponentsInChildren<MeshRenderer>();
-                foreach (var r in renders)
-                    r.enabled = _visible;
+                //_visible = !_visible;
+                //renders = GetComponentsInChildren<MeshRenderer>();
+                //foreach (var r in renders)
+                //    r.enabled = _visible;
             }
 
         }
@@ -149,9 +149,9 @@ public class BossBehaviour : MonoBehaviour
         Invincible = false;
         _invincibleTimer = 0.0f;
 
-        renders = GetComponentsInChildren<MeshRenderer>();
-        foreach (var r in renders)
-            r.enabled = true;
+        //renders = GetComponentsInChildren<MeshRenderer>();
+        //foreach (var r in renders)
+        //    r.enabled = true;
         
     }
 
@@ -195,6 +195,10 @@ public class BossBehaviour : MonoBehaviour
         // disable player inputs
         var player = GameObject.FindGameObjectWithTag("Player");
         player.GetComponent<Controller3D>().enabled = false;
+        // make sure player is visible
+        var renders = player.GetComponentsInChildren<Renderer>();
+        foreach (Renderer r in renders)
+            r.enabled = true;
         var hud = GameObject.Find("HUDCanvas");
         hud.SetActive(false);
 
