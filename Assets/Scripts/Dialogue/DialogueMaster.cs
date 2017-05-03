@@ -170,7 +170,7 @@ public class DialogueMaster : MonoBehaviour {
     private void spawnHealth()
     {
         var copy = Instantiate(Itemtogive, (transform.position + Vector3.right*5), Quaternion.identity);
-        Debug.Log(copy.transform.position);
+        
 
     }
 }
