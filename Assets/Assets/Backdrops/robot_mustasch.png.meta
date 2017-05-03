@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 79eb9ca0b263dd64ab4d03ea931b6d09
-timeCreated: 1493804637
+timeCreated: 1493805005
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -41,7 +41,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteBorder: {x: 0, y: 46, z: 0, w: 0}
   spritePixelsToUnits: 100
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -95,19 +95,6 @@ TextureImporter:
         y: 44
         width: 739
         height: 823
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: robot_mustasch_2
-      rect:
-        serializedVersion: 2
-        x: 894
-        y: 32
-        width: 784
-        height: 830
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
