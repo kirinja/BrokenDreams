@@ -16,7 +16,6 @@ public class BossSubTwoIdle : IBossSubState
         _timer = new System.Random().Next((int)_bossData.MinStateSwitch, (int)_bossData.MaxStateSwitch); // HACK
 
         _playing = false;
-        _bossData.PlayPhaseTwoIdleSound();
     }
 
     public IBossSubState Execute()

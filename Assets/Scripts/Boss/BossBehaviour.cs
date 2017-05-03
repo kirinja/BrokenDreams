@@ -76,10 +76,9 @@ public class BossBehaviour : MonoBehaviour
     public AudioClip[] BossDeathSounds;
     public AudioClip Phase2Defend;
     public AudioClip Phase2Attack;
-    public AudioClip Phase2Idle;
 
     [HideInInspector] public bool Invincible;
-    private float _invincibleTimer = 0.0f;
+    private float _invincibleTimer;
     public float InvincibleTime = 1.0f;
     private bool _visible;
 
@@ -240,11 +239,6 @@ public class BossBehaviour : MonoBehaviour
         _bossDirectSounds.PlayOneShot(_bossDirectSounds.clip);
         BossDeathSounds[range] = BossDeathSounds[0];
         BossDeathSounds[0] = _bossDirectSounds.clip;
-    }
-
-    public void PlayPhaseTwoIdleSound()
-    {
-        _bossDirectSounds.PlayOneShot(Phase2Idle);
     }
 
     public void PlayPhaseTwoAttackSound()

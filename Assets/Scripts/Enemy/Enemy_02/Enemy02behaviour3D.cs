@@ -52,6 +52,7 @@ public class Enemy02behaviour3D : Enemy
     [HideInInspector] public bool Invincible;
     private float _invincibleTimer = 0.0f;
     private float InvincibleTime = 1.0f;
+    private Rigidbody _rigidbody;
 
     // Use this for initialization
     void Start()
@@ -75,6 +76,8 @@ public class Enemy02behaviour3D : Enemy
         // we're doing this to split the cooldown between "recharge" and "targeting"
         _shootCooldown = AttackCoolDown / 2;
         _internalAttackCd = AttackCoolDown / 2;
+
+        _rigidbody = GetComponent<Rigidbody>();
 
         _projOrigX = ProjectileFirePosition.transform.localPosition.x;
 
@@ -140,6 +143,7 @@ public class Enemy02behaviour3D : Enemy
                 _cooldownTimer += Time.deltaTime;
             }
             state.Update();
+            _rigidbody.position = transform.position;
         } else if(dead && !src.isPlaying)
         {
             Destroy(gameObject);
