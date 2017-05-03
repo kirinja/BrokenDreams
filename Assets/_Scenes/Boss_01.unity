@@ -8142,8 +8142,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: eaedb3062b5a6b2468fd69a849d6071f, type: 3}
   Phase2Defend: {fileID: 8300000, guid: a86398b7703b32b428707305a03aebc8, type: 3}
   Phase2Attack: {fileID: 8300000, guid: 7b78ca37fbb58cb4f974f5e6c1dad913, type: 3}
-  Phase2Idle: {fileID: 8300000, guid: ecd114ecaeb261d4d8b478c85cbd23c4, type: 3}
   Invincible: 0
+  InvincibleTime: 1
 --- !u!82 &1553723375
 AudioSource:
   m_ObjectHideFlags: 0
@@ -9001,7 +9001,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1651956645}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.93, y: 10, z: -1}
+  m_LocalPosition: {x: 4.97, y: 10, z: -1}
   m_LocalScale: {x: 3, y: 0.5, z: 3}
   m_Children:
   - {fileID: 170273930}
