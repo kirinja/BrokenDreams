@@ -52,6 +52,7 @@ public class Enemy02behaviour3D : Enemy
     [HideInInspector] public bool Invincible;
     private float _invincibleTimer = 0.0f;
     private float InvincibleTime = 1.0f;
+    private Rigidbody _rigidbody;
 
     // Use this for initialization
     void Start()
@@ -76,6 +77,8 @@ public class Enemy02behaviour3D : Enemy
         _shootCooldown = AttackCoolDown / 2;
         _internalAttackCd = AttackCoolDown / 2;
 
+        _rigidbody = GetComponent<Rigidbody>();
+
         _projOrigX = ProjectileFirePosition.transform.localPosition.x;
 
         // child this object to the ground it's standing on (this so with moving platforms the object moves consitently on it)
@@ -91,7 +94,13 @@ public class Enemy02behaviour3D : Enemy
     // Update is called once per frame
     void Update()
     {
-        if (!dead)
+        if (GameManager.Instance.Paused)
+        {
+            _source2.Pause();
+            _source3.Pause();
+            src.Pause();
+        }
+        if (!dead && !GameManager.Instance.Paused)
         {
             if (Invincible)
             {
@@ -140,6 +149,7 @@ public class Enemy02behaviour3D : Enemy
                 _cooldownTimer += Time.deltaTime;
             }
             state.Update();
+            _rigidbody.position = transform.position;
         } else if(dead && !src.isPlaying)
         {
             Destroy(gameObject);
@@ -191,12 +201,12 @@ public class Enemy02behaviour3D : Enemy
                 LineOfSightMask)) // HACK
             {
                 Debug.DrawLine(ProjectileFirePosition.transform.position, col[i].transform.position + new Vector3(0, col[i].transform.localScale.y / 2, 0), Color.red);
-                setTarget(col[v].GetComponent<Controller3D>());
-                if (!src.isPlaying)
+                if (!src.isPlaying && target == null)
                 {
-                    int index = Random.Range(0, 2);
+                    int index = Random.Range(0, aggroClips.Length);
                     src.PlayOneShot(aggroClips[index]);
                 }
+                setTarget(col[v].GetComponent<Controller3D>());
                 foundPlayer = true;
                 break;
             }

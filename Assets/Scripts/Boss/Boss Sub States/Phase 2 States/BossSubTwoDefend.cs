@@ -120,43 +120,67 @@ public class BossSubTwoDefend: IBossSubState
         // check how many enemies are on the selected platforms trigger area
         // if it is higher than a certain value then dont spawn at that platform
         // count up the try to spawn counter, if it is higher than X then set _spawned to true (we cant spawn)
-        var pId = -1;
-        var index = -1;
+        //var pId = -1;
+        //var index = -1;
         try
         {
             var rand = new System.Random();
-            index = rand.Next(0, _platformIds.Length);
-            pId = _platformIds[index];
-        }
-        catch
-        {
-            Debug.LogError("Index out of range - index = "  + index);
-        }
-        if (!CheckPlatform(pId))
-        {
-            return;
-        }
-        try
-        {
-            //_arcs[pId].GetComponent<MeshFilter>().sharedMesh =
-                //_bossData.Enemy2.GetComponent<MeshFilter>().sharedMesh;
+            var index = rand.Next(0, _platformIds.Length);
+            var pId = _platformIds[index];
+            if (!CheckPlatform(pId)) return;
 
             _arcs[pId].GetComponent<EnemySpawn>().Enemy = _bossData.Enemy2;
 
             //_arcs[pId].GetComponent<MeshRenderer>().enabled = true;
             _arcs[pId].GetComponentInChildren<SpriteRenderer>().enabled = true;
             _arcs[pId].GetComponent<SplineController>().FollowSpline();
+
+            ++_spawnCounter;
+            _spawnTimer = TimeBetweenSpawns;
+
+            _bossData.PlaySpawnSound();
+
+            _platformIds = _platformIds.Where(val => val != pId).ToArray();
         }
         catch
         {
-            Debug.LogError("ERROR IN BOSS DEFEND - pID = " + pId);
+            Debug.LogError("Error when trying to spawn enemies in phase2 - state defend");
         }
-        ++_spawnCounter;
-        _spawnTimer = TimeBetweenSpawns;
+        //try
+        //{
+        //    var rand = new System.Random();
+        //    index = rand.Next(0, _platformIds.Length);
+        //    pId = _platformIds[index];
+        //}
+        //catch
+        //{
+        //    Debug.LogError("Index out of range - index = "  + index);
+        //}
+        //if (!CheckPlatform(pId))
+        //{
+        //    return;
+        //}
+        //try
+        //{
+        //    //_arcs[pId].GetComponent<MeshFilter>().sharedMesh =
+        //        //_bossData.Enemy2.GetComponent<MeshFilter>().sharedMesh;
 
-        _bossData.PlaySpawnSound();
+        //    _arcs[pId].GetComponent<EnemySpawn>().Enemy = _bossData.Enemy2;
 
-        _platformIds = _platformIds.Where(val => val != pId).ToArray();
+        //    //_arcs[pId].GetComponent<MeshRenderer>().enabled = true;
+        //    _arcs[pId].GetComponentInChildren<SpriteRenderer>().enabled = true;
+        //    _arcs[pId].GetComponent<SplineController>().FollowSpline();
+        //}
+        //catch
+        //{
+        //    Debug.LogError("ERROR IN BOSS DEFEND - pID = " + pId);
+        //}
+        //++_spawnCounter;
+        //_spawnTimer = TimeBetweenSpawns;
+
+        //_bossData.PlaySpawnSound();
+
+        //_platformIds = _platformIds.Where(val => val != pId).ToArray();
 
     }
 
@@ -186,7 +210,7 @@ public class BossSubTwoDefend: IBossSubState
             if (g.GetComponent<PlatformID>().PlatformId == id)
                 return g.GetComponentInChildren<EnemiesOnPlatform>().Amount;
         }
-        return -1; // can mess up, might have to be a really high value instead of low value
+        return _bossData.MaxEnemiesPerPlatfor + 1;
     }
 
     private bool CheckPlatform(int pId)
