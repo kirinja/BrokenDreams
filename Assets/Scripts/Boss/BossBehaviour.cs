@@ -206,11 +206,11 @@ public class BossBehaviour : MonoBehaviour
         player.transform.LookAt(Camera.main.transform);
 
         // disable all audiosource
-        var allAudioSources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
-        foreach (AudioSource audioS in allAudioSources)
-        {
-            audioS.Stop();
-        }
+        //var allAudioSources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
+        //foreach (AudioSource audioS in allAudioSources)
+        //{
+        //    audioS.Stop();
+        //}
 
         // start music
         // instantiate a canvas object that shows credits and plays music

@@ -25,7 +25,7 @@ public class LevelDoorTrigger : MonoBehaviour
             //    colorSeparation = 0.1f
             //};
             //TransitionKit.instance.transitionWithDelegate(fishEye);
-            GameManager.Instance.PlayOneShot(enterSound);
+            GameManager.Instance.Play(enterSound);
             var doorway = new DoorwayTransition()
             {
                 nextScene = Scene,

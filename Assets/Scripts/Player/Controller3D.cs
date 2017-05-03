@@ -326,7 +326,7 @@ public class Controller3D : MonoBehaviour
         var gm = GameManager.Instance;
         gm.SoftPause();
         //var waitTime = GetComponentInChildren<PlayerAudio>().PlayDeathSound();
-        gm.PlayOneShot(GetComponentInChildren<PlayerAudio>().DeathSound);
+        gm.PlayOneShot(GetComponentInChildren<PlayerAudio>().DeathSound); // todo might have to replace with Play rather than PlayOneShot
         //yield return new WaitForSeconds(waitTime);
 
         gm.Paused = false;
