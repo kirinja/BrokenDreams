@@ -73,7 +73,7 @@ public class BossBehaviour : MonoBehaviour
     public AudioClip[] BossProjSounds;
     public AudioClip[] BossSpawnSounds;
     public AudioClip[] BossDamageSounds;
-    public AudioClip[] BossDeathSounds;
+    public AudioClip BossDeathSound;
     public AudioClip Phase2Defend;
     public AudioClip Phase2Attack;
 
@@ -234,11 +234,12 @@ public class BossBehaviour : MonoBehaviour
     public void PlayDeathSound()
     {
 
-        int range = Random.Range(1, BossDeathSounds.Length);
+        /*int range = Random.Range(1, BossDeathSounds.Length);
         _bossDirectSounds.clip = BossDeathSounds[range];
         _bossDirectSounds.PlayOneShot(_bossDirectSounds.clip);
         BossDeathSounds[range] = BossDeathSounds[0];
-        BossDeathSounds[0] = _bossDirectSounds.clip;
+        BossDeathSounds[0] = _bossDirectSounds.clip;*/
+        _bossDirectSounds.PlayOneShot(BossDeathSound);
     }
 
     public void PlayPhaseTwoAttackSound()
