@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using System.Text;
 using Prime31.TransitionKit;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
 /**
@@ -25,6 +26,8 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class GameManager : MonoBehaviour
 {
+    public AudioMixerSnapshot[] MusicSnapshots;
+
     private static readonly List<string[]> InMemory = new List<string[]>();
 
     // the game manager keeps track of which levels the player have beaten, and save them to file/memory
@@ -37,7 +40,9 @@ public class GameManager : MonoBehaviour
     private string _savePath;
 
     //Audio
-    private AudioSource _effectSource, _musicSource;
+    private AudioSource _effectSource;
+    private AudioSource[] _musicSources;
+    private int _currentAudioSource;
 
     // Values are only used when going back to hub from other levels
     private string _previousLevelName;
@@ -98,7 +103,10 @@ public class GameManager : MonoBehaviour
 
         var audioSources = GetComponents<AudioSource>();
         _effectSource = audioSources[0];
-        _musicSource = audioSources[1];
+        _musicSources = new AudioSource[2];
+        _musicSources[0] = audioSources[1];
+        _musicSources[1] = audioSources[2];
+        _currentAudioSource = 0;
     }
 
 
@@ -507,13 +515,17 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public void PlayMusic(AudioClip clip)
+    public void PlayMusic(AudioClip clip, float transitionTime)
     {
-        if (_musicSource.clip == clip)
+        if (_musicSources[_currentAudioSource].clip == clip)
             return;
 
-        _musicSource.clip = clip;
-        _musicSource.Play();
+        ++_currentAudioSource;
+        _currentAudioSource %= 2;
+
+        _musicSources[_currentAudioSource].clip = clip;
+        _musicSources[_currentAudioSource].Play();
+        MusicSnapshots[_currentAudioSource].TransitionTo(transitionTime);
     }
 
     #region Constants
