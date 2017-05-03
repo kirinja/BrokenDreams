@@ -8,8 +8,6 @@ public class Dialogue{
 
     public List<DialogueNode> DialogueNodeList;
 
-   // private DialogueUI dialogueWindow;
-
 
     public static Dialogue loadDialogueFromXML(string path)
     {
@@ -37,10 +35,7 @@ public class Dialogue{
 
     
 
-    /*public void Update()
-    {
-        dialogueWindow.getID();
-    }*/
+    
 
 
 }

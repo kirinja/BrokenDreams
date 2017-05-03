@@ -3,56 +3,49 @@ using UnityEngine;
 
 public class Enemy02behaviour3D : Enemy
 {
-    public int MaxHealth = 2;
     
-    private int health;
-    
+
     public float AttackCoolDown = 2f;
-    
-    private Controller3D target;
-
-    private float timeSinceAttack;
-    private float _shootCooldown;
-    private float _cooldownTimer;
-    private float _internalAttackCd;
-
     public float ArbitarySpeedMultiplier = 4.0f;
-
-    private EnemyState state;
-    
     public float HealthDropChance = 0.3f;
     public GameObject HealthDrop;
-    private bool dead;
-
     public GameObject projectilePreFab;
     public GameObject ProjectileFirePosition;
     public Transform[] retreatPoints;
-    private int rpIndex;
-    private int rpThreshold;
     public float AggroRange = 10.0f;
     public LayerMask AggroMask;
     public LayerMask LineOfSightMask;
-    private AudioSource src;
-    private AudioSource _source2;
-    private AudioSource _source3;
     public AudioClip attackClip;
     public AudioClip deathClip;
     public AudioClip damageClip;
     public AudioClip _chargeClip;
     public AudioClip _FootstepClip;
     public AudioClip[] aggroClips;
-    private Transform platform;
-    private Vector3 previousPlatformPosition;
-    
+    [HideInInspector] public bool Invincible;
+    public int MaxHealth = 2;
 
-    private LineRenderer _laserFocus;
+    private int health;
+    private Controller3D target;
+    private float timeSinceAttack;
+    private float _shootCooldown;
+    private float _cooldownTimer;
+    private float _internalAttackCd;
+    private EnemyState state;
+    private bool dead;
+    private int rpIndex;
+    private int rpThreshold;
+    private AudioSource src;
+    private AudioSource _source2;
+    private AudioSource _source3;
     private bool _facingLeft = false;
     private float _projOrigX;
-
-    [HideInInspector] public bool Invincible;
+    private Transform platform;
+    private Vector3 previousPlatformPosition;
+    private LineRenderer _laserFocus;
     private float _invincibleTimer = 0.0f;
     private float InvincibleTime = 1.0f;
     private Rigidbody _rigidbody;
+
 
     // Use this for initialization
     void Start()

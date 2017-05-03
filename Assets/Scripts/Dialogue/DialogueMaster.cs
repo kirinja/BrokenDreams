@@ -10,6 +10,7 @@ public class DialogueMaster : MonoBehaviour {
 
     public GameObject dialoguePreFab;
     public int maxInteractionCount;
+    public GameObject Itemtogive;
 
     private int currentInteractionCount;
     private Dialogue dialogue;
@@ -111,7 +112,7 @@ public class DialogueMaster : MonoBehaviour {
             }
             nodeID = selectedOption;
             if (nodeID == 2)
-                GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().Heal(2); // TODO spawn health potions instead
+                spawnHealth(); // TODO spawn health potions instead
         }
         currentInteractionCount++;
         
@@ -164,5 +165,12 @@ public class DialogueMaster : MonoBehaviour {
         button.SetActive(true);
         button.GetComponentInChildren<Text>().text = opt.getText();
         button.GetComponent<Button>().onClick.AddListener(delegate { setSelectedOption(opt.getID()); });
+    }
+
+    private void spawnHealth()
+    {
+        var copy = Instantiate(Itemtogive, (transform.position + Vector3.right*5), Quaternion.identity);
+        Debug.Log(copy.transform.position);
+
     }
 }

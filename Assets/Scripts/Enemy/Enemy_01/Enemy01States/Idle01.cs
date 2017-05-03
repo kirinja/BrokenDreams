@@ -12,19 +12,13 @@ public class Idle01 : Enemy01State {
     private float timetoSwitch;
 
     public void Collision()
-    {
-        
-    }
+    {}
 
     public void Enter()
-    {
-        
-    }
+    {}
 
     public void Exit()
-    {
-        
-    }
+    {}
 
 
 

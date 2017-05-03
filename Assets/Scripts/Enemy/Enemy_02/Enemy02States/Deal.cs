@@ -38,38 +38,16 @@ public class Deal : EnemyState {
     public Deal(Enemy02behaviour3D enemy)
     {
         this.enemy = enemy;
-        //render = enemy.GetComponents<MeshRenderer>();
         render = enemy.GetComponentsInChildren<SpriteRenderer>();
     }
 
-    /*private IEnumerator spasmTime()
-    {
-        for (float i = 1; i >= 0; i -= 0.2f)
-        {
-            spasm();
-            yield return new WaitForSeconds(0.16f);
-
-        }
-        Exit();
-        
-    }*/
+    
 
     public void Enter()
-    {
-        
-        //Need sound?
-        //orgPos = enemy.transform.position;
-    }
+    {}
 
     public void Exit()
-    {
-        //enemy.transform.position = orgPos;
-    }
-
-    /*private void spasm()
-    {
-        enemy.transform.Translate(UnityEngine.Random.insideUnitSphere / 5 * Time.deltaTime);
-    }*/
+    {}
 
     public bool getCanShoot()
     {

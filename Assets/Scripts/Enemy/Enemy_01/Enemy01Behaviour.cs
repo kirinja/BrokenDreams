@@ -6,26 +6,27 @@ using Random = UnityEngine.Random;
 
 public class Enemy01Behaviour : Enemy
 {
+    public Vector3 StartVelocity;
     public AudioClip attackClip;
     public LayerMask CollisionMask;
     public AudioClip damageClip;
-    private bool dead;
-
     public AudioClip deathClip;
     public float GroundCheckDistance;
-    private int health;
     public GameObject HealthDrop;
     public float HealthDropChance = 0.2f;
     public float IdleTime;
     public float PatrolTime;
+
+    private bool dead;
+    private int health;
     private Transform platform;
     private Vector3 previousPlatformPosition;
     private AudioSource src;
-    public Vector3 StartVelocity;
-
     private Enemy01State state;
 
-
+    
+    
+    
     private Bounds skinnedBounds
     {
         get
@@ -54,7 +55,7 @@ public class Enemy01Behaviour : Enemy
     }
 
 
-    // Use this for initialization
+    
     private void Start()
     {
         state = new Patrol01(this, StartVelocity);
@@ -63,7 +64,7 @@ public class Enemy01Behaviour : Enemy
     }
 
 
-    // UpdateAbility is called once per frame
+    
     private void Update()
     {
         if (!dead)
@@ -114,7 +115,7 @@ public class Enemy01Behaviour : Enemy
     private GameObject GetGround()
     {
         RaycastHit hitInfo;
-        //if (Physics.Raycast(transform.position, Vector3.down, out hitInfo))
+        
         if (Physics.Raycast(transform.position, Vector3.down, out hitInfo, GroundCheckDistance, CollisionMask))
             return hitInfo.transform.gameObject;
 
@@ -146,8 +147,7 @@ public class Enemy01Behaviour : Enemy
         health -= damage;
         if (health <= 0)
             Defeat();
-        /*if (!dead)
-            src.PlayOneShot(damageClip);*/
+        
     }
 
 
