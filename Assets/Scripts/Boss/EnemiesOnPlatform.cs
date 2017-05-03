@@ -12,7 +12,7 @@ public class EnemiesOnPlatform : MonoBehaviour
         }
     }
     private List<GameObject> objects = new List<GameObject>();
-
+    private int amount2; // TODO remove
     void Start()
     {
     }
@@ -25,6 +25,7 @@ public class EnemiesOnPlatform : MonoBehaviour
             // remove and count down
 	        if (g != null) continue;
 	        objects.Remove(g);
+	        amount2--;
 	        break;
 	    }
 	}
@@ -38,6 +39,7 @@ public class EnemiesOnPlatform : MonoBehaviour
             if (!objects.Contains(other.gameObject))
             {
                 objects.Add(other.gameObject);
+                amount2++;
             }
         }
     }

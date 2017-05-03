@@ -12,10 +12,12 @@ public class BossSubTwoAttack : IBossSubState
     private int _projCounter = 0;
     private float _projTimer;
 
+    private int _phaseStartHp;
     
     public void Enter(BossBehaviour data)
     {
         _bossData = data;
+        _phaseStartHp = _bossData.HP;
         _timer = new System.Random().Next((int)_bossData.MinStateSwitch, (int)_bossData.MaxStateSwitch); // HACK
 
         _projTimer = _bossData.TimeBetweenShots;
@@ -27,6 +29,11 @@ public class BossSubTwoAttack : IBossSubState
 
     public IBossSubState Execute()
     {
+        if (_bossData.HP < _phaseStartHp)
+        {
+            // boss was damaged, go to defend state
+            return new BossSubTwoDefend();
+        }
         ShowHead();
 
         if (CanShoot())
@@ -36,10 +43,10 @@ public class BossSubTwoAttack : IBossSubState
 
         if (!(_timer <= 0.0f)) return null;
 
-        if (Random.value <= 0.5f)
+        //if (Random.value <= 0.5f)
             return new BossSubTwoDefend();
 
-        return new BossSubTwoIdle();
+        //return new BossSubTwoIdle();
     }
 
     private bool CanShoot()
@@ -86,5 +93,6 @@ public class BossSubTwoAttack : IBossSubState
     public void TakeDamage(int value)
     {
         _bossData.HP -= value;
+        
     }
 }
