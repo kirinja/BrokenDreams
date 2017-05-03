@@ -82,6 +82,8 @@ public class BossBehaviour : MonoBehaviour
     public float InvincibleTime = 1.0f;
     private bool _visible;
 
+    public GameObject CreditsPrefab;
+
 	// Use this for initialization
 	void Start () {
 		BossState = new BossPhaseOne();
@@ -108,10 +110,20 @@ public class BossBehaviour : MonoBehaviour
 	    
         BossInvincible();
 
-	    if (BossDefeated()) return;
-	    if (BossState == null) return;
-
-        NextState();
+	    if (BossDefeated())
+	    {
+	    }
+	    if (BossState == null)
+	    {
+            // lerp the camera
+            var camera2D = Camera.main;
+            //camera2D.Offset = new Vector3(0, 0, -10.0f);
+            //camera2D.transform.position = Vector3.Lerp(camera2D.transform.position, new Vector3(camera2D.transform.position.x, camera2D.transform.position.y, -10.0f), 0.05f);
+            var player = GameObject.FindGameObjectWithTag("Player");
+            camera2D.transform.position = Vector3.Lerp(camera2D.transform.position, new Vector3(player.transform.position.x + 1.0f, player.transform.position.y + 0.5f, -10.0f), 0.05f);
+        }
+        else
+            NextState();
 	}
 
     private void BossInvincible()
@@ -173,6 +185,43 @@ public class BossBehaviour : MonoBehaviour
         BossState.Exit();
         BossState = null;
 
+        StartCoroutine("BossDeafeatedCutscene");
+
+        return true;
+    }
+
+    private IEnumerator BossDeafeatedCutscene()
+    {
+        // disable player inputs
+        var player = GameObject.FindGameObjectWithTag("Player");
+        player.GetComponent<Controller3D>().enabled = false;
+        var hud = GameObject.Find("HUDCanvas");
+        hud.SetActive(false);
+
+        var camera2D = Camera.main.GetComponent<Camera2D>();
+        camera2D.Offset = new Vector3(0, 0, 0);
+        camera2D.enabled = false;
+
+        // rotate player towards camera
+        player.transform.LookAt(Camera.main.transform);
+
+        // disable all audiosource
+        var allAudioSources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
+        foreach (AudioSource audioS in allAudioSources)
+        {
+            audioS.Stop();
+        }
+
+        // start music
+        // instantiate a canvas object that shows credits and plays music
+        // have waitforseconds be equal to the song time
+        // mute every other sound in the scene
+        var go = Instantiate(CreditsPrefab);
+        var time = go.GetComponent<AudioSource>().clip.length;
+
+        yield return new WaitForSeconds(time);
+
+
         var gameManager = GameManager.Instance;
         gameManager.BeatLevel(SceneManager.GetActiveScene().name);
         gameManager.SaveToMemory();
@@ -188,7 +237,6 @@ public class BossBehaviour : MonoBehaviour
             colorSeparation = 0.1f
         };
         TransitionKit.instance.transitionWithDelegate(fishEye);
-        return true;
     }
 
     public void PlayIdleSound()
