@@ -42,7 +42,7 @@ public class LevelGoal : MonoBehaviour
             colorSeparation = 0.1f
         };
         TransitionKit.instance.transitionWithDelegate(fishEye);/**/
-        gameManager.PlayOneShot(goalSound);
+        gameManager.Play(goalSound);
         gameManager.ReturnToHub(SceneManager.GetActiveScene().name, firstTime);
     }
 }
