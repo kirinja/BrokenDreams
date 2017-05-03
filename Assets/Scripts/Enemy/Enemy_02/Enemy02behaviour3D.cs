@@ -87,7 +87,13 @@ public class Enemy02behaviour3D : Enemy
     // Update is called once per frame
     void Update()
     {
-        if (!dead)
+        if (GameManager.Instance.Paused)
+        {
+            _source2.Pause();
+            _source3.Pause();
+            src.Pause();
+        }
+        if (!dead && !GameManager.Instance.Paused)
         {
             if (Invincible)
             {
@@ -188,12 +194,12 @@ public class Enemy02behaviour3D : Enemy
                 LineOfSightMask)) // HACK
             {
                 Debug.DrawLine(ProjectileFirePosition.transform.position, col[i].transform.position + new Vector3(0, col[i].transform.localScale.y / 2, 0), Color.red);
-                setTarget(col[v].GetComponent<Controller3D>());
-                if (!src.isPlaying)
+                if (!src.isPlaying && target == null)
                 {
-                    int index = Random.Range(0, 2);
+                    int index = Random.Range(0, aggroClips.Length);
                     src.PlayOneShot(aggroClips[index]);
                 }
+                setTarget(col[v].GetComponent<Controller3D>());
                 foundPlayer = true;
                 break;
             }
