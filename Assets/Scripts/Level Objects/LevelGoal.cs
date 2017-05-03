@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class LevelGoal : MonoBehaviour
 {
+
+    public AudioClip goalSound;
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -24,7 +26,7 @@ public class LevelGoal : MonoBehaviour
                 colorSeparation = 0.1f
             };
             TransitionKit.instance.transitionWithDelegate(fishEye);/**/
-
+            gameManager.PlayOneShot(goalSound);
             gameManager.ReturnToHub(SceneManager.GetActiveScene().name, firstTime);
         }
     }

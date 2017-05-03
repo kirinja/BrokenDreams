@@ -9,6 +9,8 @@ public class LevelDoorTrigger : MonoBehaviour
 {
     public string Scene;
     public bool RequiresInput = true;
+    public AudioClip enterSound;
+    
 
     private void OnTriggerStay(Collider other)
     {
@@ -23,7 +25,7 @@ public class LevelDoorTrigger : MonoBehaviour
             //    colorSeparation = 0.1f
             //};
             //TransitionKit.instance.transitionWithDelegate(fishEye);
-
+            GameManager.Instance.PlayOneShot(enterSound);
             var doorway = new DoorwayTransition()
             {
                 nextScene = Scene,
@@ -32,6 +34,7 @@ public class LevelDoorTrigger : MonoBehaviour
                 depth = 3f,
                 runEffectInReverse = true
             };
+            
             TransitionKit.instance.transitionWithDelegate(doorway);
             //SceneManager.LoadScene(Scene);
         }
