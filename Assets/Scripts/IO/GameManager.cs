@@ -36,6 +36,9 @@ public class GameManager : MonoBehaviour
     private string _saveDirectory;
     private string _savePath;
 
+    //Audio
+    private AudioSource _effectSource, _musicSource;
+
     // Values are only used when going back to hub from other levels
     private string _previousLevelName;
     private bool _clearedLevelFirstTime;
@@ -92,6 +95,10 @@ public class GameManager : MonoBehaviour
         // we can do this since this script is only in the bootstrap scene
         // we have to change this if we're gonna use a start menu, stil play from bootstrap
         //SceneManager.LoadScene("Start");
+
+        var audioSources = GetComponents<AudioSource>();
+        _effectSource = audioSources[0];
+        _musicSource = audioSources[1];
     }
 
 
@@ -490,13 +497,23 @@ public class GameManager : MonoBehaviour
 
     public void PlayOneShot(AudioClip clip)
     {
-        GetComponent<AudioSource>().PlayOneShot(clip);
+        _effectSource.PlayOneShot(clip);
     }
 
     public void Play(AudioClip clip)
     {
-        GetComponent<AudioSource>().clip = clip;
-        GetComponent<AudioSource>().Play();
+        _effectSource.clip = clip;
+        _effectSource.Play();
+    }
+
+
+    public void PlayMusic(AudioClip clip)
+    {
+        if (_musicSource.clip == clip)
+            return;
+
+        _musicSource.clip = clip;
+        _musicSource.Play();
     }
 
     #region Constants
