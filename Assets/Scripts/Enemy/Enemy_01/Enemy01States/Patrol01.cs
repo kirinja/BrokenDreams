@@ -17,12 +17,8 @@ public class Patrol01 : Enemy01State {
 
     public void Update()
     {
-        //RaycastHit hitInfo;
+        
         var origins = enemy.getUpdatedRaycastOrigins();
-        /*if (!(Physics.Raycast(enemy.transform.position, Vector3.down, out hitInfo, enemy.GroundCheckDistance, enemy.CollisionMask)))
-        {
-            enemy.invertVec();
-        }*/
         if (!(Physics.Raycast(origins.bottomBack + enemy.getVec() * Time.deltaTime, Vector3.down, enemy.GroundCheckDistance, enemy.CollisionMask)) && enemy.getVec() == new Vector3(-3, 0, 0))
         {
             enemy.setVec(new Vector3(3,0,0));

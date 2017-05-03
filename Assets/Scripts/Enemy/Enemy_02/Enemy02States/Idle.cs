@@ -11,22 +11,8 @@ public class Idle : EnemyState {
     public Idle(Enemy02behaviour3D enemy)
     {
         this.enemy = enemy;
-
-
     }
 
-    /*private void Aggro() //Checks in a box around enemy if a player is nearby
-    {
-        Collider[] col = Physics.OverlapBox(enemy.transform.position, enemy.AggroRange);
-        int i = 0;
-        while (i < col.Length)
-        {
-            if (col[i].CompareTag("Player")){
-                enemy.setTarget(col[i].GetComponent<Controller3D>());
-                enemy.changeState(new Patrol(enemy));
-            }
-        }
-    }*/
     private void Aggro()
     {
         Collider[] col = Physics.OverlapSphere(enemy.ProjectileFirePosition.transform.position, enemy.AggroRange, enemy.AggroMask);
