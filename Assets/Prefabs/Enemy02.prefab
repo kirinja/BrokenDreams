@@ -475,7 +475,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   attackClip: {fileID: 8300000, guid: efc9fe88cdfb84f4ea1372061f77b7a4, type: 3}
-  deathClip: {fileID: 8300000, guid: 2cb3997f48db9744e91c5441b94eec88, type: 3}
+  deathClip: {fileID: 8300000, guid: 442e0bc986750354c9b033d5405e6bd0, type: 3}
   damageClip: {fileID: 8300000, guid: e6f704166c7c7ae4aa5d62c516baeb65, type: 3}
   _chargeClip: {fileID: 8300000, guid: 9431c3354dcd17844ac5a8cd3b5fc82f, type: 3}
   _FootstepClip: {fileID: 8300000, guid: 9885754cdcc02b145b8465fd199f8013, type: 3}
@@ -483,6 +483,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 31ca923f2e8154748b0c511a43f3a22b, type: 3}
   - {fileID: 8300000, guid: 7935183ccace48148897c7e5c4e0d122, type: 3}
   - {fileID: 8300000, guid: cbbe5e1d45da14a4eba20bf59e0800a7, type: 3}
+  Invincible: 0
 --- !u!120 &120802925858942938
 LineRenderer:
   m_ObjectHideFlags: 1
