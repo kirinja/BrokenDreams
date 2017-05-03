@@ -1543,9 +1543,6 @@ MonoBehaviour:
     m_Bits: 256
   LockedZPosition: -1
   Material: {fileID: 2100000, guid: 0a30316fcf65e0144863a6dd1c357e3c, type: 2}
-  DrawAttackGizmo: 0
-  AttackRange: 0
-  AttackOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &114134480092361830
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1563,14 +1560,14 @@ MonoBehaviour:
   DeathZoneVolume: 1
   DeathVolume: 1
   AttackedVolume: 1
-  WallSound: {fileID: 8300000, guid: 16e81111e2f50b244a6273d30e99222f, type: 3}
+  WallSound: {fileID: 8300000, guid: 0be70d813e0e53a4ab69645ed286e835, type: 3}
   AbilityUseSounds:
   - {fileID: 8300000, guid: 5017482d737023c4fb86ccf53fbd435d, type: 3}
   - {fileID: 8300000, guid: 0d9dc7e81adf8d040b87841621b9c55a, type: 3}
   - {fileID: 8300000, guid: 725c80baaa402314ba80a038f261ef9c, type: 3}
   PickupSound: {fileID: 8300000, guid: 09aa8f8b09e6c044b9ed43c903de4c6d, type: 3}
   DeathZoneSound: {fileID: 8300000, guid: 7f6c801fb8eae9e4091fbfec57460ead, type: 3}
-  DeathSound: {fileID: 8300000, guid: a25a3d70cf548f649b9441447157923d, type: 3}
+  DeathSound: {fileID: 8300000, guid: c619f03ea297725418687b95264a59ed, type: 3}
   AttackedSound: {fileID: 8300000, guid: 4543fd8c38752bc498d1b38c1aeacb21, type: 3}
 --- !u!114 &114215857018685574
 MonoBehaviour:
