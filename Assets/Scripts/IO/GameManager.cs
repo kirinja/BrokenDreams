@@ -528,6 +528,15 @@ public class GameManager : MonoBehaviour
         MusicSnapshots[_currentAudioSource].TransitionTo(transitionTime);
     }
 
+
+    public void StopMusic()
+    {
+        _musicSources[0].Stop();
+        _musicSources[1].Stop();
+        _musicSources[0].clip = null;
+        _musicSources[1].clip = null;
+    }
+
     #region Constants
 
     private const string SaveFile = "Save.sav";
