@@ -206,3 +206,5 @@ MonoBehaviour:
   Doors: []
   ActivateSound: {fileID: 8300000, guid: ecd114ecaeb261d4d8b478c85cbd23c4, type: 3}
   DeactivateSound: {fileID: 8300000, guid: 7b78ca37fbb58cb4f974f5e6c1dad913, type: 3}
+  ActivateVolume: 1
+  DeactivateVolume: 0.13
