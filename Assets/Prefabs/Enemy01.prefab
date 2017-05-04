@@ -302,7 +302,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.8
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -382,6 +382,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ee53961dfc728b43b0442d6d209db8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StartVelocity: {x: 3, y: 0, z: 0}
   attackClip: {fileID: 8300000, guid: 70451933a64fdbe4e8688667994c4f03, type: 3}
   CollisionMask:
     serializedVersion: 2
@@ -393,7 +394,6 @@ MonoBehaviour:
   HealthDropChance: 0.2
   IdleTime: 2
   PatrolTime: 5
-  StartVelocity: {x: 3, y: 0, z: 0}
 --- !u!114 &114520279263905954
 MonoBehaviour:
   m_ObjectHideFlags: 1
