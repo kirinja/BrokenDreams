@@ -247,7 +247,7 @@ public class BossBehaviour : MonoBehaviour
         // have waitforseconds be equal to the song time
         // mute every other sound in the scene
         var go = Instantiate(CreditsPrefab);
-        var time = go.GetComponent<AudioSource>().clip.length;
+        var time = go.GetComponent<MusicPlayer>().MusicClip.length;
 
         yield return new WaitForSeconds(time);
 
