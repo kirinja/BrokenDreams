@@ -35,7 +35,8 @@ public class BossSubThreeAttack : IBossSubState
         if (_projCounter < _bossData.Phase3Projectiles && _attackTimer <= 0.0f)
         {
             // spawn projectiles and launch them at the player
-            var g = Object.Instantiate(_bossData.Projectiles, _bossData.BossPhase3.transform.position, Quaternion.identity);
+            var spawnPos = GameObject.Find("LowerJaw").transform.position; // HACK
+            var g = Object.Instantiate(_bossData.Projectiles, spawnPos, Quaternion.identity);
             g.transform.position = new Vector3(g.transform.position.x, g.transform.position.y, -1);
             //Debug.Log(g);
 
@@ -47,7 +48,8 @@ public class BossSubThreeAttack : IBossSubState
 
         if (_acidTimer <= 0.0f)
         {
-            var g = Object.Instantiate(_bossData.Acid, _bossData.BossPhase3.transform.position, _bossData.Acid.transform.rotation);
+            var spawnPos = GameObject.Find("LowerJaw").transform.position; // HACK
+            var g = Object.Instantiate(_bossData.Acid, spawnPos, _bossData.Acid.transform.rotation);
             g.transform.position = new Vector3(g.transform.position.x, g.transform.position.y, -1);
 
             _acidTimer = _bossData.AcidTimer;

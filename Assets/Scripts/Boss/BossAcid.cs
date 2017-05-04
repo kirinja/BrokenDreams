@@ -48,9 +48,9 @@ public class BossAcid : MonoBehaviour
         else if (other.CompareTag("Enemy"))
         {
         }
-        else if (falling)
+        else if (falling && (other.CompareTag("Platform") || other.CompareTag("Wall")))
         {
-            transform.position -= new Vector3(0, other.transform.localScale.y, 0);
+            //transform.position += new Vector3(0, other.transform.localScale.y, 0);
             rbody.position = transform.position;
             falling = false;
         }
