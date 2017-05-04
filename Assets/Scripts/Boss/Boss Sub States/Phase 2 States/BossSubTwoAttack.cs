@@ -63,8 +63,8 @@ public class BossSubTwoAttack : IBossSubState
     private void ShootProjectiles()
     {
         // spawn projectiles and launch them at the player
-        var g = Object.Instantiate(_bossData.Projectiles, _head.transform.position, Quaternion.identity);
-        g.transform.position = new Vector3(g.transform.position.x, g.transform.position.y, -1);
+        var g = Object.Instantiate(_bossData.Projectiles, _head.transform.position , Quaternion.identity);
+        g.transform.position = new Vector3(g.transform.position.x - 3.5f, g.transform.position.y, -1); // HACK MAGIC VALUES
 
         _projCounter++;
         _projTimer = _bossData.TimeBetweenShots;
