@@ -86,6 +86,8 @@ public class BossBehaviour : MonoBehaviour
     private bool _visible;
     private bool _shouldZoom;
 
+    private Timer _playerPoseTimer;
+
     public GameObject CreditsPrefab;
 
 	// Use this for initialization
@@ -134,6 +136,14 @@ public class BossBehaviour : MonoBehaviour
                     BossPhase3.SetActive(false);
                 }
 	        }
+
+            // Animation things
+	        if (_playerPoseTimer.Update(Time.deltaTime))
+	        {
+	            var player = GameObject.FindGameObjectWithTag("Player");
+                player.GetComponent<Animator>().SetTrigger("NextPose");
+                _playerPoseTimer.ResetToSurplus();
+            }
 	    }
         else
             NextState();
@@ -248,6 +258,10 @@ public class BossBehaviour : MonoBehaviour
         // mute every other sound in the scene
         var go = Instantiate(CreditsPrefab);
         var time = go.GetComponent<MusicPlayer>().MusicClip.length;
+
+        player.GetComponent<Animator>().SetTrigger("StartPose");
+        var poseTime = 5f; // How long each pose will take
+        _playerPoseTimer = new Timer(poseTime);
 
         yield return new WaitForSeconds(time);
 
