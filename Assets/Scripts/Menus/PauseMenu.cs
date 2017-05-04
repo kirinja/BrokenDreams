@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Prime31.TransitionKit;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
@@ -24,7 +25,16 @@ public class PauseMenu : MonoBehaviour
     public void GoToHub()
     {
         Hide();
-        SceneManager.LoadScene("Hub");
+        var maskTex = GameManager.Instance.MaskTexture;
+        var mask = new ImageMaskTransition()
+        {
+            maskTexture = maskTex,
+            backgroundColor = Color.black,
+            duration = 1.5f,
+            nextScene = "Hub"
+        };
+        TransitionKit.instance.transitionWithDelegate(mask);
+        //SceneManager.LoadScene("Hub");
     }
 
 
