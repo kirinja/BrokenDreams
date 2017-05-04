@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
 {
     public AudioMixerSnapshot[] MusicSnapshots;
 
-    private static readonly List<string[]> InMemory = new List<string[]>();
+    private static readonly List<string> InMemory = new List<string>();
 
     // the game manager keeps track of which levels the player have beaten, and save them to file/memory
     private static readonly Dictionary<string, bool> CompletedLevels = new Dictionary<string, bool>();
@@ -204,9 +204,9 @@ public class GameManager : MonoBehaviour
         //playerSaveData.HP = _playerAttributes.currentHealth;
         playerSaveData.BeatenLevels = beatenLevels;
         playerSaveData.SpawnPoint = _playerAttributes.GetComponent<Controller3D>().SpawnPoint;
-        var stringifiedPlayer = new string[1];
+        //var stringifiedPlayer = new string[1];
 
-        stringifiedPlayer[0] = JsonUtility.ToJson(playerSaveData);
+        var stringifiedPlayer = JsonUtility.ToJson(playerSaveData);
         InMemory.Add(stringifiedPlayer);
     }
 
@@ -218,7 +218,7 @@ public class GameManager : MonoBehaviour
         // do I need to clear the abilites and level progression when calling this?
         var stringifiedData = InMemory[0]; // TODO POSSIBLY SCARY
 
-        var playerSaveData = JsonUtility.FromJson<PlayerSaveData>(stringifiedData[0]);
+        var playerSaveData = JsonUtility.FromJson<PlayerSaveData>(stringifiedData);
         //_playerAttributes.currentHealth = playerSaveData.HP;
         //_playerAttributes.GetComponent<Controller3D>().SetSpawn(playerSaveData.SpawnPoint);
 
@@ -242,7 +242,7 @@ public class GameManager : MonoBehaviour
         if (!HasMemoryData) return;
 
         var stringifiedData = InMemory[0]; // TODO POSSIBLY SCARY
-        var playerSaveData = JsonUtility.FromJson<PlayerSaveData>(stringifiedData[0]);
+        var playerSaveData = JsonUtility.FromJson<PlayerSaveData>(stringifiedData);
         _playerAttributes.GetComponent<Controller3D>().SetSpawn(playerSaveData.SpawnPoint);
     }
 
@@ -380,7 +380,7 @@ public class GameManager : MonoBehaviour
         if (!_playerAttributes) return;
 
         if (!LoadFromMemory())
-            LoadFromFile();
+            LoadFromFiles();
 
         GetComponent<MenuHandler>().HideMenus();
         // Every time a level is loaded we can do the init stuff here, like reading from file/memory
