@@ -1,4 +1,6 @@
-﻿using UnityEditor;
+﻿#if UNITY_EDITOR
+using UnityEditor;
+#endif
 using UnityEngine;
 
 public class AttackableMaterialChanger : MonoBehaviour
@@ -26,8 +28,13 @@ public class AttackableMaterialChanger : MonoBehaviour
 #endif
     }
 
+
+#if UNITY_EDITOR
     void OnEnable()
     {
         EditorApplication.update += Update;
     }
+#endif
+
+
 }

@@ -1,9 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Prime31.TransitionKit;
-using UnityEditor;
+﻿using Prime31.TransitionKit;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class LevelDoorTrigger : MonoBehaviour
 {
