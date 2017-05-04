@@ -505,7 +505,8 @@ public class GameManager : MonoBehaviour
 
     public void PlayOneShot(AudioClip clip)
     {
-        _effectSource.PlayOneShot(clip);
+        _effectSource.clip = clip;
+        _effectSource.PlayOneShot(_effectSource.clip);
     }
 
     public void Play(AudioClip clip)
