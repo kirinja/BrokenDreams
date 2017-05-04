@@ -278,7 +278,7 @@ public class BossBehaviour : MonoBehaviour
 
         var fishEye = new FishEyeTransition()
         {
-            nextScene = "Hub",
+            nextScene = "Start",
             duration = 5.0f,
             size = 0.2f,
             zoom = 100.0f,
