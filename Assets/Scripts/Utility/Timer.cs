@@ -32,4 +32,10 @@
     {
         get { return timePassed / targetTime; }
     }
+
+
+    public float TimePassed
+    {
+        get { return timePassed; }
+    }
 }
