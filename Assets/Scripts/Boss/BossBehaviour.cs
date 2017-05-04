@@ -245,6 +245,10 @@ public class BossBehaviour : MonoBehaviour
         // rotate player towards camera
         player.transform.LookAt(Camera.main.transform);
 
+        // QUERY GETS HER HAT BACK
+        var sd = player.transform.FindChild("SD_QUERY_01");
+        sd.transform.FindChild("hat_defo").gameObject.SetActive(true);
+
         // disable all audiosource
         //var allAudioSources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
         //foreach (AudioSource audioS in allAudioSources)
