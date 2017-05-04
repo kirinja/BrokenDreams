@@ -30,7 +30,7 @@ public class BossSubThreeAttack : IBossSubState
         // we cant spawn enemies  like this, it needs to happen once and then move back to idle, otherwise we're gonna spawn enemies every frame for X amount of time
         //Debug.Log("Spawn enemy 1 at random locations");
 
-        GameObject.Find("BossPhase3").GetComponent<SplineInterpolator>().enabled = true;
+        _bossData.BossPhase3.GetComponent<SplineInterpolator>().enabled = true;
 
         if (_projCounter < _bossData.Phase3Projectiles && _attackTimer <= 0.0f)
         {
