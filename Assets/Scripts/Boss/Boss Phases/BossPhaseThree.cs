@@ -36,8 +36,8 @@ public class BossPhaseThree : IBossPhaseState
         //throw new System.NotImplementedException();
 
         _bossData.PhasePlatforms[2].SetActive(false);
-        _bossData.BossPhase3.SetActive(false);
-        
+        //_bossData.BossPhase3.SetActive(false);
+
         var enemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (var g in enemies)
         {

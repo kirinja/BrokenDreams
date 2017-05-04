@@ -1,9 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Prime31.TransitionKit;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Object = UnityEngine.Object;
+using Random = UnityEngine.Random;
 
 public class BossBehaviour : MonoBehaviour
 {
@@ -81,6 +84,7 @@ public class BossBehaviour : MonoBehaviour
     private float _invincibleTimer;
     public float InvincibleTime = 1.0f;
     private bool _visible;
+    private bool _shouldZoom;
 
     public GameObject CreditsPrefab;
 
@@ -115,13 +119,22 @@ public class BossBehaviour : MonoBehaviour
 	    }
 	    if (BossState == null)
 	    {
-            // lerp the camera
-            var camera2D = Camera.main;
-            //camera2D.Offset = new Vector3(0, 0, -10.0f);
-            //camera2D.transform.position = Vector3.Lerp(camera2D.transform.position, new Vector3(camera2D.transform.position.x, camera2D.transform.position.y, -10.0f), 0.05f);
-            var player = GameObject.FindGameObjectWithTag("Player");
-            camera2D.transform.position = Vector3.Lerp(camera2D.transform.position, new Vector3(player.transform.position.x + 1.0f, player.transform.position.y + 0.5f, -10.0f), 0.05f);
-        }
+	        if (_shouldZoom)
+	        {
+	            //// lerp the camera
+	            var camera2D = Camera.main;
+	            //camera2D.Offset = new Vector3(0, 0, -10.0f);
+	            //camera2D.transform.position = Vector3.Lerp(camera2D.transform.position, new Vector3(camera2D.transform.position.x, camera2D.transform.position.y, -10.0f), 0.05f);
+	            var player = GameObject.FindGameObjectWithTag("Player");
+	            camera2D.transform.position = Vector3.Lerp(camera2D.transform.position,
+	                new Vector3(player.transform.position.x + 1.0f, player.transform.position.y + 0.5f, -10.0f), 0.03f);
+
+	            if (Math.Abs(camera2D.transform.position.z - (-10.0f)) < 0.5f)
+	            {
+                    BossPhase3.SetActive(false);
+                }
+	        }
+	    }
         else
             NextState();
 	}
@@ -185,9 +198,22 @@ public class BossBehaviour : MonoBehaviour
         BossState.Exit();
         BossState = null;
 
+        StartCoroutine("ShouldZoomIn");
         StartCoroutine("BossDeafeatedCutscene");
 
         return true;
+    }
+
+    private IEnumerator ShouldZoomIn()
+    {
+        BossPhase3.GetComponent<SplineInterpolator>().enabled = false;
+
+        var explosion = BossPhase3.GetComponentsInChildren<Rigidbody>();
+        foreach (Rigidbody r in explosion)
+            r.isKinematic = false;
+
+        yield return new WaitForSeconds(0.5f);
+        _shouldZoom = true;
     }
 
     private IEnumerator BossDeafeatedCutscene()

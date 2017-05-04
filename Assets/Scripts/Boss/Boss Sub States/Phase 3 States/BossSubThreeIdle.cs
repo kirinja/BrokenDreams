@@ -24,7 +24,7 @@ public class BossSubThreeIdle : IBossSubState
         // we cant spawn enemies  like this, it needs to happen once and then move back to idle, otherwise we're gonna spawn enemies every frame for X amount of time
         //Debug.Log("Spawn enemy 1 at random locations");
 
-        GameObject.Find("BossPhase3").GetComponent<SplineInterpolator>().enabled = false;
+        _bossData.BossPhase3.GetComponent<SplineInterpolator>().enabled = false;
 
         var r = Random.value;
         if (r <= 0.01f && !_playing)
