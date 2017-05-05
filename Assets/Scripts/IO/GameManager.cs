@@ -28,10 +28,10 @@ public class GameManager : MonoBehaviour
 {
     public AudioMixerSnapshot[] MusicSnapshots;
 
-    private static readonly List<string> InMemory = new List<string>();
+    private static List<string> InMemory = new List<string>();
 
     // the game manager keeps track of which levels the player have beaten, and save them to file/memory
-    private static readonly Dictionary<string, bool> CompletedLevels = new Dictionary<string, bool>();
+    private static Dictionary<string, bool> CompletedLevels = new Dictionary<string, bool>();
     private bool _paused;
 
     // the two values we're interested in are current HP and which abilities the player have
@@ -251,8 +251,12 @@ public class GameManager : MonoBehaviour
     {
         if (File.Exists(_savePath))
             File.Delete(_savePath);
-    }
 
+        if (HasMemoryData)
+            InMemory = new List<string>();
+
+        CompletedLevels = new Dictionary<string, bool>();
+    }
 
     public void SaveToFiles()
     {
