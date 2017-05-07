@@ -90,6 +90,9 @@ public class GameManager : MonoBehaviour
 
         DontDestroyOnLoad(this);
 
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = 120;
+
         _saveDirectory = Path.Combine(Application.dataPath, SaveDirectory);
 
         if (!Directory.Exists(_saveDirectory))
@@ -541,6 +544,8 @@ public class GameManager : MonoBehaviour
         _musicSources[0].clip = null;
         _musicSources[1].clip = null;
     }
+
+    public string NextLevelToLoad { get; set; }
 
     #region Constants
 
