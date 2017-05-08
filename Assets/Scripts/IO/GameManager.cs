@@ -104,6 +104,8 @@ public class GameManager : MonoBehaviour
         // we have to change this if we're gonna use a start menu, stil play from bootstrap
         //SceneManager.LoadScene("Start");
 
+        Application.targetFrameRate = 120;
+
         var audioSources = GetComponents<AudioSource>();
         _effectSource = audioSources[0];
         _musicSources = new AudioSource[2];

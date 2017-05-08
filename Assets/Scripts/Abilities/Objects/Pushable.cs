@@ -1,7 +1,4 @@
 ﻿using System.Collections.Generic;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
@@ -205,26 +202,7 @@ public class Pushable : MonoBehaviour
 
         return _startPosition.x - transform.position.x;
     }
-
-
-    private void UpdateColor()
-    {
-        // this snippet only run when in the editor
-#if UNITY_EDITOR
-        if (Application.isEditor && !Application.isPlaying)
-            _material.color = _abilityColor.PushColor;
-#endif
-    }
-
-
-#if UNITY_EDITOR
-    private void OnEnable()
-    {
-        EditorApplication.update += UpdateColor;
-    }
-#endif
-
-
+    
 
     public void Push(Vector3 direction, float length)
     {

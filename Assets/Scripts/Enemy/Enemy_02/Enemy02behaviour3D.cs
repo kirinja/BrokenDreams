@@ -43,7 +43,7 @@ public class Enemy02behaviour3D : Enemy
     private Vector3 previousPlatformPosition;
     private LineRenderer _laserFocus;
     private float _invincibleTimer = 0.0f;
-    private float InvincibleTime = 1.0f;
+    private float InvincibleTime = 0.5f;
     private Rigidbody _rigidbody;
 
 
@@ -256,7 +256,6 @@ public class Enemy02behaviour3D : Enemy
             GameObject.Instantiate(g, transform.position + new Vector3(0, 0, 0), Quaternion.identity);
         src.PlayOneShot(deathClip);
         GetComponent<Collider>().enabled = false;
-        GetComponent<MeshRenderer>().enabled = false;
         GetComponentInChildren<SpriteRenderer>().enabled = false;
         _laserFocus.enabled = false;
     }
@@ -314,7 +313,7 @@ public class Enemy02behaviour3D : Enemy
         Flip();
     }
 
-    public void Flip()
+    private void Flip()
     {
         // check if the target is to the right of us
         // if the retreat point position is higher than our position then the retreat point is to the right of us
