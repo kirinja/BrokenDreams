@@ -22,9 +22,10 @@ public class LevelDoorTrigger : MonoBehaviour
             //};
             //TransitionKit.instance.transitionWithDelegate(fishEye);
             GameManager.Instance.Play(enterSound);
+            GameManager.Instance.NextLevelToLoad = Scene;
             var doorway = new DoorwayTransition()
             {
-                nextScene = Scene,
+                nextScene = "LoadingScreen",
                 duration = 1.0f,
                 perspective = 1.5f,
                 depth = 3f,
