@@ -135,14 +135,13 @@ public class BossBehaviour : MonoBehaviour
 	            {
                     BossPhase3.SetActive(false);
                 }
-	        }
 
-            // Animation things
-	        if (_playerPoseTimer.Update(Time.deltaTime))
-	        {
-	            var player = GameObject.FindGameObjectWithTag("Player");
-                player.GetComponent<Animator>().SetTrigger("NextPose");
-                _playerPoseTimer.ResetToSurplus();
+                // Animation things
+                if (_playerPoseTimer.Update(Time.deltaTime))
+                {
+                    player.GetComponent<Animator>().SetTrigger("NextPose");
+                    _playerPoseTimer.ResetToSurplus();
+                }
             }
 	    }
         else
@@ -209,7 +208,7 @@ public class BossBehaviour : MonoBehaviour
         BossState = null;
 
         StartCoroutine("ShouldZoomIn");
-        StartCoroutine("BossDeafeatedCutscene");
+        
 
         return true;
     }
@@ -222,7 +221,8 @@ public class BossBehaviour : MonoBehaviour
         foreach (Rigidbody r in explosion)
             r.isKinematic = false;
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.5f);
+        StartCoroutine("BossDeafeatedCutscene");
         _shouldZoom = true;
     }
 
@@ -267,7 +267,7 @@ public class BossBehaviour : MonoBehaviour
         var poseTime = 5f; // How long each pose will take
         _playerPoseTimer = new Timer(poseTime);
 
-        yield return new WaitForSeconds(time);
+        yield return new WaitForSeconds(time - 1.5f); // HACK
 
 
         var gameManager = GameManager.Instance;

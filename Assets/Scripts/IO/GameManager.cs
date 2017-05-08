@@ -28,6 +28,9 @@ public class GameManager : MonoBehaviour
 {
     public AudioMixerSnapshot[] MusicSnapshots;
 
+    public int FPS = 60;
+    public bool Vsync;
+
     private static List<string> InMemory = new List<string>();
 
     // the game manager keeps track of which levels the player have beaten, and save them to file/memory
@@ -89,10 +92,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
 
         DontDestroyOnLoad(this);
-
-        QualitySettings.vSyncCount = 0;
-        Application.targetFrameRate = 120;
-
+        
         _saveDirectory = Path.Combine(Application.dataPath, SaveDirectory);
 
         if (!Directory.Exists(_saveDirectory))
@@ -103,8 +103,6 @@ public class GameManager : MonoBehaviour
         // we can do this since this script is only in the bootstrap scene
         // we have to change this if we're gonna use a start menu, stil play from bootstrap
         //SceneManager.LoadScene("Start");
-
-        Application.targetFrameRate = 120;
 
         var audioSources = GetComponents<AudioSource>();
         _effectSource = audioSources[0];
@@ -141,6 +139,8 @@ public class GameManager : MonoBehaviour
             nextScene = "Hub"
         };
         TransitionKit.instance.transitionWithDelegate(mask);
+
+        //SceneManager.LoadScene("Hub");
     }
 
 
@@ -381,6 +381,9 @@ public class GameManager : MonoBehaviour
 
     private void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
     {
+        QualitySettings.vSyncCount = Vsync ? 1 : 0;
+        Application.targetFrameRate = FPS;
+
         //_playerAttributes = GameObject.Find("Player").GetComponent<PlayerAttributes>();
         var g = GameObject.FindGameObjectWithTag("Player");
         if (!g) return;
