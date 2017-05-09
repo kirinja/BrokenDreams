@@ -20,7 +20,7 @@ public class LoadScene : MonoBehaviour
     {
         if (_loading)
         {
-            Debug.Log("Loading level");
+            //Debug.Log("Loading level");
             LoadingText.color = new Color(LoadingText.color.r, LoadingText.color.g, LoadingText.color.b, Mathf.PingPong(Time.time, 1));
 
         }
