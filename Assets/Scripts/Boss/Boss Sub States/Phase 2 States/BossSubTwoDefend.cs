@@ -33,6 +33,8 @@ public class BossSubTwoDefend: IBossSubState
         _head = GameObject.Find("Head");
         _playing = false;
 
+        _spawned = false;
+
         _spawnCounter = 0;
         _trySpawnCounter = 0;
         _spawnTimer = TimeBetweenSpawns;
@@ -62,6 +64,11 @@ public class BossSubTwoDefend: IBossSubState
     {
         HideHead();
 
+        if (_spawned && EnemiesKilled())
+        {
+            return new BossSubTwoAttack();
+        }
+
         // here we need to add so we cant flood the scene
         Spawn();
 
@@ -75,10 +82,10 @@ public class BossSubTwoDefend: IBossSubState
 
         if (!(_timer <= 0.0f)) return null;
         
-        if (Random.value <= 0.5)
-            return new BossSubTwoIdle();
-
-        return new BossSubTwoAttack();
+        //if (Random.value <= 0.5)
+        //return new BossSubTwoIdle();
+        return null;
+        //return new BossSubTwoAttack();
     }
 
     public void Exit()
@@ -99,16 +106,19 @@ public class BossSubTwoDefend: IBossSubState
 
     private void HideHead()
     {
-        _head.transform.position = _bossData.Phase2DefendPos.position;
+         // lerp this shit
+        _head.transform.position = Vector3.Lerp(_head.transform.position, _bossData.Phase2DefendPos.position, 0.10f);
+        _head.transform.localScale = Vector3.Lerp(_head.transform.localScale, new Vector3(0.1f, 0.1f, 0.1f), 0.25f);
+        //_head.transform.position = _bossData.Phase2DefendPos.position;
         //_head.GetComponent<Renderer>().enabled = false;
         var cols = _head.GetComponents<Collider>();
         foreach (var col in cols)
             col.enabled = false;
+        
     }
 
     private void Spawn()
     {
-        
         if (_trySpawnCounter >= _bossData.MaxTrySpawnCycles)
             _spawned = true;
         if (_spawnCounter >= _bossData.Phase2Spawn)
@@ -146,41 +156,6 @@ public class BossSubTwoDefend: IBossSubState
         {
             Debug.LogError("Error when trying to spawn enemies in phase2 - state defend");
         }
-        //try
-        //{
-        //    var rand = new System.Random();
-        //    index = rand.Next(0, _platformIds.Length);
-        //    pId = _platformIds[index];
-        //}
-        //catch
-        //{
-        //    Debug.LogError("Index out of range - index = "  + index);
-        //}
-        //if (!CheckPlatform(pId))
-        //{
-        //    return;
-        //}
-        //try
-        //{
-        //    //_arcs[pId].GetComponent<MeshFilter>().sharedMesh =
-        //        //_bossData.Enemy2.GetComponent<MeshFilter>().sharedMesh;
-
-        //    _arcs[pId].GetComponent<EnemySpawn>().Enemy = _bossData.Enemy2;
-
-        //    //_arcs[pId].GetComponent<MeshRenderer>().enabled = true;
-        //    _arcs[pId].GetComponentInChildren<SpriteRenderer>().enabled = true;
-        //    _arcs[pId].GetComponent<SplineController>().FollowSpline();
-        //}
-        //catch
-        //{
-        //    Debug.LogError("ERROR IN BOSS DEFEND - pID = " + pId);
-        //}
-        //++_spawnCounter;
-        //_spawnTimer = TimeBetweenSpawns;
-
-        //_bossData.PlaySpawnSound();
-
-        //_platformIds = _platformIds.Where(val => val != pId).ToArray();
 
     }
 
@@ -224,5 +199,13 @@ public class BossSubTwoDefend: IBossSubState
     private bool CanSpawn()
     {
         return _spawnCounter < _bossData.Phase2Spawn && _spawnTimer <= 0.0f && !_spawned && _platformIds.Length > 0;
+    }
+
+    private bool EnemiesKilled()
+    {
+        //Enemy02(Clone)
+        var enemies = GameObject.FindObjectsOfType<Enemy02behaviour3D>();
+
+        return enemies.Length <= 0;
     }
 }

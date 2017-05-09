@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 public class BossSubTwoAttack : IBossSubState
 {
@@ -44,9 +46,9 @@ public class BossSubTwoAttack : IBossSubState
         if (!(_timer <= 0.0f)) return null;
 
         //if (Random.value <= 0.5f)
-            return new BossSubTwoDefend();
+        //return new BossSubTwoDefend();
 
-        //return new BossSubTwoIdle();
+        return new BossSubTwoIdle();
     }
 
     private bool CanShoot()
@@ -74,11 +76,19 @@ public class BossSubTwoAttack : IBossSubState
 
     private void ShowHead()
     {
-        _head.transform.position = _bossData.Phase2AttackPos.position;
+        // lerp this shit
+        _head.transform.position = Vector3.Lerp(_head.transform.position, _bossData.Phase2AttackPos.position, 0.25f);
+        _head.transform.localScale = Vector3.Lerp(_head.transform.localScale, new Vector3(1, 1, 1), 0.25f);
+        //_head.transform.position = _bossData.Phase2AttackPos.position;
         //_head.GetComponent<Renderer>().enabled = true;
-        var cols = _head.GetComponents<Collider>();
-        foreach (var col in cols)
-            col.enabled = true;
+        //if (Mathf.Abs(_head.transform.position.y - _bossData.Phase2AttackPos.position.y) >= 0.5f)
+        if (Math.Abs(_head.transform.position.y - _bossData.Phase2AttackPos.position.y) < 0.5f)
+        {
+            var cols = _head.GetComponents<Collider>();
+            foreach (var col in cols)
+                col.enabled = true;
+        }
+
     }
 
     public void Exit()

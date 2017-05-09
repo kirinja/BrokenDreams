@@ -8,10 +8,13 @@ public class BossSubTwoIdle : IBossSubState
     private float _timer;
     private bool _playing;
 
+    private int _phaseStartHp;
+
     public void Enter(BossBehaviour data)
     {
         //throw new System.NotImplementedException();
         _bossData = data;
+        _phaseStartHp = _bossData.HP;
         //_timer = _bossData.StateSwitchTimer;
         _timer = new System.Random().Next((int)_bossData.MinStateSwitch, (int)_bossData.MaxStateSwitch); // HACK
 
@@ -20,6 +23,12 @@ public class BossSubTwoIdle : IBossSubState
 
     public IBossSubState Execute()
     {
+        // HACK Y HACKY
+        if (_bossData.HP < _phaseStartHp)
+        {
+            // boss was damaged, go to defend state
+            return new BossSubTwoDefend();
+        }
         _timer -= Time.deltaTime;
 
         var r = Random.value;
@@ -30,11 +39,11 @@ public class BossSubTwoIdle : IBossSubState
         }
 
         if (!(_timer <= 0.0f)) return null;
-        var t = Random.value;
-        if (t <= 0.5)
-            return new BossSubTwoAttack();
+        //var t = Random.value;
+        //if (t <= 0.5)
+        return new BossSubTwoAttack();
 
-        return new BossSubTwoDefend();
+        //return new BossSubTwoDefend();
     }
 
     public void Exit()
