@@ -52,4 +52,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AttackRadius: 1
-  LastingTime: 0.3
+  LastingTime: 0.42
