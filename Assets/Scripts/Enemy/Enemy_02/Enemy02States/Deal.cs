@@ -9,7 +9,7 @@ public class Deal : EnemyState {
     private Enemy02behaviour3D enemy;
     private Vector3 orgPos;
     private float timeActive;
-    private const float dealTime = 1f;
+    private const float dealTime = 0.45f;
     private bool visible;
     private SpriteRenderer[] render;
 
