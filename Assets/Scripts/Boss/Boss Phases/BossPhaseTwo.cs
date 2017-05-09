@@ -7,6 +7,8 @@ public class BossPhaseTwo : IBossPhaseState
     private IBossSubState _internalState;
     private BossBehaviour _bossData;
 
+    // check the amount of enemies here, if it is below a certain value then trigger the "attack" state, stay in this state until we damage the head, then go into defend again
+
     public void Enter(BossBehaviour data)
     {
         _bossData = data;
@@ -20,6 +22,7 @@ public class BossPhaseTwo : IBossPhaseState
     public IBossPhaseState Execute()
     {
         var state = _internalState.Execute();
+        
         // switch internal state if needed
         if (state != null)
         {

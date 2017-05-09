@@ -43,7 +43,7 @@ public class Enemy02behaviour3D : Enemy
     private Vector3 previousPlatformPosition;
     private LineRenderer _laserFocus;
     private float _invincibleTimer = 0.0f;
-    private float InvincibleTime = 0.25f;
+    private float InvincibleTime = 0.45f;
     private Rigidbody _rigidbody;
 
 

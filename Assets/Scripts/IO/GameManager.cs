@@ -181,11 +181,11 @@ public class GameManager : MonoBehaviour
         {
             case "Level_01":
                 return true;
-            case "Level_02_2D":
+            case "Level_02":
                 return LevelCleared("Level_01");
             case "Boss_01":
                 return LevelCleared("Level_01") &&
-                       LevelCleared("Level_02_2D");
+                       LevelCleared("Level_02");
             default:
                 return false;
         }
@@ -445,7 +445,7 @@ public class GameManager : MonoBehaviour
                 
                 break;
             }
-            case "Level_02_2D":
+            case "Level_02":
             {
                 var player = GameObject.FindGameObjectWithTag("Player");
                 player.transform.position = new Vector3(GameObject.Find("Hub Door 2").transform.position.x,
@@ -488,7 +488,7 @@ public class GameManager : MonoBehaviour
 
                 break;
             }
-            case "Level_02_2D":
+            case "Level_02":
             {
                 GameObject.Find("Hub Door 2").transform.Find("Portal").GetComponent<HubPortal>().ShouldInitialize =
                     false;

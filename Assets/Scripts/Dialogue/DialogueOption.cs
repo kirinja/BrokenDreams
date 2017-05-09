@@ -16,6 +16,11 @@ public class DialogueOption {
         return text;
     }
 
+    public void updateID(int id)
+    {
+        destID = id;
+    }
+
     public int getID()
     {
         return destID;
