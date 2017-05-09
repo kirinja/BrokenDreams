@@ -191,10 +191,10 @@ public class BossBehaviour : MonoBehaviour
         //player.GetComponent<PlayerHealth>().Heal(hpToHeal);
 
         // TODO Make this neater
-        Object.Instantiate(HealthPickUp, new Vector3(-6.25f, 1.5f, -1f), Quaternion.identity);
-        Object.Instantiate(HealthPickUp, new Vector3(-2.25f, 1.5f, -1f), Quaternion.identity);
+        Object.Instantiate(HealthPickUp, new Vector3(Random.Range(-9.25f, -5.25f), 1.5f, -1f), Quaternion.identity);
+        Object.Instantiate(HealthPickUp, new Vector3(Random.Range(-4.25f, -1.5f), 1.5f, -1f), Quaternion.identity);
 
-        BossState.Exit();
+        BossState.Exit(); // play cutscene or something in the exit block
         BossState = newState;
         newState.Enter(this);
     }
