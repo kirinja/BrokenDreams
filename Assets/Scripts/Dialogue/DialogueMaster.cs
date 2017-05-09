@@ -21,6 +21,7 @@ public class DialogueMaster : MonoBehaviour {
     private GameObject option02;
     private GameObject option03;
     private int option01ID, option02ID, option03ID;
+    private bool givenPotion = false;
 
     //public string pathToDialogueXML;
 
@@ -45,9 +46,13 @@ public class DialogueMaster : MonoBehaviour {
         var n3 = new DialogueNode(2, "Here you go!");
         n3.Add(new DialogueOption(-1, "Thanks!"));
         n3.Add(new DialogueOption(-1, "I need to go now"));
+        var n4 = new DialogueNode(3, "I've already given you a potion");
+        n4.Add(new DialogueOption(-1, "Guess, I'll leave then"));
+        n4.Add(new DialogueOption(-1, "I need to go now"));
         dialogue.Add(n1);
         dialogue.Add(n2);
         dialogue.Add(n3);
+        dialogue.Add(n4);
         
 
         var canvas = GameObject.Find("DialogueCanvas");
@@ -81,10 +86,15 @@ public class DialogueMaster : MonoBehaviour {
         }*/
     }
 
+    public void optionIdUpdate(DialogueOption opt ,int newID)
+    {
+        opt.updateID(newID);
+    } 
+
     public void runDialogue()
     {
-        if (currentInteractionCount >= maxInteractionCount)
-            return;
+        /*if (currentInteractionCount >= maxInteractionCount)
+            return;*/
         //GameObject.FindGameObjectWithTag("Player").GetComponent<Input2D>().enabled = false;
         StartCoroutine("run");
     }
@@ -112,9 +122,14 @@ public class DialogueMaster : MonoBehaviour {
             }
             nodeID = selectedOption;
             if (nodeID == 2)
+            {
                 spawnHealth(); // TODO spawn health potions instead
+                optionIdUpdate(dialogue.DialogueNodeList[1].Options[2], 3);
+                optionIdUpdate(dialogue.DialogueNodeList[0].Options[2], 3);
+            }
+
         }
-        currentInteractionCount++;
+        //currentInteractionCount++;
         
         gm.Paused = false;
         window.SetActive(false);
@@ -169,8 +184,8 @@ public class DialogueMaster : MonoBehaviour {
 
     private void spawnHealth()
     {
-        var copy = Instantiate(Itemtogive, (transform.position + Vector3.right*5), Quaternion.identity);
-        
+        var copy = Instantiate(Itemtogive, (transform.position + (Vector3.right*5) + Vector3.down), Quaternion.identity);
+        Debug.Log("Potion spawned at" + copy.transform.position);
 
     }
 }
