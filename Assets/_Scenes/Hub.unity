@@ -12042,7 +12042,7 @@ Prefab:
     - target: {fileID: 114172138351052416, guid: 95ed8773fad7f0142abc854f380329da,
         type: 2}
       propertyPath: Scene
-      value: Level_02_2D
+      value: Level_02
       objectReference: {fileID: 0}
     - target: {fileID: 114326525245706168, guid: 95ed8773fad7f0142abc854f380329da,
         type: 2}
