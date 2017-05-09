@@ -64,6 +64,9 @@ public class BossSubTwoDefend: IBossSubState
     {
         HideHead();
 
+        // if we can get rid of the _spawned check here then we can use this line of code
+        // sometimes the boss only spawns 1 or 2 enemies instead of the full 3, so the _spawned is never set to true and we can never progress
+        // unsure what triggers this though since I can't seem to recreate it reliably
         if (_spawned && EnemiesKilled())
         {
             return new BossSubTwoAttack();
@@ -92,6 +95,7 @@ public class BossSubTwoDefend: IBossSubState
     {
         _spawned = false;
         _spawnCounter = 0;
+        _spawnTimer = TimeBetweenSpawns;
     }
 
     public bool Alive()
@@ -119,8 +123,6 @@ public class BossSubTwoDefend: IBossSubState
 
     private void Spawn()
     {
-        if (_trySpawnCounter >= _bossData.MaxTrySpawnCycles)
-            _spawned = true;
         if (_spawnCounter >= _bossData.Phase2Spawn)
             _spawned = true;
         
@@ -134,27 +136,31 @@ public class BossSubTwoDefend: IBossSubState
         //var index = -1;
         try
         {
-            var rand = new System.Random();
-            var index = rand.Next(0, _platformIds.Length);
-            var pId = _platformIds[index];
-            if (!CheckPlatform(pId)) return;
+            if (_platformIds.Length > 0)
+            {
+                var rand = new System.Random();
+                var index = rand.Next(0, _platformIds.Length);
+                var pId = _platformIds[index];
+                if (!CheckPlatform(pId)) return;
 
-            _arcs[pId].GetComponent<EnemySpawn>().Enemy = _bossData.Enemy2;
+                _arcs[pId].GetComponent<EnemySpawn>().Enemy = _bossData.Enemy2;
 
-            //_arcs[pId].GetComponent<MeshRenderer>().enabled = true;
-            _arcs[pId].GetComponentInChildren<SpriteRenderer>().enabled = true;
-            _arcs[pId].GetComponent<SplineController>().FollowSpline();
+                //_arcs[pId].GetComponent<MeshRenderer>().enabled = true;
+                _arcs[pId].GetComponentInChildren<SpriteRenderer>().enabled = true;
+                _arcs[pId].GetComponent<SplineController>().FollowSpline();
 
-            ++_spawnCounter;
-            _spawnTimer = TimeBetweenSpawns;
+                ++_spawnCounter;
+                _spawnTimer = TimeBetweenSpawns;
 
-            _bossData.PlaySpawnSound();
+                _bossData.PlaySpawnSound();
 
-            _platformIds = _platformIds.Where(val => val != pId).ToArray();
+                // remove the platform from the array (since we have spawned here already) ? unneccessary?
+                _platformIds = _platformIds.Where(val => val != pId).ToArray();
+            }
         }
-        catch
+        catch (Exception e)
         {
-            Debug.LogError("Error when trying to spawn enemies in phase2 - state defend");
+            Debug.LogError("Error when trying to spawn enemies in phase2 - state defend \t" + e.Message);
         }
 
     }
@@ -192,13 +198,18 @@ public class BossSubTwoDefend: IBossSubState
     {
         if (EnemiesOnPlatform(pId) < _bossData.MaxEnemiesPerPlatfor) return true;
 
+        // if the amount of enemies on the platform is below the max value then we remove this platform ID from the platform array
         _platformIds = _platformIds.Where(val => val != pId).ToArray();
         return false;
     }
 
     private bool CanSpawn()
     {
-        return _spawnCounter < _bossData.Phase2Spawn && _spawnTimer <= 0.0f && !_spawned && _platformIds.Length > 0;
+        bool condition1 = _spawnTimer <= 0.0f;
+        //bool condition2 = _spawnCounter < _bossData.Phase2Spawn;
+        bool condition3 = !_spawned;
+        //bool condition4 = _platformIds.Length >= 0;
+        return condition1 && condition3;// && condition4;
     }
 
     private bool EnemiesKilled()
