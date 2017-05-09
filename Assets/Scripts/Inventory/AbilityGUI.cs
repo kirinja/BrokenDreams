@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UnityEditor.Animations;
+using UnityEngine;
 
 public class AbilityGUI : MonoBehaviour {
 
@@ -7,6 +8,7 @@ public class AbilityGUI : MonoBehaviour {
     public PlayerAttributes PlayerAttributes;
 
     private int activeSlots;
+    public RuntimeAnimatorController[] animations;
 
 	void Start () {
 		for (var i = 0; i < PlayerAttributes.Abilities.Count; i++)
@@ -20,6 +22,10 @@ public class AbilityGUI : MonoBehaviour {
 	    if (activeSlots >= MaxSlots) return;
         
 	    slots [activeSlots++].gameObject.SetActive (true);
+        // play animation here, have an array of them or something?
+        // think we can get away with an array of animation controllers and then just enable them one after one
+	    GetComponentInParent<Animator>().runtimeAnimatorController = animations[activeSlots - 1];
+	    GetComponentInParent<Animator>().enabled = true;
 	}
 
     public void ShowAbilitiesUsed(bool[] abilities)

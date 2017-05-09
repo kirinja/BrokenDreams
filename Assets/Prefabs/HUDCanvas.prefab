@@ -181,6 +181,7 @@ GameObject:
   - component: {fileID: 114931002120652008}
   - component: {fileID: 225181425075227474}
   - component: {fileID: 114327399516649382}
+  - component: {fileID: 95530064413780092}
   m_Layer: 5
   m_Name: HUDCanvas
   m_TagString: Wall
@@ -308,6 +309,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!95 &95530064413780092
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1343611911571556}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114060994308713646
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -479,6 +497,11 @@ MonoBehaviour:
   - {fileID: 114902988124028506}
   - {fileID: 114556283160435374}
   PlayerAttributes: {fileID: 0}
+  animations:
+  - {fileID: 9100000, guid: 3835c6be9554ad14c8a131ee8236eebf, type: 2}
+  - {fileID: 9100000, guid: 263dd57f713bdcd4a94d4ac506af7a9e, type: 2}
+  - {fileID: 9100000, guid: 378d02eb15c2bb34dbae56302c521534, type: 2}
+  - {fileID: 9100000, guid: 63dedde46333c734784438fe44d79033, type: 2}
 --- !u!114 &114337080433172932
 MonoBehaviour:
   m_ObjectHideFlags: 1

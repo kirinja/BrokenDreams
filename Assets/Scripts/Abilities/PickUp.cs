@@ -24,10 +24,14 @@ public class PickUp : MonoBehaviour {
         {
             GetComponent<Collider>().enabled = false;
             var abb = Resources.Load<Ability>("Abilities\\" + this.name); // Unsafe
+
+            // play a little animation here
+
             other.GetComponentInChildren<PlayerAudio>().PlayPickupSound();
-            other.gameObject.GetComponent<PlayerAttributes>().Abilities.Add(abb);
             Destroy(gameObject, 0.0f);
-			GameObject.Find("HUDCanvas").GetComponent<AbilityGUI>().addAbility();
+
+            other.gameObject.GetComponent<PlayerAttributes>().Abilities.Add(abb);
+            GameObject.Find("HUDCanvas").GetComponent<AbilityGUI>().addAbility();
         }
     }
 }
