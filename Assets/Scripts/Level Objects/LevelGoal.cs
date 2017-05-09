@@ -7,7 +7,6 @@ public class LevelGoal : MonoBehaviour
 {
     public AudioClip goalSound;
 
-
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.P))
@@ -16,10 +15,23 @@ public class LevelGoal : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && ( Input.GetAxisRaw("Vertical") >= 0.5f))
         {
+            //GameManager.Instance.Play(goalSound);
+            //GameManager.Instance.NextLevelToLoad = "Hub";
+            //var doorway = new DoorwayTransition()
+            //{
+            //    nextScene = "LoadingScreen",
+            //    duration = 1.0f,
+            //    perspective = 1.5f,
+            //    depth = 3f,
+            //    runEffectInReverse = true
+            //};
+
+            //TransitionKit.instance.transitionWithDelegate(doorway);
+            
             Activate();
         }
     }

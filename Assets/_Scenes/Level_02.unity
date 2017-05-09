@@ -551,6 +551,72 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 210
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 179.87901}
+--- !u!1 &21459774
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1964276286059542, guid: 95ed8773fad7f0142abc854f380329da,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 21459775}
+  - component: {fileID: 21459778}
+  - component: {fileID: 21459777}
+  - component: {fileID: 21459776}
+  m_Layer: 0
+  m_Name: Door Trigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &21459775
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4257991188157362, guid: 95ed8773fad7f0142abc854f380329da,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 21459774}
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
+  m_LocalPosition: {x: 0, y: 0.21, z: 0}
+  m_LocalScale: {x: 0.2554274, y: 0.38314062, z: 0.5}
+  m_Children: []
+  m_Father: {fileID: 1266746542}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &21459776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 21459774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8539a2a08ba59341978854e82f1a1b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  goalSound: {fileID: 8300000, guid: d3c29efaa6e43d545aea17138f1c57c3, type: 3}
+--- !u!65 &21459777
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 65866097263330412, guid: 95ed8773fad7f0142abc854f380329da,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 21459774}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!33 &21459778
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 33177615019850848, guid: 95ed8773fad7f0142abc854f380329da,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 21459774}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &21861278
 GameObject:
   m_ObjectHideFlags: 0
@@ -6888,7 +6954,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1556611488
+  randomSeed: -1771895600
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -33637,6 +33703,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 37
       objectReference: {fileID: 0}
+    - target: {fileID: 1995031218365028, guid: 71b31f65308281d45a8e16f9fe3b3a74, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 71b31f65308281d45a8e16f9fe3b3a74, type: 2}
   m_IsPrefabParent: 0
@@ -48370,7 +48440,8 @@ Transform:
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
   m_LocalPosition: {x: 0, y: -1.357563, z: 0.41000003}
   m_LocalScale: {x: 7.830014, y: 7.8300233, z: 7.8300233}
-  m_Children: []
+  m_Children:
+  - {fileID: 21459775}
   m_Father: {fileID: 2140231117}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
@@ -57265,7 +57336,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 52868023
+  randomSeed: -1116121639
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -69518,7 +69589,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 484036827
+  randomSeed: 1317583853
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -80558,7 +80629,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1703215450
+  randomSeed: -1665919652
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -83468,7 +83539,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -892874475
+  randomSeed: 1927357129
   InitialModule:
     serializedVersion: 3
     enabled: 1
