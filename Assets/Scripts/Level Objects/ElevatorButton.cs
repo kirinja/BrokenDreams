@@ -42,7 +42,6 @@ public class ElevatorButton : MonoBehaviour {
 
     void OnTriggerStay(Collider other)
     {
-        Debug.Log("test");
         if (other.CompareTag("Player") || other.CompareTag("Movable Object"))
         {
             Active = true;
