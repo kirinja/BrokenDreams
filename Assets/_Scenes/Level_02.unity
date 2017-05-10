@@ -16841,16 +16841,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34bfe55679c730544b005c7c3faed75f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ElevatorWaitTime: 4
-  enemies:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  Feedback1: {fileID: 0}
-  Feedback2: {fileID: 0}
-  Feedback3: {fileID: 1865475353}
-  Feedback4: {fileID: 391006138}
+  ElevatorWaitTime: 2
+  buttons:
+  - {fileID: 1313511683}
+  - {fileID: 2112861102}
 --- !u!95 &341858627
 Animator:
   serializedVersion: 3
@@ -52386,6 +52380,25 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d08a2b92f8bb61b418d3f84ef8f1d7bc, type: 3}
   m_IsPrefabParent: 0
+--- !u!1 &1313511683 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1405114623049052, guid: 77b161c82edbddf4f91adb3106f6e09c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1680189344}
+--- !u!114 &1313511684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1313511683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc62744781cc0fb4c9d6fc739e329368, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Active: 0
+  Feedback: {fileID: 391006138}
+  OtherButton: {fileID: 2112861102}
 --- !u!1 &1316632930
 GameObject:
   m_ObjectHideFlags: 0
@@ -62706,11 +62719,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4393096243718074, guid: de333fd6865a1924abd6495a01270364, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 2.83
+      value: 307.1
       objectReference: {fileID: 0}
     - target: {fileID: 4393096243718074, guid: de333fd6865a1924abd6495a01270364, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.96
+      value: 11.97
       objectReference: {fileID: 0}
     - target: {fileID: 4393096243718074, guid: de333fd6865a1924abd6495a01270364, type: 2}
       propertyPath: m_LocalPosition.z
@@ -64050,6 +64063,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 65484105407553636, guid: 77b161c82edbddf4f91adb3106f6e09c,
+        type: 2}
+      propertyPath: m_Size.z
+      value: 0.09
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 77b161c82edbddf4f91adb3106f6e09c, type: 2}
   m_IsPrefabParent: 0
@@ -65347,6 +65365,11 @@ Prefab:
     - target: {fileID: 1405114623049052, guid: 77b161c82edbddf4f91adb3106f6e09c, type: 2}
       propertyPath: m_Name
       value: Button (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 65484105407553636, guid: 77b161c82edbddf4f91adb3106f6e09c,
+        type: 2}
+      propertyPath: m_Size.z
+      value: 0.08
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 77b161c82edbddf4f91adb3106f6e09c, type: 2}
@@ -68945,7 +68968,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4777583869209018, guid: 7976ea1f1cd6f414db2da929e380cb90, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 79.39
+      value: 77.37
       objectReference: {fileID: 0}
     - target: {fileID: 4777583869209018, guid: 7976ea1f1cd6f414db2da929e380cb90, type: 2}
       propertyPath: m_LocalPosition.y
@@ -80161,6 +80184,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 283
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2112861102 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1405114623049052, guid: 77b161c82edbddf4f91adb3106f6e09c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1743532736}
+--- !u!114 &2112861103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2112861102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc62744781cc0fb4c9d6fc739e329368, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Active: 0
+  Feedback: {fileID: 1865475353}
+  OtherButton: {fileID: 1313511683}
 --- !u!1 &2113024273
 GameObject:
   m_ObjectHideFlags: 0
