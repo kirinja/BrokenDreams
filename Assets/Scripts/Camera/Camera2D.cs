@@ -20,6 +20,8 @@ public class Camera2D : MonoBehaviour
     private bool _prevFacingLeft;
 
     private float _origOffsetX;
+
+    private float smoothTemp;
     
 	// Use this for initialization
 	void Start ()
@@ -50,6 +52,8 @@ public class Camera2D : MonoBehaviour
 
         if (!_cameraFocusArea.ContainsX(_targetFocusArea))
         {
+            // try to place player in the center of the camera focus area instead of just moving it along the player
+
             FollowTargetX();
 
             CalculateDirection();
@@ -99,7 +103,8 @@ public class Camera2D : MonoBehaviour
 
     void CalculateOffset()
     {
-        Offset.x = Mathf.SmoothStep(Offset.x, _newOffsetX, Time.deltaTime* SmoothFactor);
+        //Offset.x = Mathf.SmoothStep(Offset.x, _newOffsetX, Time.deltaTime* SmoothFactor);
+        Offset.x = Mathf.SmoothDamp(Offset.x, _newOffsetX, ref smoothTemp, SmoothFactor);
         
         if (Mathf.Abs(Offset.x - _newOffsetX) < 0.1f)
             Offset.x = _newOffsetX;
@@ -107,10 +112,17 @@ public class Camera2D : MonoBehaviour
 
     void FollowTargetX()
     {
+        // there is a slight jitter here, might be the offset values
         if (_targetFocusArea.Left <= _cameraFocusArea.Left) // LEFT
-            transform.position = new Vector3(_targetFocusArea.Left - Offset.x + _cameraFocusArea.Width / 2, transform.position.y, Offset.z);
+        {
+            transform.position = new Vector3(_targetFocusArea.Left - Offset.x + _cameraFocusArea.Width / 2,
+                transform.position.y, Offset.z);
+        }
         else if (_targetFocusArea.Right >= _cameraFocusArea.Right) // RIGHT
-            transform.position = new Vector3(_targetFocusArea.Right - Offset.x - _cameraFocusArea.Width / 2, transform.position.y, Offset.z);
+        {
+            transform.position = new Vector3(_targetFocusArea.Right - Offset.x - _cameraFocusArea.Width / 2,
+                transform.position.y, Offset.z);
+        }
     }
 
     void FollowTargetY()

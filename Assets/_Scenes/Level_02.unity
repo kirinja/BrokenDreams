@@ -44740,6 +44740,7 @@ GameObject:
   - component: {fileID: 1170238730}
   - component: {fileID: 1170238732}
   - component: {fileID: 1170238731}
+  - component: {fileID: 1170238733}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -44822,7 +44823,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1170238724}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3c74bca25725aff4f9eb89556e74ef4b, type: 3}
   m_Name: 
@@ -44874,6 +44875,23 @@ MonoBehaviour:
   blurIterations: 1
   blurType: 0
   fastBloomShader: {fileID: 4800000, guid: 68a00c837b82e4c6d92e7da765dc5f1d, type: 3}
+--- !u!114 &1170238733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1170238724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a5552be3180e2444b101b3a193b0f44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 1635038475}
+  verticalOffset: 0
+  lookAheadDstX: 2
+  lookSmoothTimeX: 1
+  verticalSmoothTime: 0
+  focusAreaSize: {x: 2.5, y: 2.5}
 --- !u!1 &1171036484
 GameObject:
   m_ObjectHideFlags: 0
@@ -65128,6 +65146,11 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: de333fd6865a1924abd6495a01270364, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1635038475 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1113272165826444, guid: de333fd6865a1924abd6495a01270364,
+    type: 2}
+  m_PrefabInternal: {fileID: 1635038474}
 --- !u!1 &1636359190
 GameObject:
   m_ObjectHideFlags: 0

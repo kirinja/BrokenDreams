@@ -67,7 +67,10 @@ public class BossSubTwoDefend: IBossSubState
         // if we can get rid of the _spawned check here then we can use this line of code
         // sometimes the boss only spawns 1 or 2 enemies instead of the full 3, so the _spawned is never set to true and we can never progress
         // unsure what triggers this though since I can't seem to recreate it reliably
-        if (_spawned && EnemiesKilled())
+        // changed it to check if the the spawnCounter is above 0, so the boss at least spawned 1 enemy 
+        // (if the boss cant spawn any enemies at all then we have more problems)
+        // this opens up for a bug where the player can kill the first spawning enemy quickly and skip the boss spawning the rest
+        if (_spawnCounter > 0 && EnemiesKilled())
         {
             return new BossSubTwoAttack();
         }
