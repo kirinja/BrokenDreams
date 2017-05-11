@@ -3,8 +3,11 @@
 public class PlayerHitbox : MonoBehaviour
 {
     private Timer _hitboxTimer;
-    public float AttackRadius = 1f;
+    public float Width = 1f;
+    public float Height = 0.8f;
     public float LastingTime = 0.3f;
+
+    private readonly float depth = 1f;
 
 
     // Use this for initialization
@@ -23,8 +26,7 @@ public class PlayerHitbox : MonoBehaviour
         }
         else
         {
-            var hits =
-                Physics.OverlapSphere(transform.position, AttackRadius);
+            var hits = Physics.OverlapBox(transform.position, new Vector3(Width, Height, depth));
 
             foreach (var gameObject in hits)
             {
@@ -39,6 +41,6 @@ public class PlayerHitbox : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = new Color(1f, 0f, 0f, 0.5f);
-        Gizmos.DrawSphere(transform.position, AttackRadius);
+        Gizmos.DrawCube(transform.position, new Vector3(Width, Height, depth));
     }
 }

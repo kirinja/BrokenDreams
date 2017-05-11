@@ -3,7 +3,7 @@
 [CreateAssetMenu(menuName = "Abilities/Attack")]
 class AttackAbility : Ability
 {
-    public float AttackRadius;
+    public float AttackRange = 1f;
 
     public GameObject HitboxPrefab;
 
@@ -20,7 +20,7 @@ class AttackAbility : Ability
 
         var baseOffset = new Vector3(0f, 0.4f, 0f);
         var upwards = controller.MovementInput.y > 0.5f;
-        var offset = (upwards ? new Vector3(0f, AttackRadius, 0f) : new Vector3(AttackRadius * controller.Forward.x, 0f, 0f)) + baseOffset;
+        var offset = (upwards ? new Vector3(0f, AttackRange / 2f, 0f) : new Vector3((AttackRange / 2f) * controller.Forward.normalized.x, 0f, 0f)) + baseOffset;
 
         var particle = controller.transform.Find("Hit");
         particle.localEulerAngles = new Vector3(upwards ? -45f : 0f, 0f, 0f);
@@ -31,23 +31,10 @@ class AttackAbility : Ability
 
         var hitbox = Instantiate(HitboxPrefab,
             controller.transform.position + offset, Quaternion.identity);
-        hitbox.transform.localScale = Vector3.one * AttackRadius * 2;
+        hitbox.GetComponent<PlayerHitbox>().Width = upwards ? 0.8f : AttackRange;
+        hitbox.GetComponent<PlayerHitbox>().Height = upwards ? AttackRange : 0.8f;
+        hitbox.transform.localScale = Vector3.one * AttackRange * 2;
         hitbox.transform.SetParent(controller.transform);
-
-        /*var hits =
-            Physics.OverlapSphere(
-                controller.transform.position + offset, AttackRadius);
-
-        
-
-        foreach (var gameObject in hits)
-        {
-            var hitObject = gameObject.GetComponent<Attackable>();
-            if (hitObject)
-            {
-                hitObject.Damage();
-            }
-        }/**/
 
         return new CharacterStateSwitch3D();
     }

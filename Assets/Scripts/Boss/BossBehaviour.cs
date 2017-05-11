@@ -84,12 +84,8 @@ public class BossBehaviour : MonoBehaviour
     private float _invincibleTimer;
     public float InvincibleTime = 1.0f;
     private bool _visible;
-    private bool _shouldZoom;
 
-    private Timer _playerPoseTimer;
-
-    public GameObject CreditsPrefab;
-
+    public GameObject CreditsPortal;
 	// Use this for initialization
 	void Start () {
 		BossState = new BossPhaseOne();
@@ -121,28 +117,6 @@ public class BossBehaviour : MonoBehaviour
 	    }
 	    if (BossState == null)
 	    {
-	        if (_shouldZoom)
-	        {
-	            //// lerp the camera
-	            var camera2D = Camera.main;
-	            //camera2D.Offset = new Vector3(0, 0, -10.0f);
-	            //camera2D.transform.position = Vector3.Lerp(camera2D.transform.position, new Vector3(camera2D.transform.position.x, camera2D.transform.position.y, -10.0f), 0.05f);
-	            var player = GameObject.FindGameObjectWithTag("Player");
-	            camera2D.transform.position = Vector3.Lerp(camera2D.transform.position,
-	                new Vector3(player.transform.position.x + 1.0f, player.transform.position.y + 0.5f, -10.0f), 0.03f);
-
-	            if (Math.Abs(camera2D.transform.position.z - (-10.0f)) < 0.5f)
-	            {
-                    BossPhase3.SetActive(false);
-                }
-
-                // Animation things
-                if (_playerPoseTimer.Update(Time.deltaTime))
-                {
-                    player.GetComponent<Animator>().SetTrigger("NextPose");
-                    _playerPoseTimer.ResetToSurplus();
-                }
-            }
 	    }
         else
             NextState();
@@ -207,13 +181,12 @@ public class BossBehaviour : MonoBehaviour
         BossState.Exit();
         BossState = null;
 
-        StartCoroutine("ShouldZoomIn");
+        StartCoroutine("SpawnPortal");
         
-
         return true;
     }
 
-    private IEnumerator ShouldZoomIn()
+    private IEnumerator SpawnPortal()
     {
         BossPhase3.GetComponent<SplineInterpolator>().enabled = false;
 
@@ -222,70 +195,11 @@ public class BossBehaviour : MonoBehaviour
             r.isKinematic = false;
 
         yield return new WaitForSeconds(1.5f);
-        StartCoroutine("BossDeafeatedCutscene");
-        _shouldZoom = true;
+
+        CreditsPortal.SetActive(true);
+
     }
-
-    private IEnumerator BossDeafeatedCutscene()
-    {
-        // disable player inputs
-        var player = GameObject.FindGameObjectWithTag("Player");
-        player.GetComponent<Controller3D>().enabled = false;
-        // make sure player is visible
-        var renders = player.GetComponentsInChildren<Renderer>();
-        foreach (Renderer r in renders)
-            r.enabled = true;
-        var hud = GameObject.Find("HUDCanvas");
-        hud.SetActive(false);
-
-        var camera2D = Camera.main.GetComponent<Camera2D>();
-        camera2D.Offset = new Vector3(0, 0, 0);
-        camera2D.enabled = false;
-
-        // rotate player towards camera
-        player.transform.LookAt(Camera.main.transform);
-
-        // QUERY GETS HER HAT BACK
-        var sd = player.transform.FindChild("SD_QUERY_01");
-        sd.transform.FindChild("hat_defo").gameObject.SetActive(true);
-
-        // disable all audiosource
-        //var allAudioSources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
-        //foreach (AudioSource audioS in allAudioSources)
-        //{
-        //    audioS.Stop();
-        //}
-
-        // start music
-        // instantiate a canvas object that shows credits and plays music
-        // have waitforseconds be equal to the song time
-        // mute every other sound in the scene
-        var go = Instantiate(CreditsPrefab);
-        var time = go.GetComponent<MusicPlayer>().MusicClip.length;
-
-        player.GetComponent<Animator>().SetTrigger("StartPose");
-        var poseTime = 5f; // How long each pose will take
-        _playerPoseTimer = new Timer(poseTime);
-
-        yield return new WaitForSeconds(time - 1.5f); // HACK
-
-
-        var gameManager = GameManager.Instance;
-        gameManager.BeatLevel(SceneManager.GetActiveScene().name);
-        gameManager.SaveToMemory();
-        gameManager.SaveToFiles();
-
-
-        var fishEye = new FishEyeTransition()
-        {
-            nextScene = "Start",
-            duration = 5.0f,
-            size = 0.2f,
-            zoom = 100.0f,
-            colorSeparation = 0.1f
-        };
-        TransitionKit.instance.transitionWithDelegate(fishEye);
-    }
+    
 
     public void PlayIdleSound()
     {
