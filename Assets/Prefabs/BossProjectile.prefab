@@ -276,6 +276,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ada0b236e0ca1143bf9428a5a62e8a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HitPrefab: {fileID: 1845655146902982, guid: 30e5beb9658310042bc6c20dd7d84aa2, type: 2}
   ProjectileSpeed: 10
   ProjectileLifeTime: 10
 --- !u!114 &114694685007640904

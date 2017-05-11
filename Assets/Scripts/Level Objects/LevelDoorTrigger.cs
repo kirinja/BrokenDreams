@@ -6,12 +6,16 @@ public class LevelDoorTrigger : MonoBehaviour
     public string Scene;
     public bool RequiresInput = true;
     public AudioClip enterSound;
-    
+
+    private bool activated;
 
     private void OnTriggerStay(Collider other)
     {
+        if (activated || GameManager.Instance.Paused) return;
+
         if (other.CompareTag("Player") && (!RequiresInput || Input.GetAxisRaw("Vertical") >= 0.5f) && GameManager.Instance.LevelAvailable(Scene))
         {
+            activated = true;
             //var fishEye = new FishEyeTransition()
             //{
             //    nextScene = Scene,
