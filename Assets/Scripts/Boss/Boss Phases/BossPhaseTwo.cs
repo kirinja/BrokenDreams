@@ -21,6 +21,8 @@ public class BossPhaseTwo : IBossPhaseState
 
     public IBossPhaseState Execute()
     {
+        //Debug.Log(_internalState.ToString());
+
         var state = _internalState.Execute();
         
         // switch internal state if needed

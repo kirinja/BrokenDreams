@@ -26,10 +26,11 @@ public class SplineInterpolator : MonoBehaviour
 	bool mRotations;
 
 	OnEndCallback mOnEndCallback;
+    public bool Active;
 
 
 
-	void Awake()
+    void Awake()
 	{
 		Reset();
 	}
@@ -42,6 +43,8 @@ public class SplineInterpolator : MonoBehaviour
 		mState = mode == eWrapMode.ONCE ? "Once" : "Loop";
 		mRotations = bRotations;
 		mOnEndCallback = endCallback;
+
+	    Active = true;
 
 		SetInput();
 	}
@@ -152,6 +155,7 @@ public class SplineInterpolator : MonoBehaviour
 				if (mState != "Loop")
 				{
 					mState = "Stopped";
+				    Active = false;
 
 					// We stop right in the end point
 					transform.position = mNodes[mNodes.Count - 2].Point;

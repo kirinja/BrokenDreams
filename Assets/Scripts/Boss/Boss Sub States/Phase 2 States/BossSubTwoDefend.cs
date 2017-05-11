@@ -63,6 +63,10 @@ public class BossSubTwoDefend: IBossSubState
     public IBossSubState Execute()
     {
         HideHead();
+        
+
+        // here we need to add so we cant flood the scene
+        Spawn();
 
         // if we can get rid of the _spawned check here then we can use this line of code
         // sometimes the boss only spawns 1 or 2 enemies instead of the full 3, so the _spawned is never set to true and we can never progress
@@ -75,16 +79,14 @@ public class BossSubTwoDefend: IBossSubState
             return new BossSubTwoAttack();
         }
 
-        // here we need to add so we cant flood the scene
-        Spawn();
-
         // give up on trying to spawn (possibly move out)
-        
+
 
         if (CanPlayIdleSound())
             PlayIdleSound();
 
         UpdateTimers();
+
 
         if (!(_timer <= 0.0f)) return null;
         
@@ -220,6 +222,15 @@ public class BossSubTwoDefend: IBossSubState
         //Enemy02(Clone)
         var enemies = GameObject.FindObjectsOfType<Enemy02behaviour3D>();
 
-        return enemies.Length <= 0;
+        List<bool> activeSpawns = new List<bool>();
+        foreach (GameObject go in _arcs)
+        {
+            if (go.GetComponent<SplineInterpolator>().Active)
+                activeSpawns.Add(true);
+        }
+
+        //Debug.Log("Amount of enemies " + enemies.Length + "\t Amount of spawning enemies " +  activeSpawns.Count);
+
+        return enemies.Length <= 0 && activeSpawns.Count <= 0;
     }
 }

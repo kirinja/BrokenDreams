@@ -15,8 +15,7 @@ public class SplineController : MonoBehaviour
 	public bool AutoStart = true;
 	public bool AutoClose = true;
 	public bool HideOnExecute = true;
-
-
+    
 	SplineInterpolator mSplineInterp;
 	Transform[] mTransforms;
 
@@ -53,8 +52,10 @@ public class SplineController : MonoBehaviour
 		if (HideOnExecute)
 			DisableTransforms();
 
-		if (AutoStart)
-			FollowSpline();
+	    if (AutoStart)
+	    {
+	        FollowSpline();
+	    }
 	}
 
 	void SetupSplineInterpolator(SplineInterpolator interp, Transform[] trans)
