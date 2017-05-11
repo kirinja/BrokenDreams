@@ -45,7 +45,7 @@ public class Enemy02behaviour3D : Enemy
     private float _invincibleTimer = 0.0f;
     private float InvincibleTime = 0.45f;
     private Rigidbody _rigidbody;
-
+    private ParticleSystem _particleCharger;
 
     // Use this for initialization
     void Start()
@@ -73,6 +73,8 @@ public class Enemy02behaviour3D : Enemy
         _rigidbody = GetComponent<Rigidbody>();
 
         _projOrigX = ProjectileFirePosition.transform.localPosition.x;
+        _particleCharger = ProjectileFirePosition.GetComponentInChildren<ParticleSystem>();
+        _particleCharger.Stop();
 
         // child this object to the ground it's standing on (this so with moving platforms the object moves consitently on it)
         SetGround();
@@ -109,6 +111,8 @@ public class Enemy02behaviour3D : Enemy
             // then disable the laser sight, attack and reset the timers
             if (target && timeSinceAttack >= _internalAttackCd && state.getCanShoot()) //Checks if you can shoot
             {
+                _particleCharger.Stop();
+                _particleCharger.Clear();
                 _source2.Stop();
                 Attack();
                 resetTime();
@@ -118,6 +122,7 @@ public class Enemy02behaviour3D : Enemy
                 // if we cant fire then enable the laser focus and count up the cooldowns
                 if (target && _cooldownTimer >= _shootCooldown)
                 {
+                    _particleCharger.Play();
                     _laserFocus.enabled = true;
                     // if we have a target then do stuff
                     _laserFocus.SetPosition(0, ProjectileFirePosition.transform.position);
@@ -131,6 +136,8 @@ public class Enemy02behaviour3D : Enemy
                 }
                 else
                 {
+                    _particleCharger.Stop();
+                    _particleCharger.Clear();
                     _laserFocus.enabled = false;
                     _source2.Stop();
                 }
@@ -240,6 +247,8 @@ public class Enemy02behaviour3D : Enemy
     private void Defeat()
     {
         StartCoroutine("deathTime");
+        _particleCharger.Stop();
+        _particleCharger.Clear();
         _source2.Stop();
         if (Drop == null)
         {

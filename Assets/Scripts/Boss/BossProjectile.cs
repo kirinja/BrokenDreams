@@ -40,7 +40,7 @@ public class BossProjectile : MonoBehaviour
     {
         if (other.CompareTag("Player") || other.CompareTag("Wall"))
         {
-            Instantiate(HitPrefab);
+            Instantiate(HitPrefab, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }
