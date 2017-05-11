@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Name: Attack
   m_EditorClassIdentifier: 
   Cooldown: 0.5
-  AttackRadius: 1
+  AttackRange: 2
   HitboxPrefab: {fileID: 1297490366620570, guid: ed9bdb6bb7177b34dbd2dfb2f6b02571,
     type: 2}
