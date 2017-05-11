@@ -433,6 +433,11 @@ public class GameManager : MonoBehaviour
         if (_clearedLevelFirstTime)
         {
             StartCoroutine(RunHubAnimations());
+            StartCoroutine(PausePlayer(3f));
+        }
+        else
+        {
+            StartCoroutine(PausePlayer(1f));
         }
 
         switch (_previousLevelName)
@@ -458,6 +463,16 @@ public class GameManager : MonoBehaviour
     }
 
 
+    private IEnumerator PausePlayer(float time)
+    {
+        SoftPause();
+        yield return new WaitForSeconds(time);
+
+        Paused = false;
+
+    }
+
+
     private IEnumerator RunHubAnimations()
     {
         switch (_previousLevelName)
@@ -472,9 +487,8 @@ public class GameManager : MonoBehaviour
                     false;
                 GameObject.Find("Hub Door 2").transform.Find("Portal").GetComponent<HubPortal>().Hide();
 
-                SoftPause();
 
-                yield return new WaitForSeconds(1f);
+                    yield return new WaitForSeconds(1f);
 
                 GameObject.Find("Hub Door 1").transform.Find("Portal").GetComponent<HubPortal>().Done =
                     true;
@@ -483,8 +497,6 @@ public class GameManager : MonoBehaviour
 
                 GameObject.Find("Hub Door 2").transform.Find("Portal").gameObject.SetActive(true);
                     GameObject.Find("Hub Door 2").transform.Find("Portal").GetComponent<HubPortal>().ShouldAppear = true;
-
-                Paused = false;
 
                 break;
             }
@@ -496,11 +508,7 @@ public class GameManager : MonoBehaviour
                     false;
                 GameObject.Find("Boss Trapdoor").GetComponent<BossDoor>().ShouldInitialize = false;
 
-                    SoftPause();
-
                 yield return new WaitForSeconds(1f);
-
-                Paused = false;
 
                 GameObject.Find("Hub Door 2").transform.Find("Portal").GetComponent<HubPortal>().Done =
                     true;

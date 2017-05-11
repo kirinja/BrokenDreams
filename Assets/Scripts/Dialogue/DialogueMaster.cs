@@ -107,7 +107,7 @@ public class DialogueMaster : MonoBehaviour {
     public IEnumerator run()
     {
         var gm = GameManager.Instance;
-        gm.Paused = true;
+        gm.SoftPause();
         int nodeID = 0;
         window.SetActive(true);
         
@@ -172,6 +172,7 @@ public class DialogueMaster : MonoBehaviour {
                     break;
             }
         }
+        EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(option01);
     }
 
