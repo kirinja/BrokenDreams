@@ -19,7 +19,7 @@ public class CreditsAutoScroller : MonoBehaviour
 	    var endY = Mathf.Abs(EndOfCreditsObject.transform.localPosition.y);
 	    var curY = transform.localPosition.y;
         //Debug.Log(endY + "\t" + curY + "\t" + (Mathf.Abs(endY - curY))); 
-	    if (Mathf.Abs(endY - curY) <= 10.0f)
+	    if (Mathf.Abs((endY) - curY) <= 10.0f)
 	    {
             // GOOD EMPTY BLOCK
 	    }

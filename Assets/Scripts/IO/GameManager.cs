@@ -186,6 +186,8 @@ public class GameManager : MonoBehaviour
             case "Boss_01":
                 return LevelCleared("Level_01") &&
                        LevelCleared("Level_02");
+            case "Credits":
+                return true;
             default:
                 return false;
         }
