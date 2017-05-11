@@ -69,7 +69,7 @@ public class LoadScene : MonoBehaviour
     IEnumerator LoadLevelAsync(string name)
     {
         _loading = true;
-        //yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(1.5f);
 
         yield return null;
         
@@ -81,13 +81,13 @@ public class LoadScene : MonoBehaviour
         {
             // [0, 0.9] > [0, 1]
             float progress = Mathf.Clamp01(async.progress / 0.9f);
-            Debug.Log("Loading progress: " + (progress * 100) + "%");
+            //Debug.Log("Loading progress: " + (progress * 100) + "%");
             LoadingText.color = new Color(LoadingText.color.r, LoadingText.color.g, LoadingText.color.b, Mathf.PingPong(Time.time, 1));
 
             // Loading completed
             if (Math.Abs(async.progress - 0.9f) < 0.01f)
             {
-                Debug.Log("Press a key to start");
+                //Debug.Log("Press a key to start");
                 //if (Input.anyKey)
                     async.allowSceneActivation = true;
             }
