@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BossProjectile : MonoBehaviour
 {
-
+    public GameObject HitPrefab;
     private Vector3 _target;
     public float ProjectileSpeed = 5.0f;
     private Rigidbody _rbody;
@@ -38,7 +38,10 @@ public class BossProjectile : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.CompareTag("Wall"))
+        {
+            Instantiate(HitPrefab, transform.position, Quaternion.identity);
             Destroy(gameObject);
+        }
     }
 }

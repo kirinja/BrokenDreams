@@ -192,7 +192,7 @@ public class Enemy02behaviour3D : Enemy
         bool foundPlayer = false;
         for (int v = 0; v < col.Length; v++)
         {
-            Debug.DrawLine(ProjectileFirePosition.transform.position, col[i].transform.position, Color.green);
+            //Debug.DrawLine(ProjectileFirePosition.transform.position, col[i].transform.position, Color.green);
             if (col[v].CompareTag("Player") && 
                 !Physics.Linecast(
                     ProjectileFirePosition.transform.position,
@@ -200,7 +200,7 @@ public class Enemy02behaviour3D : Enemy
                 out hit,
                 LineOfSightMask)) // HACK
             {
-                Debug.DrawLine(ProjectileFirePosition.transform.position, col[i].transform.position + new Vector3(0, col[i].transform.localScale.y / 2, 0), Color.red);
+                //Debug.DrawLine(ProjectileFirePosition.transform.position, col[i].transform.position + new Vector3(0, col[i].transform.localScale.y / 2, 0), Color.red);
                 if (!src.isPlaying && target == null)
                 {
                     int index = Random.Range(0, aggroClips.Length);

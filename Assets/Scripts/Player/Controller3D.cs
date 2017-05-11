@@ -116,11 +116,18 @@ public class Controller3D : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.Instance.Paused) return;
+        if (!GameManager.Instance.Paused)
+        {
 
-        MovementInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+            MovementInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
-        UseAbilities();
+            UseAbilities();
+        }
+        else
+        {
+            MovementInput = Vector2.zero;
+        }
+
         _characterState.Update();
 
         UpdateInvincibility();
@@ -132,15 +139,12 @@ public class Controller3D : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (GameManager.Instance.Paused) return;
-
         _characterState.LateUpdate();
     }
 
 
     private void FixedUpdate()
     {
-        if (GameManager.Instance.Paused) return;
 
         _characterState.FixedUpdate();
         HandleCollisions(Move());

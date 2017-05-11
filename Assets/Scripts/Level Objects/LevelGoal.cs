@@ -7,6 +7,8 @@ public class LevelGoal : MonoBehaviour
 {
     public AudioClip goalSound;
 
+    private bool activated;
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.P))
@@ -26,6 +28,9 @@ public class LevelGoal : MonoBehaviour
 
     private void Activate()
     {
+        if (activated) return;
+
+        activated = true;
         var gameManager = GameManager.Instance;
         var firstTime = gameManager.BeatLevel(SceneManager.GetActiveScene().name);
         gameManager.SaveToMemory();
