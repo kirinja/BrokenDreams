@@ -52407,6 +52407,26 @@ Prefab:
       propertyPath: randomSeed
       value: -1032099851
       objectReference: {fileID: 0}
+    - target: {fileID: 65959830201678546, guid: be7d20e1ff0c3e94db610d47d8077712,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 30.084682
+      objectReference: {fileID: 0}
+    - target: {fileID: 65959830201678546, guid: be7d20e1ff0c3e94db610d47d8077712,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 35.775684
+      objectReference: {fileID: 0}
+    - target: {fileID: 65959830201678546, guid: be7d20e1ff0c3e94db610d47d8077712,
+        type: 2}
+      propertyPath: m_Center.x
+      value: 0.49247077
+      objectReference: {fileID: 0}
+    - target: {fileID: 65959830201678546, guid: be7d20e1ff0c3e94db610d47d8077712,
+        type: 2}
+      propertyPath: m_Center.y
+      value: 11.887762
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: be7d20e1ff0c3e94db610d47d8077712, type: 2}
   m_IsPrefabParent: 0
