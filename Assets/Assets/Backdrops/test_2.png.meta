@@ -1,9 +1,13 @@
 fileFormatVersion: 2
-guid: 413d10e96c229d1438e8072b394f707f
-timeCreated: 1494264240
+guid: e58b8dc56a9b4784d8a53f75b19f94e9
+timeCreated: 1494444109
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: test_2_0
+    21300002: test_2_2
+    21300004: test_2_3
+    21300006: test_2_4
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -34,7 +38,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -84,7 +88,59 @@ TextureImporter:
     overridden: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: test_2_0
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 1057
+        width: 835
+        height: 956
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: test_2_2
+      rect:
+        serializedVersion: 2
+        x: 1000
+        y: 1072
+        width: 840
+        height: 932
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: test_2_3
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 15
+        width: 836
+        height: 993
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: test_2_4
+      rect:
+        serializedVersion: 2
+        x: 902
+        y: 10
+        width: 841
+        height: 1022
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
     outline: []
   spritePackingTag: 
   userData: 
