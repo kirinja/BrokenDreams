@@ -2568,7 +2568,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 15bd6cab88ad121499f9ad712777e484, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7e2e69045fd8ed14186c0457489be994, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -2660,7 +2660,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 15bd6cab88ad121499f9ad712777e484, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7e2e69045fd8ed14186c0457489be994, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -3157,7 +3157,7 @@ GameObject:
   - component: {fileID: 501294929}
   - component: {fileID: 501294928}
   - component: {fileID: 501294931}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Cube (bot left)
   m_TagString: Platform
   m_Icon: {fileID: 0}
@@ -4568,7 +4568,7 @@ GameObject:
   - component: {fileID: 665646513}
   - component: {fileID: 665646512}
   - component: {fileID: 665646515}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Cube (mid left)
   m_TagString: Platform
   m_Icon: {fileID: 0}
@@ -9628,7 +9628,7 @@ GameObject:
   - component: {fileID: 1500095368}
   - component: {fileID: 1500095367}
   - component: {fileID: 1500095370}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Cube (top left)
   m_TagString: Platform
   m_Icon: {fileID: 0}
@@ -10480,7 +10480,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 15bd6cab88ad121499f9ad712777e484, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7e2e69045fd8ed14186c0457489be994, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -11242,7 +11242,7 @@ GameObject:
   - component: {fileID: 1651956649}
   - component: {fileID: 1651956648}
   - component: {fileID: 1651956647}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Cube (right)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13502,7 +13502,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 15bd6cab88ad121499f9ad712777e484, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7e2e69045fd8ed14186c0457489be994, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0

@@ -121,6 +121,8 @@ public class GameManager : MonoBehaviour
             if (!Paused)
             {
                 if (SceneManager.GetActiveScene().name.Equals("Start")) return;
+                if (SceneManager.GetActiveScene().name.Equals("LoadingScreen")) return;
+                if (SceneManager.GetActiveScene().name.Equals("Credits")) return;
                 GetComponent<MenuHandler>().ShowPauseMenu();
             }
             else
