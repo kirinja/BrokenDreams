@@ -132,14 +132,25 @@ public class GameManager : MonoBehaviour
         DeleteSaveFile();
         //SceneManager.LoadScene("Hub");
         NextLevelToLoad = "Hub";
-        var mask = new ImageMaskTransition()
+        
+        var doorway = new DoorwayTransition()
         {
-            maskTexture = MaskTexture,
-            backgroundColor = Color.black,
+            nextScene = "LoadingScreen",
             duration = 1.0f,
-            nextScene = "LoadingScreen"
+            perspective = 1.5f,
+            depth = 3f,
+            runEffectInReverse = false
         };
-        TransitionKit.instance.transitionWithDelegate(mask);
+        TransitionKit.instance.transitionWithDelegate(doorway);
+
+        //var mask = new ImageMaskTransition()
+        //{
+        //    maskTexture = MaskTexture,
+        //    backgroundColor = Color.black,
+        //    duration = 1.0f,
+        //    nextScene = "LoadingScreen"
+        //};
+        //TransitionKit.instance.transitionWithDelegate(mask);
 
         //SceneManager.LoadScene("Hub");
     }
@@ -150,14 +161,24 @@ public class GameManager : MonoBehaviour
         // belive we can just move to hub right away and the manager will try to load data if there is any
         //SceneManager.LoadScene("Hub");
         NextLevelToLoad = "Hub";
-        var mask = new ImageMaskTransition()
+        //var mask = new ImageMaskTransition()
+        //{
+        //    maskTexture = MaskTexture,
+        //    backgroundColor = Color.black,
+        //    duration = 1.0f,
+        //    nextScene = "LoadingScreen"
+        //};
+        //TransitionKit.instance.transitionWithDelegate(mask);
+
+        var doorway = new DoorwayTransition()
         {
-            maskTexture = MaskTexture,
-            backgroundColor = Color.black,
+            nextScene = "LoadingScreen",
             duration = 1.0f,
-            nextScene = "LoadingScreen"
+            perspective = 1.5f,
+            depth = 3f,
+            runEffectInReverse = false
         };
-        TransitionKit.instance.transitionWithDelegate(mask);
+        TransitionKit.instance.transitionWithDelegate(doorway);
     }
 
 

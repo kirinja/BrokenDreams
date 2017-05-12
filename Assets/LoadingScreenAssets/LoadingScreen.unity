@@ -316,7 +316,7 @@ AudioListener:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1863709603}
-  m_Enabled: 0
+  m_Enabled: 1
 --- !u!20 &1863709607
 Camera:
   m_ObjectHideFlags: 0
