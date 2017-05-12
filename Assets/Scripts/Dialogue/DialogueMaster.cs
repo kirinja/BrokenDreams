@@ -121,11 +121,14 @@ public class DialogueMaster : MonoBehaviour {
                 yield return StartCoroutine(WaitForRealSeconds(0.25f));
             }
             nodeID = selectedOption;
-            if (nodeID == 2)
+            if (nodeID == 4)
             {
-                spawnHealth(); // TODO spawn health potions instead
-                optionIdUpdate(dialogue.DialogueNodeList[1].Options[2], 3);
-                optionIdUpdate(dialogue.DialogueNodeList[0].Options[2], 3);
+                //spawnHealth(); // TODO spawn health potions instead
+                GameObject.FindGameObjectWithTag("Player")
+                    .GetComponent<Controller3D>()
+                    .AttackPlayer(transform.position, 1);
+                //optionIdUpdate(dialogue.DialogueNodeList[1].Options[2], 3);
+                //optionIdUpdate(dialogue.DialogueNodeList[0].Options[2], 3);
             }
 
         }
