@@ -57,3 +57,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: ScreenCover
+    uniqueID: 1506688261
+    locked: 0
