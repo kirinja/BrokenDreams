@@ -26,8 +26,13 @@ class PushAbility : Ability
 
 		controller.Animator.SetTrigger("Push");
 
-		controller.transform.Find("Push").Find("SpeedLines").GetComponent<ParticleSystem>().Play();
-		controller.transform.Find("Push").Find("Magic").GetComponent<ParticleSystem>().Play();
+		//controller.transform.Find("Push").Find("SpeedLines").GetComponent<ParticleSystem>().Play();
+		//controller.transform.Find("Push").Find("Magic").GetComponent<ParticleSystem>().Play();
+
+        foreach (var p in controller.transform.Find("Push").GetComponentsInChildren<ParticleSystem>())
+        {
+            p.Play();
+        }
 
 
 

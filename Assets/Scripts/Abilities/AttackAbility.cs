@@ -26,7 +26,13 @@ class AttackAbility : Ability
         particle.localEulerAngles = new Vector3(upwards ? -45f : 0f, 0f, 0f);
         particle.Find("Slash").localScale = new Vector3(0.4f, 0.4f, 0.4f);
         particle.localPosition = new Vector3(0f, upwards ? 0.5f : 0f, upwards ? 0f : 0.5f);
-        particle.Find("Slash").GetComponent<ParticleSystem>().Play();
+
+        foreach (var p in controller.transform.Find("Hit").GetComponentsInChildren<ParticleSystem>())
+        {
+            p.Play();
+        }
+
+        //particle.Find("Slash").GetComponent<ParticleSystem>().Play();
         controller.Animator.SetTrigger("Attack");
 
         var hitbox = Instantiate(HitboxPrefab,
