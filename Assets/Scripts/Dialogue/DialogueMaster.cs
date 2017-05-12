@@ -43,11 +43,11 @@ public class DialogueMaster : MonoBehaviour {
         n2.Add(new DialogueOption(-1, "To hell with your maybe!"));
         n2.Add(new DialogueOption(-1, "I need to go now"));
         n2.Add(new DialogueOption(2, "Sorry, would you kindly give me a potion"));
-        var n3 = new DialogueNode(2, "Here you go!");
-        n3.Add(new DialogueOption(-1, "Thanks!"));
+        var n3 = new DialogueNode(2, "Do you think you can just have one for free?!");
+        n3.Add(new DialogueOption(-1, "Aaaaaargh!"));
         n3.Add(new DialogueOption(-1, "I need to go now"));
-        var n4 = new DialogueNode(3, "I've already given you a potion");
-        n4.Add(new DialogueOption(-1, "Guess, I'll leave then"));
+        var n4 = new DialogueNode(3, "Do you want me to hit you again?!");
+        n4.Add(new DialogueOption(-1, "No, thanks... Bye!"));
         n4.Add(new DialogueOption(-1, "I need to go now"));
         dialogue.Add(n1);
         dialogue.Add(n2);
