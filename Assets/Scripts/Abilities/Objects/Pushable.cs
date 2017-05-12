@@ -22,9 +22,6 @@ public class Pushable : MonoBehaviour
     // Use this for initialization
     private void Start()
     {
-        _material = GetComponent<Renderer>().sharedMaterial;
-        _abilityColor = Resources.Load("AbilityColors", typeof(AbilityColors)) as AbilityColors;
-        _material.color = _abilityColor.PushColor;
         _velocity = Vector3.zero;
         _totalPushLength = 0f;
         _isPushed = false;
