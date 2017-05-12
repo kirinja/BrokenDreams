@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Name: Push
   m_EditorClassIdentifier: 
   Cooldown: 0.5
-  PushRange: 2.0
+  PushRange: 2
+  PushLength: 8
