@@ -16794,6 +16794,11 @@ Prefab:
       propertyPath: PlayerAttributes
       value: 
       objectReference: {fileID: 290397213}
+    - target: {fileID: 225181425075227474, guid: 403946d394364944e8f517ea508880b7,
+        type: 2}
+      propertyPath: m_IgnoreParentGroups
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 403946d394364944e8f517ea508880b7, type: 2}
   m_IsPrefabParent: 0
@@ -21085,11 +21090,6 @@ Prefab:
       propertyPath: AbilityUI
       value: 
       objectReference: {fileID: 245374254}
-    - target: {fileID: 82448167090023500, guid: de333fd6865a1924abd6495a01270364,
-        type: 2}
-      propertyPath: m_Volume
-      value: 0.5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: de333fd6865a1924abd6495a01270364, type: 2}
   m_IsPrefabParent: 0

@@ -36,8 +36,10 @@ internal class DashState3D : ICharacterState3D
     {
         _dashTimer.Reset();
 
-        _controller.transform.Find("Dash").Find("DashTrail").GetComponent<ParticleSystem>().Play();
-        _controller.transform.Find("Dash").Find("Sparkle").GetComponent<ParticleSystem>().Play();
+        foreach (var p in _controller.transform.Find("Dash").GetComponentsInChildren<ParticleSystem>())
+        {
+            p.Play();
+        }
     }
 
 
@@ -55,8 +57,10 @@ internal class DashState3D : ICharacterState3D
             ? new Vector2(_previousVelocity.x, 0f)
             : new Vector2(Mathf.Sign(_previousVelocity.x) * _controller.GetComponent<PlayerAttributes>().MaxSpeed, 0f);
 
-        _controller.transform.Find("Dash").Find("DashTrail").GetComponent<ParticleSystem>().Stop();
-        _controller.transform.Find("Dash").Find("Sparkle").GetComponent<ParticleSystem>().Stop();
+        foreach (var p in _controller.transform.Find("Dash").GetComponentsInChildren<ParticleSystem>())
+        {
+            p.Stop();
+        }
     }
 
 
