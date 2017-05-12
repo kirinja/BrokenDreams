@@ -53,9 +53,10 @@ public class CreditsScene : MonoBehaviour {
 	            player.GetComponent<Animator>().SetTrigger("NextPose");
 	            _playerPoseTimer.ResetToSurplus();
 	        }
-	    }
 
-        UpdateAbilityColor();
+            UpdateAbilityColor();
+        }
+
 
         // lerp hair here
 
@@ -63,7 +64,7 @@ public class CreditsScene : MonoBehaviour {
 
     private IEnumerator BossDeafeatedCutscene()
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(3.0f);
         var time = GetComponent<MusicPlayer>().MusicClip.length;
 
         player.GetComponent<Animator>().SetTrigger("StartPose");

@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
     {
         _paused = true;
     }
-
+    
 
     private void Awake()
     {
@@ -131,14 +131,26 @@ public class GameManager : MonoBehaviour
         // maybe use transition kit here as well?
         DeleteSaveFile();
         //SceneManager.LoadScene("Hub");
-        var mask = new ImageMaskTransition()
+        NextLevelToLoad = "Hub";
+        
+        var doorway = new DoorwayTransition()
         {
-            maskTexture = MaskTexture,
-            backgroundColor = Color.black,
-            duration = 1.5f,
-            nextScene = "Hub"
+            nextScene = "LoadingScreen",
+            duration = 1.0f,
+            perspective = 1.5f,
+            depth = 3f,
+            runEffectInReverse = false
         };
-        TransitionKit.instance.transitionWithDelegate(mask);
+        TransitionKit.instance.transitionWithDelegate(doorway);
+
+        //var mask = new ImageMaskTransition()
+        //{
+        //    maskTexture = MaskTexture,
+        //    backgroundColor = Color.black,
+        //    duration = 1.0f,
+        //    nextScene = "LoadingScreen"
+        //};
+        //TransitionKit.instance.transitionWithDelegate(mask);
 
         //SceneManager.LoadScene("Hub");
     }
@@ -148,14 +160,25 @@ public class GameManager : MonoBehaviour
     {
         // belive we can just move to hub right away and the manager will try to load data if there is any
         //SceneManager.LoadScene("Hub");
-        var mask = new ImageMaskTransition()
+        NextLevelToLoad = "Hub";
+        //var mask = new ImageMaskTransition()
+        //{
+        //    maskTexture = MaskTexture,
+        //    backgroundColor = Color.black,
+        //    duration = 1.0f,
+        //    nextScene = "LoadingScreen"
+        //};
+        //TransitionKit.instance.transitionWithDelegate(mask);
+
+        var doorway = new DoorwayTransition()
         {
-            maskTexture = MaskTexture,
-            backgroundColor = Color.black,
-            duration = 1.5f,
-            nextScene = "Hub"
+            nextScene = "LoadingScreen",
+            duration = 1.0f,
+            perspective = 1.5f,
+            depth = 3f,
+            runEffectInReverse = false
         };
-        TransitionKit.instance.transitionWithDelegate(mask);
+        TransitionKit.instance.transitionWithDelegate(doorway);
     }
 
 
@@ -413,23 +436,23 @@ public class GameManager : MonoBehaviour
         _previousLevelName = name;
         _clearedLevelFirstTime = firstTime;
 
+        NextLevelToLoad = "Hub";
         var fishEye = new FishEyeTransition
         {
-            nextScene = "Hub",
-            duration = 2.0f,
+            nextScene = "LoadingScreen",
+            duration = 1.0f,
             size = 0.2f,
             zoom = 100.0f,
             colorSeparation = 0.1f
         };
         TransitionKit.instance.transitionWithDelegate(fishEye);
-
-
-        //GameObject.FindGameObjectWithTag("Player").transform.position = Vector3.zero;
+        
     }
 
 
     private void HubLoaded(Scene scene, LoadSceneMode mode)
     {
+        if (!scene.name.Equals("Hub")) return;
         SceneManager.sceneLoaded -= HubLoaded;
 
         if (_clearedLevelFirstTime)

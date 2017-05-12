@@ -16794,6 +16794,11 @@ Prefab:
       propertyPath: PlayerAttributes
       value: 
       objectReference: {fileID: 290397213}
+    - target: {fileID: 225181425075227474, guid: 403946d394364944e8f517ea508880b7,
+        type: 2}
+      propertyPath: m_IgnoreParentGroups
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 403946d394364944e8f517ea508880b7, type: 2}
   m_IsPrefabParent: 0
@@ -21023,6 +21028,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114215857018685574, guid: de333fd6865a1924abd6495a01270364,
+        type: 2}
+      propertyPath: Abilities.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4393096243718074, guid: de333fd6865a1924abd6495a01270364, type: 2}
       propertyPath: m_LocalPosition.x
       value: -4.16
@@ -21085,11 +21095,30 @@ Prefab:
       propertyPath: AbilityUI
       value: 
       objectReference: {fileID: 245374254}
-    - target: {fileID: 82448167090023500, guid: de333fd6865a1924abd6495a01270364,
+    - target: {fileID: 114215857018685574, guid: de333fd6865a1924abd6495a01270364,
         type: 2}
-      propertyPath: m_Volume
-      value: 0.5
-      objectReference: {fileID: 0}
+      propertyPath: Abilities.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: e801c40a41e118e46b766f9d36d2b544,
+        type: 2}
+    - target: {fileID: 114215857018685574, guid: de333fd6865a1924abd6495a01270364,
+        type: 2}
+      propertyPath: Abilities.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 5faafb6b41012314d965b51bd49994a4,
+        type: 2}
+    - target: {fileID: 114215857018685574, guid: de333fd6865a1924abd6495a01270364,
+        type: 2}
+      propertyPath: Abilities.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: bc3e782ac3259c04b8e3c31cf1206b7c,
+        type: 2}
+    - target: {fileID: 114215857018685574, guid: de333fd6865a1924abd6495a01270364,
+        type: 2}
+      propertyPath: Abilities.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: a2c0237ccb792e544871f99d68e023d2,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: de333fd6865a1924abd6495a01270364, type: 2}
   m_IsPrefabParent: 0
@@ -28155,7 +28184,7 @@ Camera:
   m_GameObject: {fileID: 610559889}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 3
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2

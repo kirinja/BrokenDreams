@@ -25,13 +25,16 @@ public class PauseMenu : MonoBehaviour
     public void GoToHub()
     {
         Hide();
+        if (SceneManager.GetActiveScene().name.Equals("Hub")) return;
+
         var maskTex = GameManager.Instance.MaskTexture;
+        GameManager.Instance.NextLevelToLoad = "Hub";
         var mask = new ImageMaskTransition()
         {
             maskTexture = maskTex,
             backgroundColor = Color.black,
-            duration = 1.5f,
-            nextScene = "Hub"
+            duration = 1.0f,
+            nextScene = "LoadingScreen"
         };
         TransitionKit.instance.transitionWithDelegate(mask);
         //SceneManager.LoadScene("Hub");

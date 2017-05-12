@@ -25,6 +25,7 @@ public class LevelDoorTrigger : MonoBehaviour
             //    colorSeparation = 0.1f
             //};
             //TransitionKit.instance.transitionWithDelegate(fishEye);
+
             GameManager.Instance.Play(enterSound);
             GameManager.Instance.NextLevelToLoad = Scene;
             var doorway = new DoorwayTransition()
@@ -35,9 +36,15 @@ public class LevelDoorTrigger : MonoBehaviour
                 depth = 3f,
                 runEffectInReverse = true
             };
-            
+
             TransitionKit.instance.transitionWithDelegate(doorway);
+
             //SceneManager.LoadScene(Scene);
+
+            //StartCoroutine(GameObject.Find("SceneManager").GetComponent<ScreenManager>().LoadSceneAsync(Scene));
+            //GameObject.Find("SceneManager").GetComponent<ScreenManager>().LoadLevel(Scene);
+            //ScreenManager.instance.LoadLevel(Scene);
+            //GameObject.Find("SceneManager").GetComponent<ScreenManager>().LoadSceneAsync("Scene");
         }
     }
 }

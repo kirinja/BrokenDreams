@@ -43,7 +43,6 @@ public class HubPortal : MonoBehaviour
         if (ShouldAppear && !_changing)
         {
             SetColors(false);
-            Done = false;
             _changing = true;
             _colorLerpTimer.Reset();
         }
@@ -138,58 +137,72 @@ public class HubPortal : MonoBehaviour
         transform.Find("Middle").GetComponent<ParticleSystem>().Clear();
 
         var portalMain = GetComponent<ParticleSystem>().main;
-        portalMain.startColor = new Color(NotDonePortalColor.r, NotDonePortalColor.r,
-            NotDonePortalColor.r, 0f);
+        portalMain.startColor = new Color((Done ? DonePortalColor : NotDonePortalColor).r,
+            (Done ? DonePortalColor : NotDonePortalColor).g,
+            (Done ? DonePortalColor : NotDonePortalColor).b, 0f);
 
         var embersMain = transform.Find("Embers").GetComponent<ParticleSystem>().main;
-        embersMain.startColor = new Color(NotDoneEmbersColor.r, NotDoneEmbersColor.r,
-            NotDoneEmbersColor.r, 0f);
+        embersMain.startColor = new Color((Done ? DonePortalColor : NotDonePortalColor).r,
+            (Done ? DonePortalColor : NotDonePortalColor).g,
+            (Done ? DonePortalColor : NotDonePortalColor).b, 0f);
 
         var embers2Main = transform.Find("Embers2").GetComponent<ParticleSystem>().main;
-        embers2Main.startColor = new Color(NotDoneEmbers2Color.r, NotDoneEmbers2Color.r,
-            NotDoneEmbers2Color.r, 0f);
+        embers2Main.startColor = new Color((Done ? DoneEmbers2Color : NotDoneEmbers2Color).r,
+            (Done ? DoneEmbers2Color : NotDoneEmbers2Color).g,
+            (Done ? DoneEmbers2Color : NotDoneEmbers2Color).b, 0f);
 
         var glowMain = transform.Find("Glow").GetComponent<ParticleSystem>().main;
-        glowMain.startColor = new Color(NotDoneGlowColor.r, NotDoneGlowColor.r,
-            NotDoneGlowColor.r, 0f);
+        glowMain.startColor = new Color((Done ? DoneGlowColor : NotDoneGlowColor).r,
+            (Done ? DoneGlowColor : NotDoneGlowColor).g,
+            (Done ? DoneGlowColor : NotDoneGlowColor).b, 0f);
 
         var middleMain = transform.Find("Middle").GetComponent<ParticleSystem>().main;
-        middleMain.startColor = new Color(NotDoneMiddleColor.r, NotDoneMiddleColor.r,
-            NotDoneMiddleColor.r, 0f);
+        middleMain.startColor = new Color((Done ? DoneMiddleColor : NotDoneMiddleColor).r,
+            (Done ? DoneMiddleColor : NotDoneMiddleColor).g,
+            (Done ? DoneMiddleColor : NotDoneMiddleColor).b, 0f);
     }
 
 
     private void Appear()
     {
         var portalMain = GetComponent<ParticleSystem>().main;
-        portalMain.startColor = Color.Lerp(new Color(NotDonePortalColor.r, NotDonePortalColor.r,
-            NotDonePortalColor.r, 0f), NotDonePortalColor,
+        portalMain.startColor = Color.Lerp(new Color((Done ? DonePortalColor : NotDonePortalColor).r,
+                (Done ? DonePortalColor : NotDonePortalColor).g,
+                (Done ? DonePortalColor : NotDonePortalColor).b, 0f), Done ? DonePortalColor : NotDonePortalColor,
            _colorLerpTimer.PercentDone);
 
         var embersMain = transform.Find("Embers").GetComponent<ParticleSystem>().main;
-        embersMain.startColor = Color.Lerp(new Color(NotDoneEmbersColor.r, NotDoneEmbersColor.r,
-            NotDoneEmbersColor.r, 0f), NotDoneEmbersColor, _colorLerpTimer.PercentDone);
+        embersMain.startColor = Color.Lerp(new Color((Done ? DonePortalColor : NotDonePortalColor).r,
+            (Done ? DonePortalColor : NotDonePortalColor).g,
+            (Done ? DonePortalColor : NotDonePortalColor).b, 0f), Done ? DoneEmbersColor : NotDoneEmbersColor, _colorLerpTimer.PercentDone);
 
         var embers2Main = transform.Find("Embers2").GetComponent<ParticleSystem>().main;
-        embers2Main.startColor = Color.Lerp(new Color(NotDoneEmbers2Color.r, NotDoneEmbers2Color.r,
-            NotDoneEmbers2Color.r, 0f), NotDoneEmbers2Color, _colorLerpTimer.PercentDone);
+        embers2Main.startColor = Color.Lerp(new Color((Done ? DoneEmbers2Color : NotDoneEmbers2Color).r,
+                (Done ? DoneEmbers2Color : NotDoneEmbers2Color).g,
+                (Done ? DoneEmbers2Color : NotDoneEmbers2Color).b, 0f), Done ? DoneEmbers2Color : NotDoneEmbers2Color,
+            _colorLerpTimer.PercentDone);
 
         _glowTotalParticles = transform.Find("Glow").GetComponent<ParticleSystem>().GetParticles(_glowParticles);
         for (var i = 0; i < _glowTotalParticles; ++i)
         {
-            _glowParticles[i].startColor = Color.Lerp(
-                new Color(NotDoneGlowColor.r, NotDoneGlowColor.r,
-                    NotDoneGlowColor.r, 0f), NotDoneGlowColor, _colorLerpTimer.PercentDone);
+            _glowParticles[i].startColor = Color.Lerp(new Color((Done ? DoneGlowColor : NotDoneGlowColor).r,
+                    (Done ? DoneGlowColor : NotDoneGlowColor).g,
+                    (Done ? DoneGlowColor : NotDoneGlowColor).b, 0f), Done ? DoneGlowColor : NotDoneGlowColor,
+                _colorLerpTimer.PercentDone);
         }
 
         transform.Find("Glow").GetComponent<ParticleSystem>().SetParticles(_glowParticles, _glowTotalParticles);
         var glowMain = transform.Find("Glow").GetComponent<ParticleSystem>().main;
-        glowMain.startColor = Color.Lerp(new Color(NotDoneGlowColor.r, NotDoneGlowColor.r,
-            NotDoneGlowColor.r, 0f), NotDoneGlowColor, _colorLerpTimer.PercentDone);
+        glowMain.startColor = Color.Lerp(new Color((Done ? DoneGlowColor : NotDoneGlowColor).r,
+                (Done ? DoneGlowColor : NotDoneGlowColor).g,
+                (Done ? DoneGlowColor : NotDoneGlowColor).b, 0f), Done ? DoneGlowColor : NotDoneGlowColor,
+            _colorLerpTimer.PercentDone);
 
         var middleMain = transform.Find("Middle").GetComponent<ParticleSystem>().main;
-        middleMain.startColor = Color.Lerp(new Color(NotDoneMiddleColor.r, NotDoneMiddleColor.r,
-            NotDoneMiddleColor.r, 0f), NotDoneMiddleColor, _colorLerpTimer.PercentDone);
+        middleMain.startColor = Color.Lerp(new Color((Done ? DoneMiddleColor : NotDoneMiddleColor).r,
+                (Done ? DoneMiddleColor : NotDoneMiddleColor).g,
+                (Done ? DoneMiddleColor : NotDoneMiddleColor).b, 0f), Done ? DoneMiddleColor : NotDoneMiddleColor,
+            _colorLerpTimer.PercentDone);
     }
     
 
