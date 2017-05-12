@@ -207,14 +207,12 @@ public struct AirState3D : ICharacterState3D
 
     private void HandleJumpParticles()
     {
-        if (!_jumping && _controller.transform.Find("Jump")
-                .Find("JumpTrail01")
-                .GetComponent<ParticleSystem>()
-                .isPlaying)
+        if (!_jumping && _controller.transform.Find("Jump").GetComponentInChildren<ParticleSystem>().isPlaying)
         {
-            _controller.transform.Find("Jump").Find("JumpTrail01").GetComponent<ParticleSystem>().Stop();
-            _controller.transform.Find("Jump").Find("JumpTrail02").GetComponent<ParticleSystem>().Stop();
-            _controller.transform.Find("Jump").Find("JumpTrail03").GetComponent<ParticleSystem>().Stop();
+            foreach (var p in _controller.transform.Find("Jump").GetComponentsInChildren<ParticleSystem>())
+            {
+                p.Stop();
+            }
         }
     }
 
@@ -227,9 +225,10 @@ public struct AirState3D : ICharacterState3D
             _willJump = false;
             _jumping = true;
 
-            _controller.transform.Find("Jump").Find("JumpTrail01").GetComponent<ParticleSystem>().Play();
-            _controller.transform.Find("Jump").Find("JumpTrail02").GetComponent<ParticleSystem>().Play();
-            _controller.transform.Find("Jump").Find("JumpTrail03").GetComponent<ParticleSystem>().Play();
+            foreach (var p in _controller.transform.Find("Jump").GetComponentsInChildren<ParticleSystem>())
+            {
+                p.Play();
+            }
         }
     }
 
