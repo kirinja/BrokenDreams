@@ -52014,7 +52014,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4395896663829300, guid: 7bf0a7bb4bea7844e89198f97d77b89d, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 2.54
+      value: -2.5
       objectReference: {fileID: 0}
     - target: {fileID: 4395896663829300, guid: 7bf0a7bb4bea7844e89198f97d77b89d, type: 2}
       propertyPath: m_LocalRotation.x
@@ -56243,15 +56243,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4395896663829300, guid: 7bf0a7bb4bea7844e89198f97d77b89d, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 359.77
+      value: 359.69
       objectReference: {fileID: 0}
     - target: {fileID: 4395896663829300, guid: 7bf0a7bb4bea7844e89198f97d77b89d, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 39.51
+      value: 39.3
       objectReference: {fileID: 0}
     - target: {fileID: 4395896663829300, guid: 7bf0a7bb4bea7844e89198f97d77b89d, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 2.54
+      value: -2.54
       objectReference: {fileID: 0}
     - target: {fileID: 4395896663829300, guid: 7bf0a7bb4bea7844e89198f97d77b89d, type: 2}
       propertyPath: m_LocalRotation.x
@@ -58253,6 +58253,21 @@ Prefab:
         type: 2}
       propertyPath: ShapeModule.boxZ
       value: 7.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 198597917215495348, guid: c635a5edbdb1f974a93a9ad45199b2f9,
+        type: 2}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.27450982
+      objectReference: {fileID: 0}
+    - target: {fileID: 198597917215495348, guid: c635a5edbdb1f974a93a9ad45199b2f9,
+        type: 2}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.4862745
+      objectReference: {fileID: 0}
+    - target: {fileID: 198597917215495348, guid: c635a5edbdb1f974a93a9ad45199b2f9,
+        type: 2}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 0.019607844
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c635a5edbdb1f974a93a9ad45199b2f9, type: 2}
@@ -65765,7 +65780,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4018731583230714, guid: 7effb0d308db712428aabea5ed5ed600, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 39.77
+      value: 39.29
       objectReference: {fileID: 0}
     - target: {fileID: 4018731583230714, guid: 7effb0d308db712428aabea5ed5ed600, type: 2}
       propertyPath: m_LocalPosition.z
@@ -65798,7 +65813,7 @@ Prefab:
     - target: {fileID: 198738618261858172, guid: 7effb0d308db712428aabea5ed5ed600,
         type: 2}
       propertyPath: InitialModule.startColor.maxColor.r
-      value: 0.019607844
+      value: 0.08235294
       objectReference: {fileID: 0}
     - target: {fileID: 198738618261858172, guid: 7effb0d308db712428aabea5ed5ed600,
         type: 2}
@@ -65808,7 +65823,7 @@ Prefab:
     - target: {fileID: 198738618261858172, guid: 7effb0d308db712428aabea5ed5ed600,
         type: 2}
       propertyPath: InitialModule.startColor.maxColor.b
-      value: 0.06666667
+      value: 0.015686275
       objectReference: {fileID: 0}
     - target: {fileID: 198738618261858172, guid: 7effb0d308db712428aabea5ed5ed600,
         type: 2}
@@ -81818,7 +81833,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2030335827}
   m_LocalRotation: {x: -0, y: -0, z: -0.71518165, w: 0.6989387}
-  m_LocalPosition: {x: 313.69, y: 37.24, z: -2.52}
+  m_LocalPosition: {x: 313.69, y: 37.24, z: -3.49}
   m_LocalScale: {x: 1.1744609, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
