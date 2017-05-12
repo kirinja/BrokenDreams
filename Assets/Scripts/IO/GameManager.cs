@@ -95,6 +95,8 @@ public class GameManager : MonoBehaviour
         
         _saveDirectory = Path.Combine(Application.dataPath, SaveDirectory);
 
+        Cursor.visible = false;
+
         if (!Directory.Exists(_saveDirectory))
             Directory.CreateDirectory(_saveDirectory);
 

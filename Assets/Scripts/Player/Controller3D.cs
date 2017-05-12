@@ -307,7 +307,7 @@ public class Controller3D : MonoBehaviour
     private void KnockAway(Vector3 hitboxCenter)
     {
         var direction = transform.position - hitboxCenter;
-        Velocity = direction.normalized * Attributes.KnockbackVelocity + Vector3.up * 10;
+        Velocity = new Vector2(Mathf.Sign(direction.x), 1f).normalized * Attributes.KnockbackVelocity;
         ChangeCharacterState(new CharacterStateSwitch3D(new AirState3D(this)));
     }
 
