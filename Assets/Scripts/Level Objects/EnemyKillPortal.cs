@@ -38,6 +38,7 @@ public class EnemyKillPortal : MonoBehaviour
             //if kill
 	        transform.Find("Portal").gameObject.SetActive(true);
 	        transform.Find("Portal").GetComponent<HubPortal>().ShouldAppear = true;
+            transform.Find("Door").Find("Door Trigger").gameObject.SetActive(true);
         }
     }
 }

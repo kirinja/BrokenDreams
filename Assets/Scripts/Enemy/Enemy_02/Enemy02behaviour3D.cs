@@ -19,7 +19,6 @@ public class Enemy02behaviour3D : Enemy
     public AudioClip deathClip;
     public AudioClip damageClip;
     public AudioClip _chargeClip;
-    public AudioClip _FootstepClip;
     public AudioClip[] aggroClips;
     [HideInInspector] public bool Invincible;
     public int MaxHealth = 2;
@@ -36,7 +35,6 @@ public class Enemy02behaviour3D : Enemy
     private int rpThreshold;
     private AudioSource src;
     private AudioSource _source2;
-    private AudioSource _source3;
     private bool _facingLeft = false;
     private float _projOrigX;
     private Transform platform;
@@ -57,9 +55,6 @@ public class Enemy02behaviour3D : Enemy
         src = GetComponents<AudioSource>()[0];
         _source2 = GetComponents<AudioSource>()[1];
         _source2.clip = _chargeClip;
-        _source3 = GetComponents<AudioSource>()[2];
-        _source3.clip = _FootstepClip;
-        _source3.loop = false;
 
         dead = false;
         Alive = true;
@@ -80,19 +75,13 @@ public class Enemy02behaviour3D : Enemy
         SetGround();
         Flip();
     }
-
-    void playFootstep()
-    {
-        _source3.Play();
-    }
-
+    
     // Update is called once per frame
     void Update()
     {
         if (GameManager.Instance.Paused)
         {
             _source2.Pause();
-            _source3.Pause();
             src.Pause();
         }
         if (!dead && !GameManager.Instance.Paused)
@@ -179,7 +168,7 @@ public class Enemy02behaviour3D : Enemy
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = new Color(Color.magenta.r, Color.magenta.g, Color.magenta.b, 0.25f);
+        Gizmos.color = new Color(Color.magenta.r, Color.magenta.g, Color.magenta.b, 0.10f);
         Gizmos.DrawSphere(ProjectileFirePosition.transform.position, AggroRange);
         
     }
@@ -246,7 +235,6 @@ public class Enemy02behaviour3D : Enemy
 
     private void Defeat()
     {
-        StartCoroutine("deathTime");
         _particleCharger.Stop();
         _particleCharger.Clear();
         _source2.Stop();
@@ -287,11 +275,7 @@ public class Enemy02behaviour3D : Enemy
         this.target = target;
     }
 
-    private IEnumerator deathTime()
-    {
-        yield return new WaitForSeconds(0.3f);
-    }
-
+    
     public void OnTriggerEnter(Collider other)
     {
         //if (other.gameObject.CompareTag("Player"))

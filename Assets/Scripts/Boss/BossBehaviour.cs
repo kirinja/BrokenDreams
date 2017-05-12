@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Text;
 using Prime31.TransitionKit;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -189,6 +190,13 @@ public class BossBehaviour : MonoBehaviour
     private IEnumerator SpawnPortal()
     {
         BossPhase3.GetComponent<SplineInterpolator>().enabled = false;
+
+        // have to disable all the damage colliders for the boss
+        BossPhase3.GetComponent<BossOnCollision>().enabled = false;
+        BossPhase3.GetComponent<BossOnDamage>().enabled = false;
+        var colliders = BossPhase3.GetComponents<Collider>();
+        foreach (Collider col in colliders)
+            col.enabled = false;
 
         var explosion = BossPhase3.GetComponentsInChildren<Rigidbody>();
         foreach (Rigidbody r in explosion)
