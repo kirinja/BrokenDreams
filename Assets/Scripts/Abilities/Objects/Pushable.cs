@@ -9,7 +9,6 @@ public class Pushable : MonoBehaviour
 
     private AbilityColors _abilityColor;
     private bool _isPushed;
-    private Material _material;
     private Vector3 _startPosition;
     private float _totalPushLength;
     private Vector3 _velocity;
