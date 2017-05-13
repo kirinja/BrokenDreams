@@ -53,9 +53,9 @@ internal class DashState3D : ICharacterState3D
 
     public void Exit()
     {
-        _controller.Velocity = Mathf.Abs(_previousVelocity.x) <= _controller.Attributes.MaxSpeed
+        /*_controller.Velocity = Mathf.Abs(_previousVelocity.x) <= _controller.Attributes.MaxSpeed
             ? new Vector2(_previousVelocity.x, 0f)
-            : new Vector2(Mathf.Sign(_previousVelocity.x) * _controller.GetComponent<PlayerAttributes>().MaxSpeed, 0f);
+            : new Vector2(Mathf.Sign(_previousVelocity.x) * _controller.GetComponent<PlayerAttributes>().MaxSpeed, 0f);/**/
 
         foreach (var p in _controller.transform.Find("Dash").GetComponentsInChildren<ParticleSystem>())
         {

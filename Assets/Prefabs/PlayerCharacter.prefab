@@ -1801,14 +1801,14 @@ MonoBehaviour:
   GroundAccelerationTime: 0.17
   GroundDeaccelerationTime: 0.05
   AirAccelerationTime: 0.45
-  AirDeaccelerationTime: 0.05
+  AirDeaccelerationTime: 0.35
   MaxJumpLength: 12
   MaxJumpHeight: 6
   MinJumpHeight: 1
   DashTime: 0.6
   DashLength: 12
   MaxRotationTime: 0.2
-  KnockbackVelocity: 10
+  KnockbackVelocity: 20
   InvincibleTimeOnDamage: 1
   MaxHP: 5
   currentHealth: 0
