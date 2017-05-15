@@ -115,6 +115,8 @@ public class GameManager : MonoBehaviour
         _musicSources[0] = audioSources[1];
         _musicSources[1] = audioSources[2];
         _currentAudioSource = 0;
+
+        CanPause = true;
     }
 
 
