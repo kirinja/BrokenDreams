@@ -44,15 +44,24 @@ public class DialogueMaster : MonoBehaviour {
         n2.Add(new DialogueOption(-1, "I need to go now"));
         n2.Add(new DialogueOption(2, "Sorry, would you kindly give me a potion"));
         var n3 = new DialogueNode(2, "Do you think you can just have one for free?!");
-        n3.Add(new DialogueOption(-1, "Aaaaaargh!"));
-        n3.Add(new DialogueOption(-1, "I need to go now"));
+        n3.Add(new DialogueOption(4, "Aaaaaargh!"));
+        n3.Add(new DialogueOption(4, "Waaaaah!"));
+        n3.Add(new DialogueOption(4, "Sorry!"));
         var n4 = new DialogueNode(3, "Do you want me to hit you again?!");
         n4.Add(new DialogueOption(-1, "No, thanks... Bye!"));
         n4.Add(new DialogueOption(-1, "I need to go now"));
+
+        var n5 = new DialogueNode(4, "Aaaaaargh!");
+        n5.Add(new DialogueOption(4, "Aaaaaargh!"));
+        n5.Add(new DialogueOption(4, "Aaaaaargh!"));
+        n5.Add(new DialogueOption(4, "Aaaaaargh!"));
+
+
         dialogue.Add(n1);
         dialogue.Add(n2);
         dialogue.Add(n3);
         dialogue.Add(n4);
+        dialogue.Add(n5);
         
 
         var canvas = GameObject.Find("DialogueCanvas");
@@ -110,7 +119,7 @@ public class DialogueMaster : MonoBehaviour {
         gm.SoftPause();
         int nodeID = 0;
         window.SetActive(true);
-        
+        gm.CanPause = false;
 
         while(nodeID != -1)
         {
@@ -121,7 +130,7 @@ public class DialogueMaster : MonoBehaviour {
                 yield return StartCoroutine(WaitForRealSeconds(0.25f));
             }
             nodeID = selectedOption;
-            if (nodeID == 2)
+            if (nodeID == 4)
             {
                 //spawnHealth(); // TODO spawn health potions instead
                 GameObject.FindGameObjectWithTag("Player")
@@ -133,7 +142,8 @@ public class DialogueMaster : MonoBehaviour {
 
         }
         //currentInteractionCount++;
-        
+
+        gm.CanPause = true;
         gm.Paused = false;
         window.SetActive(false);
     }
