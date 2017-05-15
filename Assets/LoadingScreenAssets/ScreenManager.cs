@@ -28,8 +28,6 @@ public class ScreenManager : MonoBehaviour {
 	// ********************************************************************
 	[SerializeField]
 	private FadeSprite m_blackScreenCover;
-	[SerializeField]
-	private float m_minDuration = 1.5f;
 	
 	
 	// ********************************************************************
@@ -49,7 +47,7 @@ public class ScreenManager : MonoBehaviour {
 	// Function:	LoadScene()
 	// Purpose:		Loads the supplied scene
 	// ********************************************************************
-	public IEnumerator LoadSceneAsync(string sceneName)
+	public IEnumerator LoadSceneAsync(string sceneName, float minDuration)
 	{
 		//// Fade to black
 		//yield return StartCoroutine(m_blackScreenCover.FadeIn());
@@ -63,9 +61,9 @@ public class ScreenManager : MonoBehaviour {
 		//// Fade to loading screen
 		//yield return StartCoroutine(m_blackScreenCover.FadeOut());
 		
-		float endTime = Time.time + m_minDuration;
+		float endTime = Time.time + minDuration;
 
-	    yield return new WaitForSeconds(m_minDuration);
+	    yield return new WaitForSeconds(minDuration);
 
         AsyncOperation async = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
         async.allowSceneActivation = false;
@@ -112,9 +110,9 @@ public class ScreenManager : MonoBehaviour {
 		yield return StartCoroutine(m_blackScreenCover.FadeOut());
 	}
     
-    public void LoadLevel(string sceneName)
+    public void LoadLevel(string sceneName, float minTime)
     {
-        StartCoroutine(LoadSceneAsync(sceneName));
+        StartCoroutine(LoadSceneAsync(sceneName, minTime));
     }
 
 }

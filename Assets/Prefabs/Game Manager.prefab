@@ -338,7 +338,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1329763848427394}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 29e562a0bbb63874b98b10cbf6b39559, type: 3}
   m_Name: 
@@ -355,7 +355,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_blackScreenCover: {fileID: 114189257771170180}
-  m_minDuration: 1.5
 --- !u!114 &114189257771170180
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -409,8 +408,7 @@ MonoBehaviour:
   - {fileID: 24500003, guid: d0a8ef1aff284764baa87ec3d5b8a1a5, type: 2}
   - {fileID: 245316908530673248, guid: d0a8ef1aff284764baa87ec3d5b8a1a5, type: 2}
   FPS: 60
-  Vsync: 0
-  BlackScreen: {fileID: 114189257771170180}
+  Vsync: 1
   MaskTexture: {fileID: 2800000, guid: 10a6edca860cce9408b69cd40423102a, type: 3}
 --- !u!212 &212956659151327282
 SpriteRenderer:

@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class LoadScene : MonoBehaviour
 {
-    public float MinimumTime = 1.0f;
+    public float MinimumTime = 5.0f;
 
     // Use this for initialization
     void Start ()
@@ -18,7 +18,7 @@ public class LoadScene : MonoBehaviour
 
     void LoadLevelTest(string levelName)
     {
-        GameManager.Instance.GetComponent<ScreenManager>().LoadLevel(levelName);
+        GameManager.Instance.GetComponent<ScreenManager>().LoadLevel(levelName, MinimumTime);
     }
     
     IEnumerator LoadLevelAsync(string name)
