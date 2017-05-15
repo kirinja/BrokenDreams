@@ -69,6 +69,9 @@ public class GameManager : MonoBehaviour
     }
 
 
+    public bool CanPause { get; set; }
+
+
     public bool UseCheckPoint { get; set; }
 
 
@@ -117,7 +120,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("Pause"))
+        if (Input.GetButtonDown("Pause") && CanPause)
             if (!Paused)
             {
                 if (SceneManager.GetActiveScene().name.Equals("Start")) return;
