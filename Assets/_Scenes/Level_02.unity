@@ -7850,7 +7850,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1078114959
+  randomSeed: -1407175430
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -13594,7 +13594,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 16
   m_Sprite: {fileID: 21300000, guid: 1255bd38b3d0f484286d76aaea9657a7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -20308,7 +20308,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1913872495
+  randomSeed: -896333759
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -30827,6 +30827,21 @@ Prefab:
       propertyPath: randomSeed
       value: -1541962330
       objectReference: {fileID: 0}
+    - target: {fileID: 199968769699054040, guid: a2de9f55567e9b647a03c031835bc5fe,
+        type: 2}
+      propertyPath: m_RenderMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 199968769699054040, guid: a2de9f55567e9b647a03c031835bc5fe,
+        type: 2}
+      propertyPath: m_RenderAlignment
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 199968769699054040, guid: a2de9f55567e9b647a03c031835bc5fe,
+        type: 2}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a2de9f55567e9b647a03c031835bc5fe, type: 2}
   m_IsPrefabParent: 0
@@ -32752,7 +32767,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4018731583230714, guid: 7effb0d308db712428aabea5ed5ed600, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -1.24
+      value: -0.44
       objectReference: {fileID: 0}
     - target: {fileID: 4018731583230714, guid: 7effb0d308db712428aabea5ed5ed600, type: 2}
       propertyPath: m_LocalRotation.x
@@ -35322,7 +35337,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 965351928}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.08, z: -0}
+  m_LocalPosition: {x: 0, y: 0.45, z: 0}
   m_LocalScale: {x: 6.5756483, y: 3.6190417, z: 7.2799277}
   m_Children: []
   m_Father: {fileID: 513292788}
@@ -35435,7 +35450,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -260161886
+  randomSeed: 1994099441
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -51635,7 +51650,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1758925249
+  randomSeed: 1335528558
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -58888,7 +58903,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: ae05e05c97af74b4080b3ab0960dafee, type: 3}
   m_Color: {r: 0.22794116, g: 0.18604021, b: 0.18604021, a: 1}
   m_FlipX: 0
@@ -61482,6 +61497,11 @@ Prefab:
     - target: {fileID: 4395896663829300, guid: 7bf0a7bb4bea7844e89198f97d77b89d, type: 2}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 165.901
+      objectReference: {fileID: 0}
+    - target: {fileID: 212489394155517050, guid: 7bf0a7bb4bea7844e89198f97d77b89d,
+        type: 2}
+      propertyPath: m_SortingOrder
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7bf0a7bb4bea7844e89198f97d77b89d, type: 2}
@@ -67447,7 +67467,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 3cbb5fe786c399940abdecb8d0419663, type: 3}
   m_Color: {r: 0.6838235, g: 0.3268274, b: 0.3268274, a: 1}
   m_FlipX: 1
@@ -68877,7 +68897,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 15
   m_Sprite: {fileID: 21300000, guid: 0a3f97c1348fb0a4dba232b2383841b3, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -75823,6 +75843,16 @@ Prefab:
       propertyPath: m_Name
       value: Glow (19)
       objectReference: {fileID: 0}
+    - target: {fileID: 199968769699054040, guid: a2de9f55567e9b647a03c031835bc5fe,
+        type: 2}
+      propertyPath: m_RenderAlignment
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 199968769699054040, guid: a2de9f55567e9b647a03c031835bc5fe,
+        type: 2}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a2de9f55567e9b647a03c031835bc5fe, type: 2}
   m_IsPrefabParent: 0
@@ -77684,7 +77714,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -786732237
+  randomSeed: 981681718
   InitialModule:
     serializedVersion: 3
     enabled: 1
