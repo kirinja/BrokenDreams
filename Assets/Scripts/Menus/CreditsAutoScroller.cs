@@ -29,7 +29,7 @@ public class CreditsAutoScroller : MonoBehaviour
 	        {
 	            // GOOD EMPTY BLOCK
                 // we've reached the end of the credits
-	            if (Input.anyKeyDown)
+	            if (Input.anyKeyDown || Input.GetButtonDown("Pause"))
 	            {
                     // transition to start if we press any key after the text has stopped scrolling
                     var gameManager = GameManager.Instance;
