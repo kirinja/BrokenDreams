@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Prime31.TransitionKit;
 using UnityEngine;
 
 public class CreditsAutoScroller : MonoBehaviour
@@ -27,6 +28,27 @@ public class CreditsAutoScroller : MonoBehaviour
 	        if (Mathf.Abs((endY) - curY) <= 10.0f)
 	        {
 	            // GOOD EMPTY BLOCK
+                // we've reached the end of the credits
+	            if (Input.anyKeyDown)
+	            {
+                    // transition to start if we press any key after the text has stopped scrolling
+                    var gameManager = GameManager.Instance;
+                    //gameManager.BeatLevel(SceneManager.GetActiveScene().name);
+                    gameManager.SaveToMemory();
+                    gameManager.SaveToFiles();
+
+
+                    var fishEye = new FishEyeTransition()
+                    {
+                        nextScene = "Start",
+                        duration = 5.0f,
+                        size = 0.2f,
+                        zoom = 100.0f,
+                        colorSeparation = 0.1f
+                    };
+                    TransitionKit.instance.transitionWithDelegate(fishEye);
+                }
+
 	        }
 	        else
 	            transform.Translate(0, ScrollSpeed * Time.deltaTime, 0);
