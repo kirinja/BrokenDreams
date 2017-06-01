@@ -33,6 +33,8 @@ public class StartMenu : MonoBehaviour
 
     public void NewGame()
     {
+        _gm.IsCountingTime = true;
+        _gm.GameTime = 0f;
         _gm.NewGame();
     }
 

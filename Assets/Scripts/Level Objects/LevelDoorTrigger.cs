@@ -16,6 +16,18 @@ public class LevelDoorTrigger : MonoBehaviour
         if (other.CompareTag("Player") && (!RequiresInput || Input.GetAxisRaw("Vertical") >= 0.5f) && GameManager.Instance.LevelAvailable(Scene))
         {
             activated = true;
+
+
+            //STUPID TIMER STUFF
+            if (Scene.Equals("Credits"))
+            {
+                GameManager.Instance.IsCountingTime = false;
+                var totalTime = GameManager.Instance.GameTime;
+                var mins = Mathf.FloorToInt(totalTime / 60);
+                var seconds = Mathf.RoundToInt(totalTime % 60);
+                Debug.Log("Cleared game in " + mins + " minutes and " + seconds + " seconds!");
+            }
+
             //var fishEye = new FishEyeTransition()
             //{
             //    nextScene = Scene,

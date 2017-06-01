@@ -55,6 +55,10 @@ public class GameManager : MonoBehaviour
 
     public Texture2D MaskTexture;
 
+
+    public bool IsCountingTime;
+    public float GameTime;
+
     public bool Paused
     {
         get
@@ -132,6 +136,8 @@ public class GameManager : MonoBehaviour
             }
             else
                 GetComponent<MenuHandler>().HideMenus();
+
+        if (IsCountingTime) GameTime += Time.deltaTime;
     }
 
 

@@ -42,7 +42,7 @@ public class EnemySpawn : MonoBehaviour
 
             // this needs to check if the child is a movable object
             
-            if (transform.FindChild("Cube"))
+            if (transform.Find("Cube"))
             {
                 var cube = transform.GetChild(1);
                 cube.position = g.transform.position + new Vector3(0, 0.75f, 0.55f);
